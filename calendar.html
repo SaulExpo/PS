@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link href="calendar.css" rel=stylesheet>
+  <link href="footer.css" rel=stylesheet>
+  <link href="header.css" rel=stylesheet>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
+  <script src='fullcalendar/core/locales/es.global.js'></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid/main.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction/main.js"></script>
+  <title>Calendar</title>
+
+</head>
+<body>
+<header id="header">
+  <div class="header_temp">
+    <p id="logo">Logo</p>
+    <nav>
+      <a href="../../Mockups/Create_rutine/create_rutine.html" class="enlaces">Lorem</a>
+      <a href="../../Mockups/Edit_rutine/edit_rutine.html" class="enlaces">Lorem</a>
+      <a href="../../Mockups/Add_exercise/add_exercise.html" class="enlaces">Lorem</a>
+    </nav>
+    <div id="buttons">
+      <div id="buttons-login">
+        <button class="logs" onclick="Mockups/Login/login.html">Lorem impsum</button>
+        <button class="logs">Lorem impsum</button>
+      </div>
+      <img id="foto_perf" src="/Resources/imagen_vertical.png">
+    </div>
+  </div>
+
+
+</header>
+
+<main>
+  <div id="container">
+    <div id='calendar'></div>
+  </div>
+
+  <div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="eventModalLabel">Nuevo Evento</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="eventForm">
+            <div class="form-group">
+              <label for="eventTitle">Título</label>
+              <input type="text" class="form-control" id="eventTitle" required>
+            </div>
+            <div class="form-group">
+              <label for="eventStartDate">Fecha de Inicio</label>
+              <input type="datetime-local" class="form-control" id="eventStartDate" required>
+            </div>
+            <div class="form-group">
+              <label for="eventEndDate">Fecha de Fin</label>
+              <input type="datetime-local" class="form-control" id="eventEndDate" required>
+            </div>
+            <div class="form-group">
+              <label for="eventColor">Color</label>
+              <input type="color" class="form-control" id="eventColor" value="#00ff00" required>
+            </div>
+            <div class="form-group">
+              <label for="eventDescription">Descripción</label>
+              <textarea class="form-control" id="eventDescription" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Crear Evento</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="editEventModal" tabindex="-1" role="dialog" aria-labelledby="editEventModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editEventModalLabel">Editar Evento</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="editEventForm">
+            <div class="form-group">
+              <label for="editEventTitle">Título</label>
+              <input type="text" class="form-control" id="editEventTitle" required>
+            </div>
+            <div class="form-group">
+              <label for="editEventStartDate">Fecha de Inicio</label>
+              <input type="datetime-local" class="form-control" id="editEventStartDate" required>
+            </div>
+            <div class="form-group">
+              <label for="editEventEndDate">Fecha de Fin</label>
+              <input type="datetime-local" class="form-control" id="editEventEndDate" required>
+            </div>
+            <div class="form-group">
+              <label for="editEventColor">Color</label>
+              <input type="color" class="form-control" id="editEventColor" required>
+            </div>
+            <div class="form-group">
+              <label for="editEventDescription">Descripción</label>
+              <textarea class="form-control" id="editEventDescription" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            <button type="button" class="btn btn-danger" id="deleteEventButton">Eliminar Evento</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer id="footer">
+  <div class="footer_temp">
+    <div>
+      <section>
+        <h2>Logo</h2>
+      </section>
+      <section>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      </section>
+      <section>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      </section>
+      <section>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      </section>
+    </div>
+    <div>
+      <nav>
+        <a href="#">Dorem Ipsum</a>
+        <a href="#">Dorem Ipsum</a>
+        <a href="#">Dorem Ipsum</a>
+      </nav>
+      <div>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
+<script>
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      editable: true,
+      droppable: true,
+      headerToolbar: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,dayGridWeek,dayGridDay,listDay'
+      },
+      buttonText: {
+        today: 'Hoy',
+        dayGridMonth: "Mes",
+        dayGridWeek: "Semana",
+        dayGridDay: "Dia",
+        listDay: "Lista"
+      },
+      locale: 'es',
+      initialView: 'dayGridMonth',
+      aspectRatio: 1.5,
+      themeSystem: 'bootstrap5',
+      dateClick: function(info) {
+        $('#eventModal').modal('show');
+        $('#eventStartDate').val(info.dateStr + 'T09:00'); // Establecer la fecha de inicio por defecto
+        $('#eventEndDate').val(info.dateStr + 'T10:00'); // Establecer la fecha de fin por defecto
+      },
+      eventClick: function(info) {
+        selectedEvent = info.event;
+        $('#editEventTitle').val(info.event.title);
+        $('#editEventStartDate').val(info.event.start.toISOString().slice(0, 16)); // Formato para datetime-local
+        $('#editEventEndDate').val(info.event.end.toISOString().slice(0, 16)); // Formato para datetime-local
+        $('#editEventColor').val(info.event.backgroundColor); // Establecer color del evento
+        $('#editEventDescription').val(info.event.extendedProps.description);
+        $('#editEventModal').modal('show');
+      },
+      eventDrop: function(info) {
+        alert('Evento movido a: ' + info.event.start.toISOString());
+      },
+    });
+    calendar.render();
+
+    $('#eventForm').on('submit', function(e) {
+      e.preventDefault();
+
+      var title = $('#eventTitle').val();
+      var start = $('#eventStartDate').val();
+      var end = $('#eventEndDate').val();
+      var description = $('#eventDescription').val();
+      var color = $('#eventColor').val();
+
+      if (title && start && end) {
+        calendar.addEvent({
+          title: title,
+          start: start,
+          end: end,
+          description: description,
+          backgroundColor: color
+        });
+
+        $('#eventModal').modal('hide');
+        $('#eventForm')[0].reset();
+      } else {
+        alert('Por favor, ingresa un título, una fecha de inicio y una fecha de fin.');
+      }
+    });
+
+    // Editar evento
+    $('#editEventForm').on('submit', function(e) {
+      e.preventDefault();
+
+      if (selectedEvent) {
+        selectedEvent.setProp('title', $('#editEventTitle').val());
+        selectedEvent.setStart($('#editEventStartDate').val());
+        selectedEvent.setEnd($('#editEventEndDate').val());
+        selectedEvent.setExtendedProp('description', $('#editEventDescription').val());
+        selectedEvent.setProp('backgroundColor', $('#editEventColor').val());
+
+        $('#editEventModal').modal('hide');
+      }
+    });
+
+    // Eliminar evento
+    $('#deleteEventButton').on('click', function() {
+      if (selectedEvent) {
+        selectedEvent.remove();
+        $('#editEventModal').modal('hide');
+      }
+    });
+  });
+
+</script>
