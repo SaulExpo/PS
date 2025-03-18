@@ -1,0 +1,21 @@
+.rectangle{
+    margin: 40px auto;
+    float: right;
+    background-color: lightgray;
+    width: 450px;
+    height: 250px;
+}
+#image {
+    width: 300px;
+}
+
+main {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 90vh;
+}
+
+#pay{
+    margin-right: auto;
+}

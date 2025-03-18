@@ -1,0 +1,27 @@
+body
+{
+    display: grid;
+}
+#imagenes {
+    width: 99%;
+    height: 70vh;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.text-box
+{
+    margin-block: 1em;
+    padding-inline: 1em;
+}
+.text-box p
+{
+    margin-inline: 10em;
+    background-color: rgb(217, 217, 217);
+    font-size: 2em;
+    border-radius: 0.2em;
+    text-align: center;
+}
+
+
