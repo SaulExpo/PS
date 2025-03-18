@@ -1,0 +1,58 @@
+<html>
+<head>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        google.charts.load('current', {packages: ['corechart']});
+        google.charts.setOnLoadCallback(() => loadData('calorias.json'));
+
+        function loadData(filename) {
+            fetch(filename)
+                .then(response => response.json())
+                .then(data => drawChart(data, filename))
+                .catch(error => console.error('Error cargando datos:', error));
+        }
+
+        function drawChart(dataArray, filename) {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Day');
+
+            let title, vAxisTitle;
+
+            if (filename === 'calorias.js') {
+                data.addColumn('number', 'Calories Burn');
+                title = 'Calories Burn per Day';
+                vAxisTitle = 'Calories';
+            } else {
+                data.addColumn('number', 'Steps');
+                title = 'Steps Done per Day';
+                vAxisTitle = 'Steps';
+            }
+
+            dataArray.forEach(item => {
+                data.addRow([item.dia, item.valor]);
+            });
+
+            var options = {
+                title: title,
+                hAxis: {title: 'Day of the Month'},
+                vAxis: {title: vAxisTitle},
+                legend: 'none',
+                colors: ['#4285F4']
+            };
+
+            document.getElementById('chart_div').innerHTML = '';
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+    </script>
+</head>
+<body>
+
+<button onclick="loadData('calorias.js')">Show Calories</button>
+<button onclick="loadData('pasos.js')">Show Steps</button>
+
+<div id="chart_div" style="width: 1200px; height: 500px;"></div>
+
+</body>
+</html>
