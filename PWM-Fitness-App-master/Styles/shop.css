@@ -1,0 +1,17 @@
+.rectangle {
+    width: 10em;
+    height: 20em;
+    background: white;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: flex-start;
+    border: 1px black solid;
+    margin: 50px 20px;
+    word-spacing: normal;
+}
+
+h1{
+    margin: 20px;
+}
+
