@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "user_apps",
+  "info": {
+    "singularName": "user-app",
+    "pluralName": "user-apps",
+    "displayName": "User_app",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "password": {
+      "type": "password"
+    },
+    "rol": {
+      "type": "enumeration",
+      "enum": [
+        "Professional",
+        "User",
+        "Super_user"
+      ]
+    }
+  }
+}

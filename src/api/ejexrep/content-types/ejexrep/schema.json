@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ejexreps",
+  "info": {
+    "singularName": "ejexrep",
+    "pluralName": "ejexreps",
+    "displayName": "Ejexrep",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "exercise": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::exercise.exercise",
+      "inversedBy": "ejexreps"
+    },
+    "rutine": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::rutine.rutine",
+      "inversedBy": "ejexreps"
+    },
+    "Rep": {
+      "type": "integer"
+    }
+  }
+}
