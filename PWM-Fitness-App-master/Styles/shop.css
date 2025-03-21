@@ -1,6 +1,6 @@
 .rectangle {
     width: 10em;
-    height: 20em;
+    height: 40em;
     background: white;
     display: flex;
     align-items: flex-start;
@@ -8,10 +8,30 @@
     justify-content: flex-start;
     border: 1px black solid;
     margin: 50px 20px;
+    margin-left: 40px;
     word-spacing: normal;
 }
-
-h1{
-    margin: 20px;
+h1, h2{
+    margin: 10px;
 }
+
+.price{
+    margin: 10px;
+}
+.producto {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    text-align: center;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: 0;
+    margin-top: 150px;
+}
+
+main{
+    display: flex;
+    justify-content: flex-start;
+}
+
 
