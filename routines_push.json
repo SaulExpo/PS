@@ -1,0 +1,220 @@
+[
+  {
+    "name": "Rutina Push advanced #1",
+    "description": "Rutina funcional enfocada en el grupo \"push\" para nivel advanced.",
+    "exercises": [
+      {
+        "name": "left hook. boxing",
+        "reps": "5x15"
+      },
+      {
+        "name": "dumbbell standing alternate overhead press",
+        "reps": "5x15"
+      },
+      {
+        "name": "chest tap push-up (male)",
+        "reps": "5x15"
+      },
+      {
+        "name": "cable lying fly",
+        "reps": "5x15"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Push advanced #2",
+    "description": "Rutina funcional enfocada en el grupo \"push\" para nivel advanced.",
+    "exercises": [
+      {
+        "name": "dumbbell seated bent over triceps extension",
+        "reps": "5x15"
+      },
+      {
+        "name": "barbell upright row v. 2",
+        "reps": "5x15"
+      },
+      {
+        "name": "incline push up depth jump",
+        "reps": "5x15"
+      },
+      {
+        "name": "smith wide grip bench press",
+        "reps": "5x15"
+      },
+      {
+        "name": "weighted round arm",
+        "reps": "5x15"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Push advanced #3",
+    "description": "Rutina funcional enfocada en el grupo \"push\" para nivel advanced.",
+    "exercises": [
+      {
+        "name": "dumbbell incline shoulder raise",
+        "reps": "5x15"
+      },
+      {
+        "name": "dumbbell w-press",
+        "reps": "5x15"
+      },
+      {
+        "name": "olympic barbell triceps extension",
+        "reps": "5x15"
+      },
+      {
+        "name": "cable one arm lateral bent-over",
+        "reps": "5x15"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Push intermediate #1",
+    "description": "Rutina funcional enfocada en el grupo \"push\" para nivel intermediate.",
+    "exercises": [
+      {
+        "name": "dumbbell kneeling bicep curl exercise ball",
+        "reps": "4x12"
+      },
+      {
+        "name": "medicine ball chest push multiple response",
+        "reps": "4x12"
+      },
+      {
+        "name": "dumbbell standing alternate overhead press",
+        "reps": "4x12"
+      },
+      {
+        "name": "dumbbell upright row",
+        "reps": "4x12"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Push intermediate #2",
+    "description": "Rutina funcional enfocada en el grupo \"push\" para nivel intermediate.",
+    "exercises": [
+      {
+        "name": "dumbbell one arm upright row",
+        "reps": "4x12"
+      },
+      {
+        "name": "dumbbell pronate-grip triceps extension",
+        "reps": "4x12"
+      },
+      {
+        "name": "cable press on exercise ball",
+        "reps": "4x12"
+      },
+      {
+        "name": "dumbbell front raise",
+        "reps": "4x12"
+      },
+      {
+        "name": "push up on bosu ball",
+        "reps": "4x12"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Push intermediate #3",
+    "description": "Rutina funcional enfocada en el grupo \"push\" para nivel intermediate.",
+    "exercises": [
+      {
+        "name": "cable pushdown",
+        "reps": "4x12"
+      },
+      {
+        "name": "dumbbell lying one arm press v. 2",
+        "reps": "4x12"
+      },
+      {
+        "name": "barbell upright row v. 2",
+        "reps": "4x12"
+      },
+      {
+        "name": "smith seated shoulder press",
+        "reps": "4x12"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Push beginner #1",
+    "description": "Rutina funcional enfocada en el grupo \"push\" para nivel beginner.",
+    "exercises": [
+      {
+        "name": "lever chest press",
+        "reps": "3x10"
+      },
+      {
+        "name": "dumbbell rear delt raise",
+        "reps": "3x10"
+      },
+      {
+        "name": "cable one arm fly on exercise ball",
+        "reps": "3x10"
+      },
+      {
+        "name": "dumbbell incline one arm press on exercise ball",
+        "reps": "3x10"
+      },
+      {
+        "name": "barbell wide bench press",
+        "reps": "3x10"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Push beginner #2",
+    "description": "Rutina funcional enfocada en el grupo \"push\" para nivel beginner.",
+    "exercises": [
+      {
+        "name": "plyo push up",
+        "reps": "3x10"
+      },
+      {
+        "name": "dumbbell cross body hammer curl v. 2",
+        "reps": "3x10"
+      },
+      {
+        "name": "lever reverse grip preacher curl",
+        "reps": "3x10"
+      },
+      {
+        "name": "ez barbell close grip preacher curl",
+        "reps": "3x10"
+      },
+      {
+        "name": "exercise ball supine triceps extension",
+        "reps": "3x10"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Push beginner #3",
+    "description": "Rutina funcional enfocada en el grupo \"push\" para nivel beginner.",
+    "exercises": [
+      {
+        "name": "dumbbell pullover",
+        "reps": "3x10"
+      },
+      {
+        "name": "smith standing behind head military press",
+        "reps": "3x10"
+      },
+      {
+        "name": "band reverse fly",
+        "reps": "3x10"
+      },
+      {
+        "name": "dumbbell one arm reverse fly (with support)",
+        "reps": "3x10"
+      },
+      {
+        "name": "cable overhead curl on exercise ball",
+        "reps": "3x10"
+      }
+    ]
+  }
+]
