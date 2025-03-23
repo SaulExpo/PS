@@ -24,7 +24,7 @@ async function getBodyPartList() {
         });
 
         // Guardar en archivo JSON
-        fs.writeFileSync('partes_del_cuerpo.json', JSON.stringify(result, null, 2));
+        fs.writeFileSync('exercises_types.json', JSON.stringify(result, null, 2));
         console.log('Guardado en partes_del_cuerpo.json');
     } catch (error) {
         console.error('Error al obtener o guardar partes del cuerpo:', error);
