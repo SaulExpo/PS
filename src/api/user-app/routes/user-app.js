@@ -50,5 +50,35 @@ module.exports = {
                 auth: false
             }
         },
+        {
+            method: "POST",
+            path: "/user-app/register",
+            handler: "user-app.register",
+            config: {
+                auth: false
+            }
+        },
+        {
+            "method": "GET",
+            "path": "/user-apps",
+            "handler": "user-app.find",
+            "config": { "policies": [] }
+        },
+        {
+            "method": "POST",
+            "path": "/user-app/forgot-password",
+            "handler": "user-app.forgotPassword",
+            "config": {
+                "policies": []
+            }
+        },
+        {
+            "method": "POST",
+            "path": "/user-app/reset-password",
+            "handler": "user-app.resetPassword",
+            "config": {
+                "policies": []
+            }
+        }
     ],
 };

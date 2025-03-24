@@ -484,9 +484,9 @@ export interface ApiUserAppUserApp extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
-    password: Schema.Attribute.Password;
+    password: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    rol: Schema.Attribute.Enumeration<['Professional', 'User', 'Super_user']>;
+    surname: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

@@ -17,16 +17,11 @@
     "email": {
       "type": "email"
     },
-    "password": {
-      "type": "password"
+    "surname": {
+      "type": "string"
     },
-    "rol": {
-      "type": "enumeration",
-      "enum": [
-        "Professional",
-        "User",
-        "Super_user"
-      ]
+    "password": {
+      "type": "string"
     }
   }
 }
