@@ -1,0 +1,87 @@
+.rectangle{
+    width: 300px;
+    height: 984px;
+    border: 1px black solid;
+    margin-left: 178px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+.rectangle1{
+    width: 299px;
+    height: 85px;
+    border: 1px black solid;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+ .rectangle2{
+      width: 299px;
+      height: 85px;
+      border: 1px black solid;
+  }
+.rectangle2 p {
+    margin-top: 0;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#icon{
+    width: 65px;
+    height: 60px;
+    margin: 10px 10px 10px 20px;
+}
+.container {
+    display: flex; /* Organiza los rectángulos en fila */
+}
+
+.chat {
+    width: 840px;
+    height: 984px;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+}
+
+.chat1 {
+    width: 840px;
+    height: 85px;
+    border: 1px solid black;
+    display: flex;
+    align-self: flex-start;
+}
+
+#icon1 {
+    width: 65px;
+    height: 60px;
+    margin: 10px 10px 10px 20px;
+}
+
+.message {
+    width: 840px;
+    height: 227px;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column; /* Asegura que los elementos dentro estén en columna */
+    justify-content: flex-start; /* Los elementos empiezan desde la parte superior */
+    align-items: center; /* Centra el contenido horizontalmente */
+    margin-top: auto; /* Mantiene .message pegado al fondo de .chat */
+}
+
+#chatbox {
+    text-align:left;
+    margin:0 auto;
+    margin-bottom:25px;
+    padding:10px;
+    background:#fff;
+    height:790px;
+    width:186px;
+    border:1px solid #ACD8F0;
+    overflow:auto; }
+
