@@ -114,7 +114,7 @@ module.exports = createCoreController("api::user-app.user-app", ({ strapi }) => 
             );
 
             // Crear un enlace con el token
-            const resetLink = `http://localhost:63342/PS/PWM-Fitness-App-master/Pages/reset_password.html?token=${resetToken}`;
+            const resetLink = `http://localhost:63342/PS-Formulario/Pages/reset_password.html?token=${resetToken}`;
 
             // Enviar el correo de recuperación
             await sendEmail(user.email, "Restablecer tu contraseña", `Haz clic en el siguiente enlace para restablecer tu contraseña: ${resetLink}`
@@ -164,5 +164,50 @@ module.exports = createCoreController("api::user-app.user-app", ({ strapi }) => 
             console.error("Error al restablecer la contraseña:", error);
             return ctx.internalServerError("Hubo un error al restablecer la contraseña.");
         }
+    },
+    async profile(ctx) {
+        try {
+            const user = await getUserFromToken(ctx);
+            if (!user) {
+                return ctx.unauthorized("No se pudo autenticar al usuario");
+            }
+            console.log(user)
+
+            return ctx.send({
+                id: user.id,
+                email: user.email,
+                nombre: user.nombre, // Ajusta según los campos de tu modelo
+            });
+        } catch (error) {
+            console.error("Error en el perfil:", error);
+            return ctx.internalServerError("Error al obtener el perfil del usuario");
+        }
     }
 }));
+
+async function getUserFromToken(ctx) {
+    try {
+        const authHeader = ctx.request.header.authorization;
+        if (!authHeader) {
+            return ctx.unauthorized("Token no proporcionado");
+        }
+
+        const token = authHeader.split(" ")[1]; // Obtener solo el token (Formato: "Bearer token")
+        console.log(token)
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+        // Buscar al usuario en la base de datos
+        const user = await strapi.db.query("api::user-app.user-app").findOne({
+            where: { id: decoded.id }
+        });
+
+        if (!user) {
+            return ctx.unauthorized("Usuario no encontrado");
+        }
+
+        return user; // Devolver el usuario encontrado
+    } catch (error) {
+        console.error("Error al obtener usuario desde el token:", error);
+        return ctx.unauthorized("Token inválido o expirado");
+    }
+}

@@ -62,6 +62,14 @@ module.exports = {
             "method": "GET",
             "path": "/user-apps",
             "handler": "user-app.find",
+            config: {
+                auth: false
+            }
+        },
+        {
+            "method": "GET",
+            "path": "/user-apps/profile",
+            "handler": "user-app.profile",
             "config": { "policies": [] }
         },
         {
@@ -79,6 +87,6 @@ module.exports = {
             "config": {
                 "policies": []
             }
-        }
+        },
     ],
 };
