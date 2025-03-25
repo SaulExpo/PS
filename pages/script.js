@@ -62,6 +62,8 @@ function loadRoutine(type, index = 0) {
 
             document.getElementById("title").innerText = routine.name;
             document.getElementById("info").innerText = routine.description;
+            document.getElementById("duration").innerText = routine.duration || "No especificada";
+
 
             const exercisesContainer = document.getElementById("exercises");
             exercisesContainer.innerHTML = "";

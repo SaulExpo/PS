@@ -2,25 +2,30 @@
   {
     "name": "Rutina Full body advanced #1",
     "description": "Rutina funcional enfocada en el grupo \"full body\" para nivel advanced.",
+    "duration": "1h 30min",
     "exercises": [
       {
-        "name": "exercise ball seated hamstring stretch",
+        "name": "dumbbell step-up lunge",
         "reps": "5x15"
       },
       {
-        "name": "bodyweight standing close-grip one arm row",
+        "name": "ez barbell reverse grip preacher curl",
         "reps": "5x15"
       },
       {
-        "name": "dumbbell incline hammer press",
+        "name": "cable incline fly",
         "reps": "5x15"
       },
       {
-        "name": "triceps dips floor",
+        "name": "dumbbell lying triceps extension",
         "reps": "5x15"
       },
       {
-        "name": "landmine lateral raise",
+        "name": "dumbbell seated revers grip concentration curl",
+        "reps": "5x15"
+      },
+      {
+        "name": "smith back shrug",
         "reps": "5x15"
       }
     ]
@@ -28,21 +33,30 @@
   {
     "name": "Rutina Full body advanced #2",
     "description": "Rutina funcional enfocada en el grupo \"full body\" para nivel advanced.",
+    "duration": "1h 30min",
     "exercises": [
       {
-        "name": "ez barbell reverse grip curl",
+        "name": "cable shoulder press",
         "reps": "5x15"
       },
       {
-        "name": "dumbbell goblet squat",
+        "name": "smith machine reverse decline close grip bench press",
         "reps": "5x15"
       },
       {
-        "name": "dumbbell standing one arm concentration curl",
+        "name": "barbell lying extension",
         "reps": "5x15"
       },
       {
-        "name": "cable rear drive",
+        "name": "dumbbell pullover",
+        "reps": "5x15"
+      },
+      {
+        "name": "bench dip on floor",
+        "reps": "5x15"
+      },
+      {
+        "name": "cable one arm incline press on exercise ball",
         "reps": "5x15"
       }
     ]
@@ -50,29 +64,22 @@
   {
     "name": "Rutina Full body advanced #3",
     "description": "Rutina funcional enfocada en el grupo \"full body\" para nivel advanced.",
+    "duration": "1h 0min",
     "exercises": [
       {
-        "name": "circles knee stretch",
+        "name": "cable rear delt row (with rope)",
         "reps": "5x15"
       },
       {
-        "name": "roller body saw",
+        "name": "assisted lying leg raise with lateral throw down",
         "reps": "5x15"
       },
       {
-        "name": "cable rope one arm hammer preacher curl",
+        "name": "bodyweight standing close-grip one arm row",
         "reps": "5x15"
       },
       {
-        "name": "dumbbell bicep curl lunge with bowling motion",
-        "reps": "5x15"
-      },
-      {
-        "name": "finger curls",
-        "reps": "5x15"
-      },
-      {
-        "name": "cable seated overhead curl",
+        "name": "standing archer",
         "reps": "5x15"
       }
     ]
@@ -80,21 +87,30 @@
   {
     "name": "Rutina Full body intermediate #1",
     "description": "Rutina funcional enfocada en el grupo \"full body\" para nivel intermediate.",
+    "duration": "1h 30min",
     "exercises": [
       {
-        "name": "band standing crunch",
+        "name": "cable rope one arm hammer preacher curl",
         "reps": "4x12"
       },
       {
-        "name": "band straight leg deadlift",
+        "name": "kettlebell two arm military press",
         "reps": "4x12"
       },
       {
-        "name": "one arm against wall",
+        "name": "smith bench press",
         "reps": "4x12"
       },
       {
-        "name": "gironda sternum chin",
+        "name": "assisted parallel close grip pull-up",
+        "reps": "4x12"
+      },
+      {
+        "name": "lever decline chest press",
+        "reps": "4x12"
+      },
+      {
+        "name": "cable rope extension incline bench row",
         "reps": "4x12"
       }
     ]
@@ -102,21 +118,26 @@
   {
     "name": "Rutina Full body intermediate #2",
     "description": "Rutina funcional enfocada en el grupo \"full body\" para nivel intermediate.",
+    "duration": "1h 15min",
     "exercises": [
       {
-        "name": "cable one arm pulldown",
+        "name": "cable side crunch",
         "reps": "4x12"
       },
       {
-        "name": "dumbbell decline one arm hammer press",
+        "name": "cable curl",
         "reps": "4x12"
       },
       {
-        "name": "dumbbell plyo squat",
+        "name": "dumbbell one leg fly on exercise ball",
         "reps": "4x12"
       },
       {
-        "name": "spine twist",
+        "name": "barbell incline shoulder raise",
+        "reps": "4x12"
+      },
+      {
+        "name": "incline reverse grip push-up",
         "reps": "4x12"
       }
     ]
@@ -124,25 +145,30 @@
   {
     "name": "Rutina Full body intermediate #3",
     "description": "Rutina funcional enfocada en el grupo \"full body\" para nivel intermediate.",
+    "duration": "1h 30min",
     "exercises": [
       {
-        "name": "dumbbell incline breeding",
+        "name": "assisted motion russian twist",
         "reps": "4x12"
       },
       {
-        "name": "dumbbell standing one arm extension",
+        "name": "cable seated rear lateral raise",
         "reps": "4x12"
       },
       {
-        "name": "barbell rear delt row",
+        "name": "cable shrug",
         "reps": "4x12"
       },
       {
-        "name": "dumbbell lateral to front raise",
+        "name": "inverted row bent knees",
         "reps": "4x12"
       },
       {
-        "name": "cable thibaudeau kayak row",
+        "name": "barbell front raise and pullover",
+        "reps": "4x12"
+      },
+      {
+        "name": "cable rear pulldown",
         "reps": "4x12"
       }
     ]
@@ -150,13 +176,14 @@
   {
     "name": "Rutina Full body beginner #1",
     "description": "Rutina funcional enfocada en el grupo \"full body\" para nivel beginner.",
+    "duration": "1h 15min",
     "exercises": [
       {
-        "name": "ez-bar biceps curl (with arm blaster)",
+        "name": "lever seated crunch v. 2",
         "reps": "3x10"
       },
       {
-        "name": "dumbbell one arm incline chest press",
+        "name": "barbell upright row v. 3",
         "reps": "3x10"
       },
       {
@@ -164,15 +191,11 @@
         "reps": "3x10"
       },
       {
-        "name": "reverse grip machine lat pulldown",
+        "name": "cable one arm decline chest fly",
         "reps": "3x10"
       },
       {
-        "name": "dumbbell over bench one arm neutral wrist curl",
-        "reps": "3x10"
-      },
-      {
-        "name": "barbell full squat (back pov)",
+        "name": "cable alternate shoulder press",
         "reps": "3x10"
       }
     ]
@@ -180,25 +203,22 @@
   {
     "name": "Rutina Full body beginner #2",
     "description": "Rutina funcional enfocada en el grupo \"full body\" para nivel beginner.",
+    "duration": "1h 0min",
     "exercises": [
       {
-        "name": "barbell wrist curl",
+        "name": "barbell standing wide grip biceps curl",
         "reps": "3x10"
       },
       {
-        "name": "barbell alternate biceps curl",
+        "name": "lever seated reverse fly (parallel grip)",
         "reps": "3x10"
       },
       {
-        "name": "dumbbell arnold press",
+        "name": "band fixed back close grip pulldown",
         "reps": "3x10"
       },
       {
-        "name": "dumbbell seated bent arm lateral raise",
-        "reps": "3x10"
-      },
-      {
-        "name": "smith wide grip decline bench press",
+        "name": "band concentration curl",
         "reps": "3x10"
       }
     ]
@@ -206,29 +226,30 @@
   {
     "name": "Rutina Full body beginner #3",
     "description": "Rutina funcional enfocada en el grupo \"full body\" para nivel beginner.",
+    "duration": "1h 30min",
     "exercises": [
       {
-        "name": "hanging straight leg hip raise",
+        "name": "dumbbell reverse bench press",
         "reps": "3x10"
       },
       {
-        "name": "upper back stretch",
+        "name": "band standing crunch",
         "reps": "3x10"
       },
       {
-        "name": "barbell reverse preacher curl",
+        "name": "cable rope crossover seated row",
         "reps": "3x10"
       },
       {
-        "name": "exercise ball lat stretch",
+        "name": "cable kneeling rear delt row (with rope) (male)",
         "reps": "3x10"
       },
       {
-        "name": "side-to-side chin",
+        "name": "kettlebell double push press",
         "reps": "3x10"
       },
       {
-        "name": "cable pushdown (straight arm) v. 2",
+        "name": "dumbbell incline one arm fly",
         "reps": "3x10"
       }
     ]

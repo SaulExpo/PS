@@ -2,21 +2,30 @@
   {
     "name": "Rutina Push advanced #1",
     "description": "Rutina funcional enfocada en el grupo \"push\" para nivel advanced.",
+    "duration": "1h 30min",
     "exercises": [
       {
-        "name": "left hook. boxing",
+        "name": "assisted triceps dip (kneeling)",
         "reps": "5x15"
       },
       {
-        "name": "dumbbell standing alternate overhead press",
+        "name": "assisted chest dip (kneeling)",
         "reps": "5x15"
       },
       {
-        "name": "chest tap push-up (male)",
+        "name": "chest dip (on dip-pull-up cage)",
         "reps": "5x15"
       },
       {
-        "name": "cable lying fly",
+        "name": "barbell bench press",
+        "reps": "5x15"
+      },
+      {
+        "name": "dumbbell decline twist fly",
+        "reps": "5x15"
+      },
+      {
+        "name": "cable one arm incline fly on exercise ball",
         "reps": "5x15"
       }
     ]
@@ -24,25 +33,22 @@
   {
     "name": "Rutina Push advanced #2",
     "description": "Rutina funcional enfocada en el grupo \"push\" para nivel advanced.",
+    "duration": "1h 0min",
     "exercises": [
       {
-        "name": "dumbbell seated bent over triceps extension",
+        "name": "cable lying triceps extension v. 2",
         "reps": "5x15"
       },
       {
-        "name": "barbell upright row v. 2",
+        "name": "cable standing up straight crossovers",
         "reps": "5x15"
       },
       {
-        "name": "incline push up depth jump",
+        "name": "cable cross-over revers fly",
         "reps": "5x15"
       },
       {
-        "name": "smith wide grip bench press",
-        "reps": "5x15"
-      },
-      {
-        "name": "weighted round arm",
+        "name": "barbell wide-grip upright row",
         "reps": "5x15"
       }
     ]
@@ -50,21 +56,30 @@
   {
     "name": "Rutina Push advanced #3",
     "description": "Rutina funcional enfocada en el grupo \"push\" para nivel advanced.",
+    "duration": "1h 30min",
     "exercises": [
       {
-        "name": "dumbbell incline shoulder raise",
+        "name": "cable standing cross-over high reverse fly",
         "reps": "5x15"
       },
       {
-        "name": "dumbbell w-press",
+        "name": "dumbbell seated bent arm lateral raise",
         "reps": "5x15"
       },
       {
-        "name": "olympic barbell triceps extension",
+        "name": "dumbbell lateral raise",
         "reps": "5x15"
       },
       {
-        "name": "cable one arm lateral bent-over",
+        "name": "dumbbell standing alternate raise",
+        "reps": "5x15"
+      },
+      {
+        "name": "cable upright row",
+        "reps": "5x15"
+      },
+      {
+        "name": "dumbbell incline alternate press",
         "reps": "5x15"
       }
     ]
@@ -72,21 +87,30 @@
   {
     "name": "Rutina Push intermediate #1",
     "description": "Rutina funcional enfocada en el grupo \"push\" para nivel intermediate.",
+    "duration": "1h 30min",
     "exercises": [
       {
-        "name": "dumbbell kneeling bicep curl exercise ball",
+        "name": "chest stretch with exercise ball",
         "reps": "4x12"
       },
       {
-        "name": "medicine ball chest push multiple response",
+        "name": "dumbbell bench seated press",
         "reps": "4x12"
       },
       {
-        "name": "dumbbell standing alternate overhead press",
+        "name": "band front raise",
         "reps": "4x12"
       },
       {
-        "name": "dumbbell upright row",
+        "name": "dumbbell lying on floor rear delt raise",
+        "reps": "4x12"
+      },
+      {
+        "name": "stalder press",
+        "reps": "4x12"
+      },
+      {
+        "name": "dumbbell incline palm-in press",
         "reps": "4x12"
       }
     ]
@@ -94,25 +118,26 @@
   {
     "name": "Rutina Push intermediate #2",
     "description": "Rutina funcional enfocada en el grupo \"push\" para nivel intermediate.",
+    "duration": "1h 15min",
     "exercises": [
       {
-        "name": "dumbbell one arm upright row",
+        "name": "triceps dips floor",
         "reps": "4x12"
       },
       {
-        "name": "dumbbell pronate-grip triceps extension",
+        "name": "kettlebell one arm clean and jerk",
         "reps": "4x12"
       },
       {
-        "name": "cable press on exercise ball",
+        "name": "dumbbell incline raise",
         "reps": "4x12"
       },
       {
-        "name": "dumbbell front raise",
+        "name": "raise single arm push-up",
         "reps": "4x12"
       },
       {
-        "name": "push up on bosu ball",
+        "name": "dumbbell incline press on exercise ball",
         "reps": "4x12"
       }
     ]
@@ -120,21 +145,26 @@
   {
     "name": "Rutina Push intermediate #3",
     "description": "Rutina funcional enfocada en el grupo \"push\" para nivel intermediate.",
+    "duration": "1h 15min",
     "exercises": [
       {
-        "name": "cable pushdown",
+        "name": "dumbbell seated lateral raise",
         "reps": "4x12"
       },
       {
-        "name": "dumbbell lying one arm press v. 2",
+        "name": "barbell reverse grip decline bench press",
         "reps": "4x12"
       },
       {
-        "name": "barbell upright row v. 2",
+        "name": "dumbbell press on exercise ball",
         "reps": "4x12"
       },
       {
-        "name": "smith seated shoulder press",
+        "name": "cable reverse grip triceps pushdown (sz-bar) (with arm blaster)",
+        "reps": "4x12"
+      },
+      {
+        "name": "chest and front of shoulder stretch",
         "reps": "4x12"
       }
     ]
@@ -142,25 +172,26 @@
   {
     "name": "Rutina Push beginner #1",
     "description": "Rutina funcional enfocada en el grupo \"push\" para nivel beginner.",
+    "duration": "1h 15min",
     "exercises": [
       {
-        "name": "lever chest press",
+        "name": "dumbbell standing one arm extension",
         "reps": "3x10"
       },
       {
-        "name": "dumbbell rear delt raise",
+        "name": "band front lateral raise",
         "reps": "3x10"
       },
       {
-        "name": "cable one arm fly on exercise ball",
+        "name": "dumbbell incline one arm lateral raise",
         "reps": "3x10"
       },
       {
-        "name": "dumbbell incline one arm press on exercise ball",
+        "name": "medicine ball chest push from 3 point stance",
         "reps": "3x10"
       },
       {
-        "name": "barbell wide bench press",
+        "name": "assisted chest dip (kneeling)",
         "reps": "3x10"
       }
     ]
@@ -168,25 +199,22 @@
   {
     "name": "Rutina Push beginner #2",
     "description": "Rutina funcional enfocada en el grupo \"push\" para nivel beginner.",
+    "duration": "1h 0min",
     "exercises": [
       {
-        "name": "plyo push up",
+        "name": "cable bench press",
         "reps": "3x10"
       },
       {
-        "name": "dumbbell cross body hammer curl v. 2",
+        "name": "dumbbell preacher curl",
         "reps": "3x10"
       },
       {
-        "name": "lever reverse grip preacher curl",
+        "name": "kettlebell one arm snatch",
         "reps": "3x10"
       },
       {
-        "name": "ez barbell close grip preacher curl",
-        "reps": "3x10"
-      },
-      {
-        "name": "exercise ball supine triceps extension",
+        "name": "smith seated shoulder press",
         "reps": "3x10"
       }
     ]
@@ -194,25 +222,22 @@
   {
     "name": "Rutina Push beginner #3",
     "description": "Rutina funcional enfocada en el grupo \"push\" para nivel beginner.",
+    "duration": "1h 0min",
     "exercises": [
       {
-        "name": "dumbbell pullover",
+        "name": "smith machine bicep curl",
         "reps": "3x10"
       },
       {
-        "name": "smith standing behind head military press",
+        "name": "behind head chest stretch",
         "reps": "3x10"
       },
       {
-        "name": "band reverse fly",
+        "name": "dumbbell lying one arm press v. 2",
         "reps": "3x10"
       },
       {
-        "name": "dumbbell one arm reverse fly (with support)",
-        "reps": "3x10"
-      },
-      {
-        "name": "cable overhead curl on exercise ball",
+        "name": "cable two arm tricep kickback",
         "reps": "3x10"
       }
     ]
