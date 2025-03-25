@@ -63,7 +63,7 @@
     margin: 10px 10px 10px 20px;
 }
 
-.message {
+.messages {
     width: 840px;
     height: 91px;
     border: 1px solid black;
@@ -79,5 +79,10 @@
     border: 1px solid black;
     box-sizing: border-box;
     align-self: flex-end;
+}
+#usermsg {
+    width:810px;
+    border:1px solid #ACD8F0;
+    margin: 10px 10px 10px 10px;
 }
 
