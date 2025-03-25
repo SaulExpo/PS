@@ -65,7 +65,7 @@
 
 .message {
     width: 840px;
-    height: 227px;
+    height: 91px;
     border: 1px solid black;
     display: flex;
     justify-content: center;
@@ -74,10 +74,10 @@
 }
 
 #chatbox {
-    width: 790px;
-    height: 150px;
+    width: 200px;
+    height: 75px;
     border: 1px solid black;
-    margin: 10px 0;
     box-sizing: border-box;
+    align-self: flex-end;
 }
 
