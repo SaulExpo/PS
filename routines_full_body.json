@@ -1,0 +1,236 @@
+[
+  {
+    "name": "Rutina Full body advanced #1",
+    "description": "Rutina funcional enfocada en el grupo \"full body\" para nivel advanced.",
+    "exercises": [
+      {
+        "name": "exercise ball seated hamstring stretch",
+        "reps": "5x15"
+      },
+      {
+        "name": "bodyweight standing close-grip one arm row",
+        "reps": "5x15"
+      },
+      {
+        "name": "dumbbell incline hammer press",
+        "reps": "5x15"
+      },
+      {
+        "name": "triceps dips floor",
+        "reps": "5x15"
+      },
+      {
+        "name": "landmine lateral raise",
+        "reps": "5x15"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Full body advanced #2",
+    "description": "Rutina funcional enfocada en el grupo \"full body\" para nivel advanced.",
+    "exercises": [
+      {
+        "name": "ez barbell reverse grip curl",
+        "reps": "5x15"
+      },
+      {
+        "name": "dumbbell goblet squat",
+        "reps": "5x15"
+      },
+      {
+        "name": "dumbbell standing one arm concentration curl",
+        "reps": "5x15"
+      },
+      {
+        "name": "cable rear drive",
+        "reps": "5x15"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Full body advanced #3",
+    "description": "Rutina funcional enfocada en el grupo \"full body\" para nivel advanced.",
+    "exercises": [
+      {
+        "name": "circles knee stretch",
+        "reps": "5x15"
+      },
+      {
+        "name": "roller body saw",
+        "reps": "5x15"
+      },
+      {
+        "name": "cable rope one arm hammer preacher curl",
+        "reps": "5x15"
+      },
+      {
+        "name": "dumbbell bicep curl lunge with bowling motion",
+        "reps": "5x15"
+      },
+      {
+        "name": "finger curls",
+        "reps": "5x15"
+      },
+      {
+        "name": "cable seated overhead curl",
+        "reps": "5x15"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Full body intermediate #1",
+    "description": "Rutina funcional enfocada en el grupo \"full body\" para nivel intermediate.",
+    "exercises": [
+      {
+        "name": "band standing crunch",
+        "reps": "4x12"
+      },
+      {
+        "name": "band straight leg deadlift",
+        "reps": "4x12"
+      },
+      {
+        "name": "one arm against wall",
+        "reps": "4x12"
+      },
+      {
+        "name": "gironda sternum chin",
+        "reps": "4x12"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Full body intermediate #2",
+    "description": "Rutina funcional enfocada en el grupo \"full body\" para nivel intermediate.",
+    "exercises": [
+      {
+        "name": "cable one arm pulldown",
+        "reps": "4x12"
+      },
+      {
+        "name": "dumbbell decline one arm hammer press",
+        "reps": "4x12"
+      },
+      {
+        "name": "dumbbell plyo squat",
+        "reps": "4x12"
+      },
+      {
+        "name": "spine twist",
+        "reps": "4x12"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Full body intermediate #3",
+    "description": "Rutina funcional enfocada en el grupo \"full body\" para nivel intermediate.",
+    "exercises": [
+      {
+        "name": "dumbbell incline breeding",
+        "reps": "4x12"
+      },
+      {
+        "name": "dumbbell standing one arm extension",
+        "reps": "4x12"
+      },
+      {
+        "name": "barbell rear delt row",
+        "reps": "4x12"
+      },
+      {
+        "name": "dumbbell lateral to front raise",
+        "reps": "4x12"
+      },
+      {
+        "name": "cable thibaudeau kayak row",
+        "reps": "4x12"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Full body beginner #1",
+    "description": "Rutina funcional enfocada en el grupo \"full body\" para nivel beginner.",
+    "exercises": [
+      {
+        "name": "ez-bar biceps curl (with arm blaster)",
+        "reps": "3x10"
+      },
+      {
+        "name": "dumbbell one arm incline chest press",
+        "reps": "3x10"
+      },
+      {
+        "name": "kneeling lat stretch",
+        "reps": "3x10"
+      },
+      {
+        "name": "reverse grip machine lat pulldown",
+        "reps": "3x10"
+      },
+      {
+        "name": "dumbbell over bench one arm neutral wrist curl",
+        "reps": "3x10"
+      },
+      {
+        "name": "barbell full squat (back pov)",
+        "reps": "3x10"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Full body beginner #2",
+    "description": "Rutina funcional enfocada en el grupo \"full body\" para nivel beginner.",
+    "exercises": [
+      {
+        "name": "barbell wrist curl",
+        "reps": "3x10"
+      },
+      {
+        "name": "barbell alternate biceps curl",
+        "reps": "3x10"
+      },
+      {
+        "name": "dumbbell arnold press",
+        "reps": "3x10"
+      },
+      {
+        "name": "dumbbell seated bent arm lateral raise",
+        "reps": "3x10"
+      },
+      {
+        "name": "smith wide grip decline bench press",
+        "reps": "3x10"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Full body beginner #3",
+    "description": "Rutina funcional enfocada en el grupo \"full body\" para nivel beginner.",
+    "exercises": [
+      {
+        "name": "hanging straight leg hip raise",
+        "reps": "3x10"
+      },
+      {
+        "name": "upper back stretch",
+        "reps": "3x10"
+      },
+      {
+        "name": "barbell reverse preacher curl",
+        "reps": "3x10"
+      },
+      {
+        "name": "exercise ball lat stretch",
+        "reps": "3x10"
+      },
+      {
+        "name": "side-to-side chin",
+        "reps": "3x10"
+      },
+      {
+        "name": "cable pushdown (straight arm) v. 2",
+        "reps": "3x10"
+      }
+    ]
+  }
+]

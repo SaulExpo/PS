@@ -1,0 +1,260 @@
+[
+  {
+    "name": "Rutina Core advanced #1",
+    "description": "Rutina funcional enfocada en el grupo \"core\" para nivel advanced.",
+    "exercises": [
+      {
+        "name": "sledge hammer",
+        "reps": "5x15"
+      },
+      {
+        "name": "band v-up",
+        "reps": "5x15"
+      },
+      {
+        "name": "hanging leg hip raise",
+        "reps": "5x15"
+      },
+      {
+        "name": "posterior step to overhead reach",
+        "reps": "5x15"
+      },
+      {
+        "name": "butt-ups",
+        "reps": "5x15"
+      },
+      {
+        "name": "assisted sit-up",
+        "reps": "5x15"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Core advanced #2",
+    "description": "Rutina funcional enfocada en el grupo \"core\" para nivel advanced.",
+    "exercises": [
+      {
+        "name": "incline leg hip raise (leg straight)",
+        "reps": "5x15"
+      },
+      {
+        "name": "assisted motion russian twist",
+        "reps": "5x15"
+      },
+      {
+        "name": "assisted lying leg raise with lateral throw down",
+        "reps": "5x15"
+      },
+      {
+        "name": "jackknife sit-up",
+        "reps": "5x15"
+      },
+      {
+        "name": "cable standing crunch",
+        "reps": "5x15"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Core advanced #3",
+    "description": "Rutina funcional enfocada en el grupo \"core\" para nivel advanced.",
+    "exercises": [
+      {
+        "name": "oblique crunches floor",
+        "reps": "5x15"
+      },
+      {
+        "name": "hanging oblique knee raise",
+        "reps": "5x15"
+      },
+      {
+        "name": "twisted leg raise",
+        "reps": "5x15"
+      },
+      {
+        "name": "band bicycle crunch",
+        "reps": "5x15"
+      },
+      {
+        "name": "cable twist",
+        "reps": "5x15"
+      },
+      {
+        "name": "stability ball crunch (full range hands behind head)",
+        "reps": "5x15"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Core intermediate #1",
+    "description": "Rutina funcional enfocada en el grupo \"core\" para nivel intermediate.",
+    "exercises": [
+      {
+        "name": "front lever",
+        "reps": "4x12"
+      },
+      {
+        "name": "straddle maltese",
+        "reps": "4x12"
+      },
+      {
+        "name": "spine twist",
+        "reps": "4x12"
+      },
+      {
+        "name": "wind sprints",
+        "reps": "4x12"
+      },
+      {
+        "name": "weighted hanging leg-hip raise",
+        "reps": "4x12"
+      },
+      {
+        "name": "weighted seated twist (on stability ball)",
+        "reps": "4x12"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Core intermediate #2",
+    "description": "Rutina funcional enfocada en el grupo \"core\" para nivel intermediate.",
+    "exercises": [
+      {
+        "name": "twisted leg raise",
+        "reps": "4x12"
+      },
+      {
+        "name": "one arm slam (with medicine ball)",
+        "reps": "4x12"
+      },
+      {
+        "name": "crunch (on stability ball)",
+        "reps": "4x12"
+      },
+      {
+        "name": "assisted hanging knee raise",
+        "reps": "4x12"
+      },
+      {
+        "name": "barbell rollerout from bench",
+        "reps": "4x12"
+      },
+      {
+        "name": "bottoms-up",
+        "reps": "4x12"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Core intermediate #3",
+    "description": "Rutina funcional enfocada en el grupo \"core\" para nivel intermediate.",
+    "exercises": [
+      {
+        "name": "negative crunch",
+        "reps": "4x12"
+      },
+      {
+        "name": "knee touch crunch",
+        "reps": "4x12"
+      },
+      {
+        "name": "incline twisting sit-up",
+        "reps": "4x12"
+      },
+      {
+        "name": "flexion leg sit up (straight arm)",
+        "reps": "4x12"
+      },
+      {
+        "name": "alternate heel touchers",
+        "reps": "4x12"
+      },
+      {
+        "name": "assisted hanging knee raise",
+        "reps": "4x12"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Core beginner #1",
+    "description": "Rutina funcional enfocada en el grupo \"core\" para nivel beginner.",
+    "exercises": [
+      {
+        "name": "tuck crunch",
+        "reps": "3x10"
+      },
+      {
+        "name": "band jack knife sit-up",
+        "reps": "3x10"
+      },
+      {
+        "name": "hanging pike",
+        "reps": "3x10"
+      },
+      {
+        "name": "inchworm v. 2",
+        "reps": "3x10"
+      },
+      {
+        "name": "side bridge v. 2",
+        "reps": "3x10"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Core beginner #2",
+    "description": "Rutina funcional enfocada en el grupo \"core\" para nivel beginner.",
+    "exercises": [
+      {
+        "name": "posterior step to overhead reach",
+        "reps": "3x10"
+      },
+      {
+        "name": "weighted russian twist v. 2",
+        "reps": "3x10"
+      },
+      {
+        "name": "cable standing crunch (with rope attachment)",
+        "reps": "3x10"
+      },
+      {
+        "name": "sledge hammer",
+        "reps": "3x10"
+      },
+      {
+        "name": "bridge - mountain climber (cross body)",
+        "reps": "3x10"
+      },
+      {
+        "name": "pelvic tilt",
+        "reps": "3x10"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Core beginner #3",
+    "description": "Rutina funcional enfocada en el grupo \"core\" para nivel beginner.",
+    "exercises": [
+      {
+        "name": "hanging straight leg hip raise",
+        "reps": "3x10"
+      },
+      {
+        "name": "barbell seated twist",
+        "reps": "3x10"
+      },
+      {
+        "name": "side bridge v. 2",
+        "reps": "3x10"
+      },
+      {
+        "name": "smith hip raise",
+        "reps": "3x10"
+      },
+      {
+        "name": "curl-up",
+        "reps": "3x10"
+      }
+    ]
+  }
+]
