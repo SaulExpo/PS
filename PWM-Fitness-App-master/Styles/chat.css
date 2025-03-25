@@ -68,20 +68,16 @@
     height: 227px;
     border: 1px solid black;
     display: flex;
-    flex-direction: column; /* Asegura que los elementos dentro estén en columna */
-    justify-content: flex-start; /* Los elementos empiezan desde la parte superior */
-    align-items: center; /* Centra el contenido horizontalmente */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
     margin-top: auto; /* Mantiene .message pegado al fondo de .chat */
 }
 
 #chatbox {
-    text-align:left;
-    margin:0 auto;
-    margin-bottom:25px;
-    padding:10px;
-    background:#fff;
-    height:790px;
-    width:186px;
-    border:1px solid #ACD8F0;
-    overflow:auto; }
+    width: 790px;  /* Establece el ancho del chatbox */
+    height: 150px;  /* Establece la altura del chatbox */
+    border: 1px solid black;
+    margin: 10px 0;
+    box-sizing: border-box;  /* Asegura que el borde y el padding no afecten el tamaño total */
+}
 
