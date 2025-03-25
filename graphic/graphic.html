@@ -22,15 +22,18 @@
                 data.addColumn('number', 'Calories Burn');
                 title = 'Calories Burn per Day';
                 vAxisTitle = 'Calories';
+                dataArray.forEach(item => {
+                    let caloriasQuemadas = calcularCalorias(item.met, item.peso, item.minutos);
+                    data.addRow([item.dia, caloriasQuemadas]);
+                });
             } else {
                 data.addColumn('number', 'Steps');
                 title = 'Steps Done per Day';
                 vAxisTitle = 'Steps';
+                dataArray.forEach(item => {
+                    data.addRow([item.dia, item.valor]);
+                });
             }
-
-            dataArray.forEach(item => {
-                data.addRow([item.dia, item.valor]);
-            });
 
             var options = {
                 title: title,
@@ -44,6 +47,10 @@
 
             var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
             chart.draw(data, options);
+        }
+
+        function calcularCalorias(met, peso, minutos) {
+            return ((met * peso * 3.5) / 200) * minutos;
         }
     </script>
 </head>
