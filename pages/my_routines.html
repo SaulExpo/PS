@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mis Rutinas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="header.css" />
+  <link rel="stylesheet" href="footer.css" />
+  <link rel="stylesheet" href="my_routines.css" />
+</head>
+<body>
+
+<!-- Header -->
+<div id="header-container"></div>
+
+<main class="container">
+  <h1>📋 <strong>Mis Rutinas</strong></h1>
+
+  <!-- Botón para crear nueva rutina -->
+  <button class="new-btn" onclick="window.location.href='exercise_selector.html'">
+    ➕ Crear Nueva Rutina
+  </button>
+
+  <!-- Contenedor para la lista de rutinas -->
+  <div id="routine-list" class="routine-list">
+    <!-- JS cargará aquí las rutinas -->
+  </div>
+</main>
+
+<!-- Footer -->
+<div id="footer-container"></div>
+
+<!-- Cargar header y footer -->
+<script>
+  fetch('header.html')
+          .then(res => res.text())
+          .then(html => {
+            document.getElementById('header-container').innerHTML = html;
+          });
+
+  fetch('footer.html')
+          .then(res => res.text())
+          .then(html => {
+            document.getElementById('footer-container').innerHTML = html;
+          });
+</script>
+
+<!-- Script para cargar las rutinas -->
+<script src="my_routines.js"></script>
+</body>
+</html>

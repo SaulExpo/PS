@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Selector de Ejercicios</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="header.css" />
+    <link rel="stylesheet" href="footer.css" />
+    <link rel="stylesheet" href="exercise_selector.css" />
+</head>
+<body>
+
+<!-- Header -->
+<div id="header-container"></div>
+
+<main class="container">
+    <h1>Selector de Ejercicios</h1>
+
+    <!-- Filtro -->
+    <div class="controls">
+        <label for="bodypart-select">Filtrar por grupo muscular:</label>
+        <select id="bodypart-select">
+            <option disabled selected value="">-- Elige una parte del cuerpo --</option>
+            <option value="back">Espalda</option>
+            <option value="cardio">Cardio</option>
+            <option value="chest">Pecho</option>
+            <option value="lower_arms">Antebrazos</option>
+            <option value="lower_legs">Piernas (inferior)</option>
+            <option value="neck">Cuello</option>
+            <option value="shoulders">Hombros</option>
+            <option value="upper_arms">Brazos</option>
+            <option value="upper_legs">Piernas (superior)</option>
+            <option value="waist">Cintura</option>
+        </select>
+    </div>
+
+    <!-- Lista de ejercicios -->
+    <div id="exercise-list"></div>
+
+    <!-- Guardar rutina -->
+    <div class="routine-controls">
+        <input type="text" id="routine-name" placeholder="Nombre de la rutina" />
+        <button id="save-routine" class="export-btn">💾 Guardar Rutina</button>
+    </div>
+
+    <!-- Exportar JSON si quieres -->
+    <button id="export-btn" class="export-btn">📦 Exportar Selección</button>
+    <pre id="output" class="json-output"></pre>
+</main>
+
+<!-- Footer -->
+<div id="footer-container"></div>
+
+<script>
+    fetch('header.html')
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById('header-container').innerHTML = html;
+        });
+
+    fetch('footer.html')
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById('footer-container').innerHTML = html;
+        });
+</script>
+
+<script src="routine_selector.js"></script>
+</body>
+</html>
