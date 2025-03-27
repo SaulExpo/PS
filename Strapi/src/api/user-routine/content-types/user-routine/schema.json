@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "user_routines",
+  "info": {
+    "singularName": "user-routine",
+    "pluralName": "user-routines",
+    "displayName": "User_routine",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "rutine": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::rutine.rutine",
+      "inversedBy": "user_routines"
+    },
+    "user_app": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::user-app.user-app",
+      "inversedBy": "user_routines"
+    },
+    "date": {
+      "type": "datetime"
+    }
+  }
+}

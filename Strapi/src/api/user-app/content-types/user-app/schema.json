@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "user_apps",
+  "info": {
+    "singularName": "user-app",
+    "pluralName": "user-apps",
+    "displayName": "User_app",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "surname": {
+      "type": "string"
+    },
+    "password": {
+      "type": "string"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "user",
+        "member",
+        "superior member"
+      ],
+      "default": "user"
+    },
+    "user_routines": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::user-routine.user-routine",
+      "mappedBy": "user_app"
+    }
+  }
+}
