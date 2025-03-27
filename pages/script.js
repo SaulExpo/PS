@@ -1,6 +1,5 @@
 console.log("✅ script.js cargado correctamente");
 
-// Cargar templates (header, footer)
 function loadTemplate(templatePath, elementId) {
     fetch(templatePath)
         .then(resp => resp.text())
@@ -21,6 +20,34 @@ const routineFiles = {
 
 const typeSelector = document.getElementById("typeSelector");
 const routineSelector = document.getElementById("routineSelector");
+
+let allRoutines = [];
+
+function loadAllRoutines() {
+    const entries = Object.entries(routineFiles);
+    let loaded = 0;
+
+    entries.forEach(([type, filePath]) => {
+        fetch(filePath)
+            .then(resp => resp.json())
+            .then(data => {
+                data.forEach((routine, index) => {
+                    allRoutines.push({
+                        ...routine,
+                        type: type,
+                        index: index
+                    });
+                });
+
+                loaded++;
+                if (loaded === entries.length) {
+                    console.log("Todas las rutinas cargadas en memoria");
+                }
+            })
+            .catch(err => console.error("Error cargando:", filePath, err));
+    });
+}
+
 
 // Cargar tipos en el primer <select>
 function loadRoutineTypes() {
@@ -49,7 +76,6 @@ function loadRoutineNames(type) {
         .catch(err => console.error("Error cargando rutinas del tipo:", type, err));
 }
 
-// Cargar rutina completa con ejercicios
 function loadRoutine(type, index = 0) {
     fetch(routineFiles[type])
         .then(resp => resp.json())
@@ -62,6 +88,8 @@ function loadRoutine(type, index = 0) {
 
             document.getElementById("title").innerText = routine.name;
             document.getElementById("info").innerText = routine.description;
+            document.getElementById("duration").innerText = routine.duration || "No especificada";
+
 
             const exercisesContainer = document.getElementById("exercises");
             exercisesContainer.innerHTML = "";
@@ -96,7 +124,43 @@ routineSelector.addEventListener("change", () => {
     loadRoutine(type, index);
 });
 
+//Buscador
+const globalSearch = document.getElementById("globalSearch");
+const searchResults = document.getElementById("searchResults");
+
+globalSearch.addEventListener("input", () => {
+    const query = globalSearch.value.toLowerCase();
+    searchResults.innerHTML = '<option disabled selected>Resultados aparecerán aquí</option>';
+
+    const filtered = allRoutines.filter(routine => {
+        const name = routine.name.toLowerCase();
+        const type = routine.type.toLowerCase();
+        const description = routine.description.toLowerCase();
+        return name.includes(query) || type.includes(query) || description.includes(query);
+    });
+
+    filtered.forEach(routine => {
+        const option = document.createElement("option");
+        option.value = JSON.stringify({ type: routine.type, index: routine.index });
+        option.textContent = `[${routine.type}] ${routine.name}`;
+        searchResults.appendChild(option);
+    });
+
+    if (filtered.length === 0) {
+        const option = document.createElement("option");
+        option.disabled = true;
+        option.textContent = "No se encontraron coincidencias";
+        searchResults.appendChild(option);
+    }
+});
+
+searchResults.addEventListener("change", () => {
+    const value = JSON.parse(searchResults.value);
+    loadRoutine(value.type, value.index);
+});
+
 // Iniciar al cargar la página
 loadTemplate("./header.html", "main_header");
 loadTemplate("./footer.html", "main_footer");
+loadAllRoutines();
 loadRoutineTypes();

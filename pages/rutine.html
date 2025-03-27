@@ -18,6 +18,12 @@
     <option disabled selected>Selecciona tipo</option>
   </select>
 
+  <label for="globalSearch">Buscar rutinas (global):</label>
+  <input type="text" id="globalSearch" placeholder="Ej. push beginner, core, etc." />
+  <select id="searchResults">
+    <option disabled selected>Resultados aparecerán aquí</option>
+  </select>
+
   <label for="routineSelector">Rutina:</label>
   <select id="routineSelector" disabled>
     <option disabled selected>Selecciona rutina</option>
@@ -27,9 +33,11 @@
 <main>
   <h2 id="title">Rutina</h2>
   <p id="info">Selecciona una rutina para ver los ejercicios</p>
+  <p><strong>Duración:</strong> <span id="duration">--</span></p>
   <div id="exercises"></div>
 </main>
 
 <footer id="main_footer"></footer>
+
 </body>
 </html>

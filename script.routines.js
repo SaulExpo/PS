@@ -45,15 +45,33 @@ function generateReps(level) {
 
 function generateRoutine(functionalGroup, level, allExercises, index) {
     const selected = getRandomExercises(allExercises);
+
+    let duration;
+    switch (selected.length) {
+        case 4:
+            duration = "1h 0min";
+            break;
+        case 5:
+            duration = "1h 15min";
+            break;
+        case 6:
+            duration = "1h 30min";
+            break;
+        default:
+            duration = "1h 0min"; // por si acaso
+    }
+
     return {
         name: `Rutina ${functionalGroup.charAt(0).toUpperCase() + functionalGroup.slice(1)} ${level} #${index + 1}`,
         description: `Rutina funcional enfocada en el grupo "${functionalGroup}" para nivel ${level}.`,
+        duration: duration,
         exercises: selected.map(ex => ({
             name: ex.name,
             reps: generateReps(level)
         }))
     };
 }
+
 
 function generateMultipleRoutines(count, functionalGroup, level, allExercises) {
     const routines = [];
