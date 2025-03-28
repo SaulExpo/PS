@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+</head>
+<body>
+<form id="formulario">
+  <input type="email" id="name" placeholder="Email">
+  <input type="password" id="password" placeholder="Password">
+  <button type="submit">Login</button>
+</form>
+<button id="deslogeo">
+  Desconectar
+</button>
+</body>
+<style>
+  form{
+    display: grid;
+  }
+  input
+  {
+    margin-block: 0.5em;
+  }
+</style>
+<script>
+  document.getElementById("formulario").addEventListener("submit", async event => {
+    event.preventDefault();
+
+    const email = document.getElementById("name").value;
+
+    const response = await fetch("http://localhost:1337/api/profesional-user-app/getProfesional", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({email})
+    });
+    console.log(response);
+    const data = await response.json();
+
+    if(response.ok)
+    {
+      alert("Entrenador asignado es " + data.profesional.name);
+      console.log(data)
+    }
+    else
+    {
+      alert("No tiene ningun profesional asignado");
+    }
+  })
+</script>
+</html>
