@@ -13,6 +13,7 @@
 <button id="deslogeo">
   Desconectar
 </button>
+<p id="prof">No tienes ninguno asignado</p>
 </body>
 <style>
   form{
@@ -43,6 +44,7 @@
     {
       alert("Entrenador asignado es " + data.profesional.name);
       console.log(data)
+      document.getElementById("prof").textContent = "Profesional: " + data.profesional.name;
     }
     else
     {
