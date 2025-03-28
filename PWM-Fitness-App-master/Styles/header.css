@@ -62,3 +62,21 @@ nav
     width: 1.5em;
     border-radius: 0.7em;
 }
+
+#shop{
+    height: 1.5em;
+    width: 1.5em;
+    display: flex;
+    align-items: center;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+}
+
+#chat{
+    height: 1.5em;
+    width: 1.5em;
+    display: flex;
+    align-items: center;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+}
