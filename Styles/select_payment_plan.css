@@ -1,0 +1,65 @@
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.rectangles {
+    display: flex;
+    gap: 10px;
+}
+.buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 40px;
+}
+
+.questions {
+    background-color: lightgray;
+    width: 1500px;
+    height: 500px;
+    border: 1px solid lightgray;
+    margin-bottom: 1em;
+}
+
+.half-right{
+    width: 750px;
+    height: 500px;
+    background-color: lightgray;
+    float: right;
+}
+
+.half-left{
+    width: 750px;
+    height: 500px;
+    background-color: white;
+    float: left;
+    text-align: center;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+}
+
+th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    background-color: white;
+}
+
+tr:nth-child(even) {
+    background-color: white;
+}
+
+p{
+    margin-bottom: 10px;
+}
+
+
+
+

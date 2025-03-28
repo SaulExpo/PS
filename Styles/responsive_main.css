@@ -1,0 +1,30 @@
+/* 412 px to 1280 px */
+@media screen and (min-width: 25.75em) and (max-width: 80em) {
+    #imagenes {
+        width: 90%; /* Reducir un poco el tamaño en pantallas medianas */
+        height: 60vh;
+    }
+
+    .text-box p {
+        margin-inline: 5em; /* Reducir margen para que el texto no sea demasiado ancho */
+        font-size: 1.5em; /* Ajustar tamaño del texto */
+    }
+}
+
+/* under 412 px (pantallas pequeñas) */
+@media screen and (max-width: 25.75em) {
+    #imagenes {
+        width: 100%; /* Ocupar todo el ancho disponible */
+        height: auto; /* Ajustar altura automáticamente */
+    }
+
+    .text-box {
+        padding-inline: 0.5em;
+    }
+
+    .text-box p {
+        margin-inline: 1em; /* Menos margen para que el texto no quede muy comprimido */
+        font-size: 1.2em; /* Reducir tamaño del texto para móviles */
+        padding: 0.5em;
+    }
+}

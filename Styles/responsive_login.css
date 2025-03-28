@@ -1,0 +1,38 @@
+/* (412px - 1280px) */
+@media screen and (min-width: 25.75em) and (max-width: 80em) {
+    .wrapper {
+        max-width: 80%;
+    }
+
+    .section img {
+        width: 80%;
+    }
+}
+
+/* (menos de 412px) */
+@media screen and (max-width: 25.75em) {
+    .wrapper {
+        max-width: 95%;
+        padding: 10px;
+    }
+
+    .header_temp {
+        padding: 0.8em;
+    }
+
+    #logo {
+        font-size: 1.2em;
+    }
+
+    #menu-icon {
+        font-size: 1.5em;
+    }
+
+    .section img {
+        width: 100%;
+    }
+
+    .footer .nav-links a {
+        font-size: 0.7em;
+    }
+}

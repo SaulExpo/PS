@@ -1,0 +1,25 @@
+.info_exercise {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #D9D9D9;
+    width: 100%;
+    max-width: 700px;
+    height: 60px;
+    margin: 10px auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+    border-radius: 8px;
+
+}
+
+.name_exercise {
+    flex: 1;
+    font-size: 1.1em;
+    overflow: hidden;
+}
+
+.reps {
+    width: 80px;
+    text-align: right;
+}
