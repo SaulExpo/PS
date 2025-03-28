@@ -34,18 +34,17 @@
         </select>
     </div>
 
-    <!-- Lista de ejercicios -->
-    <div id="exercise-list"></div>
-
-    <!-- Guardar rutina -->
+    <!-- Nombre, duración, descripción y botón único -->
     <div class="routine-controls">
         <input type="text" id="routine-name" placeholder="Nombre de la rutina" />
-        <button id="save-routine" class="export-btn">💾 Guardar Rutina</button>
+        <input type="text" id="routine-duration" placeholder="Duración (ej: 1h 0min)" style="width: 100%; max-width: 400px; border-radius: 8px; border: 1px solid #ccc; padding: 0.6rem;" />
+        <textarea id="routine-description" placeholder="Descripción de la rutina" rows="3" style="width: 100%; max-width: 400px; border-radius: 8px; border: 1px solid #ccc; padding: 0.6rem;"></textarea>
+
+        <button id="save-export-routine" class="export-btn">💾 Guardar y Exportar Rutina</button>
     </div>
 
-    <!-- Exportar JSON si quieres -->
-    <button id="export-btn" class="export-btn">📦 Exportar Selección</button>
-    <pre id="output" class="json-output"></pre>
+    <!-- Lista de ejercicios -->
+    <div id="exercise-list"></div>
 </main>
 
 <!-- Footer -->

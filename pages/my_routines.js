@@ -16,19 +16,23 @@ document.addEventListener('DOMContentLoaded', () => {
         name.className = 'routine-name';
         name.textContent = rutina.name;
 
+        const description = document.createElement('div');
+        description.className = 'routine-description';
+        description.textContent = rutina.description || 'Sin descripción.';
+        description.style.fontSize = '0.9rem';
+        description.style.color = '#555';
+
         const actions = document.createElement('div');
         actions.className = 'routine-actions';
 
-        // ✅ Botón EDITAR - redirige correctamente a exercise_selector.html
         const editBtn = document.createElement('button');
         editBtn.className = 'edit-btn';
         editBtn.textContent = 'Editar';
         editBtn.onclick = () => {
             localStorage.setItem('editIndex', index);
-            window.location.href = 'exercise_selector.html'; // <-- ya estás en /pages/
+            window.location.href = 'exercise_selector.html';
         };
 
-        // ✅ Botón ELIMINAR
         const deleteBtn = document.createElement('button');
         deleteBtn.className = 'delete-btn';
         deleteBtn.textContent = 'Eliminar';
@@ -44,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
         actions.appendChild(deleteBtn);
 
         card.appendChild(name);
+        card.appendChild(description);
         card.appendChild(actions);
         list.appendChild(card);
     });

@@ -56,3 +56,7 @@
     background-color: #dc3545;
     color: white;
 }
+.routine-description {
+    font-style: italic;
+    color: #555;
+}

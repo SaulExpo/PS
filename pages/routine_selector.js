@@ -6,13 +6,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const $ = id => document.getElementById(id);
     const exerciseList = $('exercise-list');
-    const output = $('output');
-    const exportBtn = $('export-btn');
     const select = $('bodypart-select');
     const nameInput = $('routine-name');
-    const saveBtn = $('save-routine');
+    const descInput = $('routine-description');
+    const durationInput = $('routine-duration');
+    const saveExportBtn = $('save-export-routine');
 
-    const selected = [];
+    let selected = [];
     const allExercises = {};
     let ready = false;
 
@@ -31,15 +31,21 @@ document.addEventListener('DOMContentLoaded', () => {
         ready = true;
         exerciseList.innerHTML = '<p style="color:green">✅ Listo. Selecciona una parte del cuerpo.</p>';
 
-        // Cargar rutina en edición
         const editIndex = localStorage.getItem('editIndex');
-        if (editIndex !== null) {
+
+        if (editIndex === null) {
+            selected = [];
+            nameInput.value = '';
+            descInput.value = '';
+            durationInput.value = '';
+        } else {
             const routines = JSON.parse(localStorage.getItem('routines')) || [];
             const routine = routines[editIndex];
             if (routine) {
                 nameInput.value = routine.name;
-                selected.length = 0;
-                selected.push(...routine.exercises);
+                descInput.value = routine.description || '';
+                durationInput.value = routine.duration || '';
+                selected = [...routine.exercises];
                 const defaultPart = routine.exercises[0]?.bodyPart?.toLowerCase();
                 if (defaultPart && allExercises[defaultPart]) {
                     select.value = defaultPart;
@@ -63,22 +69,49 @@ document.addEventListener('DOMContentLoaded', () => {
             const checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
             checkbox.checked = selected.some(e => e.id === ex.id);
-            checkbox.addEventListener('change', () => {
-                if (checkbox.checked) selected.push(ex);
-                else selected.splice(selected.findIndex(e => e.id === ex.id), 1);
-            });
 
             const name = document.createElement('div');
             name.innerHTML = `<strong>${ex.name}</strong>`;
+
             const target = document.createElement('div');
-            target.innerHTML = `🎯 ${ex.target}`;
+            target.textContent = `Target: ${ex.target}`;
+
             const equipment = document.createElement('div');
-            equipment.innerHTML = `🛠️ ${ex.equipment}`;
+            equipment.textContent = `Equipment: ${ex.equipment}`;
+
+            const repsSelect = document.createElement('select');
+            repsSelect.innerHTML = `
+                <option value="3x10">3x10</option>
+                <option value="4x12">4x12</option>
+                <option value="5x15" selected>5x15</option>
+            `;
+            repsSelect.style.padding = '0.3rem';
+            repsSelect.style.borderRadius = '6px';
+            repsSelect.style.marginTop = '0.5rem';
+
+            const alreadySelected = selected.find(e => e.id === ex.id);
+            if (alreadySelected && alreadySelected.reps) {
+                repsSelect.value = alreadySelected.reps;
+            }
+
+            checkbox.addEventListener('change', () => {
+                if (checkbox.checked) {
+                    selected.push({ ...ex, reps: repsSelect.value });
+                } else {
+                    selected = selected.filter(e => e.id !== ex.id);
+                }
+            });
+
+            repsSelect.addEventListener('change', () => {
+                const i = selected.findIndex(e => e.id === ex.id);
+                if (i !== -1) selected[i].reps = repsSelect.value;
+            });
 
             card.appendChild(checkbox);
             card.appendChild(name);
             card.appendChild(target);
             card.appendChild(equipment);
+            card.appendChild(repsSelect);
 
             exerciseList.appendChild(card);
         });
@@ -86,41 +119,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
     select.onchange = () => {
         const part = select.value;
+
         if (!ready) {
             alert("⏳ Aún se están cargando los datos...");
             return;
         }
+
+        selected = [];
         render(allExercises[part] || []);
     };
 
-    exportBtn.onclick = () => {
-        if (!selected.length) return alert("⚠️ No hay ejercicios seleccionados.");
-
-        // Limpiar datos antes de exportar
-        const cleanData = selected.map(ex => ({
-            name: ex.name,
-            bodyPart: ex.bodyPart,
-            target: ex.target,
-            equipment: ex.equipment
-        }));
-
-        const data = JSON.stringify(cleanData, null, 2);
-        output.textContent = data;
-
-        const blob = new Blob([data], { type: "application/json" });
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = "mis_ejercicios.json";
-        link.click();
-        URL.revokeObjectURL(link.href);
-    };
-
-    saveBtn.onclick = () => {
+    saveExportBtn.onclick = () => {
         const name = nameInput.value.trim();
-        if (!name) return alert("⚠️ Escribe un nombre para la rutina.");
-        if (!selected.length) return alert("⚠️ No hay ejercicios seleccionados.");
+        const description = descInput.value.trim();
+        const duration = durationInput.value.trim();
 
-        const newRoutine = { name, exercises: selected };
+        if (!name || !description || !duration) {
+            return alert("⚠️ Completa todos los campos: nombre, descripción y duración.");
+        }
+
+        if (!selected.length) {
+            return alert("⚠️ No hay ejercicios seleccionados.");
+        }
+
+        const newRoutine = {
+            name,
+            description,
+            duration,
+            exercises: selected.map(ex => ({
+                name: ex.name,
+                reps: ex.reps || "5x15"
+            }))
+        };
+
         const routines = JSON.parse(localStorage.getItem("routines")) || [];
         const editIndex = localStorage.getItem("editIndex");
 
@@ -133,8 +164,23 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem("routines", JSON.stringify(routines));
         localStorage.removeItem("editIndex");
 
-        alert("✅ Rutina guardada correctamente.");
-        window.location.href = "my_routines.html";
+        const blob = new Blob([JSON.stringify(newRoutine, null, 2)], { type: "application/json" });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `${name.replace(/\s+/g, '_').toLowerCase()}.json`;
+        link.click();
+        URL.revokeObjectURL(link.href);
+
+        alert("✅ Rutina guardada y exportada correctamente.");
+        window.location.href = 'my_routines.html';
+
+
+        selected = [];
+        nameInput.value = '';
+        descInput.value = '';
+        durationInput.value = '';
+        select.value = '';
+        exerciseList.innerHTML = '<p style="color:gray">✅ Rutina guardada. Selecciona otra parte del cuerpo para continuar.</p>';
     };
 
     fetchExercises();
