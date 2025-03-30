@@ -49,3 +49,10 @@ hr{
     align-items: center;
     width: 100%;
 }
+
+#graphic{
+    width: 70px;
+    height: 70px;
+    display: flex;
+    margin-left: 1200px;
+}
