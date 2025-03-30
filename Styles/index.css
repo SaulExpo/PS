@@ -1,0 +1,28 @@
+
+.container {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 30px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#picture {
+    width: 15em;
+    height: 7em;
+    background: lightgray;
+    margin-right: 2em;
+}
+
+#info {
+    max-width: 400px;
+    text-align: left;
+}

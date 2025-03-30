@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Rutine</title>
+    <script src="/JavaScript/xlu-include-file.js"></script>
+    <link rel="stylesheet" href="/Styles/header.css">
+    <link rel="stylesheet" href="/Styles/footer.css">
+    <link rel="stylesheet" href="/Styles/info_exercise.css">
+    <link rel="stylesheet" href="../Styles/create_rutine.css">
+</head>
+<body>
+    <header xlu-include-file="/Templates/header.html"></header>
+    <main>
+        <h2 id="title">Rutine Name</h2>
+        <div id="ejercicios">
+            <div xlu-include-file="/Templates/info_exercise.html"></div>
+            <div xlu-include-file="/Templates/info_exercise.html"></div>
+            <div xlu-include-file="/Templates/info_exercise.html"></div>
+        </div>
+        <button id="add_exercise">add exercise</button>
+    </main>
+    <footer xlu-include-file="/Templates/footer.html"></footer>
+<script>
+    xLuIncludeFile();
+</script>
+</body>
+</html>

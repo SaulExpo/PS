@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "exercises",
+  "info": {
+    "singularName": "exercise",
+    "pluralName": "exercises",
+    "displayName": "Exercise",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "ejexreps": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::ejexrep.ejexrep",
+      "mappedBy": "exercise"
+    },
+    "bodyPart": {
+      "type": "string"
+    },
+    "equipment": {
+      "type": "string"
+    },
+    "target": {
+      "type": "string"
+    },
+    "secondaryMuscles": {
+      "type": "string"
+    },
+    "identifier": {
+      "type": "integer"
+    },
+    "gifUrl": {
+      "type": "text"
+    },
+    "instructions": {
+      "type": "text"
+    }
+  }
+}

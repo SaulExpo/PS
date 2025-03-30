@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "rutines",
+  "info": {
+    "singularName": "rutine",
+    "pluralName": "rutines",
+    "displayName": "Rutine"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "ejexreps": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::ejexrep.ejexrep",
+      "mappedBy": "rutine"
+    },
+    "user_routines": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::user-routine.user-routine",
+      "mappedBy": "rutine"
+    }
+  }
+}

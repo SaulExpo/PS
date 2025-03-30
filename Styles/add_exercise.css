@@ -1,0 +1,55 @@
+body, html
+{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    max-width: 800px;
+    text-align: center;
+    margin-inline: auto;
+    margin-bottom: 3em;
+}
+
+.exercise-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.description-box {
+    width: 100%;
+    height: 18em;
+    background-color: darkgray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.buttons {
+    margin-top: 1em;
+}
+
+.buttons button {
+    padding: 0.5em 1em;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.cancel-btn {
+    background-color: white;
+    border: 2px solid black;
+}
+
+.save-btn {
+    background-color: cornflowerblue;
+    color: white;
+}
