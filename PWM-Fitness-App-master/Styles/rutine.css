@@ -10,7 +10,6 @@ main
     justify-content: center;
     margin-block: 1em;
     flex: 1;
-
 }
 #title
 {
@@ -25,5 +24,13 @@ main
 }
 #exercises
 {
-    margin-bottom: 5em;
+    margin-bottom: 2em;
 }
+
+#selectors {
+    margin: 2em;
+    display: flex;
+    gap: 1em;
+    justify-content: center;
+}
+

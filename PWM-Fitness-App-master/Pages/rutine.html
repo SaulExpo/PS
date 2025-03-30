@@ -1,29 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Rutine</title>
-    <script src="/JavaScript/xlu-include-file.js"></script>
-  <link rel="stylesheet" href="/Styles/header.css">
-  <link rel="stylesheet" href="/Styles/footer.css">
-  <link rel="stylesheet" href="/Styles/info_exercise.css">
+  <meta charset="UTF-8">
+  <title>Rutina</title>
+  <script src="../JavaScript/script.js" defer></script>
+  <link rel="stylesheet" href="../Styles/header.css">
+  <link rel="stylesheet" href="../Styles/footer.css">
+  <link rel="stylesheet" href="../Styles/info_exercise.css">
   <link rel="stylesheet" href="../Styles/rutine.css">
 </head>
 <body>
-  <header xlu-include-file="/Templates/header.html"></header>
-  <main>
-    <h2 id="title">Rutine name</h2>
-    <p id="info">Worem ipsum dolor sit amet, consectetur adipiscing elit.
-      Nunc vulputate libero et velit interdum, ac aliquet odio mattis.</p>
-    <div class="info_exercise" xlu-include-file="/Templates/info_exercise.html"></div>
-    <div class="info_exercise" xlu-include-file="/Templates/info_exercise.html"></div>
-    <div class="info_exercise" xlu-include-file="/Templates/info_exercise.html"></div>
-    <div class="info_exercise" xlu-include-file="/Templates/info_exercise.html"></div>
-    <div class="info_exercise" xlu-include-file="/Templates/info_exercise.html"></div>
-  </main>
-  <footer xlu-include-file="/Templates/footer.html"></footer>
-<script>
-  xLuIncludeFile();
-</script>
+<header id="main_header"></header>
+
+<section id="selectors">
+  <label for="typeSelector">Tipo de rutina:</label>
+  <select id="typeSelector">
+    <option disabled selected>Selecciona tipo</option>
+  </select>
+
+  <label for="globalSearch">Buscar rutinas (global):</label>
+  <input type="text" id="globalSearch" placeholder="Ej. push beginner, core, etc." />
+  <select id="searchResults">
+    <option disabled selected>Resultados aparecerán aquí</option>
+  </select>
+
+  <label for="routineSelector">Rutina:</label>
+  <select id="routineSelector" disabled>
+    <option disabled selected>Selecciona rutina</option>
+  </select>
+</section>
+
+<main>
+  <h2 id="title">Rutina</h2>
+  <p id="info">Selecciona una rutina para ver los ejercicios</p>
+  <div id="durationContainer">
+    <p><strong>Duración:</strong> <span id="duration">--</span></p>
+  </div>
+  <div id="exercises"></div>
+</main>
+
+<footer id="main_footer"></footer>
+
 </body>
 </html>

@@ -2,25 +2,136 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <link href="/Styles/calendar.css" rel=stylesheet>
-  <link href="/Styles/footer.css" rel=stylesheet>
-  <link href="/Styles/header.css" rel=stylesheet>
+  <link href="../../Styles/calendar.css" rel=stylesheet>
+  <link href="../../Styles/footer.css" rel=stylesheet>
+  <link href="../../Styles/header.css" rel=stylesheet>
+  <script src="../JavaScript/calendar.js"></script>
+  <script src="../JavaScript/getUserRoutines.js"></script>
+  <script src="../JavaScript/getUser.js"></script>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid/main.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
   <title>Calendar</title>
 
-  <script src="/JavaScript/xlu-include-file.js"></script>
 </head>
 <body>
-<header id="header" xlu-include-file="/Templates/header.html">
+<header id="header">
+  <div class="header_temp">
+    <p id="logo">Logo</p>
+    <nav>
+      <a href="../../Mockups/Create_rutine/create_rutine.html" class="enlaces">Lorem</a>
+      <a href="../../Mockups/Edit_rutine/edit_rutine.html" class="enlaces">Lorem</a>
+      <a href="../../Mockups/Add_exercise/add_exercise.html" class="enlaces">Lorem</a>
+    </nav>
+    <div id="buttons">
+      <div id="buttons-login">
+        <button class="logs" onclick="Mockups/Login/login.html">Lorem impsum</button>
+        <button class="logs">Lorem impsum</button>
+      </div>
+      <img id="foto_perf" src="/Resources/imagen_vertical.png">
+    </div>
+  </div>
 </header>
 
 <main>
-  <img id="calendar" src="/Resources/imagen_vertical.png">
-  <!--<img id="calendar" src="/Resources/calendar.png">-->
+  <div id="container">
+    <div id='calendar'></div>
+  </div>
+
+  <div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="eventModalLabel">Nuevo Evento</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="eventForm">
+            <div class="form-group">
+              <label for="eventDate">Fecha</label>
+              <input type="datetime-local" class="form-control" id="eventDate" required>
+            </div>
+            <div class="form-group">
+              <label for="eventRutine">Rutina</label>
+              <select class="form-control" id="eventRutine" required>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Crear Evento</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="editEventModal" tabindex="-1" role="dialog" aria-labelledby="editEventModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editEventModalLabel">Editar Evento</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="editEventForm">
+            <div class="form-group">
+              <label for="editEventDate">Fecha</label>
+              <input type="datetime-local" class="form-control" id="editEventDate" required>
+            </div>
+            <div class="form-group">
+              <label for="editEventRutine">Rutina</label>
+              <select class="form-control" id="editEventRutine" required>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            <button type="button" class="btn btn-danger" id="deleteEventButton">Eliminar Evento</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
 </main>
 
-<footer id="footer" xlu-include-file="/Templates/footer.html">
+<footer id="footer">
+  <div class="footer_temp">
+    <div>
+      <section>
+        <h2>Logo</h2>
+      </section>
+      <section>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      </section>
+      <section>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      </section>
+      <section>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      </section>
+    </div>
+    <div>
+      <nav>
+        <a href="#">Dorem Ipsum</a>
+        <a href="#">Dorem Ipsum</a>
+        <a href="#">Dorem Ipsum</a>
+      </nav>
+      <div>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
 </footer>
 
-<script>xLuIncludeFile()</script>
 </body>
 </html>
+
