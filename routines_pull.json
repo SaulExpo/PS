@@ -1,0 +1,241 @@
+[
+  {
+    "name": "Rutina Pull advanced #1",
+    "description": "Rutina funcional enfocada en el grupo \"pull\" para nivel advanced.",
+    "duration": "1h 15min",
+    "exercises": [
+      {
+        "name": "barbell wrist curl",
+        "reps": "5x15"
+      },
+      {
+        "name": "exercise ball lat stretch",
+        "reps": "5x15"
+      },
+      {
+        "name": "roller side lat stretch",
+        "reps": "5x15"
+      },
+      {
+        "name": "lever back extension",
+        "reps": "5x15"
+      },
+      {
+        "name": "lever assisted chin-up",
+        "reps": "5x15"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Pull advanced #2",
+    "description": "Rutina funcional enfocada en el grupo \"pull\" para nivel advanced.",
+    "duration": "1h 0min",
+    "exercises": [
+      {
+        "name": "alternate lateral pulldown",
+        "reps": "5x15"
+      },
+      {
+        "name": "bodyweight standing one arm row (with towel)",
+        "reps": "5x15"
+      },
+      {
+        "name": "barbell pullover to press",
+        "reps": "5x15"
+      },
+      {
+        "name": "dumbbell incline shrug",
+        "reps": "5x15"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Pull advanced #3",
+    "description": "Rutina funcional enfocada en el grupo \"pull\" para nivel advanced.",
+    "duration": "1h 30min",
+    "exercises": [
+      {
+        "name": "cable standing twist row (v-bar)",
+        "reps": "5x15"
+      },
+      {
+        "name": "exercise ball back extension with hands behind head",
+        "reps": "5x15"
+      },
+      {
+        "name": "finger curls",
+        "reps": "5x15"
+      },
+      {
+        "name": "dumbbell shrug",
+        "reps": "5x15"
+      },
+      {
+        "name": "cable straight back seated row",
+        "reps": "5x15"
+      },
+      {
+        "name": "gironda sternum chin",
+        "reps": "5x15"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Pull intermediate #1",
+    "description": "Rutina funcional enfocada en el grupo \"pull\" para nivel intermediate.",
+    "duration": "1h 0min",
+    "exercises": [
+      {
+        "name": "assisted standing pull-up",
+        "reps": "4x12"
+      },
+      {
+        "name": "scapular pull-up",
+        "reps": "4x12"
+      },
+      {
+        "name": "smith shrug",
+        "reps": "4x12"
+      },
+      {
+        "name": "cable palm rotational row",
+        "reps": "4x12"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Pull intermediate #2",
+    "description": "Rutina funcional enfocada en el grupo \"pull\" para nivel intermediate.",
+    "duration": "1h 0min",
+    "exercises": [
+      {
+        "name": "cable low seated row",
+        "reps": "4x12"
+      },
+      {
+        "name": "bodyweight standing close-grip one arm row",
+        "reps": "4x12"
+      },
+      {
+        "name": "cable one arm bent over row",
+        "reps": "4x12"
+      },
+      {
+        "name": "back lever",
+        "reps": "4x12"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Pull intermediate #3",
+    "description": "Rutina funcional enfocada en el grupo \"pull\" para nivel intermediate.",
+    "duration": "1h 30min",
+    "exercises": [
+      {
+        "name": "bodyweight standing row",
+        "reps": "4x12"
+      },
+      {
+        "name": "barbell decline bent arm pullover",
+        "reps": "4x12"
+      },
+      {
+        "name": "lever t bar row",
+        "reps": "4x12"
+      },
+      {
+        "name": "cable rope elevated seated row",
+        "reps": "4x12"
+      },
+      {
+        "name": "inverted row v. 2",
+        "reps": "4x12"
+      },
+      {
+        "name": "cable reverse-grip straight back seated high row",
+        "reps": "4x12"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Pull beginner #1",
+    "description": "Rutina funcional enfocada en el grupo \"pull\" para nivel beginner.",
+    "duration": "1h 15min",
+    "exercises": [
+      {
+        "name": "rocky pull-up pulldown",
+        "reps": "3x10"
+      },
+      {
+        "name": "suspended row",
+        "reps": "3x10"
+      },
+      {
+        "name": "barbell shrug",
+        "reps": "3x10"
+      },
+      {
+        "name": "dumbbell palm rotational bent over row",
+        "reps": "3x10"
+      },
+      {
+        "name": "lever shrug",
+        "reps": "3x10"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Pull beginner #2",
+    "description": "Rutina funcional enfocada en el grupo \"pull\" para nivel beginner.",
+    "duration": "1h 0min",
+    "exercises": [
+      {
+        "name": "cable pulldown",
+        "reps": "3x10"
+      },
+      {
+        "name": "cable one arm bent over row",
+        "reps": "3x10"
+      },
+      {
+        "name": "lever front pulldown",
+        "reps": "3x10"
+      },
+      {
+        "name": "cable cross-over lateral pulldown",
+        "reps": "3x10"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Pull beginner #3",
+    "description": "Rutina funcional enfocada en el grupo \"pull\" para nivel beginner.",
+    "duration": "1h 30min",
+    "exercises": [
+      {
+        "name": "dumbbell lying pronation on floor",
+        "reps": "3x10"
+      },
+      {
+        "name": "cable pushdown (straight arm) v. 2",
+        "reps": "3x10"
+      },
+      {
+        "name": "exercise ball lower back stretch (pyramid)",
+        "reps": "3x10"
+      },
+      {
+        "name": "exercise ball back extension with hands behind head",
+        "reps": "3x10"
+      },
+      {
+        "name": "back pec stretch",
+        "reps": "3x10"
+      },
+      {
+        "name": "resistance band seated straight back row",
+        "reps": "3x10"
+      }
+    ]
+  }
+]

@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "profesional_user_apps",
+  "info": {
+    "singularName": "profesional-user-app",
+    "pluralName": "profesional-user-apps",
+    "displayName": "Profesional_user_app",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "password": {
+      "type": "password"
+    },
+    "surname": {
+      "type": "string"
+    },
+    "user_apps": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::user-app.user-app",
+      "mappedBy": "profesional_user_app"
+    }
+  }
+}

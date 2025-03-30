@@ -1,70 +1,62 @@
-# Fitness App
-## Componentes
-- Santiago Concepción Estévez
-- María Cabrera Vérgez
-- Mohamed El Ouariachi Lamhamdi
-## Descripción
-> Este proyecto está diseñado para ofrecer una gestión completa de rutinas de entrenamiento a usuarios que deseen llevar un
-> control eficaz de su progreso físico. Con una interfaz intuitiva y un sistema de suscripciones,los usuarios podrán planificar,
-> seguir y gestionar sus rutinas de entrenamiento de forma sencilla y eficiente.
+# 🚀 Getting started with Strapi
 
+Strapi comes with a full featured [Command Line Interface](https://docs.strapi.io/dev-docs/cli) (CLI) which lets you scaffold and manage your project in seconds.
 
- ## Requisitos funcionales:
+### `develop`
 
-- Creación de rutinas de ejercicio.
-- Editar rutinas creadas.
-- Borrar rutinas creadas.
-- Poder suscribirse para obtener ventajas, rutinas de profesionales.
-- Poder ver rutinas creadas.
-- Poder iniciar sesión en tu perfil con tus datos.
-- Tener varios roles usuario, profesional, etc.
-## Mockups y Storyboard
+Start your Strapi application with autoReload enabled. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-develop)
 
-<p>Mockup -> /Figma/Mockups </p>
+```
+npm run develop
+# or
+yarn develop
+```
 
->[!NOTE]
-En esta carpeta se encuentran todos los png de los mockups</p>
->
-<p>Storyboard -> /Figma/Storyboard/storyboard.png</p>
+### `start`
 
-## Listado de Templates
-> [!NOTE]
-> Todos los archivos se encuentran en "/Figma/Templates"
-- Edit_and_delete_Rutine
-    - Edit_rutine
-- Footer
-    - Se usa en todas
-- Header
-    - Se usa en todas
-- Image_and_text
-    - First_page
-    - Pro_rutine
-- Info_exercise
-    - Create_rutine
-    - Rutine
-- Login
-    - Login
-    - Main_page
-    - Register
-- Subscription
-  - Select_Payment_Plan
+Start your Strapi application with autoReload disabled. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-start)
 
-## Listado de paginas web
-- Calendar.html -> Calendar
-- Create_rutine.html -> Create_rutine
-- Day_edit.html -> Day_edit
-- Edit_rutine.html -> Edit_rutine
-- First_page.html -> First_Page
-- Login.html -> Login
-- Main_page.html -> Main_Page (Pagina de inicio)
-- Payment.html -> Payment
-- Pro_rutine.html Pro_rutine
-- Profile.html -> Profile
-- Register.html -> Register
-- Rutine.html -> Rutine
-- Select_Payment_Plan.html -> Select_Payment_Plan
-- Payment.html -> Payment
+```
+npm run start
+# or
+yarn start
+```
 
-## Enlaces
-[![Figma](https://img.shields.io/badge/Figma-8A2BE2)](https://www.figma.com/design/bZUSWn9qFARirKdOZZI1BM/TrainFlow?node-id=0-1&t=9nisu3xCd40wWV6j-1)
-[![Trello](https://img.shields.io/badge/Trello-198500FF)](https://trello.com/invite/b/67ab8943e46d194ce6fce3c8/ATTIfd9e6fbd2b77e614d7d34a565e749f6275992BDE/pwm)
+### `build`
+
+Build your admin panel. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-build)
+
+```
+npm run build
+# or
+yarn build
+```
+
+## ⚙️ Deployment
+
+Strapi gives you many possible deployment options for your project including [Strapi Cloud](https://cloud.strapi.io). Browse the [deployment section of the documentation](https://docs.strapi.io/dev-docs/deployment) to find the best solution for your use case.
+
+```
+yarn strapi deploy
+```
+
+## 📚 Learn more
+
+- [Resource center](https://strapi.io/resource-center) - Strapi resource center.
+- [Strapi documentation](https://docs.strapi.io) - Official Strapi documentation.
+- [Strapi tutorials](https://strapi.io/tutorials) - List of tutorials made by the core team and the community.
+- [Strapi blog](https://strapi.io/blog) - Official Strapi blog containing articles made by the Strapi team and the community.
+- [Changelog](https://strapi.io/changelog) - Find out about the Strapi product updates, new features and general improvements.
+
+Feel free to check out the [Strapi GitHub repository](https://github.com/strapi/strapi). Your feedback and contributions are welcome!
+
+## ✨ Community
+
+- [Discord](https://discord.strapi.io) - Come chat with the Strapi community including the core team.
+- [Forum](https://forum.strapi.io/) - Place to discuss, ask questions and find answers, show your Strapi project and get feedback or just talk with other Community members.
+- [Awesome Strapi](https://github.com/strapi/awesome-strapi) - A curated list of awesome things related to Strapi.
+
+---
+
+<sub>🤫 Psst! [Strapi is hiring](https://strapi.io/careers).</sub>
+

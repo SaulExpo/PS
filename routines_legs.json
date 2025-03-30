@@ -1,0 +1,265 @@
+[
+  {
+    "name": "Rutina Legs advanced #1",
+    "description": "Rutina funcional enfocada en el grupo \"legs\" para nivel advanced.",
+    "duration": "1h 15min",
+    "exercises": [
+      {
+        "name": "resistance band leg extension",
+        "reps": "5x15"
+      },
+      {
+        "name": "single leg platform slide",
+        "reps": "5x15"
+      },
+      {
+        "name": "barbell jefferson squat",
+        "reps": "5x15"
+      },
+      {
+        "name": "self assisted inverse leg curl",
+        "reps": "5x15"
+      },
+      {
+        "name": "smith leg press",
+        "reps": "5x15"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Legs advanced #2",
+    "description": "Rutina funcional enfocada en el grupo \"legs\" para nivel advanced.",
+    "duration": "1h 15min",
+    "exercises": [
+      {
+        "name": "quads",
+        "reps": "5x15"
+      },
+      {
+        "name": "cable standing hip extension",
+        "reps": "5x15"
+      },
+      {
+        "name": "band straight back stiff leg deadlift",
+        "reps": "5x15"
+      },
+      {
+        "name": "lever seated hip abduction",
+        "reps": "5x15"
+      },
+      {
+        "name": "barbell side split squat v. 2",
+        "reps": "5x15"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Legs advanced #3",
+    "description": "Rutina funcional enfocada en el grupo \"legs\" para nivel advanced.",
+    "duration": "1h 30min",
+    "exercises": [
+      {
+        "name": "barbell one arm side deadlift",
+        "reps": "5x15"
+      },
+      {
+        "name": "lever seated leg curl",
+        "reps": "5x15"
+      },
+      {
+        "name": "barbell bench squat",
+        "reps": "5x15"
+      },
+      {
+        "name": "assisted prone hamstring",
+        "reps": "5x15"
+      },
+      {
+        "name": "lever seated calf raise",
+        "reps": "5x15"
+      },
+      {
+        "name": "farmers walk",
+        "reps": "5x15"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Legs intermediate #1",
+    "description": "Rutina funcional enfocada en el grupo \"legs\" para nivel intermediate.",
+    "duration": "1h 30min",
+    "exercises": [
+      {
+        "name": "squat jerk",
+        "reps": "4x12"
+      },
+      {
+        "name": "sled 45в° leg wide press",
+        "reps": "4x12"
+      },
+      {
+        "name": "quads",
+        "reps": "4x12"
+      },
+      {
+        "name": "band lying hip internal rotation",
+        "reps": "4x12"
+      },
+      {
+        "name": "iron cross stretch",
+        "reps": "4x12"
+      },
+      {
+        "name": "band one arm single leg split squat",
+        "reps": "4x12"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Legs intermediate #2",
+    "description": "Rutina funcional enfocada en el grupo \"legs\" para nivel intermediate.",
+    "duration": "1h 15min",
+    "exercises": [
+      {
+        "name": "sled 45в° leg press",
+        "reps": "4x12"
+      },
+      {
+        "name": "band lying hip internal rotation",
+        "reps": "4x12"
+      },
+      {
+        "name": "sled one leg calf press on leg press",
+        "reps": "4x12"
+      },
+      {
+        "name": "dumbbell squat",
+        "reps": "4x12"
+      },
+      {
+        "name": "band bent-over hip extension",
+        "reps": "4x12"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Legs intermediate #3",
+    "description": "Rutina funcional enfocada en el grupo \"legs\" para nivel intermediate.",
+    "duration": "1h 30min",
+    "exercises": [
+      {
+        "name": "lever standing calf raise",
+        "reps": "4x12"
+      },
+      {
+        "name": "cable pull through (with rope)",
+        "reps": "4x12"
+      },
+      {
+        "name": "one leg donkey calf raise",
+        "reps": "4x12"
+      },
+      {
+        "name": "pelvic tilt into bridge",
+        "reps": "4x12"
+      },
+      {
+        "name": "lever calf press",
+        "reps": "4x12"
+      },
+      {
+        "name": "cable standing one leg calf raise",
+        "reps": "4x12"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Legs beginner #1",
+    "description": "Rutina funcional enfocada en el grupo \"legs\" para nivel beginner.",
+    "duration": "1h 15min",
+    "exercises": [
+      {
+        "name": "outside leg kick push-up",
+        "reps": "3x10"
+      },
+      {
+        "name": "sled 45в° leg wide press",
+        "reps": "3x10"
+      },
+      {
+        "name": "band bent-over hip extension",
+        "reps": "3x10"
+      },
+      {
+        "name": "dumbbell seated one leg calf raise",
+        "reps": "3x10"
+      },
+      {
+        "name": "single leg squat (pistol) male",
+        "reps": "3x10"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Legs beginner #2",
+    "description": "Rutina funcional enfocada en el grupo \"legs\" para nivel beginner.",
+    "duration": "1h 30min",
+    "exercises": [
+      {
+        "name": "low glute bridge on floor",
+        "reps": "3x10"
+      },
+      {
+        "name": "reclining big toe pose with rope",
+        "reps": "3x10"
+      },
+      {
+        "name": "farmers walk",
+        "reps": "3x10"
+      },
+      {
+        "name": "smith sumo squat",
+        "reps": "3x10"
+      },
+      {
+        "name": "resistance band hip thrusts on knees (female)",
+        "reps": "3x10"
+      },
+      {
+        "name": "hamstring stretch",
+        "reps": "3x10"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Legs beginner #3",
+    "description": "Rutina funcional enfocada en el grupo \"legs\" para nivel beginner.",
+    "duration": "1h 30min",
+    "exercises": [
+      {
+        "name": "barbell squat (on knees)",
+        "reps": "3x10"
+      },
+      {
+        "name": "lever reverse hyperextension",
+        "reps": "3x10"
+      },
+      {
+        "name": "barbell speed squat",
+        "reps": "3x10"
+      },
+      {
+        "name": "balance board",
+        "reps": "3x10"
+      },
+      {
+        "name": "barbell zercher squat",
+        "reps": "3x10"
+      },
+      {
+        "name": "smith squat",
+        "reps": "3x10"
+      }
+    ]
+  }
+]
