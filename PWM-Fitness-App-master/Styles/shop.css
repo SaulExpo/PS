@@ -1,0 +1,44 @@
+.rectangle {
+    width: 10em;
+    height: 40em;
+    background: white;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: flex-start;
+    border: 1px black solid;
+    margin: 50px 20px;
+    margin-left: 40px;
+    word-spacing: normal;
+}
+h1, h2{
+    margin: 10px;
+}
+
+.price{
+    margin: 10px;
+}
+.producto {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 130px;
+    text-align: center;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: 0;
+    margin-top: 150px;
+}
+
+main{
+    display: flex;
+    justify-content: flex-start;
+}
+.cajabuscar_content {
+    margin-top: 20px;
+    display: inline-block;
+    text-align: right;
+    margin-left: auto;
+}
+
+
+

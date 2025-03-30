@@ -1,0 +1,38 @@
+html, body
+{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+main
+{
+    display: grid;
+    justify-content: center;
+    margin-top: 1em;
+    margin-block: 1em;
+    flex: 1;
+    margin-bottom: 10em;
+}
+#title
+{
+    font-size: 2.2em;
+    text-align: center;
+}
+#ejercicios
+{
+    display: grid;
+    justify-content: center;
+    margin-block: 0.7em;
+}
+#ejercicios div
+{
+    margin-block: 0.1em;
+}
+#add_exercise
+{
+    border-radius: 0.5em;
+    margin-inline: 5em;
+    background-color: #D9D9D9;
+    border-style: none;
+    font-size: 1.3em;
+}

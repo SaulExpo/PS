@@ -1,0 +1,78 @@
+.footer_temp {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: #f0f0f0;
+    padding: 20px;
+    color: #333;
+}
+
+.footer_temp > div:first-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+
+}
+
+.footer_temp > div:first-child > section {
+    flex: 1;
+    text-align: center;
+}
+
+.footer_temp > div:first-child > section h2 {
+    text-align: left;
+    font-size: 2em;
+    color: black;
+    margin-bottom: 10px;
+
+}
+
+.footer_temp > div:first-child > section p {
+    font-size: 0.8em;
+    color: #555;
+}
+
+.footer_temp > div:last-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #e0e0e0;
+    padding: 10px 20px;
+}
+
+nav {
+    display: flex;
+    gap: 15px;
+}
+
+nav a {
+    text-decoration: none;
+    font-size: 0.6em;
+    color: #333;
+}
+
+nav a:hover {
+    text-decoration: underline;
+    color: black;
+}
+
+div > div {
+    display: flex;
+    gap: 10px;
+}
+
+span {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    border: 2px solid #333;
+    border-radius: 50%;
+}
+
+span:hover {
+    background-color: transparent;
+    border-color: black;
+}

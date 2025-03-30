@@ -1,0 +1,21 @@
+body, html
+{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+main
+{
+    margin-block: 2em;
+    flex: 1;
+}
+main div
+{
+    margin-block: .5em;
+}
+#title
+{
+    text-align: center;
+    margin-bottom: 1em;
+    font-size: 1.5em;
+}

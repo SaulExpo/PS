@@ -1,0 +1,26 @@
+.wrapper {
+    max-width: 700px;
+    padding: 20px;
+    text-align: center;
+}
+
+.wrapper h2 {
+    margin-bottom: 20px;
+}
+
+.input-box {
+    margin-bottom: 20px;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 8px;
+}
+
+.input-box input[type="submit"] {
+    background: black;
+    color: white;
+    cursor: pointer;
+}

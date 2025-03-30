@@ -1,0 +1,261 @@
+[
+  {
+    "name": "Rutina Core advanced #1",
+    "description": "Rutina funcional enfocada en el grupo \"core\" para nivel advanced.",
+    "duration": "1h 0min",
+    "exercises": [
+      {
+        "name": "cable seated twist",
+        "reps": "5x15"
+      },
+      {
+        "name": "weighted crunch",
+        "reps": "5x15"
+      },
+      {
+        "name": "air bike",
+        "reps": "5x15"
+      },
+      {
+        "name": "cable side bend crunch (bosu ball)",
+        "reps": "5x15"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Core advanced #2",
+    "description": "Rutina funcional enfocada en el grupo \"core\" para nivel advanced.",
+    "duration": "1h 30min",
+    "exercises": [
+      {
+        "name": "front lever",
+        "reps": "5x15"
+      },
+      {
+        "name": "cable russian twists (on stability ball)",
+        "reps": "5x15"
+      },
+      {
+        "name": "air bike",
+        "reps": "5x15"
+      },
+      {
+        "name": "assisted lying leg raise with lateral throw down",
+        "reps": "5x15"
+      },
+      {
+        "name": "elbow-to-knee",
+        "reps": "5x15"
+      },
+      {
+        "name": "cable side crunch",
+        "reps": "5x15"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Core advanced #3",
+    "description": "Rutina funcional enfocada en el grupo \"core\" para nivel advanced.",
+    "duration": "1h 0min",
+    "exercises": [
+      {
+        "name": "barbell standing ab rollerout",
+        "reps": "5x15"
+      },
+      {
+        "name": "barbell side bent v. 2",
+        "reps": "5x15"
+      },
+      {
+        "name": "kneeling plank tap shoulder (male)",
+        "reps": "5x15"
+      },
+      {
+        "name": "straddle maltese",
+        "reps": "5x15"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Core intermediate #1",
+    "description": "Rutina funcional enfocada en el grupo \"core\" para nivel intermediate.",
+    "duration": "1h 30min",
+    "exercises": [
+      {
+        "name": "band alternating v-up",
+        "reps": "4x12"
+      },
+      {
+        "name": "lever seated leg raise crunch",
+        "reps": "4x12"
+      },
+      {
+        "name": "straddle planche",
+        "reps": "4x12"
+      },
+      {
+        "name": "kettlebell bent press",
+        "reps": "4x12"
+      },
+      {
+        "name": "weighted russian twist",
+        "reps": "4x12"
+      },
+      {
+        "name": "hanging leg raise",
+        "reps": "4x12"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Core intermediate #2",
+    "description": "Rutina funcional enfocada en el grupo \"core\" para nivel intermediate.",
+    "duration": "1h 30min",
+    "exercises": [
+      {
+        "name": "arms overhead full sit-up (male)",
+        "reps": "4x12"
+      },
+      {
+        "name": "suspended abdominal fallout",
+        "reps": "4x12"
+      },
+      {
+        "name": "side hip (on parallel bars)",
+        "reps": "4x12"
+      },
+      {
+        "name": "lever seated crunch (chest pad)",
+        "reps": "4x12"
+      },
+      {
+        "name": "groin crunch",
+        "reps": "4x12"
+      },
+      {
+        "name": "cable standing crunch",
+        "reps": "4x12"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Core intermediate #3",
+    "description": "Rutina funcional enfocada en el grupo \"core\" para nivel intermediate.",
+    "duration": "1h 30min",
+    "exercises": [
+      {
+        "name": "kettlebell advanced windmill",
+        "reps": "4x12"
+      },
+      {
+        "name": "shoulder tap",
+        "reps": "4x12"
+      },
+      {
+        "name": "barbell standing twist",
+        "reps": "4x12"
+      },
+      {
+        "name": "cable tuck reverse crunch",
+        "reps": "4x12"
+      },
+      {
+        "name": "cocoons",
+        "reps": "4x12"
+      },
+      {
+        "name": "cable standing lift",
+        "reps": "4x12"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Core beginner #1",
+    "description": "Rutina funcional enfocada en el grupo \"core\" para nivel beginner.",
+    "duration": "1h 30min",
+    "exercises": [
+      {
+        "name": "potty squat",
+        "reps": "3x10"
+      },
+      {
+        "name": "flexion leg sit up (bent knee)",
+        "reps": "3x10"
+      },
+      {
+        "name": "janda sit-up",
+        "reps": "3x10"
+      },
+      {
+        "name": "groin crunch",
+        "reps": "3x10"
+      },
+      {
+        "name": "flexion leg sit up (straight arm)",
+        "reps": "3x10"
+      },
+      {
+        "name": "assisted lying leg raise with lateral throw down",
+        "reps": "3x10"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Core beginner #2",
+    "description": "Rutina funcional enfocada en el grupo \"core\" para nivel beginner.",
+    "duration": "1h 15min",
+    "exercises": [
+      {
+        "name": "bridge - mountain climber (cross body)",
+        "reps": "3x10"
+      },
+      {
+        "name": "assisted prone rectus femoris stretch",
+        "reps": "3x10"
+      },
+      {
+        "name": "negative crunch",
+        "reps": "3x10"
+      },
+      {
+        "name": "assisted lying leg raise with throw down",
+        "reps": "3x10"
+      },
+      {
+        "name": "hanging leg hip raise",
+        "reps": "3x10"
+      }
+    ]
+  },
+  {
+    "name": "Rutina Core beginner #3",
+    "description": "Rutina funcional enfocada en el grupo \"core\" para nivel beginner.",
+    "duration": "1h 30min",
+    "exercises": [
+      {
+        "name": "crunch (hands overhead)",
+        "reps": "3x10"
+      },
+      {
+        "name": "wind sprints",
+        "reps": "3x10"
+      },
+      {
+        "name": "inchworm",
+        "reps": "3x10"
+      },
+      {
+        "name": "weighted russian twist",
+        "reps": "3x10"
+      },
+      {
+        "name": "cable reverse crunch",
+        "reps": "3x10"
+      },
+      {
+        "name": "spine twist",
+        "reps": "3x10"
+      }
+    ]
+  }
+]
