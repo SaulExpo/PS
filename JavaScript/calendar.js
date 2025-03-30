@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         id: rutina.id
                     };
                 });
+                var rutinaSeleccionada
                 var calendarEl = document.getElementById('calendar');
                 var calendar = new FullCalendar.Calendar(calendarEl, {
                     editable: true,
@@ -42,14 +43,19 @@ document.addEventListener('DOMContentLoaded', function() {
                     },
                     eventClick: function(info) {
                         selectedEvent = info.event;
-                        console.log(selectedEvent.id)
+                        console.log(selectedEvent.title)
+                        routines.forEach(function(rutina){
+                            if (selectedEvent.title === rutina.name) {
+                                rutinaSeleccionada = rutina
+                            }
+                        });
                         // Llenar el modal de edición con los datos del evento seleccionado
                         $('#editEventDate').val(selectedEvent.start.toISOString().slice(0, 16)); // Formato para datetime-local
-                        $('#editEventRutine').val(selectedEvent.id); // Setear la rutina seleccionada
+                        $('#editEventRutine').val(rutinaSeleccionada.id); // Setear la rutina seleccionada
                         $('#editEventModal').modal('show');
                     },eventDrop: function(info) {
                         var rutine= userRoutines.find(function(r) { return r.id == info.event.id; });
-                        editUserRoutine(user, rutine, info.event.start, rutine.documentId)
+                        editUserRoutine(user, rutine.rutine, info.event.start, rutine.documentId)
                     }
                 });
                 calendar.render();
@@ -71,17 +77,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     var eventDate = $('#editEventDate').val();
                     var rutineIdNew = $('#editEventRutine').val();
-                    var rutineId = selectedEvent.id
-                    var rutineNew = userRoutines.find(function(r) { return r.id == rutineIdNew; });
-                    var rutine = userRoutines.find(function(r) { return r.id == rutineId; });
+                    var rutineId = rutinaSeleccionada.id
+                    var rutineNew = routines.find(function(r) { return r.id == rutineIdNew; });
+                    var rutine = userRoutines.find(function(r) { return r.rutine.id == rutineId; });
 
                     editUserRoutine(user, rutineNew, eventDate, rutine.documentId)
                 });
 
                 // Eliminar evento
                 $('#deleteEventButton').on('click', function() {
-                    var rutineId = selectedEvent.id
-                    var rutine = userRoutines.find(function(r) { return r.id == rutineId; })
+                    var rutineId = rutinaSeleccionada.id
+                    var rutine = userRoutines.find(function(r) { return r.rutine.id == rutineId; })
                     deleteUserRoutine(rutine.documentId)
                 });
             })

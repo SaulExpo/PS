@@ -412,11 +412,15 @@ export interface ApiExerciseExercise extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    bodyPart: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    description: Schema.Attribute.Text;
     ejexreps: Schema.Attribute.Relation<'oneToMany', 'api::ejexrep.ejexrep'>;
+    equipment: Schema.Attribute.String;
+    gifUrl: Schema.Attribute.Text;
+    identifier: Schema.Attribute.Integer;
+    instructions: Schema.Attribute.Text;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -425,6 +429,8 @@ export interface ApiExerciseExercise extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    secondaryMuscles: Schema.Attribute.String;
+    target: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

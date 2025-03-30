@@ -1,5 +1,5 @@
 async function getRoutines(){
-    const url = 'http://localhost:1337/api/rutines?populate=*';
+    const url = 'http://localhost:1337/api/rutines?populate=*&pagination[page]=1&pagination[pageSize]=100';
     try {
         // Hacemos una solicitud GET a la API
         const response = await fetch(url);
@@ -86,7 +86,7 @@ async function addUserRoutine(user, rutine, date){
 
 async function editUserRoutine(user, userRutine, date, rutineId){
 
-    let rutine = userRutine.rutine
+    let rutine = userRutine
     console.log(rutineId)
 
     const formData = {
@@ -113,7 +113,7 @@ async function editUserRoutine(user, userRutine, date, rutineId){
 
         if (response.ok) {
             // Procesar la respuesta de Strapi
-            location.reload();
+            //location.reload();
         } else {
             alert('Hubo un error al enviar el formulario');
             console.error('Error de respuesta:', result);
