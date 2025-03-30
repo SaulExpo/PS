@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tienda</title>
+
+  <link rel="stylesheet" href="/PS-FitPlanner/Styles/header.css">
+  <link rel="stylesheet" href="/PS-FitPlanner/Styles/footer.css">
+  <link rel="stylesheet" href="/PS-FitPlanner/Styles/shop.css">
+  <link rel="stylesheet" href="/PS-FitPlanner/Styles/checklist.css">
+  <link rel="stylesheet" href="/PS-FitPlanner/Styles/product.css">
+
+
+  <script src="/PS-FitPlanner/JavaScript/xlu-include-file.js"></script>
+</head>
+<body>
+
+<header xlu-include-file="/PS-FitPlanner/Templates/header.html"></header>
+
+
+<main>
+
+  <div class="rectangle">
+    <h1>Keywords</h1>
+    <div xlu-include-file="/PS-FitPlanner/Templates/checklist.html"></div>
+    <div xlu-include-file="/PS-FitPlanner/Templates/checklist.html"></div>
+    <div xlu-include-file="/PS-FitPlanner/Templates/checklist.html"></div>
+    <h2>Label</h2>
+    <div class="price">
+      <input type="range" id="price" name="price" min="0" max="11" />
+      <label for="price"></label>
+    </div>
+    <h2>Color</h2>
+    <div xlu-include-file="/PS-FitPlanner/Templates/checklist.html"></div>
+    <div xlu-include-file="/PS-FitPlanner/Templates/checklist.html"></div>
+    <div xlu-include-file="/PS-FitPlanner/Templates/checklist.html"></div>
+    <h2>Size</h2>
+    <div xlu-include-file="/PS-FitPlanner/Templates/checklist.html"></div>
+    <div xlu-include-file="/PS-FitPlanner/Templates/checklist.html"></div>
+    <div xlu-include-file="/PS-FitPlanner/Templates/checklist.html"></div>
+  </div>
+  <div class="cajabuscar_content">
+  <div class="cajabuscar"><form method="get" id="buscarform">
+    <fieldset>
+      <input type="text" id="s" value="" placeholder="Buscar"  />
+      <input class="button" type="submit" value="" />
+      <i class="search"></i>
+    </fieldset>
+  </form></div>
+  <div class="producto">
+  <div xlu-include-file="/PS-FitPlanner/Templates/product.html"></div>
+  <div xlu-include-file="/PS-FitPlanner/Templates/product.html"></div>
+  <div xlu-include-file="/PS-FitPlanner/Templates/product.html"></div>
+  <div xlu-include-file="/PS-FitPlanner/Templates/product.html"></div>
+  <div xlu-include-file="/PS-FitPlanner/Templates/product.html"></div>
+  <div xlu-include-file="/PS-FitPlanner/Templates/product.html"></div>
+  </div>
+  </div>
+</main>
+
+<footer xlu-include-file="/PS-FitPlanner/Templates/footer.html"></footer>
+
+<script>xLuIncludeFile()</script>
+
+</body>
+</html>
