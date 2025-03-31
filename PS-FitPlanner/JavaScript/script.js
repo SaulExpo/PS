@@ -11,11 +11,11 @@ function loadTemplate(templatePath, elementId) {
 
 // Diccionario de tipos y archivos
 const routineFiles = {
-    core: "../routines_core.json",
-    push: "../routines_push.json",
-    pull: "../routines_pull.json",
-    legs: "../routines_legs.json",
-    full_body: "../routines_full_body.json"
+    core: "../JSON/routines_core.json",
+    push: "../JSON/routines_push.json",
+    pull: "../JSON/routines_pull.json",
+    legs: "../JSON/routines_legs.json",
+    full_body: "../JSON/routines_full_body.json"
 };
 
 const typeSelector = document.getElementById("typeSelector");
@@ -49,7 +49,6 @@ function loadAllRoutines() {
 }
 
 
-// Cargar tipos en el primer <select>
 function loadRoutineTypes() {
     Object.keys(routineFiles).forEach(type => {
         const option = document.createElement("option");
@@ -59,7 +58,6 @@ function loadRoutineTypes() {
     });
 }
 
-// Cargar nombres de rutinas del tipo seleccionado
 function loadRoutineNames(type) {
     fetch(routineFiles[type])
         .then(resp => resp.json())
@@ -112,7 +110,7 @@ function loadRoutine(type, index = 0) {
         .catch(error => console.error("Error cargando JSON de rutina:", error));
 }
 
-// Eventos de los <select>
+
 typeSelector.addEventListener("change", () => {
     const type = typeSelector.value;
     loadRoutineNames(type);
@@ -124,7 +122,6 @@ routineSelector.addEventListener("change", () => {
     loadRoutine(type, index);
 });
 
-//Buscador
 const globalSearch = document.getElementById("globalSearch");
 const searchResults = document.getElementById("searchResults");
 
@@ -159,7 +156,7 @@ searchResults.addEventListener("change", () => {
     loadRoutine(value.type, value.index);
 });
 
-// Iniciar al cargar la página
+
 loadTemplate("./header.html", "main_header");
 loadTemplate("./footer.html", "main_footer");
 loadAllRoutines();
