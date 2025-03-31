@@ -44,7 +44,7 @@
   ],
   "personal" :
   {
-    "image" : "/Resources/icono.avif",
+    "image" : "../Resources/icono.avif",
     "name" : "admin",
     "correo" : "admin@correo.com",
     "edad": "20",
@@ -68,9 +68,9 @@
   "first_page" :
   {
     "today" : "Rutina funcional enfocada en el grupo \"core\" para nivel beginner.",
-    "today_img" : "/Resources/today_image.webp",
+    "today_img" : "../Resources/today_image.webp",
     "calendar" : "Accede a tu calendario y revisa de un vistazo tus entrenamientos pasados, los que tienes programados y tus días de descanso. Mantén el control de tu progreso y organiza fácilmente tus próximas sesiones.",
-    "calendar_img" : "/Resources/calendar.png"
+    "calendar_img" : "../Resources/calendar.png"
   },
   "suscripciones" :
   {
