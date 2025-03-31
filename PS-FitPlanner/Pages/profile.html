@@ -8,6 +8,7 @@
     <script src="../JavaScript/loadHeader.js"></script>
     <script src="../JavaScript/loadFooter.js"></script>
     <script src="../JavaScript/script.js"></script>
+    <script src="../JavaScript/asignacion_prof.js"></script>
     <title>Profile</title>
 
     <script src="/PS-FitPlanner/JavaScript/xlu-include-file.js"></script>
@@ -31,6 +32,7 @@
         <hr>
         <p>Lorem_Ipsum Gorem_Ipsum</p>
     </div>
+    <p>Tu profesional asignado es: <span id="profesional"></span></p>
 
 </main>
 
@@ -42,6 +44,12 @@
     {
         loadHeader()
         loadFooter()
+        asignacion_prof("prueba@gmail.com").then(pro =>
+        {
+            document.querySelector("#profesional").textContent = pro.profesional.name
+            document.querySelector("#profesional").style.border = "none"
+        })
+
     })
 </script>
 </body>
