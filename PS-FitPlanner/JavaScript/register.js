@@ -35,8 +35,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             if (response.ok) {
                 // Procesar la respuesta de Strapi
-                alert('Formulario enviado correctamente');
-                console.log(result); // Ver la respuesta de Strapi
+                login(email, password);
             } else {
                 alert('Hubo un error al enviar el formulario');
                 console.error('Error de respuesta:', result);
