@@ -18,11 +18,11 @@
 <main>
   <section>
     <h2 class="title">Today</h2>
-    <div class="container" xlu-include-file="../Templates/image_and_text.html"></div>
+    <div class="container" id="image_text"></div>
   </section>
   <section>
       <h2 class="title"><a href="calendar.html">Calendar</a></h2>
-    <div class="container" xlu-include-file="../Templates/image_and_text.html"></div>
+    <div class="container" id="image_text2"></div>
   </section>
 
 </main>
@@ -30,7 +30,10 @@
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         Promise.all([loadTemplate("../Templates/header.html" , "main_header"),
-            loadTemplate("../Templates/footer.html" , "main_footer")]).then(() =>
+            loadTemplate("../Templates/footer.html" , "main_footer"),
+            loadTemplate("../Templates/image_and_text.html", "image_text"),
+            loadTemplate("../Templates/image_and_text.html", "image_text2")]
+        ).then(() =>
         {
             load()
         })

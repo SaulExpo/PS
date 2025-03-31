@@ -9,6 +9,7 @@
     <script src="../JavaScript/loadFooter.js"></script>
     <script src="../JavaScript/script.js"></script>
     <script src="../JavaScript/asignacion_prof.js"></script>
+    <script src="../JavaScript/profile.js"></script>
     <title>Profile</title>
 
     <script src="/PS-FitPlanner/JavaScript/xlu-include-file.js"></script>
@@ -43,8 +44,7 @@
     Promise.all([loadTemplate("../Templates/header.html" , "main_header"),
         loadTemplate("../Templates/footer.html" , "main_footer")]).then(() =>
     {
-        loadHeader()
-        loadFooter()
+        load()
         asignacion_prof("prueba@gmail.com").then(pro =>
         {
             document.querySelector("#profesional").textContent = pro.profesional.name
