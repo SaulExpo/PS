@@ -437,40 +437,6 @@ export interface ApiExerciseExercise extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiProfesionalUserAppProfesionalUserApp
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'profesional_user_apps';
-  info: {
-    description: '';
-    displayName: 'Profesional_user_app';
-    pluralName: 'profesional-user-apps';
-    singularName: 'profesional-user-app';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    email: Schema.Attribute.Email;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::profesional-user-app.profesional-user-app'
-    > &
-      Schema.Attribute.Private;
-    name: Schema.Attribute.String;
-    password: Schema.Attribute.Password;
-    publishedAt: Schema.Attribute.DateTime;
-    surname: Schema.Attribute.String;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    user_apps: Schema.Attribute.Relation<'oneToMany', 'api::user-app.user-app'>;
-  };
-}
-
 export interface ApiRutineRutine extends Struct.CollectionTypeSchema {
   collectionName: 'rutines';
   info: {
@@ -1085,7 +1051,6 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::ejexrep.ejexrep': ApiEjexrepEjexrep;
       'api::exercise.exercise': ApiExerciseExercise;
-      'api::profesional-user-app.profesional-user-app': ApiProfesionalUserAppProfesionalUserApp;
       'api::rutine.rutine': ApiRutineRutine;
       'api::user-app.user-app': ApiUserAppUserApp;
       'api::user-routine.user-routine': ApiUserRoutineUserRoutine;
