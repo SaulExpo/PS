@@ -13,28 +13,32 @@
 <header id="main_header"></header>
 
 <section id="selectors">
-  <label for="typeSelector">Tipo de rutina:</label>
-  <select id="typeSelector">
-    <option disabled selected>Selecciona tipo</option>
-  </select>
+  <div class="horizontal-selectors">
+    <label for="typeSelector">Tipo de rutina:</label>
+    <select id="typeSelector">
+      <option disabled selected>Selecciona tipo</option>
+    </select>
 
-  <label for="globalSearch">Buscar rutinas (global):</label>
-  <input type="text" id="globalSearch" placeholder="Ej. push beginner, core, etc." />
-  <select id="searchResults">
-    <option disabled selected>Resultados aparecerán aquí</option>
-  </select>
+    <label for="routineSelector">Rutina:</label>
+    <select id="routineSelector" disabled>
+      <option disabled selected>Selecciona rutina</option>
+    </select>
+  </div>
 
-  <label for="routineSelector">Rutina:</label>
-  <select id="routineSelector" disabled>
-    <option disabled selected>Selecciona rutina</option>
-  </select>
+  <div class="search-bar">
+    <label for="globalSearch">Buscar rutinas (global):</label>
+    <input type="text" id="globalSearch" placeholder="Ej. push beginner, core, etc." />
+    <select id="searchResults">
+      <option disabled selected>Resultados aparecerán aquí</option>
+    </select>
+  </div>
 </section>
 
 <main>
   <h2 id="title">Rutina</h2>
   <p id="info">Selecciona una rutina para ver los ejercicios</p>
   <div id="durationContainer">
-    <p><strong>Duración:</strong> <span id="duration">--</span></p>
+    <p><strong>Duración:</strong>
   </div>
   <div id="exercises"></div>
 </main>
