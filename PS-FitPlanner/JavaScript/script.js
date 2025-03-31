@@ -1,4 +1,4 @@
-console.log("✅ script.js cargado correctamente");
+console.log("script.js cargado correctamente");
 
 function loadTemplate(templatePath, elementId) {
     fetch(templatePath)

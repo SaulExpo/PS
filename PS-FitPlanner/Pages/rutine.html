@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <title>Rutina</title>
   <script src="../JavaScript/script.js" defer></script>
+  <script src="../JavaScript/loadFooter.js"></script>
+  <script src="../JavaScript/loadHeader.js"></script>
   <link rel="stylesheet" href="../Styles/header.css">
   <link rel="stylesheet" href="../Styles/footer.css">
   <link rel="stylesheet" href="../Styles/info_exercise.css">
@@ -44,5 +46,13 @@
 </main>
 
 <footer id="main_footer"></footer>
+
+<script>
+  setTimeout(() => {
+    loadHeader()
+    loadFooter()
+          },500)
+</script>
+
 </body>
 </html>
