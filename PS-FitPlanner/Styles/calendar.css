@@ -8,12 +8,23 @@ main
 {
     flex: 1;
 }
-#calendar{
-    width: 600px;
-    height: 600px;
+
+#container{
     display: flex;
-    align-items: center;
     justify-content: center;
+    width: 900px;
+    height: 920px;
     margin: 60px auto;
-    border: 1px black solid;
+    border: 2px solid black
+
+}
+
+.fc .fc-toolbar-title {
+    font-size: 1.5em;
+    text-align: center;
+    font-weight: bold;
+}
+
+.fc .fc-button{
+    font-size: 0.75em;
 }

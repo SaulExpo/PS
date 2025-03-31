@@ -24,11 +24,11 @@ document.addEventListener("DOMContentLoaded", function() {
             const result = await response.json();
 
             if (response.ok) {
-                alert("Login exitoso");
                 console.log(result);
 
                 // Guardar token en localStorage para futuras peticiones
                 localStorage.setItem("jwt", result.token);
+                window.location.href="../Pages/first_page.html";
             } else {
                 alert("Error en login: " + result.error.message);
                 console.error("Error de respuesta:", result);
