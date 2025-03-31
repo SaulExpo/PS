@@ -1,4 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
+    const token = localStorage.getItem("jwt");
+    if (!token){
+        window.location.href = "../Pages/login.html"
+    }
     getUserProfile().then(user => {
         console.log(user.email);
         getUserRoutines(user.email).then(userRoutines => {
