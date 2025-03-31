@@ -4,22 +4,29 @@
     <meta charset="UTF-8">
     <title>Pro Rutine</title>
     <script src="/PS-FitPlanner/JavaScript/xlu-include-file.js"></script>
-    <link rel="stylesheet" href="/Styles/header.css">
-    <link rel="stylesheet" href="/Styles/footer.css">
-    <link rel="stylesheet" href="/Styles/index.css">
-    <link rel="stylesheet" href="../../Styles/pro_rutine.css">
+    <link rel="stylesheet" href="../Styles/header.css">
+    <link rel="stylesheet" href="../Styles/footer.css">
+    <link rel="stylesheet" href="../Styles/index.css">
+    <link rel="stylesheet" href="../Styles/pro_rutine.css">
+    <script src="../JavaScript/loadHeader.js"></script>
+    <script src="../JavaScript/loadFooter.js"></script>
+    <script src="../JavaScript/script.js"></script>
 </head>
 <body>
-<header xlu-include-file="/Templates/header.html"></header>
+<header xlu-include-file="../Templates/header.html"></header>
 <main>
     <h2 id="title">Pro Rutines</h2>
-    <div class="container" xlu-include-file="/Templates/image_and_text.html"></div>
-    <div class="container" xlu-include-file="/Templates/image_and_text.html"></div>
-    <div class="container" xlu-include-file="/Templates/image_and_text.html"></div>
+    <div class="container" xlu-include-file="../Templates/image_and_text.html"></div>
+    <div class="container" xlu-include-file="../Templates/image_and_text.html"></div>
+    <div class="container" xlu-include-file="../Templates/image_and_text.html"></div>
 </main>
-<footer xlu-include-file="/Templates/footer.html"></footer>
+<footer xlu-include-file="../Templates/footer.html"></footer>
 <script>
-    xLuIncludeFile();
+    xLuIncludeFile().then(() =>
+    {
+        loadHeader()
+        loadFooter()
+    })
 </script>
 </body>
 </html>

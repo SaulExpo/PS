@@ -10,6 +10,8 @@
 
     <script src="/PS-FitPlanner/JavaScript/xlu-include-file.js"></script>
     <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="../JavaScript/loadFooter.js"></script>
+    <script src="../JavaScript/loadHeader.js"></script>
     <script>
         google.charts.load('current', {packages: ['corechart']});
         google.charts.setOnLoadCallback(() => loadData('../JavaScript/calorias.js', 'month'));
@@ -94,7 +96,13 @@
 
 <footer xlu-include-file="/PS-FitPlanner/Templates/footer.html"></footer>
 
-<script>xLuIncludeFile()</script>
+<script>
+    xLuIncludeFile().then(() =>
+    {
+        loadHeader()
+        loadFooter()
+    })
+</script>
 
 </body>
 </html>

@@ -10,6 +10,9 @@
   <link rel="stylesheet" href="/PS-FitPlanner/Styles/shop.css">
   <link rel="stylesheet" href="/PS-FitPlanner/Styles/checklist.css">
   <link rel="stylesheet" href="/PS-FitPlanner/Styles/product.css">
+  <script src="../JavaScript/loadFooter.js"></script>
+  <script src="../JavaScript/loadHeader.js"></script>
+  <script src="../JavaScript/script.js"></script>
 
 
   <script src="/PS-FitPlanner/JavaScript/xlu-include-file.js"></script>
@@ -61,7 +64,12 @@
 
 <footer xlu-include-file="/PS-FitPlanner/Templates/footer.html"></footer>
 
-<script>xLuIncludeFile()</script>
+<script>
+  xLuIncludeFile().then(() =>
+  {
+    loadHeader()
+    loadFooter()
+  })()</script>
 
 </body>
 </html>

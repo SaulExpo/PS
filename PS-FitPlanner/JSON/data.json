@@ -1,0 +1,124 @@
+{
+  "nav_items_header" :
+  [
+    "Crear rutina","Editar rutina", "Rutinas profesionales "
+  ],
+  "logeo_header" :
+  [
+    "Registrarse","Iniciar sesion"
+  ],
+  "message_main_page" : "¡Transforma tu entrenamiento hoy mismo!\nCrea tu rutina personalizada en minutos y accede a entrenamientos pro diseñados por expertos. ¡Empieza ahora y lleva tu rendimiento al siguiente nivel!",
+  "footer_text" :
+  [
+    "Terminos", "Comunidad", "Estado"
+  ],
+  "company_footer" :
+  [
+    "Sobre nosotros", "Personal", "Blog"
+  ],
+  "redes_sociales_footer" :
+  [
+    {
+      "name" : "instagram",
+      "imagen" : "../Resources/instagram_logo.png",
+      "link" : "https://www.instagram.com"
+    },
+
+    {
+      "name" : "facebook",
+      "imagen" : "../Resources/facebook_logo.png",
+      "link" : "https://www.facebook.com"
+    },
+
+    {
+      "name" : "twitter",
+      "imagen" : "../Resources/twitter_logo.png",
+      "link" : "https://www.x.com"
+    },
+
+    {
+      "name" : "tiktok",
+      "imagen" : "../Resources/tiktok_logo.png",
+      "link" : "https://www.tiktok.com"
+    }
+  ],
+  "personal" :
+  {
+    "image" : "/Resources/icono.avif",
+    "name" : "admin",
+    "correo" : "admin@correo.com",
+    "edad": "20",
+    "sexo" : "Hombre",
+    "altura" :
+    {
+      "valor": "183",
+      "medida": "cm"
+    },
+    "peso":
+    {
+      "valor" : "86",
+      "medida" : "kg"
+    }
+  },
+  "day_info" :
+  {
+    "date" : "13/02/2025",
+    "rutine" : "Rutina Core advanced #2"
+  },
+  "first_page" :
+  {
+    "today" : "Rutina funcional enfocada en el grupo \"core\" para nivel beginner.",
+    "today_img" : "/Resources/today_image.webp",
+    "calendar" : "Accede a tu calendario y revisa de un vistazo tus entrenamientos pasados, los que tienes programados y tus días de descanso. Mantén el control de tu progreso y organiza fácilmente tus próximas sesiones.",
+    "calendar_img" : "/Resources/calendar.png"
+  },
+  "suscripciones" :
+  {
+    "planes" :
+            [
+              {
+                "name" : "plan1",
+                "precio" : "5€"
+              },
+              {
+                "name" : "plan2",
+                "precio" : "15€"
+              },
+              {
+                "name" : "plan3",
+                "precio" : "25€"
+              }
+            ],
+    "preguntas" :
+            [
+              {
+                "pregunta": "¿Qué incluye cada plan de suscripción?",
+                "respuesta" : ""
+              },
+              {
+                "pregunta": "¿Puedo cambiar mi plan después de suscribirme?",
+                "respuesta" : ""
+              },
+              {
+                "pregunta": "¿Ofrecen un período de prueba gratuito?",
+                "respuesta" : ""
+              },
+              {
+                "pregunta": "¿Qué métodos de pago aceptan?",
+                "respuesta" : ""
+              },
+              {
+                "pregunta": "¿Qué pasa si cancelo mi suscripción antes de que termine el mes?",
+                "respuesta" : ""
+              },
+              {
+                "pregunta": "¿Las rutinas y el contenido son diferentes según el plan?",
+                "respuesta" : ""
+              },
+              {
+                "pregunta": "¿Puedo acceder a mi progreso y rutinas si no renuevo la suscripción?",
+                "respuesta" : ""
+              }
+            ]
+  }
+}

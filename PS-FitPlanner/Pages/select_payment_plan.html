@@ -2,31 +2,30 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <link href="../../Styles/select_payment_plan.css" rel=stylesheet>
-  <link href="../../Styles/footer.css" rel=stylesheet>
-  <link href="../../Styles/header.css" rel=stylesheet>
-  <link href="../../Styles/subscription.css" rel="stylesheet">
+  <link href="../Styles/select_payment_plan.css" rel=stylesheet>
+  <link href="../Styles/footer.css" rel=stylesheet>
+  <link href="../Styles/header.css" rel=stylesheet>
+  <link href="../Styles/subscription.css" rel="stylesheet">
+  <script src="../JavaScript/loadHeader.js"></script>
+  <script src="../JavaScript/loadFooter.js"></script>
   <title>Pago</title>
 
-  <script src="../JavaScript/xlu-include-file.js"></script>
-  <script src="../JavaScript/updateMember.js"></script>
-  <script src="../JavaScript/subscription.js"></script>
+  <script src="../JavaScript/script.js"></script>
 </head>
 <body>
-<header xlu-include-file="../Templates/header.html">
+<header id="main_header">
 </header>
 
 <main>
   <div class="buttons">
-  <button>Lorem</button>
-  <button>Ipsum</button>
+  <button>Mes</button>
+  <button>Año</button>
   </div>
     <div class="rectangles">
-      <div class="sub" xlu-include-file="../Templates/subscription.html"></div>
-      <div class="sub" xlu-include-file="../Templates/subscription.html"></div>
-      <div class="sub" xlu-include-file="../Templates/subscription.html"></div>
+      <div class="sub" id="subscription"></div>
+      <div class="sub" id="subscription2"></div>
+      <div class="sub" id="subscription3"></div>
     </div>
-  <input id="member" type="submit" value="Suscribirse como miembro">
     <div class="questions">
       <div class="half-right">
         <table>
@@ -59,9 +58,20 @@
   </main>
 
 
-<footer xlu-include-file="../Templates/footer.html">
+<footer id="main_footer">
 </footer>
 
-<script>xLuIncludeFile()</script>
+<script>
+
+  Promise.all([loadTemplate("../Templates/header.html", "main_header"),
+  loadTemplate("../Templates/footer.html", "main_footer")]
+  ).then(() => {
+    loadHeader()
+    loadFooter()
+  })
+
+
+
+</script>
 </body>
 </html>

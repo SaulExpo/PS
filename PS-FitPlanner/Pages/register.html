@@ -4,11 +4,14 @@
     <meta charset="utf-8">
 
     <title>Register</title>
-    <link rel="stylesheet" href="../../Styles/header.css">
-    <link rel="stylesheet" href="../../Styles/footer.css">
-    <link rel="stylesheet" href="../../Styles/login.css">
-    <link rel="stylesheet" href="../../Styles/register.css">
+    <link rel="stylesheet" href="../Styles/header.css">
+    <link rel="stylesheet" href="../Styles/footer.css">
+    <link rel="stylesheet" href="../Styles/login.css">
+    <link rel="stylesheet" href="../Styles/register.css">
     <script src="../JavaScript/register.js"></script>
+    <script src="../JavaScript/script.js"></script>
+    <script src="../JavaScript/loadHeader.js"></script>
+    <script src="../JavaScript/loadFooter.js"></script>
 </head>
 <body>
 
@@ -25,7 +28,7 @@
                     <button class="logs" onclick="/Pages/login.html">Lorem impsum</button>
                     <button class="logs">Lorem impsum</button>
                 </div>
-                <img id="foto_perf" src="/Resources/imagen_vertical.png">
+                <img id="foto_perf" src="../Resources/imagen_vertical.png">
             </div>
         </div>
     </header>
@@ -87,7 +90,14 @@
 
     </footer>
 
-
+<script>
+    Promise.all([loadTemplate("../Templates/footer.html", "main_footer"),
+        loadTemplate("../Templates/header.html", "main_header")]
+    ).then(() => {
+        loadHeader()
+        loadFooter()
+    })
+</script>
 
 </body>
 </html>

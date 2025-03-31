@@ -5,6 +5,9 @@
     <link href="../Styles/profile.css" rel=stylesheet>
     <link href="../Styles/footer.css" rel=stylesheet>
     <link href="../Styles/header.css" rel=stylesheet>
+    <script src="../JavaScript/loadHeader.js"></script>
+    <script src="../JavaScript/loadFooter.js"></script>
+    <script src="../JavaScript/script.js"></script>
     <title>Profile</title>
 
     <script src="/PS-FitPlanner/JavaScript/xlu-include-file.js"></script>
@@ -16,7 +19,7 @@
 <main>
     <img id="icon" src="../Resources/imagen_vertical.png" alt="Name">
     <h1>Name</h1>
-    <img id="graphic" src="../Resources/graphic.png" onclick="location.replace('http://localhost:63342/proyecto/PS-FitPlanner/Pages/graphic.html')">
+    <img id="graphic" src="../Resources/graphic.png" onclick="location.replace('graphic.html')">
     <div class="rectangle">
         <p>Lorem_Ipsum Gorem_Ipsum</p>
         <hr>
@@ -34,6 +37,12 @@
 <footer id="footer" xlu-include-file="../Templates/footer.html">
 </footer>
 
-<script>xLuIncludeFile()</script>
+<script>
+    xLuIncludeFile().then(() =>
+    {
+        loadHeader()
+        loadFooter()
+    })
+</script>
 </body>
 </html>

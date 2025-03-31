@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="../Styles/footer.css">
     <link rel="stylesheet" href="../Styles/index.css">
   <link rel="stylesheet" href="../Styles/firs_page.css">
+    <script src="../JavaScript/loadHeader.js"></script>
+    <script src="../JavaScript/loadFooter.js"></script>
+    <script src="../JavaScript/first_page.js"></script>
 </head>
 <body>
 <header xlu-include-file="../Templates/header.html"></header>
@@ -24,7 +27,10 @@
 </main>
 <footer xlu-include-file="../Templates/footer.html"></footer>
 <script>
-  xLuIncludeFile();
+  Promise.all([xLuIncludeFile()]
+  ).then(() => {
+      load()
+  })
 </script>
 </body>
 </html>
