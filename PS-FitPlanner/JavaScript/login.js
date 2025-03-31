@@ -5,36 +5,41 @@ document.addEventListener("DOMContentLoaded", function() {
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
 
-        const loginData = {
-            data: {
-                email: email,
-                password: password
-            }
-        };
+        login(email, password);
 
-        try {
-            const response = await fetch("http://localhost:1337/api/user-app/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(loginData)
-            });
-
-            const result = await response.json();
-
-            if (response.ok) {
-                console.log(result);
-
-                // Guardar token en localStorage para futuras peticiones
-                localStorage.setItem("jwt", result.token);
-                window.location.href="../Pages/first_page.html";
-            } else {
-                alert("Error en login: " + result.error.message);
-                console.error("Error de respuesta:", result);
-            }
-        } catch (error) {
-            console.error("Error en la solicitud de login:", error);
-        }
     });
 });
+
+async function login(email, password){
+    const loginData = {
+        data: {
+            email: email,
+            password: password
+        }
+    };
+
+    try {
+        const response = await fetch("http://localhost:1337/api/user-app/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(loginData)
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            console.log(result);
+
+            // Guardar token en localStorage para futuras peticiones
+            localStorage.setItem("jwt", result.token);
+            window.location.href="../Pages/first_page.html";
+        } else {
+            alert("Error en login: " + result.error.message);
+            console.error("Error de respuesta:", result);
+        }
+    } catch (error) {
+        console.error("Error en la solicitud de login:", error);
+    }
+}

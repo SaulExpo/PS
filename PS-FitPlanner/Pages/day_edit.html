@@ -7,12 +7,13 @@
   <link href="../Styles/header.css" rel=stylesheet>
   <script src="../JavaScript/loadHeader.js"></script>
   <script src="../JavaScript/loadFooter.js"></script>
+  <script src="../JavaScript/script.js"></script>
   <title>Day Edit</title>
 
   <script src="/PS-FitPlanner/JavaScript/xlu-include-file.js"></script>
 </head>
 <body>
-<header xlu-include-file="../Templates/header.html">
+<header id="main_header">
 </header>
 
 <main>
@@ -24,11 +25,13 @@
 
 </main>
 
-<footer id="footer" xlu-include-file="../Templates/footer.html">
+<footer id="main_footer">
 </footer>
 
 <script>
-  xLuIncludeFile().then(() => {
+  Promise.all([loadTemplate("../Templates/header.html" , "main_header"),
+    loadTemplate("../Templates/footer.html" , "main_footer")]).then(() =>
+  {
     loadHeader()
     loadFooter()
   })

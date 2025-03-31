@@ -8,14 +8,16 @@
   <link rel="stylesheet" href="/PS-FitPlanner/Styles/header.css">
   <link rel="stylesheet" href="/PS-FitPlanner/Styles/footer.css">
   <link rel="stylesheet" href="/PS-FitPlanner/Styles/chat.css">
-
+  <script src="../JavaScript/loadFooter.js"></script>
+  <script src="../JavaScript/loadHeader.js"></script>
+  <script src="../JavaScript/script.js"></script>
 
 
   <script src="/PS-FitPlanner/JavaScript/xlu-include-file.js"></script>
 </head>
 <body>
 
-<header xlu-include-file="/PS-FitPlanner/Templates/header.html"></header>
+<header id="main_header"></header>
 
 
 <main>
@@ -50,9 +52,16 @@
 
 </main>
 
-<footer xlu-include-file="/PS-FitPlanner/Templates/footer.html"></footer>
+<footer id="main_footer"></footer>
 
-<script>xLuIncludeFile()</script>
+<script>
+  Promise.all([loadTemplate("../Templates/header.html" , "main_header"),
+  loadTemplate("../Templates/footer.html" , "main_footer")]).then(() =>
+  {
+    loadHeader()
+    loadFooter()
+  })
+</script>
 
 </body>
 </html>

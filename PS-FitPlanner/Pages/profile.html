@@ -8,12 +8,14 @@
     <script src="../JavaScript/loadHeader.js"></script>
     <script src="../JavaScript/loadFooter.js"></script>
     <script src="../JavaScript/script.js"></script>
+    <script src="../JavaScript/asignacion_prof.js"></script>
+    <script src="../JavaScript/profile.js"></script>
     <title>Profile</title>
 
     <script src="/PS-FitPlanner/JavaScript/xlu-include-file.js"></script>
 </head>
 <body>
-<header id="header" xlu-include-file="../Templates/header.html">
+<header id="main_header">
 </header>
 
 <main>
@@ -31,17 +33,23 @@
         <hr>
         <p>Lorem_Ipsum Gorem_Ipsum</p>
     </div>
+    <p>Tu profesional asignado es: <span id="profesional"></span></p>
 
 </main>
 
-<footer id="footer" xlu-include-file="../Templates/footer.html">
+<footer id="main_footer">
 </footer>
 
 <script>
-    xLuIncludeFile().then(() =>
+    Promise.all([loadTemplate("../Templates/header.html" , "main_header"),
+        loadTemplate("../Templates/footer.html" , "main_footer")]).then(() =>
     {
-        loadHeader()
-        loadFooter()
+        load()
+        asignacion_prof("prueba@gmail.com").then(pro =>
+        {
+            document.querySelector("#profesional").textContent = pro.profesional.name
+            document.querySelector("#profesional").style.border = "none"
+        })
     })
 </script>
 </body>
