@@ -86,7 +86,9 @@ function loadRoutine(type, index = 0) {
 
             document.getElementById("title").innerText = routine.name;
             document.getElementById("info").innerText = routine.description;
-            document.getElementById("duration").innerText = routine.duration || "No especificada";
+            const durationContainer = document.getElementById("durationContainer");
+            const durationText = routine.duration ? `${routine.duration}` : "No especificada";
+            durationContainer.textContent = `Duración: ${durationText}`;
 
 
             const exercisesContainer = document.getElementById("exercises");
@@ -157,7 +159,7 @@ searchResults.addEventListener("change", () => {
 });
 
 
-loadTemplate("./header.html", "main_header");
-loadTemplate("./footer.html", "main_footer");
+loadTemplate("../Templates/header.html", "main_header");
+loadTemplate("../Templates/footer.html", "main_footer");
 loadAllRoutines();
 loadRoutineTypes();
