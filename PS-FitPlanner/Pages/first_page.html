@@ -11,9 +11,10 @@
     <script src="../JavaScript/loadHeader.js"></script>
     <script src="../JavaScript/loadFooter.js"></script>
     <script src="../JavaScript/first_page.js"></script>
+    <script src="../JavaScript/script.js"></script>
 </head>
 <body>
-<header xlu-include-file="../Templates/header.html"></header>
+<header id="main_header"></header>
 <main>
   <section>
     <h2 class="title">Today</h2>
@@ -25,12 +26,12 @@
   </section>
 
 </main>
-<footer xlu-include-file="../Templates/footer.html"></footer>
+<footer id="main_footer"></footer>
 <script>
     document.addEventListener("DOMContentLoaded", () => {
-        Promise.all([xLuIncludeFile()]
-        ).then(() => {
-
+        Promise.all([loadTemplate("../Templates/header.html" , "main_header"),
+            loadTemplate("../Templates/footer.html" , "main_footer")]).then(() =>
+        {
             load()
         })
     });

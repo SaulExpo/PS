@@ -7,11 +7,14 @@
     <link rel="stylesheet" href="../Styles/header.css" />
     <link rel="stylesheet" href="../Styles/footer.css" />
     <link rel="stylesheet" href="../Styles/exercise_selector.css" />
+    <script src="../JavaScript/script.js"></script>
+    <script src="../JavaScript/loadHeader.js"></script>
+    <script src="../JavaScript/loadFooter.js"></script>
 </head>
 <body>
 
 <!-- Header -->
-<div id="header-container"></div>
+<div id="main_header"></div>
 
 <main class="container">
     <h1>Selector de Ejercicios</h1>
@@ -48,20 +51,15 @@
 </main>
 
 <!-- Footer -->
-<div id="footer-container"></div>
+<div id="main_footer"></div>
 
 <script>
-    fetch('header.html')
-        .then(res => res.text())
-        .then(html => {
-            document.getElementById('header-container').innerHTML = html;
-        });
-
-    fetch('footer.html')
-        .then(res => res.text())
-        .then(html => {
-            document.getElementById('footer-container').innerHTML = html;
-        });
+    Promise.all([loadTemplate("../Templates/header.html" , "main_header"),
+        loadTemplate("../Templates/footer.html" , "main_footer")]).then(() =>
+    {
+        loadHeader()
+        loadFooter()
+    })
 </script>
 
 <script src="../JavaScript/routine_selector.js"></script>

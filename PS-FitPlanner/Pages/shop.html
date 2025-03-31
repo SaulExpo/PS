@@ -19,7 +19,7 @@
 </head>
 <body>
 
-<header xlu-include-file="/PS-FitPlanner/Templates/header.html"></header>
+<header id="main_header"></header>
 
 
 <main>
@@ -62,14 +62,16 @@
   </div>
 </main>
 
-<footer xlu-include-file="/PS-FitPlanner/Templates/footer.html"></footer>
+<footer id="main_footer"></footer>
 
 <script>
-  xLuIncludeFile().then(() =>
+  Promise.all([loadTemplate("../Templates/header.html" , "main_header"),
+    loadTemplate("../Templates/footer.html" , "main_footer")]).then(() =>
   {
     loadHeader()
     loadFooter()
-  })()</script>
+  })
+</script>
 
 </body>
 </html>

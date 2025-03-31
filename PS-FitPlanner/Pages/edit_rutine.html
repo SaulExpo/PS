@@ -10,9 +10,10 @@
     <link rel="stylesheet" href="../Styles/edit_rutine.css">
     <script src = "../JavaScript/loadHeader.js"></script>
     <script src = "../JavaScript/loadFooter.js"></script>
+    <script src = "../JavaScript/script.js"></script>
 </head>
 <body>
-    <header xlu-include-file="../Templates/header.html"></header>
+    <header id="main_header"></header>
     <main>
         <h2 id="title">Rutines</h2>
         <div id="ejercicios">
@@ -23,9 +24,11 @@
             <div xlu-include-file="../Templates/Edit_and_Delete.html"></div>
         </div>
     </main>
-    <footer xlu-include-file="../Templates/footer.html"></footer>
+    <footer id="main_footer"></footer>
 <script>
-    xLuIncludeFile().then(() => {
+    Promise.all([loadTemplate("../Templates/header.html" , "main_header"),
+        loadTemplate("../Templates/footer.html" , "main_footer")]).then(() =>
+    {
         loadHeader()
         loadFooter()
     })

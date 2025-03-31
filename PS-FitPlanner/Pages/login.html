@@ -12,10 +12,11 @@
     <script src="../JavaScript/login.js"></script>
     <script src="../JavaScript/loadFooter.js"></script>
     <script src="../JavaScript/loadHeader.js"></script>
+    <script src="../JavaScript/script.js"></script>
 </head>
 <body>
 
-<header id="main_header" xlu-include-file="../Templates/header.html">
+<header id="main_header">
 </header>
 
 <main id="main_login" >
@@ -37,12 +38,13 @@
     </div>
 </main>
 
-<footer id="main_footer" xlu-include-file="../Templates/footer.html">
+<footer id="main_footer">
 </footer>
 
 <script>
 
-    xLuIncludeFile().then(() =>
+    Promise.all([loadTemplate("../Templates/header.html" , "main_header"),
+        loadTemplate("../Templates/footer.html" , "main_footer")]).then(() =>
     {
         loadHeader()
         loadFooter()
