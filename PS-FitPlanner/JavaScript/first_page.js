@@ -14,7 +14,7 @@ function load()
             document.querySelectorAll("#picture")[1].src = json.first_page.calendar_img;
             document.querySelectorAll("#picture")[1].addEventListener("click", () =>
             {
-                location.replace("http://localhost:63342/PWM-Fitness-App/Pages/calendar.html")
+                location.replace("../Pages/calendar.html")
             })
         })
     loadFooter()
