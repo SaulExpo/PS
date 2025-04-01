@@ -12,6 +12,7 @@
     <script src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="../JavaScript/loadFooter.js"></script>
     <script src="../JavaScript/loadHeader.js"></script>
+    <script src="../JavaScript/script.js"></script>
     <script>
         google.charts.load('current', {packages: ['corechart']});
         google.charts.setOnLoadCallback(() => loadData('../JavaScript/calorias.js', 'month'));
@@ -60,7 +61,7 @@
                 tooltip: {
                     isHtml: false,
                     textStyle: {
-                        fontSize: 10,
+                        fontSize: 25,
                         bold: false,
                         color: '#333'
                     }
@@ -80,7 +81,7 @@
 </head>
 <body>
 
-<header xlu-include-file="/PS-FitPlanner/Templates/header.html"></header>
+<header id="main_header"></header>
 
 <div class="buttons-container">
     <button onclick="loadData('../JavaScript/calorias.js', 'month')">Show Calories</button>
@@ -90,14 +91,18 @@
 <div id="chart_div" class="chart-container"></div>
 
 <div class="buttons-container">
-    <button onclick="loadData('../JavaScript/../JavaScript/calorias.js', 'week')">Semana</button>
-    <button onclick="loadData('../JavaScript/calorias.js', 'month')">Mes</button>
+    <button onclick="loadData('../JavaScript/calorias.js', 'week')">Semana - Calorías</button>
+    <button onclick="loadData('../JavaScript/pasos.js', 'week')">Semana - Pasos</button>
+    <button onclick="loadData('../JavaScript/calorias.js', 'month')">Mes - Calorías</button>
+    <button onclick="loadData('../JavaScript/pasos.js', 'month')">Mes - Pasos</button>
 </div>
 
-<footer xlu-include-file="/PS-FitPlanner/Templates/footer.html"></footer>
+
+<footer id="main_footer"></footer>
 
 <script>
-    xLuIncludeFile().then(() =>
+    Promise.all([loadTemplate("../Templates/header.html" , "main_header"),
+        loadTemplate("../Templates/footer.html" , "main_footer")]).then(() =>
     {
         loadHeader()
         loadFooter()

@@ -13,7 +13,7 @@
   <script src="/PS-FitPlanner/JavaScript/xlu-include-file.js"></script>
 </head>
 <body>
-<header id="header" xlu-include-file="../Templates/header.html">
+<header id="main_header">
 </header>
 
 <main>
@@ -22,11 +22,12 @@
 </main>
 
 
-<footer id="footer" xlu-include-file="../Templates/footer.html">
+<footer id="main_footer">
 </footer>
 
 <script>
-  xLuIncludeFile().then(() =>
+  Promise.all([loadTemplate("../Templates/header.html" , "main_header"),
+    loadTemplate("../Templates/footer.html" , "main_footer")]).then(() =>
   {
     loadHeader()
     loadFooter()

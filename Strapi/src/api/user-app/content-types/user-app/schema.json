@@ -37,6 +37,12 @@
       "relation": "oneToMany",
       "target": "api::user-routine.user-routine",
       "mappedBy": "user_app"
+    },
+    "profesional_user_app": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::profesional-user-app.profesional-user-app",
+      "inversedBy": "user_apps"
     }
   }
 }
