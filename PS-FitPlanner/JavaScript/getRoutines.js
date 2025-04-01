@@ -86,7 +86,6 @@ async function editUserRoutine(user, userRutine, date, rutineId){
         });
 
         const result = await response.json();
-
         if (response.ok) {
             // Procesar la respuesta de Strapi
             location.reload();

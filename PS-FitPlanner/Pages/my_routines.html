@@ -8,6 +8,9 @@
   <link rel="stylesheet" href="../Styles/header.css" />
   <link rel="stylesheet" href="../Styles/footer.css" />
   <link rel="stylesheet" href="../Styles/my_routines.css" />
+  <script src="../JavaScript/script.js"></script>
+  <script src="../JavaScript/loadHeader.js"></script>
+  <script src="../JavaScript/loadFooter.js"></script>
 </head>
 <body>
 
@@ -45,8 +48,14 @@
             document.getElementById('footer-container').innerHTML = html;
           });
 </script>
-
-<!-- Script para cargar las rutinas -->
+<script>
+  Promise.all([loadTemplate("../Templates/header.html", "main_header"),
+    loadTemplate("../Templates/footer.html", "main_footer")]
+  ).then(() => {
+    loadHeader()
+    loadFooter()
+  })
+</script><!-- Script para cargar las rutinas -->
 <script src="../JavaScript/my_routines.js"></script>
 </body>
 </html>
