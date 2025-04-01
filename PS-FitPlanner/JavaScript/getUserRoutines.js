@@ -36,6 +36,7 @@ async function getUserRoutines(email){
         // Parseamos la respuesta a JSON
         const routines = await response.json()
         // Filtramos los films para que solo contengan la categoría "Animation"
+        console.log(routines)
         const userRoutines = routines.data.filter(routine =>
             routine.user_app.email === email
         );
