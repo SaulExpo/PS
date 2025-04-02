@@ -79,6 +79,11 @@ module.exports = createCoreController("api::user-app.user-app", ({ strapi }) => 
                 process.env.JWT_SECRET,
                 { expiresIn: "2h" }
             );
+            await sendEmail(email, "New User Created", `Congratulations, you have been registered in our web. Here is your data:
+              - UserName: ${name}
+              - UserSurname:  ${surname}
+              - UserEmail:  ${email}`
+            );
 
             return ctx.send({
                 message: "Registro exitoso",
