@@ -14,7 +14,7 @@ const levels = ["advanced", "intermediate", "beginner"];
 function loadExercises(bodyParts) {
     let allExercises = [];
     bodyParts.forEach(part => {
-        const fileName = `exercises_${part.replace(/ /g, "_")}.json`;
+        const fileName = `../JSON/exercises_${part.replace(/ /g, "_")}.json`;
         const filePath = path.join(__dirname, fileName);
 
         if (fs.existsSync(filePath)) {
@@ -62,8 +62,8 @@ function generateRoutine(functionalGroup, level, allExercises, index) {
     }
 
     return {
-        name: `Rutina ${functionalGroup.charAt(0).toUpperCase() + functionalGroup.slice(1)} ${level} #${index + 1}`,
-        description: `Rutina funcional enfocada en el grupo "${functionalGroup}" para nivel ${level}.`,
+        name: `Routine ${functionalGroup.charAt(0).toUpperCase() + functionalGroup.slice(1)} ${level} #${index + 1}`,
+        description: `Functional routine for "${functionalGroup}" and ${level} level.`,
         duration: duration,
         exercises: selected.map(ex => ({
             name: ex.name,
@@ -83,7 +83,6 @@ function generateMultipleRoutines(count, functionalGroup, level, allExercises) {
 
 function saveRoutines(routines, fileName) {
     fs.writeFileSync(fileName, JSON.stringify(routines, null, 2));
-    console.log(`✅ Se han guardado ${routines.length} rutinas en ${fileName}`);
 }
 
 // ---------------- AUTOMATIZACIÓN ----------------
@@ -104,7 +103,6 @@ function generateAll() {
             allRoutines = allRoutines.concat(generated);
         });
 
-        // Orden: advanced → intermediate → beginner
         saveRoutines(allRoutines, `routines_${group.replace(/ /g, "_")}.json`);
     });
 }

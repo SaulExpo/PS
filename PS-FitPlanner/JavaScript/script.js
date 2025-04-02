@@ -62,7 +62,7 @@ function loadRoutineNames(type) {
     fetch(routineFiles[type])
         .then(resp => resp.json())
         .then(data => {
-            routineSelector.innerHTML = '<option disabled selected>Selecciona rutina</option>';
+            routineSelector.innerHTML = '<option disabled selected>Select routine</option>';
             data.forEach((routine, index) => {
                 const option = document.createElement("option");
                 option.value = index;
@@ -129,7 +129,7 @@ const searchResults = document.getElementById("searchResults");
 
 globalSearch.addEventListener("input", () => {
     const query = globalSearch.value.toLowerCase();
-    searchResults.innerHTML = '<option disabled selected>Resultados aparecerán aquí</option>';
+    searchResults.innerHTML = '<option disabled selected>Results will appear here</option>';
 
     const filtered = allRoutines.filter(routine => {
         const name = routine.name.toLowerCase();

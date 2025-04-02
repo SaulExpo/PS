@@ -10,40 +10,37 @@
   <link rel="stylesheet" href="../Styles/footer.css">
   <link rel="stylesheet" href="../Styles/info_exercise.css">
   <link rel="stylesheet" href="../Styles/rutine.css">
-  <script src="../JavaScript/script.js"></script>
-  <script src="../JavaScript/loadHeader.js"></script>
-  <script src="../JavaScript/loadFooter.js"></script>
 </head>
 <body>
 <header id="main_header"></header>
 
 <section id="selectors">
   <div class="horizontal-selectors">
-    <label for="typeSelector">Tipo de rutina:</label>
+    <label for="typeSelector">Routine type:</label>
     <select id="typeSelector">
-      <option disabled selected>Selecciona tipo</option>
+      <option disabled selected>Select type</option>
     </select>
 
-    <label for="routineSelector">Rutina:</label>
+    <label for="routineSelector">Routine:</label>
     <select id="routineSelector" disabled>
-      <option disabled selected>Selecciona rutina</option>
+      <option disabled selected>Select routine</option>
     </select>
   </div>
 
   <div class="search-bar">
-    <label for="globalSearch">Buscar rutinas (global):</label>
+    <label for="globalSearch">Search routine (global):</label>
     <input type="text" id="globalSearch" placeholder="Ej. push beginner, core, etc." />
     <select id="searchResults">
-      <option disabled selected>Resultados aparecerán aquí</option>
+      <option disabled selected>Results will appear here</option>
     </select>
   </div>
 </section>
 
 <main>
-  <h2 id="title">Rutina</h2>
-  <p id="info">Selecciona una rutina para ver los ejercicios</p>
+  <h2 id="title">Routine</h2>
+  <p id="info">Select your routine to see the exercises</p>
   <div id="durationContainer">
-    <p><strong>Duración:</strong>
+    <p><strong>Duration:</strong>
   </div>
   <div id="exercises"></div>
 </main>
