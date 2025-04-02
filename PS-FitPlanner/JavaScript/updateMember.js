@@ -27,8 +27,12 @@ async function updateUserType() {
         const data = await response.json();
         console.log("Respuesta del backend:", data);
 
-        // Aquí podrías agregar lógica para mostrar un mensaje en la UI si lo deseas
-        alert(` ${data.message}`);
+        if (data.message) {
+            alert(` ${data.message}`);
+        } else {
+            alert("Usuario actualizado a tipo miembro")
+        }
+
     } catch (error) {
         console.error("Error al realizar la solicitud:", error);
         alert("Hubo un error al actualizar el tipo de usuario.");

@@ -22,6 +22,7 @@
     <img id="icon" src="../Resources/imagen_vertical.png" alt="Name">
     <h1>Name</h1>
     <img id="graphic" src="../Resources/graphic.png" onclick="location.replace('graphic.html')">
+    <img id="suscription" src="../Resources/suscription.png" onclick="location.replace('select_payment_plan.html')">
     <div class="rectangle">
         <p>Lorem_Ipsum Gorem_Ipsum</p>
         <hr>
@@ -45,7 +46,7 @@
         loadTemplate("../Templates/footer.html" , "main_footer")]).then(() =>
     {
         load()
-        asignacion_prof("prueba@gmail.com").then(pro =>
+        asignacion_prof("prueba2@gmail.com").then(pro =>
         {
             document.querySelector("#profesional").textContent = pro.profesional.name
             document.querySelector("#profesional").style.border = "none"

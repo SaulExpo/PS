@@ -8,14 +8,14 @@
   <link rel="stylesheet" href="../Styles/header.css" />
   <link rel="stylesheet" href="../Styles/footer.css" />
   <link rel="stylesheet" href="../Styles/my_routines.css" />
+  <script src="../JavaScript/script.js"></script>
   <script src="../JavaScript/loadHeader.js"></script>
   <script src="../JavaScript/loadFooter.js"></script>
-  <script src="../JavaScript/script.js"></script>
 </head>
 <body>
 
 <!-- Header -->
-<div id="main_header"></div>
+<div id="header-container"></div>
 
 <main class="container">
   <h1><strong>Mis Rutinas</strong></h1>
@@ -32,19 +32,30 @@
 </main>
 
 <!-- Footer -->
-<div id="main_footer"></div>
+<div id="footer-container"></div>
 
 <!-- Cargar header y footer -->
 <script>
-  Promise.all([loadTemplate("../Templates/header.html" , "main_header"),
-    loadTemplate("../Templates/footer.html" , "main_footer")]).then(() =>
-  {
+  fetch('header.html')
+          .then(res => res.text())
+          .then(html => {
+            document.getElementById('header-container').innerHTML = html;
+          });
+
+  fetch('footer.html')
+          .then(res => res.text())
+          .then(html => {
+            document.getElementById('footer-container').innerHTML = html;
+          });
+</script>
+<script>
+  Promise.all([loadTemplate("../Templates/header.html", "main_header"),
+    loadTemplate("../Templates/footer.html", "main_footer")]
+  ).then(() => {
     loadHeader()
     loadFooter()
   })
-</script>
-
-<!-- Script para cargar las rutinas -->
+</script><!-- Script para cargar las rutinas -->
 <script src="../JavaScript/my_routines.js"></script>
 </body>
 </html>

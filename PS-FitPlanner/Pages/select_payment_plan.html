@@ -6,72 +6,47 @@
   <link href="../Styles/footer.css" rel=stylesheet>
   <link href="../Styles/header.css" rel=stylesheet>
   <link href="../Styles/subscription.css" rel="stylesheet">
-  <script src="../JavaScript/loadHeader.js"></script>
-  <script src="../JavaScript/loadFooter.js"></script>
+  <link href="../Styles/select_payment_plan.css" rel=stylesheet>
+  <link href="../Styles/footer.css" rel=stylesheet>
+  <link href="../Styles/header.css" rel=stylesheet>
+  <link href="../Styles/subscription.css" rel="stylesheet">
   <title>Pago</title>
 
   <script src="../JavaScript/script.js"></script>
+  <script src="../JavaScript/loadHeader.js"></script>
+  <script src="../JavaScript/loadFooter.js"></script>
+  <script src="../JavaScript/getUser.js"></script>
+  <script src="../JavaScript/subscription.js"></script>
+  <script src="../JavaScript/updateMember.js"></script>
 </head>
 <body>
-<header id="main_header">
-</header>
+<header id="main_header"></header>
 
-<main>
-  <div class="buttons">
-  <button>Mes</button>
-  <button>Año</button>
-  </div>
-    <div class="rectangles">
-      <div class="sub" id="subscription"></div>
-      <div class="sub" id="subscription2"></div>
-      <div class="sub" id="subscription3"></div>
+  <main>
+    <img src="../Resources/Tabla-suscripcion.png" alt="">
+    <div class="buttons">
+      <input id="member" type="submit" value="Suscribirse como miembro">
     </div>
-    <div class="questions">
-      <div class="half-right">
-        <table>
-          <tr>
-            <th>Nunc luctus ex at ex.</th>
-          </tr>
-          <tr>
-            <th>Nunc luctus ex at ex.</th>
-          </tr>
-          <tr>
-            <th>Nunc luctus ex at ex.</th>
-          </tr>
-          <tr>
-            <th>Nunc luctus ex at ex.</th>
-          </tr>
-          <tr>
-            <th>Nunc luctus ex at ex.</th>
-          </tr>
-          <tr>
-            <th>Nunc luctus ex at ex.</th>
-          </tr>
-          <tr>
-            <th>Nunc luctus ex at ex.</th>
-          </tr>
-        </table>
-      </div>
-      <div class="half-left">
-      </div>
+    <div class="rectangles">
+      <div class="sub" xlu-include-file="/Templates/subscription.html"></div>
+      <div class="sub" xlu-include-file="/Templates/subscription.html"></div>
+      <div class="sub" xlu-include-file="/Templates/subscription.html"></div>
+      <div class="sub" xlu-include-file="../Templates/subscription.html"></div>
+      <div class="sub" xlu-include-file="../Templates/subscription.html"></div>
+      <div class="sub" xlu-include-file="../Templates/subscription.html"></div>
     </div>
   </main>
 
 
-<footer id="main_footer">
-</footer>
+  <footer id="main_footer"></footer>
 
+</body>
 <script>
-
   Promise.all([loadTemplate("../Templates/header.html", "main_header"),
-  loadTemplate("../Templates/footer.html", "main_footer")]
+    loadTemplate("../Templates/footer.html", "main_footer")]
   ).then(() => {
     loadHeader()
     loadFooter()
   })
-
-
-
 </script>
-</body>
 </html>

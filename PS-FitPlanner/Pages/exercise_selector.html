@@ -61,7 +61,14 @@
         loadFooter()
     })
 </script>
-
+<script>
+    Promise.all([loadTemplate("../Templates/header.html", "main_header"),
+        loadTemplate("../Templates/footer.html", "main_footer")]
+    ).then(() => {
+        loadHeader()
+        loadFooter()
+    })
+</script>
 <script src="../JavaScript/routine_selector.js"></script>
 </body>
 </html>

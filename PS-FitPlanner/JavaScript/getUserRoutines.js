@@ -36,6 +36,7 @@ async function getUserRoutines(email){
         // Parseamos la respuesta a JSON
         const routines = await response.json()
         // Filtramos los films para que solo contengan la categoría "Animation"
+        console.log(routines)
         const userRoutines = routines.data.filter(routine =>
             routine.user_app.email === email
         );
@@ -113,7 +114,7 @@ async function editUserRoutine(user, userRutine, date, rutineId){
 
         if (response.ok) {
             // Procesar la respuesta de Strapi
-            //location.reload();
+            location.reload();
         } else {
             alert('Hubo un error al enviar el formulario');
             console.error('Error de respuesta:', result);

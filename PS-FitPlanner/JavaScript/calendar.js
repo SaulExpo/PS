@@ -71,7 +71,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     var eventDate = $('#eventDate').val();
                     var rutineId = $('#eventRutine').val();
                     var rutine = routines.find(function(r) { return r.id == rutineId; });
-                    console.log(rutine)
                     addUserRoutine(user, rutine, eventDate)
                 });
 

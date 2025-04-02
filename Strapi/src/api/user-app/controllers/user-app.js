@@ -79,6 +79,11 @@ module.exports = createCoreController("api::user-app.user-app", ({ strapi }) => 
                 process.env.JWT_SECRET,
                 { expiresIn: "2h" }
             );
+            await sendEmail(email, "New User Created", `Congratulations, you have been registered in our web. Here is your data:
+              - UserName: ${name}
+              - UserSurname:  ${surname}
+              - UserEmail:  ${email}`
+            );
 
             return ctx.send({
                 message: "Registro exitoso",
@@ -116,7 +121,7 @@ module.exports = createCoreController("api::user-app.user-app", ({ strapi }) => 
             );
 
             // Crear un enlace con el token
-            const resetLink = `http://localhost:63342/PS/Pages/reset_password.html?token=${resetToken}`;
+            const resetLink = `http://localhost:63342/PS/PS-FitPlanner/Pages/reset_password.html?token=${resetToken}`;
 
             // Enviar el correo de recuperación
             await sendEmail(user.email, "Restablecer tu contraseña", `Haz clic en el siguiente enlace para restablecer tu contraseña: ${resetLink}`
