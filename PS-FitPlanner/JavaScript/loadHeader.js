@@ -24,6 +24,9 @@ function loadHeader()
             }
 
             document.querySelector("#foto_perf").src = myJson.personal.image
+            document.querySelector("#logo").innerHTML = "<img id='logo' src='../Resources/logo (no text).png' width='64px' height='48px'>"
+            document.querySelector("#logo").style.margin = 0
+
 
             var iniciar = document.querySelectorAll(".iniciar")
             var cerrar = document.querySelectorAll(".cerrar")
