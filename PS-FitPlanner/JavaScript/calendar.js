@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         center: 'title',
                         right: 'dayGridMonth,dayGridWeek,dayGridDay,listDay'
                     },
-                    locale: 'es',
+                    locale: 'en',
                     initialView: 'dayGridMonth',
                     aspectRatio: 1.5,
                     themeSystem: 'bootstrap5',
