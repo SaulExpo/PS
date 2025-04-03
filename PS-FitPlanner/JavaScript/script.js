@@ -103,7 +103,11 @@ function loadRoutine(type, index = 0) {
                     .then(resp => resp.text())
                     .then(template => {
                         wrapper.innerHTML = template;
-                        wrapper.querySelector("#name_exercise").innerText = exercise.name;
+                        wrapper.querySelector("#name_exercise").innerHTML = `
+                            <a href="./exercise_detail.html?name=${encodeURIComponent(exercise.name)}">
+                            ${exercise.name}
+                            </a>
+                            ` ;
                         wrapper.querySelector("#reps").innerText = exercise.reps;
                     })
                     .catch(error => console.error("Error cargando info_exercise.html:", error));

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ejercicio</title>
+  <link rel="stylesheet" href="../Styles/header.css">
+  <link rel="stylesheet" href="../Styles/footer.css">
+  <link rel="stylesheet" href="../Styles/exercise_detail.css">
+  <script src="../JavaScript/loadHeader.js"></script>
+  <script src="../JavaScript/loadFooter.js"></script>
+  <script src="../JavaScript/exercise_detail.js"></script>
+</head>
+<body>
+<header id="main_header"></header>
+
+<main>
+  <h1 id="exercise-name">Loading exercise...</h1>
+  <p id="body-part"></p>
+  <p id="equipment"></p>
+  <p id="target"></p>
+  <p id="secondary-muscles"></p>
+
+  <h2>Instructions</h2>
+  <ol id="instructions"></ol>
+</main>
+
+<footer id="main_footer"></footer>
+
+<script>
+  loadTemplate("../Templates/header.html", "main_header");
+  loadTemplate("../Templates/footer.html", "main_footer");
+
+  document.addEventListener("DOMContentLoaded", () => {
+    loadHeader();
+    loadFooter();
+    loadExerciseDetail();
+  });
+
+</script>
+</body>
+
+</html>
