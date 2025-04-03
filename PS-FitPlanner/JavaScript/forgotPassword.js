@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             if (response.ok) {
                 alert("Si el correo existe, recibirás un enlace para restablecer tu contraseña.");
-                console.log(result);
+                window.location.href="../Pages/first_page.html";
             } else {
                 alert("Error: " + result.error.message);
                 console.error("Error de respuesta:", result);

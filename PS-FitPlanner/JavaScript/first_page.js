@@ -2,7 +2,14 @@
 function load()
 {
     loadHeader()
-    fetch("../JSON/data.json").then(function(res)
+    let language = localStorage.getItem("language")
+    let json_language
+    if (language == "english"){
+        json_language = "../JSON/english_data.json"
+    } else {
+        json_language = "../JSON/data.json"
+    }
+    fetch(json_language).then(function(res)
     {
         return res.json();
     })

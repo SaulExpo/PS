@@ -32,8 +32,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             if (response.ok) {
                 alert("Contraseña cambiada exitosamente.");
-                console.log(result);
-                // Redirigir al login u otra página
+                window.close();
             } else {
                 alert("Error al cambiar la contraseña: " + result.error.message);
                 console.error("Error de respuesta:", result);

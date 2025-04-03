@@ -1,6 +1,13 @@
 function loadFooter()
 {
-    fetch("../JSON/data.json").then(function(response) {
+    let language = localStorage.getItem("language")
+    let json
+    if (language == "english"){
+        json = "../JSON/english_data.json"
+    } else {
+        json = "../JSON/data.json"
+    }
+    fetch(json).then(function(response) {
         return response.json();
     })
         .then(function (myJson)
@@ -17,7 +24,7 @@ function loadFooter()
                 texto_footer2[i].textContent = myJson.company_footer[i]
             }
             let otro = document.getElementsByClassName("footer_temp")[0].querySelectorAll("div")[2].querySelectorAll("img")
-            for (let i=0; i<otro.length; i++)
+                for (let i=0; i<otro.length; i++)
             {
                 otro[i].src = myJson.redes_sociales_footer[i].imagen
                 otro[i].addEventListener("click", function()
@@ -25,6 +32,6 @@ function loadFooter()
                     window.open(myJson.redes_sociales_footer[i].link);
                 })
             }
-            }, 100);
+            }, 500);
         })
 }

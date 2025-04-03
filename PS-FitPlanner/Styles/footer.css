@@ -7,6 +7,10 @@
     color: #333;
 }
 
+.footer_temp img {
+    width: 30px;
+}
+
 .footer_temp > div:first-child {
     display: flex;
     justify-content: space-between;

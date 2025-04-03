@@ -77,3 +77,7 @@ nav
     margin-right: 0.5em;
 }
 
+#spanish, #english{
+    width: 30px;
+}
+
