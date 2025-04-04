@@ -1,0 +1,261 @@
+[
+  {
+    "name": "Routine Core advanced #1",
+    "description": "Functional routine for \"core\" and advanced level.",
+    "duration": "1h 15min",
+    "exercises": [
+      {
+        "name": "weighted russian twist",
+        "reps": "5x15"
+      },
+      {
+        "name": "stability ball crunch (full range hands behind head)",
+        "reps": "5x15"
+      },
+      {
+        "name": "straddle planche",
+        "reps": "5x15"
+      },
+      {
+        "name": "assisted prone rectus femoris stretch",
+        "reps": "5x15"
+      },
+      {
+        "name": "reverse crunch",
+        "reps": "5x15"
+      }
+    ]
+  },
+  {
+    "name": "Routine Core advanced #2",
+    "description": "Functional routine for \"core\" and advanced level.",
+    "duration": "1h 0min",
+    "exercises": [
+      {
+        "name": "barbell rollerout from bench",
+        "reps": "5x15"
+      },
+      {
+        "name": "weighted overhead crunch (on stability ball)",
+        "reps": "5x15"
+      },
+      {
+        "name": "side hip (on parallel bars)",
+        "reps": "5x15"
+      },
+      {
+        "name": "barbell sitted alternate leg raise (female)",
+        "reps": "5x15"
+      }
+    ]
+  },
+  {
+    "name": "Routine Core advanced #3",
+    "description": "Functional routine for \"core\" and advanced level.",
+    "duration": "1h 15min",
+    "exercises": [
+      {
+        "name": "hanging leg hip raise",
+        "reps": "5x15"
+      },
+      {
+        "name": "band assisted wheel rollerout",
+        "reps": "5x15"
+      },
+      {
+        "name": "weighted russian twist",
+        "reps": "5x15"
+      },
+      {
+        "name": "band seated twist",
+        "reps": "5x15"
+      },
+      {
+        "name": "wind sprints",
+        "reps": "5x15"
+      }
+    ]
+  },
+  {
+    "name": "Routine Core intermediate #1",
+    "description": "Functional routine for \"core\" and intermediate level.",
+    "duration": "1h 30min",
+    "exercises": [
+      {
+        "name": "otis up",
+        "reps": "4x12"
+      },
+      {
+        "name": "weighted side bend (on stability ball)",
+        "reps": "4x12"
+      },
+      {
+        "name": "arm slingers hanging bent knee legs",
+        "reps": "4x12"
+      },
+      {
+        "name": "weighted front plank",
+        "reps": "4x12"
+      },
+      {
+        "name": "cable reverse crunch",
+        "reps": "4x12"
+      },
+      {
+        "name": "weighted seated twist (on stability ball)",
+        "reps": "4x12"
+      }
+    ]
+  },
+  {
+    "name": "Routine Core intermediate #2",
+    "description": "Functional routine for \"core\" and intermediate level.",
+    "duration": "1h 30min",
+    "exercises": [
+      {
+        "name": "power point plank",
+        "reps": "4x12"
+      },
+      {
+        "name": "front lever",
+        "reps": "4x12"
+      },
+      {
+        "name": "lever seated crunch v. 2",
+        "reps": "4x12"
+      },
+      {
+        "name": "sit-up with arms on chest",
+        "reps": "4x12"
+      },
+      {
+        "name": "weighted seated twist (on stability ball)",
+        "reps": "4x12"
+      },
+      {
+        "name": "hanging oblique knee raise",
+        "reps": "4x12"
+      }
+    ]
+  },
+  {
+    "name": "Routine Core intermediate #3",
+    "description": "Functional routine for \"core\" and intermediate level.",
+    "duration": "1h 30min",
+    "exercises": [
+      {
+        "name": "barbell rollerout",
+        "reps": "4x12"
+      },
+      {
+        "name": "assisted hanging knee raise",
+        "reps": "4x12"
+      },
+      {
+        "name": "cable side bend",
+        "reps": "4x12"
+      },
+      {
+        "name": "barbell sitted alternate leg raise (female)",
+        "reps": "4x12"
+      },
+      {
+        "name": "barbell rollerout from bench",
+        "reps": "4x12"
+      },
+      {
+        "name": "flexion leg sit up (bent knee)",
+        "reps": "4x12"
+      }
+    ]
+  },
+  {
+    "name": "Routine Core beginner #1",
+    "description": "Functional routine for \"core\" and beginner level.",
+    "duration": "1h 30min",
+    "exercises": [
+      {
+        "name": "cable seated crunch",
+        "reps": "3x10"
+      },
+      {
+        "name": "hanging straight leg raise",
+        "reps": "3x10"
+      },
+      {
+        "name": "janda sit-up",
+        "reps": "3x10"
+      },
+      {
+        "name": "lever seated crunch (chest pad)",
+        "reps": "3x10"
+      },
+      {
+        "name": "air bike",
+        "reps": "3x10"
+      },
+      {
+        "name": "suspended reverse crunch",
+        "reps": "3x10"
+      }
+    ]
+  },
+  {
+    "name": "Routine Core beginner #2",
+    "description": "Functional routine for \"core\" and beginner level.",
+    "duration": "1h 15min",
+    "exercises": [
+      {
+        "name": "cable seated twist",
+        "reps": "3x10"
+      },
+      {
+        "name": "band standing crunch",
+        "reps": "3x10"
+      },
+      {
+        "name": "band kneeling twisting crunch",
+        "reps": "3x10"
+      },
+      {
+        "name": "crab twist toe touch",
+        "reps": "3x10"
+      },
+      {
+        "name": "assisted prone rectus femoris stretch",
+        "reps": "3x10"
+      }
+    ]
+  },
+  {
+    "name": "Routine Core beginner #3",
+    "description": "Functional routine for \"core\" and beginner level.",
+    "duration": "1h 30min",
+    "exercises": [
+      {
+        "name": "flag",
+        "reps": "3x10"
+      },
+      {
+        "name": "hanging straight leg hip raise",
+        "reps": "3x10"
+      },
+      {
+        "name": "cable twist",
+        "reps": "3x10"
+      },
+      {
+        "name": "assisted hanging knee raise",
+        "reps": "3x10"
+      },
+      {
+        "name": "one arm slam (with medicine ball)",
+        "reps": "3x10"
+      },
+      {
+        "name": "weighted crunch",
+        "reps": "3x10"
+      }
+    ]
+  }
+]

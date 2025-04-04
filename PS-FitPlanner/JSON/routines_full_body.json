@@ -1,0 +1,221 @@
+[
+  {
+    "name": "Routine Full body advanced #1",
+    "description": "Functional routine for \"full body\" and advanced level.",
+    "duration": "1h 0min",
+    "exercises": [
+      {
+        "name": "standing calf raise (on a staircase)",
+        "reps": "5x15"
+      },
+      {
+        "name": "scapular pull-up",
+        "reps": "5x15"
+      },
+      {
+        "name": "assisted chest dip (kneeling)",
+        "reps": "5x15"
+      },
+      {
+        "name": "smith wide grip decline bench press",
+        "reps": "5x15"
+      }
+    ]
+  },
+  {
+    "name": "Routine Full body advanced #2",
+    "description": "Functional routine for \"full body\" and advanced level.",
+    "duration": "1h 0min",
+    "exercises": [
+      {
+        "name": "weighted russian twist",
+        "reps": "5x15"
+      },
+      {
+        "name": "dumbbell zottman curl",
+        "reps": "5x15"
+      },
+      {
+        "name": "lever gripless shrug v. 2",
+        "reps": "5x15"
+      },
+      {
+        "name": "weighted front raise",
+        "reps": "5x15"
+      }
+    ]
+  },
+  {
+    "name": "Routine Full body advanced #3",
+    "description": "Functional routine for \"full body\" and advanced level.",
+    "duration": "1h 0min",
+    "exercises": [
+      {
+        "name": "band squat row",
+        "reps": "5x15"
+      },
+      {
+        "name": "hanging oblique knee raise",
+        "reps": "5x15"
+      },
+      {
+        "name": "dumbbell waiter biceps curl",
+        "reps": "5x15"
+      },
+      {
+        "name": "barbell wrist curl",
+        "reps": "5x15"
+      }
+    ]
+  },
+  {
+    "name": "Routine Full body intermediate #1",
+    "description": "Functional routine for \"full body\" and intermediate level.",
+    "duration": "1h 0min",
+    "exercises": [
+      {
+        "name": "cable high row (kneeling)",
+        "reps": "4x12"
+      },
+      {
+        "name": "dumbbell lunge with bicep curl",
+        "reps": "4x12"
+      },
+      {
+        "name": "barbell wide bench press",
+        "reps": "4x12"
+      },
+      {
+        "name": "ez barbell decline close grip face press",
+        "reps": "4x12"
+      }
+    ]
+  },
+  {
+    "name": "Routine Full body intermediate #2",
+    "description": "Functional routine for \"full body\" and intermediate level.",
+    "duration": "1h 0min",
+    "exercises": [
+      {
+        "name": "kettlebell seesaw press",
+        "reps": "4x12"
+      },
+      {
+        "name": "dumbbell decline shrug",
+        "reps": "4x12"
+      },
+      {
+        "name": "front lever",
+        "reps": "4x12"
+      },
+      {
+        "name": "dumbbell one arm press on exercise ball",
+        "reps": "4x12"
+      }
+    ]
+  },
+  {
+    "name": "Routine Full body intermediate #3",
+    "description": "Functional routine for \"full body\" and intermediate level.",
+    "duration": "1h 0min",
+    "exercises": [
+      {
+        "name": "wide hand push up",
+        "reps": "4x12"
+      },
+      {
+        "name": "dumbbell alternate biceps curl (with arm blaster)",
+        "reps": "4x12"
+      },
+      {
+        "name": "cable one arm curl",
+        "reps": "4x12"
+      },
+      {
+        "name": "drop push up",
+        "reps": "4x12"
+      }
+    ]
+  },
+  {
+    "name": "Routine Full body beginner #1",
+    "description": "Functional routine for \"full body\" and beginner level.",
+    "duration": "1h 0min",
+    "exercises": [
+      {
+        "name": "barbell incline bench press",
+        "reps": "3x10"
+      },
+      {
+        "name": "cable judo flip",
+        "reps": "3x10"
+      },
+      {
+        "name": "dumbbell goblet squat",
+        "reps": "3x10"
+      },
+      {
+        "name": "ez-bar close-grip bench press",
+        "reps": "3x10"
+      }
+    ]
+  },
+  {
+    "name": "Routine Full body beginner #2",
+    "description": "Functional routine for \"full body\" and beginner level.",
+    "duration": "1h 30min",
+    "exercises": [
+      {
+        "name": "barbell palms up wrist curl over a bench",
+        "reps": "3x10"
+      },
+      {
+        "name": "barbell front raise and pullover",
+        "reps": "3x10"
+      },
+      {
+        "name": "resistance band seated shoulder press",
+        "reps": "3x10"
+      },
+      {
+        "name": "olympic barbell hammer curl",
+        "reps": "3x10"
+      },
+      {
+        "name": "barbell curl",
+        "reps": "3x10"
+      },
+      {
+        "name": "barbell reverse preacher curl",
+        "reps": "3x10"
+      }
+    ]
+  },
+  {
+    "name": "Routine Full body beginner #3",
+    "description": "Functional routine for \"full body\" and beginner level.",
+    "duration": "1h 15min",
+    "exercises": [
+      {
+        "name": "dumbbell one arm chest fly on exercise ball",
+        "reps": "3x10"
+      },
+      {
+        "name": "spider crawl push up",
+        "reps": "3x10"
+      },
+      {
+        "name": "dumbbell lateral to front raise",
+        "reps": "3x10"
+      },
+      {
+        "name": "cable pushdown",
+        "reps": "3x10"
+      },
+      {
+        "name": "dumbbell seated revers grip concentration curl",
+        "reps": "3x10"
+      }
+    ]
+  }
+]

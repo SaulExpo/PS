@@ -1,0 +1,257 @@
+[
+  {
+    "name": "Routine Push advanced #1",
+    "description": "Functional routine for \"push\" and advanced level.",
+    "duration": "1h 30min",
+    "exercises": [
+      {
+        "name": "dumbbell standing around world",
+        "reps": "5x15"
+      },
+      {
+        "name": "dumbbell one arm concentration curl (on stability ball)",
+        "reps": "5x15"
+      },
+      {
+        "name": "dumbbell reverse preacher curl",
+        "reps": "5x15"
+      },
+      {
+        "name": "cable lying triceps extension v. 2",
+        "reps": "5x15"
+      },
+      {
+        "name": "dumbbell seated biceps curl (on stability ball)",
+        "reps": "5x15"
+      },
+      {
+        "name": "ez barbell jm bench press",
+        "reps": "5x15"
+      }
+    ]
+  },
+  {
+    "name": "Routine Push advanced #2",
+    "description": "Functional routine for \"push\" and advanced level.",
+    "duration": "1h 15min",
+    "exercises": [
+      {
+        "name": "ez barbell jm bench press",
+        "reps": "5x15"
+      },
+      {
+        "name": "assisted chest dip (kneeling)",
+        "reps": "5x15"
+      },
+      {
+        "name": "dumbbell seated alternate shoulder",
+        "reps": "5x15"
+      },
+      {
+        "name": "smith standing military press",
+        "reps": "5x15"
+      },
+      {
+        "name": "standing behind neck press",
+        "reps": "5x15"
+      }
+    ]
+  },
+  {
+    "name": "Routine Push advanced #3",
+    "description": "Functional routine for \"push\" and advanced level.",
+    "duration": "1h 30min",
+    "exercises": [
+      {
+        "name": "dumbbell high curl",
+        "reps": "5x15"
+      },
+      {
+        "name": "dumbbell side lying one hand raise",
+        "reps": "5x15"
+      },
+      {
+        "name": "band y-raise",
+        "reps": "5x15"
+      },
+      {
+        "name": "dumbbell one arm shoulder press v. 2",
+        "reps": "5x15"
+      },
+      {
+        "name": "dumbbell rear delt row_shoulder",
+        "reps": "5x15"
+      },
+      {
+        "name": "dumbbell standing palms in press",
+        "reps": "5x15"
+      }
+    ]
+  },
+  {
+    "name": "Routine Push intermediate #1",
+    "description": "Functional routine for \"push\" and intermediate level.",
+    "duration": "1h 30min",
+    "exercises": [
+      {
+        "name": "barbell reverse close-grip bench press",
+        "reps": "4x12"
+      },
+      {
+        "name": "triceps dip (bench leg)",
+        "reps": "4x12"
+      },
+      {
+        "name": "cable reverse preacher curl",
+        "reps": "4x12"
+      },
+      {
+        "name": "dumbbell zottman curl",
+        "reps": "4x12"
+      },
+      {
+        "name": "dumbbell lying elbow press",
+        "reps": "4x12"
+      },
+      {
+        "name": "dumbbell neutral grip bench press",
+        "reps": "4x12"
+      }
+    ]
+  },
+  {
+    "name": "Routine Push intermediate #2",
+    "description": "Functional routine for \"push\" and intermediate level.",
+    "duration": "1h 30min",
+    "exercises": [
+      {
+        "name": "barbell seated bradford rocky press",
+        "reps": "4x12"
+      },
+      {
+        "name": "cable standing fly",
+        "reps": "4x12"
+      },
+      {
+        "name": "roller seated shoulder flexor depresor retractor",
+        "reps": "4x12"
+      },
+      {
+        "name": "barbell decline pullover",
+        "reps": "4x12"
+      },
+      {
+        "name": "dumbbell seated shoulder press",
+        "reps": "4x12"
+      },
+      {
+        "name": "elbow dips",
+        "reps": "4x12"
+      }
+    ]
+  },
+  {
+    "name": "Routine Push intermediate #3",
+    "description": "Functional routine for \"push\" and intermediate level.",
+    "duration": "1h 0min",
+    "exercises": [
+      {
+        "name": "band close-grip push-up",
+        "reps": "4x12"
+      },
+      {
+        "name": "smith wide grip bench press",
+        "reps": "4x12"
+      },
+      {
+        "name": "kettlebell one arm push press",
+        "reps": "4x12"
+      },
+      {
+        "name": "barbell skier",
+        "reps": "4x12"
+      }
+    ]
+  },
+  {
+    "name": "Routine Push beginner #1",
+    "description": "Functional routine for \"push\" and beginner level.",
+    "duration": "1h 0min",
+    "exercises": [
+      {
+        "name": "olympic barbell hammer curl",
+        "reps": "3x10"
+      },
+      {
+        "name": "dumbbell standing reverse curl",
+        "reps": "3x10"
+      },
+      {
+        "name": "dumbbell waiter biceps curl",
+        "reps": "3x10"
+      },
+      {
+        "name": "dumbbell seated bent over alternate kickback",
+        "reps": "3x10"
+      }
+    ]
+  },
+  {
+    "name": "Routine Push beginner #2",
+    "description": "Functional routine for \"push\" and beginner level.",
+    "duration": "1h 30min",
+    "exercises": [
+      {
+        "name": "ez barbell decline close grip face press",
+        "reps": "3x10"
+      },
+      {
+        "name": "dumbbell seated neutral wrist curl",
+        "reps": "3x10"
+      },
+      {
+        "name": "dumbbell one arm shoulder press",
+        "reps": "3x10"
+      },
+      {
+        "name": "dumbbell biceps curl reverse",
+        "reps": "3x10"
+      },
+      {
+        "name": "dumbbell pronate-grip triceps extension",
+        "reps": "3x10"
+      },
+      {
+        "name": "dumbbell biceps curl squat",
+        "reps": "3x10"
+      }
+    ]
+  },
+  {
+    "name": "Routine Push beginner #3",
+    "description": "Functional routine for \"push\" and beginner level.",
+    "duration": "1h 15min",
+    "exercises": [
+      {
+        "name": "dumbbell bench seated press",
+        "reps": "3x10"
+      },
+      {
+        "name": "smith machine bicep curl",
+        "reps": "3x10"
+      },
+      {
+        "name": "dynamic chest stretch (male)",
+        "reps": "3x10"
+      },
+      {
+        "name": "cable standing fly",
+        "reps": "3x10"
+      },
+      {
+        "name": "dumbbell around pullover",
+        "reps": "3x10"
+      }
+    ]
+  }
+]

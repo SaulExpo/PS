@@ -1,0 +1,241 @@
+[
+  {
+    "name": "Routine Pull advanced #1",
+    "description": "Functional routine for \"pull\" and advanced level.",
+    "duration": "1h 30min",
+    "exercises": [
+      {
+        "name": "barbell decline bent arm pullover",
+        "reps": "5x15"
+      },
+      {
+        "name": "archer pull up",
+        "reps": "5x15"
+      },
+      {
+        "name": "wrist rollerer",
+        "reps": "5x15"
+      },
+      {
+        "name": "weighted standing hand squeeze",
+        "reps": "5x15"
+      },
+      {
+        "name": "cable one arm pulldown",
+        "reps": "5x15"
+      },
+      {
+        "name": "barbell reverse grip bent over row",
+        "reps": "5x15"
+      }
+    ]
+  },
+  {
+    "name": "Routine Pull advanced #2",
+    "description": "Functional routine for \"pull\" and advanced level.",
+    "duration": "1h 15min",
+    "exercises": [
+      {
+        "name": "dumbbell finger curls",
+        "reps": "5x15"
+      },
+      {
+        "name": "cable incline bench row",
+        "reps": "5x15"
+      },
+      {
+        "name": "gironda sternum chin",
+        "reps": "5x15"
+      },
+      {
+        "name": "dumbbell lying rear delt row",
+        "reps": "5x15"
+      },
+      {
+        "name": "dumbbell incline row",
+        "reps": "5x15"
+      }
+    ]
+  },
+  {
+    "name": "Routine Pull advanced #3",
+    "description": "Functional routine for \"pull\" and advanced level.",
+    "duration": "1h 0min",
+    "exercises": [
+      {
+        "name": "dumbbell bent over row",
+        "reps": "5x15"
+      },
+      {
+        "name": "dumbbell over bench wrist curl",
+        "reps": "5x15"
+      },
+      {
+        "name": "seated lower back stretch",
+        "reps": "5x15"
+      },
+      {
+        "name": "weighted muscle up",
+        "reps": "5x15"
+      }
+    ]
+  },
+  {
+    "name": "Routine Pull intermediate #1",
+    "description": "Functional routine for \"pull\" and intermediate level.",
+    "duration": "1h 0min",
+    "exercises": [
+      {
+        "name": "l-pull-up",
+        "reps": "4x12"
+      },
+      {
+        "name": "exercise ball back extension with knees off ground",
+        "reps": "4x12"
+      },
+      {
+        "name": "spine stretch",
+        "reps": "4x12"
+      },
+      {
+        "name": "kettlebell two arm row",
+        "reps": "4x12"
+      }
+    ]
+  },
+  {
+    "name": "Routine Pull intermediate #2",
+    "description": "Functional routine for \"pull\" and intermediate level.",
+    "duration": "1h 30min",
+    "exercises": [
+      {
+        "name": "smith seated wrist curl",
+        "reps": "4x12"
+      },
+      {
+        "name": "back pec stretch",
+        "reps": "4x12"
+      },
+      {
+        "name": "medicine ball overhead slam",
+        "reps": "4x12"
+      },
+      {
+        "name": "wrist circles",
+        "reps": "4x12"
+      },
+      {
+        "name": "bodyweight squatting row",
+        "reps": "4x12"
+      },
+      {
+        "name": "bodyweight standing one arm row",
+        "reps": "4x12"
+      }
+    ]
+  },
+  {
+    "name": "Routine Pull intermediate #3",
+    "description": "Functional routine for \"pull\" and intermediate level.",
+    "duration": "1h 0min",
+    "exercises": [
+      {
+        "name": "kettlebell two arm row",
+        "reps": "4x12"
+      },
+      {
+        "name": "pull-up",
+        "reps": "4x12"
+      },
+      {
+        "name": "lever assisted chin-up",
+        "reps": "4x12"
+      },
+      {
+        "name": "barbell bent arm pullover",
+        "reps": "4x12"
+      }
+    ]
+  },
+  {
+    "name": "Routine Pull beginner #1",
+    "description": "Functional routine for \"pull\" and beginner level.",
+    "duration": "1h 30min",
+    "exercises": [
+      {
+        "name": "lever shrug",
+        "reps": "3x10"
+      },
+      {
+        "name": "dumbbell incline row",
+        "reps": "3x10"
+      },
+      {
+        "name": "lever one arm lateral high row",
+        "reps": "3x10"
+      },
+      {
+        "name": "wide grip pull-up",
+        "reps": "3x10"
+      },
+      {
+        "name": "cable pushdown (straight arm) v. 2",
+        "reps": "3x10"
+      },
+      {
+        "name": "shoulder grip pull-up",
+        "reps": "3x10"
+      }
+    ]
+  },
+  {
+    "name": "Routine Pull beginner #2",
+    "description": "Functional routine for \"pull\" and beginner level.",
+    "duration": "1h 15min",
+    "exercises": [
+      {
+        "name": "bodyweight standing one arm row (with towel)",
+        "reps": "3x10"
+      },
+      {
+        "name": "alternate lateral pulldown",
+        "reps": "3x10"
+      },
+      {
+        "name": "assisted parallel close grip pull-up",
+        "reps": "3x10"
+      },
+      {
+        "name": "cable straight back seated row",
+        "reps": "3x10"
+      },
+      {
+        "name": "kettlebell alternating hang clean",
+        "reps": "3x10"
+      }
+    ]
+  },
+  {
+    "name": "Routine Pull beginner #3",
+    "description": "Functional routine for \"pull\" and beginner level.",
+    "duration": "1h 0min",
+    "exercises": [
+      {
+        "name": "barbell shrug",
+        "reps": "3x10"
+      },
+      {
+        "name": "cable seated wide-grip row",
+        "reps": "3x10"
+      },
+      {
+        "name": "chin-ups (narrow parallel grip)",
+        "reps": "3x10"
+      },
+      {
+        "name": "cable bar lateral pulldown",
+        "reps": "3x10"
+      }
+    ]
+  }
+]
