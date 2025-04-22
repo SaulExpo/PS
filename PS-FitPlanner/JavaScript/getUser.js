@@ -1,5 +1,6 @@
 async function getUserProfile() {
     const token = localStorage.getItem("jwt"); // Asegúrate de guardar el token en localStorage o cookies
+    console.log(token);
     try {
         const response = await fetch(`http://localhost:1337/api/user-apps/profile?token=${token}`, {
             method: "GET",

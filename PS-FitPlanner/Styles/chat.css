@@ -1,88 +1,57 @@
-.rectangle{
-    width: 300px;
-    height: 984px;
-    border: 1px black solid;
-    margin-left: 178px;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-}
-.rectangle1{
-    width: 299px;
-    height: 85px;
-    border: 1px black solid;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
- .rectangle2{
-      width: 299px;
-      height: 85px;
-      border: 1px black solid;
-  }
-.rectangle2 p {
-    margin-top: 0;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* CSS Document */
+body {
+    font:12px arial;
+    color: #222;
+    text-align:center;
+    padding:35px; }
 
-}
+form, p, span {
+    margin:0;
+    padding:0; }
 
-#icon{
-    width: 65px;
-    height: 60px;
-    margin: 10px 10px 10px 20px;
-}
-.container {
-    display: flex; /* Organiza los rectángulos en fila */
-}
+input { font:12px arial; }
 
-.chat {
-    width: 840px;
-    height: 984px;
-    border: 1px solid black;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    text-align: center;
-}
+a {
+    color:#0000FF;
+    text-decoration:none; }
 
-.chat1 {
-    width: 840px;
-    height: 85px;
-    border: 1px solid black;
-    display: flex;
-    align-self: flex-start;
-}
+a:hover { text-decoration:underline; }
 
-#icon1 {
-    width: 65px;
-    height: 60px;
-    margin: 10px 10px 10px 20px;
-}
+#wrapper, #loginform {
+    margin:0 auto;
+    padding-bottom:25px;
+    background:#EBF4FB;
+    width:504px;
+    border:1px solid #ACD8F0; }
 
-.messages {
-    width: 840px;
-    height: 91px;
-    border: 1px solid black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: auto;
-}
+#loginform { padding-top:18px; }
+
+#loginform p { margin: 5px; }
 
 #chatbox {
-    width: 200px;
-    height: 75px;
-    border: 1px solid black;
-    box-sizing: border-box;
-    align-self: flex-end;
-}
-#usermsg {
-    width:810px;
+    display: block;
+    text-align:left;
+    margin:0 auto;
+    margin-bottom:25px;
+    padding:10px;
+    background:#fff;
+    height:270px;
+    width:430px;
     border:1px solid #ACD8F0;
-    margin: 10px 10px 10px 10px;
-}
+    overflow:auto; }
 
+#usermsg {
+    width:395px;
+    border:1px solid #ACD8F0; }
+
+#submit { width: 60px; }
+
+.error { color: #ff0000; }
+
+#menu { padding:12.5px 25px 12.5px 25px; }
+
+.welcome { float:left; }
+
+.logout { float:right; }
+
+.msgln { margin:0 0 2px 0; }
