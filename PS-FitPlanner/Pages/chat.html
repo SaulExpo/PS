@@ -53,28 +53,107 @@
 <button id="send">Enviar</button>
 
 <script>
-
-  getUserProfile().then(user => {
   let socket;
   let chatHistory = {};
-  let user_name = user.email;
-  console.log(user_name)
-  console.log("A")
+  let user_name;
+  let unsubscribe = null;
 
-  // Cargar historial del localStorage
-  const saved = localStorage.getItem("chatHistory");
-  if (saved) {
-    chatHistory = JSON.parse(saved);
+  async function main() {
+    const user = await getUserProfile();
+    user_name = user.email;
+    console.log("Usuario:", user_name);
+
+    // Inicializa historial
+    const saved = localStorage.getItem("chatHistory");
+    if (saved) {
+      chatHistory = JSON.parse(saved);
+    }
+
+    // Conecta WebSocket
+    connectSocket();
+
+    // Configura listeners
+    if (Notification.permission !== "granted") {
+      Notification.requestPermission();
+    }
+
+    document.getElementById("recipient").addEventListener("change", async () => {
+      const current = document.getElementById("recipient").value.trim();
+      await loadChatFromFirestore(user_name, current);
+    });
+
+    document.getElementById("send").addEventListener("click", () => {
+      const msg = document.getElementById("usermsg").value.trim();
+      const to = document.getElementById("recipient").value.trim();
+      const time = new Date().toLocaleTimeString();
+
+      if (!msg || !user_name || !to) {
+        alert("Completa todos los campos");
+        return;
+      }
+
+      addMessage("self", to, msg, time);
+      socket.send(JSON.stringify({ type: "message", to, msg }));
+      document.getElementById("usermsg").value = "";
+
+      const chatId = getChatId(user_name, to);
+      db.collection("chats").doc(chatId).set({ users: [user_name, to] }, { merge: true });
+      db.collection("chats").doc(chatId).collection("messages").add({
+        from: user_name,
+        to: to,
+        msg: msg,
+        time: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    });
+
+    const currentRecipient = document.getElementById("recipient").value.trim();
+    if (currentRecipient) {
+      renderChat(currentRecipient);
+    }
   }
 
-  function saveHistory() {
-    localStorage.setItem("chatHistory", JSON.stringify(chatHistory));
+  function connectSocket() {
+    socket = new WebSocket("ws://localhost:3000");
+
+    socket.addEventListener("open", () => {
+      console.log("Socket conectado");
+    });
+
+    socket.addEventListener("message", (event) => {
+      const data = JSON.parse(event.data);
+      const time = new Date().toLocaleTimeString();
+
+      addMessage(data.from, data.from, data.msg, time);
+
+      const currentRecipient = document.getElementById("recipient").value.trim();
+      const isVisible = document.visibilityState === "visible";
+
+      if (data.from !== currentRecipient || !isVisible) {
+        if (Notification.permission === "granted") {
+          new Notification(`Nuevo mensaje de ${data.from}`, {
+            body: data.msg,
+            icon: "https://cdn-icons-png.flaticon.com/512/1384/1384023.png"
+          });
+        }
+      }
+
+      if (data.from !== user_name) {
+        const chatId = getChatId(data.from, user_name);
+        db.collection("chats").doc(chatId).set({ users: [data.from, user_name] }, { merge: true });
+        db.collection("chats").doc(chatId).collection("messages").add({
+          from: data.from,
+          to: user_name,
+          msg: data.msg,
+          time: firebase.firestore.FieldValue.serverTimestamp()
+        });
+      }
+    });
   }
 
   function addMessage(who, userKey, message, time) {
     if (!chatHistory[userKey]) chatHistory[userKey] = [];
     chatHistory[userKey].push({ from: who, msg: message, time });
-    saveHistory();
+    localStorage.setItem("chatHistory", JSON.stringify(chatHistory));
 
     if (document.getElementById("recipient").value === userKey) {
       renderChat(userKey);
@@ -92,49 +171,12 @@
     chatbox.scrollTop = chatbox.scrollHeight;
   }
 
-  document.getElementById("recipient").addEventListener("change", async () => {
-    const current = document.getElementById("recipient").value.trim();
-    const self = user_name
-    await loadChatFromFirestore(self, current);
-  });
-
-  document.getElementById("send").addEventListener("click", () => {
-    const msg = document.getElementById("usermsg").value.trim();
-    const from = user_name
-    const to = document.getElementById("recipient").value.trim();
-    const time = new Date().toLocaleTimeString();
-
-    if (!msg || !from || !to) {
-      alert("Completa todos los campos");
-      return;
-    }
-
-    addMessage("self", to, msg, time);
-    socket.send(JSON.stringify({ type: "message", to, msg }));
-    document.getElementById("usermsg").value = "";
-    const chatId = getChatId(from, to);
-
-    db.collection("chats").doc(chatId).set({
-      users: [from, to]
-    }, { merge: true });
-
-    db.collection("chats").doc(chatId).collection("messages").add({
-      from: from,
-      to: to,
-      msg: msg,
-      time: firebase.firestore.FieldValue.serverTimestamp()
-    });
-  });
-
   function getChatId(user1, user2) {
     return [user1, user2].sort().join("_");
   }
 
-  let unsubscribe = null;
-
   async function loadChatFromFirestore(user1, user2) {
     const chatId = getChatId(user1, user2);
-
     if (unsubscribe) unsubscribe();
 
     unsubscribe = db.collection("chats")
@@ -157,7 +199,6 @@
 
                 messages.push(msgObj);
 
-                // 🔔 Mostrar notificación si es un mensaje nuevo Y no es del propio usuario
                 if (!fromSelf && index >= lastVisibleMessage) {
                   const isVisible = document.visibilityState === "visible";
                   const currentRecipient = document.getElementById("recipient").value.trim();
@@ -176,65 +217,9 @@
             });
   }
 
-
-
-
-  function connectSocket() {
-    socket = new WebSocket("ws://localhost:3000");
-
-    socket.addEventListener("open", () => {
-      socket.addEventListener("message", (event) => {
-        const data = JSON.parse(event.data);
-        const time = new Date().toLocaleTimeString();
-        const username = user_name
-
-        addMessage(data.from, data.from, data.msg, time);
-
-        const currentRecipient = document.getElementById("recipient").value.trim();
-        const isVisible = document.visibilityState === "visible";
-
-        if (data.from !== currentRecipient || !isVisible) {
-          if (Notification.permission === "granted") {
-            new Notification(`Nuevo mensaje de ${data.from}`, {
-              body: data.msg,
-              icon: "https://cdn-icons-png.flaticon.com/512/1384/1384023.png"
-            });
-          }
-        }
-
-        // ⚠️ Solo guarda en Firestore si el mensaje es de otro usuario
-        if (data.from !== user_name) {
-          const from = data.from;
-          const to = user_name;
-          const chatId = getChatId(from, to);
-
-          db.collection("chats").doc(chatId).set({ users: [from, to] }, { merge: true });
-
-          db.collection("chats").doc(chatId).collection("messages").add({
-            from,
-            to,
-            msg: data.msg,
-            time: firebase.firestore.FieldValue.serverTimestamp()
-          });
-        }
-      });
-    });
-  }
-
-  window.addEventListener("load", () => {
-    if (Notification.permission !== "granted") {
-      Notification.requestPermission();
-    }
-
-    connectSocket();
-
-    const currentRecipient = document.getElementById("recipient").value.trim();
-    if (currentRecipient) {
-      renderChat(currentRecipient);
-    }
-  });
-  });
+  window.addEventListener("load", main);
 </script>
+
 <script>
   Promise.all([loadTemplate("../Templates/header.html" , "main_header"),
     loadTemplate("../Templates/footer.html" , "main_footer")]).then(() =>
