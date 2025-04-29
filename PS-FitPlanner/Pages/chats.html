@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat Privado</title>
+    <link rel="stylesheet" href="/PS-FitPlanner/Styles/header.css">
+    <link rel="stylesheet" href="/PS-FitPlanner/Styles/footer.css">
+    <link rel="stylesheet" href="/PS-FitPlanner/Styles/chat.css">
+    <script src="../JavaScript/loadFooter.js"></script>
+    <script src="../JavaScript/loadHeader.js"></script>
+    <script src="../JavaScript/getUser.js"></script>
+    <script src="../JavaScript/script.js"></script>
+    <script src="../JavaScript/firebase_config.js"></script>
+    <style>
+        .recuadro {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin: 10px;
+            display: inline-block;
+            width: 200px;
+            text-align: center;
+        }
+        .boton-acceder {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .boton-acceder:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+
+
+</head>
+<header id="main_header"></header>
+
+<body>
+
+<div id="contenedor"></div>
+
+<script>
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    let profesionales = []
+    let chats = []
+    async function obtenerProfesionales() {
+        try {
+            // Obtener los documentos de la colección "chats"
+            const querySnapshot = await db.collection("profesional_user_app").get();
+
+            // Iterar a través de los documentos y mostrar los datos
+            querySnapshot.forEach((doc) => {
+                profesionales.push(doc.data());
+            });
+        } catch (error) {
+            console.error("Error obteniendo los chats: ", error);
+        }
+    }
+    async function obtenerChats() {
+        try {
+            const user = await getUserProfile();
+            // Obtener los documentos de la colección "chats"
+            const querySnapshot = await db.collection("chats").where("users", "array-contains", user.email) // Filtra los chats que contienen al usuario
+                .get();
+
+            // Iterar a través de los documentos y mostrar los datos
+            for (const doc of querySnapshot.docs) {
+                const chatData = doc.data();
+                const chatId = doc.id;
+
+                // Acceder a la subcolección "mensajes" dentro del chat actual
+                const mensajesSnapshot = await db.collection("chats").doc(chatId).collection("messages")
+                    .get();
+
+                // Obtener todos los mensajes en un array
+                const mensajes = mensajesSnapshot.docs.map(mensajeDoc => ({
+                    id: mensajeDoc.id,
+                    ...mensajeDoc.data()
+                }));
+
+                // Agregar los mensajes al objeto del chat
+                chatData.messages = mensajes;
+
+                // Agregar el chat completo al array principal
+                chats.push({
+                    id: chatId,
+                    ...chatData
+                });
+            }
+        } catch (error) {
+            console.error("Error obteniendo los chats: ", error);
+        }
+    }
+    function generarRecuadros() {
+        const contenedor = document.getElementById('contenedor');
+
+        // Limpiar el contenedor antes de agregar los recuadros (por si ya hay contenido)
+        contenedor.innerHTML = '';
+
+        // Recorrer la lista de profesionales
+        chats.forEach(chat => {
+            // Crear el recuadro
+            const recuadro = document.createElement('div');
+            recuadro.classList.add('recuadro');
+
+            // Crear el nombre del profesional
+            const nombre = document.createElement('h3');
+            nombre.textContent = chat.users[1];
+
+            const fecha = document.createElement('div');
+            const date = new Date(chat.messages[0].time * 1000);
+            fecha.textContent = date;
+
+            // Crear el botón "Acceder"
+            const boton = document.createElement('button');
+            boton.textContent = 'Acceder';
+            boton.classList.add('boton-acceder');
+            boton.addEventListener('click', () => {
+                window.location.href=`./chat.html?to=${chat.users[1]}`
+            });
+
+            // Agregar el nombre y el botón al recuadro
+            recuadro.appendChild(nombre);
+            recuadro.appendChild(fecha);
+            recuadro.appendChild(boton);
+
+            // Agregar el recuadro al contenedor
+            contenedor.appendChild(recuadro);
+        });
+    }
+
+
+    // Llamar a la función
+    obtenerProfesionales().then(item =>{
+        obtenerChats().then(item => {
+            console.log(profesionales)
+            console.log(chats)
+            generarRecuadros();
+        })
+    });
+
+
+
+</script>
+
+<script>
+    Promise.all([loadTemplate("../Templates/header.html" , "main_header"),
+        loadTemplate("../Templates/footer.html" , "main_footer")]).then(() =>
+    {
+        loadHeader()
+        loadFooter()
+    })
+</script>
+</body>
+<footer id="main_footer"></footer>
+
+</html>
+
