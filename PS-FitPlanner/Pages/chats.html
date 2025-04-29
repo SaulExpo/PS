@@ -96,7 +96,8 @@
             console.error("Error obteniendo los chats: ", error);
         }
     }
-    function generarRecuadros() {
+    async function generarRecuadros() {
+        const user = await getUserProfile();
         const contenedor = document.getElementById('contenedor');
 
         // Limpiar el contenedor antes de agregar los recuadros (por si ya hay contenido)
@@ -110,7 +111,11 @@
 
             // Crear el nombre del profesional
             const nombre = document.createElement('h3');
-            nombre.textContent = chat.users[1];
+            if(chat.users[1] == user.email){
+                nombre.textContent = chat.users[0];
+            } else {
+                nombre.textContent = chat.users[1];
+            }
 
             const fecha = document.createElement('div');
             const date = new Date(chat.messages[0].time * 1000);
