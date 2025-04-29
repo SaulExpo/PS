@@ -43,10 +43,9 @@
   let user_name;
   let unsubscribe = null;
   const urlParams = new URLSearchParams(window.location.search);
-  const to = urlParams.get('to');
+  const receiver = urlParams.get('to');
 
   async function main() {
-    console.log(to)
     const user = await getUserProfile();
     user_name = user.email;
     console.log("Usuario:", user_name);
@@ -66,9 +65,13 @@
     }
 
 
+    await loadChatFromFirestore(user_name, receiver);
+
+
     document.getElementById("send").addEventListener("click", () => {
       const msg = document.getElementById("usermsg").value.trim();
-      const to = this.to;
+      const to = receiver;
+      console.log(to)
       const time = new Date().toLocaleTimeString();
 
       if (!msg || !user_name || !to) {
@@ -90,7 +93,7 @@
       });
     });
 
-    const currentRecipient = to;
+    const currentRecipient = receiver;
     if (currentRecipient) {
       renderChat(currentRecipient);
     }
@@ -109,7 +112,7 @@
 
       addMessage(data.from, data.from, data.msg, time);
 
-      const currentRecipient = to;
+      const currentRecipient = receiver;
       const isVisible = document.visibilityState === "visible";
 
       if (data.from !== currentRecipient || !isVisible) {
@@ -139,7 +142,7 @@
     chatHistory[userKey].push({ from: who, msg: message, time });
     localStorage.setItem("chatHistory", JSON.stringify(chatHistory));
 
-    if (to === userKey) {
+    if (receiver === userKey) {
       renderChat(userKey);
     }
   }
@@ -185,7 +188,7 @@
 
                 if (!fromSelf && index >= lastVisibleMessage) {
                   const isVisible = document.visibilityState === "visible";
-                  const currentRecipient = to;
+                  const currentRecipient = receiver
 
                   if (Notification.permission === "granted" && (user2 !== currentRecipient || !isVisible)) {
                     new Notification(`Nuevo mensaje de ${data.from}`, {
