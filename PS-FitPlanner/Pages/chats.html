@@ -121,7 +121,12 @@
             boton.textContent = 'Acceder';
             boton.classList.add('boton-acceder');
             boton.addEventListener('click', () => {
-                window.location.href=`./chat.html?to=${chat.users[1]}`
+                if(chat.users[1] == user.email){
+                    window.location.href=`./chat.html?to=${chat.users[0]}`
+                } else {
+                    window.location.href=`./chat.html?to=${chat.users[1]}`
+                }
+
             });
 
             // Agregar el nombre y el botón al recuadro
