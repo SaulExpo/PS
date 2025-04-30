@@ -14,48 +14,38 @@
 </head>
 <body>
 
-<!-- Header -->
-<div id="header-container"></div>
+
+<header id="main_header">
+</header>
 
 <main class="container">
   <h1><strong>Mis Rutinas</strong></h1>
 
-  <!-- Botón para crear nueva rutina -->
+
   <button class="new-btn" onclick="window.location.href='exercise_selector.html'">
     Crear Nueva Rutina
   </button>
 
-  <!-- Contenedor para la lista de rutinas -->
+
   <div id="routine-list" class="routine-list">
-    <!-- JS cargará aquí las rutinas -->
   </div>
 </main>
 
-<!-- Footer -->
-<div id="footer-container"></div>
 
-<!-- Cargar header y footer -->
-<script>
-  fetch('header.html')
-          .then(res => res.text())
-          .then(html => {
-            document.getElementById('header-container').innerHTML = html;
-          });
+<footer id="main_footer">
+</footer>
 
-  fetch('footer.html')
-          .then(res => res.text())
-          .then(html => {
-            document.getElementById('footer-container').innerHTML = html;
-          });
-</script>
 <script>
-  Promise.all([loadTemplate("../Templates/header.html", "main_header"),
-    loadTemplate("../Templates/footer.html", "main_footer")]
+
+  Promise.all([loadTemplate("../Templates/footer.html", "main_footer"),
+    loadTemplate("../Templates/header.html", "main_header")]
   ).then(() => {
-    loadHeader()
-    loadFooter()
+    load()
   })
-</script><!-- Script para cargar las rutinas -->
+
+
+</script>
+
 <script src="../JavaScript/my_routines.js"></script>
 </body>
 </html>
