@@ -8,10 +8,21 @@
     <link rel="stylesheet" href="../Styles/footer.css">
     <link rel="stylesheet" href="../Styles/index.css">
   <link rel="stylesheet" href="../Styles/firs_page.css">
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="../Firebase/firebase-init.js"></script>
     <script src="../JavaScript/loadHeader.js"></script>
     <script src="../JavaScript/loadFooter.js"></script>
     <script src="../JavaScript/first_page.js"></script>
     <script src="../JavaScript/script.js"></script>
+    <script>
+        auth.onAuthStateChanged(user => {
+            if (!user) {
+                window.location.href = 'login.html';
+            }
+        });
+    </script>
 </head>
 <body>
 <header id="main_header"></header>
