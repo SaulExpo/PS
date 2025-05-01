@@ -1,3 +1,12 @@
+import { BehaviorSubject } from 'https://cdn.jsdelivr.net/npm/rxjs@7.8.1/+esm';
+
+let alumnos = ['Alumno1', 'Alumno2', 'Alumno3'];
+let alumnos_sub = new BehaviorSubject(alumnos)
+alumnos_sub.subscribe(val =>
+{
+    load_alumns()
+})
+
 function load()
 {
     loadHeader()
@@ -33,4 +42,39 @@ function load()
 
         })
     loadFooter()
+    load_alumns()
 }
+
+function load_alumns()
+{
+    let temp = ''
+    for (const alumno of alumnos) {
+        temp += `<li class="alumno">
+            <p>${alumno}</p>
+            <button onclick="mensaje('${alumno}')">Desasignar</button>
+         </li>`;
+
+    }
+    document.querySelector("#alum-list").innerHTML = temp
+}
+function mensaje(user)
+{
+    let index = alumnos.findIndex(val => val === user)
+    const confirmado = confirm(`Estas seguro de desasignar a ${user}?`)
+    if (confirmado) {
+        alumnos.splice(index, 1)
+        alumnos_sub.next(alumnos)
+    }
+    console.log(alumnos)
+
+
+}
+
+
+Promise.all([loadTemplate("../Templates/header.html" , "main_header"),
+    loadTemplate("../Templates/footer.html" , "main_footer")]).then(() =>
+{
+    load()
+})
+
+window.mensaje = mensaje
