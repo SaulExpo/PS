@@ -34,5 +34,24 @@ hr {
 }
 
 .footer_bottom {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 40px;
 }
+
+
+.icon_text_row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.icon_text_row img {
+    width: 24px;
+    height: 24px;
+}
+
+
+
+
