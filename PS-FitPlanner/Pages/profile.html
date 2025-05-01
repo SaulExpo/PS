@@ -19,26 +19,92 @@
 </header>
 
 <main>
-    <img id="icon" src="../Resources/imagen_vertical.png" alt="Name">
-    <h1>Name</h1>
-    <img id="graphic" src="../Resources/graphic.png" onclick="location.replace('graphic.html')">
-    <img id="suscription" src="../Resources/suscription.png" onclick="location.replace('select_payment_plan.html')">
-    <div class="rectangle">
-        <p>Lorem_Ipsum Gorem_Ipsum</p>
-        <hr>
-        <p>Lorem_Ipsum Gorem_Ipsum</p>
-        <hr>
-        <p>Lorem_Ipsum Gorem_Ipsum</p>
-        <hr>
-        <p>Lorem_Ipsum Gorem_Ipsum</p>
-        <hr>
-        <p>Lorem_Ipsum Gorem_Ipsum</p>
-    </div>
-    <div id="asignacion">
-        <h2 id="alumnos"></h2>
-        <ul id="alum-list">
 
-        </ul>
+
+    <div id="buttons_and_rectangle">
+        <div id="buttons_profile">
+            <ul>
+                <li>
+                    <button class="button_profile" onclick="location.replace('main_page.html')">
+                        <img id="home" src="../Resources/home.png" >
+                        Home
+                    </button>
+                    <button class="button_profile" onclick="location.replace('graphic.html')">
+                        <img id="graphic" src="../Resources/graphic.png" >
+                        Graficas
+                    </button>
+                    <button class="button_profile" onclick="location.replace('select_payment_plan.html')">
+                        <img id="suscription" src="../Resources/suscription.png" >
+                        Suscripcion
+                    </button>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <div id="avatar_profile">
+                <img id="icon" src="../Resources/icono.avif" alt="Name">
+                <h1>Name</h1>
+            </div>
+            <div class="rectangle">
+
+                <table>
+                    <tr>
+                        <th class="half-left">
+                            <div class="part">
+                                <label class="tag">Correo</label>
+                                <p>noseque@correo.com</p>
+                            </div>
+                        </th>
+                        <th class="half-right">
+                            <div class="part">
+                                <label class="tag">Sexo</label>
+                                <p>Hombre</p>
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <div class="part">
+                                <label class="tag">Altura</label>
+                                <p>187</p>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="part">
+                                <label class="tag">Edad</label>
+                                <p>22</p>
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <div class="part">
+                                <label class="tag">Peso</label>
+                                <p>98</p>
+                            </div>
+                        </th>
+                    </tr>
+                </table>
+
+
+
+
+
+
+
+            </div>
+        </div>
+
+    </div>
+
+    <div id="asignacion">
+        <h1>Lista de alumnos</h1>
+        <div id="alumnos_info">
+            <h2 id="alumnos"></h2>
+            <ul id="alum-list">
+            </ul>
+        </div>
+
     </div>
 
 </main>

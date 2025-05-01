@@ -1,10 +1,11 @@
 import { BehaviorSubject } from 'https://cdn.jsdelivr.net/npm/rxjs@7.8.1/+esm';
 
-let alumnos = ['Alumno1', 'Alumno2', 'Alumno3'];
+let alumnos = ['Alumno1', 'Alumno2', 'Alumno3', 'Alumno4', 'Alumno5', 'Alumno6'];
 let alumnos_sub = new BehaviorSubject(alumnos)
 alumnos_sub.subscribe(val =>
 {
     load_alumns()
+    num_alumns()
 })
 
 function load()
@@ -23,7 +24,7 @@ function load()
     })
         .then(function (json)
         {
-            const personal = json.personal;
+            /*const personal = json.personal;
             document.querySelector("h1").textContent = personal.name
             let todo = ""
             let temp = ""
@@ -36,28 +37,36 @@ function load()
             temp = "<p class='info'>Altura: " + personal.altura.valor + personal.altura.medida+ "</p>"
             todo += temp
             temp = "<p class='info'>Peso: " + personal.peso.valor + personal.peso.medida+ "</p>"
-            todo += temp
+            todo += temp*/
             document.querySelector(".rectangle").innerHTML = todo
             document.querySelector("#icon").src = personal.image
 
         })
     loadFooter()
-    load_alumns()
+    load_info()
 }
 
+function load_info()
+{
+    load_alumns()
+}
+function num_alumns()
+{
+    document.querySelector("#alumnos").innerHTML = `Numero de alumnos: ${alumnos.length}`
+}
 function load_alumns()
 {
     let temp = ''
     for (const alumno of alumnos) {
         temp += `<li class="alumno">
             <p>${alumno}</p>
-            <button onclick="mensaje('${alumno}')">Desasignar</button>
+            <button class="button_desasig" onclick="desasignar('${alumno}')">Desasignar</button>
          </li>`;
 
     }
     document.querySelector("#alum-list").innerHTML = temp
 }
-function mensaje(user)
+function desasignar(user)
 {
     let index = alumnos.findIndex(val => val === user)
     const confirmado = confirm(`Estas seguro de desasignar a ${user}?`)
@@ -77,4 +86,4 @@ Promise.all([loadTemplate("../Templates/header.html" , "main_header"),
     load()
 })
 
-window.mensaje = mensaje
+window.desasignar = desasignar
