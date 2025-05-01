@@ -20,9 +20,9 @@ main
 }
 
 .rectangle {
-    width: 18em;
-    height: 7em;
-    background: lightgray;
+    width: 9em;
+    height: 11em;
+    background: black;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -31,7 +31,9 @@ main
     margin: 70px auto;
     word-spacing: 70px;
     font-size: 2em;
+    color: white;
 }
+
 h1{
     text-align: center;
 }
@@ -64,3 +66,4 @@ hr{
     margin-left: 1200px;
     margin-top: 30px;
 }
+
