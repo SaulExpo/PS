@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../Styles/login.css">
     <link rel="stylesheet" href="../Styles/main_page.css">
     <script src="../JavaScript/script.js"></script>
-    <script src="../JavaScript/main_page.js"></script>
+    <script type="module" src="../JavaScript/main_page.js"></script>
     <script type="module" src="../JavaScript/GlobalLoad/loadHeader.js"></script>
     <script src="../JavaScript/GlobalLoad/loadFooter.js"></script>
 </head>
@@ -34,7 +34,7 @@
 
 <script type="module">
     import {loadTemplate, loadHeader} from "../JavaScript/GlobalLoad/loadHeader.js";
-
+    import {load} from "../JavaScript/main_page.js";
     Promise.all([loadTemplate("../Templates/footer.html", "main_footer"),
     loadTemplate("../Templates/header.html", "main_header")]
     ).then(() => {
