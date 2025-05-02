@@ -41,7 +41,8 @@ async function getProfesor(profe)
 {
     let ref = doc(db, "profesores", profe)
     const snap = await getDoc(ref)
-    profesor = await snap.data()
+    profesor = {id: snap.id, ...snap.data()}
+
 
 }
 async function getalumnos()
@@ -49,7 +50,10 @@ async function getalumnos()
     for (const alum of profesor.alumnos) {
         let alu = doc(db, "alumnos", alum.id)
         let snap = await getDoc(alu)
-        alumnos.push(snap.data())
+        alumnos.push(
+            {id: snap.id,
+            ...snap.data()}
+        )
     }
 
 }
@@ -120,55 +124,30 @@ function load_alumns()
 
         temp += `<li class="alumno">
             <p>${alumno.name}</p>
-            <button class="button_desasig" onclick="desasignar('${alumno.name}')">Desasignar</button>
+            <button class="button_desasig" onclick="desasignar('${alumno.id}\', \'${alumno.name}')">Desasignar</button>
          </li>`;
     })
     document.querySelector("#alum-list").innerHTML = temp
 }
-function desasignar(user)
+async function desasignar(userID, userName)
 {
-    console.log(alumnos)
-    return
-    let encontrado = ''
-    let alumno = alumnos.find(val => {
-        if(val.data().name === user)
-        {
-            encontrado
-        }
-    })
-    const confirmado = confirm(`Estas seguro de desasignar a ${user}?`)
-    /*if (confirmado) {
-        updateDoc(alumnosRef,
-            {
-                alumnos: arrayRemove(alumno)
-            })
+    let alumRef = doc(db, "alumnos", userID)
+    let profeRef = doc(db, "profesores", profesor.id)
+    const confirmado = confirm(`Estas seguro de desasignar a ${userName}?`)
+    console.log(userID)
+    if (confirmado)
+    {
+        await updateDoc(profeRef,
+            {alumnos: arrayRemove(alumRef)})
+        location.reload()
+
     }
-    alumnos.forEach(val =>
-    {
-        console.log(val.data())
-    })*/
+
+
 
 }
 
 
-async function get_users()
-{
-    let profesores = await getDocs(alumnosRef)
-    profesores.forEach(val =>
-    {
-        if (val.data().name === profesor)
-        {
-            val.data().alumnos.forEach(alumno =>
-            {
-                console.log(alumno.id)
-                let ref = doc(db, "alumnos", "O3bOV8CK3lNVCxHhUiQQ")
-                getDoc(ref)
-            })
-
-        }
-    })
-
-}
 
 Promise.all([loadTemplate("../Templates/header.html" , "main_header"),
     loadTemplate("../Templates/footer.html" , "main_footer")]).then(() =>
