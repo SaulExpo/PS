@@ -112,7 +112,7 @@ function load_info()
 }
 function num_alumns()
 {
-    document.querySelector("#alumnos").innerHTML = `Numero de alumnos: ${alumnos.length}`
+    document.querySelector("#alumnos").innerHTML = `Número de alumnos: ${alumnos.length}`
 }
 function load_alumns()
 {
