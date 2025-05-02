@@ -4,6 +4,10 @@ import {auth, db} from "./firebase_config.js";
 import {getUserProfile} from "./GetDB/getUser.js";
 import {loadHeader} from "./GlobalLoad/loadHeader.js";
 
+const token = localStorage.getItem("jwt");
+if (!token) {
+    window.location.href = "../Pages/login.html"
+}
 
 const alumnosRef = collection(db, "profesores");
 let alumnos = []
@@ -46,8 +50,21 @@ async function getalumnos()
 }
 function getInfo(user)
 {
-    document.querySelector("#name_avatar").innerHTML = user.name
+    document.querySelector("#name_avatar").innerHTML = user.name + " " + user.surname
     document.querySelector("#icon").src = "../Resources/icono.avif" //user.icon
+    if(!user.edad){
+        user.edad = "X"
+    }
+    if(!user.peso){
+        user.peso = "X"
+    }
+    if(!user.genero){
+        user.genero = "X"
+    }
+    if(!user.altura){
+        user.altura = "X"
+    }
+
     document.querySelector(".rectangle").innerHTML = `<table>
                     <tr>
                         <th class="half-left">

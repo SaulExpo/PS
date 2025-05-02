@@ -120,7 +120,10 @@ function generarSelect(){
         select.appendChild(option);
     });
 }
-
+const token = localStorage.getItem("jwt");
+if (!token) {
+    window.location.href = "../Pages/login.html"
+}
 
 obtenerProfesionales().then(profesionales =>{
     obtenerChats(false).then(item => {

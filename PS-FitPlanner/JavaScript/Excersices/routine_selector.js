@@ -31,6 +31,7 @@ let editId         = null;
 
 const userRoutinesCol = collection(db, "user_routines");
 
+
 function render(list) {
     exerciseList.innerHTML = "";
     if (!list.length) {

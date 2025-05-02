@@ -2,6 +2,12 @@
 import {collection, getDocs, doc, deleteDoc} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import {db} from "../firebase_config.js";
 
+const token = localStorage.getItem("jwt");
+if (!token) {
+    window.location.href = "../Pages/login.html"
+}
+
+
 // 1) Referencia a Firestore
 const userRoutinesCol = collection(db, "user_routines");
 

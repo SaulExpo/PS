@@ -12,6 +12,10 @@ const receiver = urlParams.get('to');
 
 
 async function main() {
+    const token = localStorage.getItem("jwt");
+    if (!token) {
+        window.location.href = "../Pages/login.html"
+    }
     // Obtén el perfil de usuario (necesitas implementar esta función)
     onAuthStateChanged(auth, async (user) => {
         if (user) {
