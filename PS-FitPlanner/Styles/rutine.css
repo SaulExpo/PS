@@ -15,10 +15,10 @@ main {
 }
 
 body {
-     font-family: 'Inter', sans-serif;
-     background-color: #f5f7fa;
-     color: #333;
- }
+    font-family: 'Inter', sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+}
 
 main {
     background-color: white;
@@ -50,41 +50,48 @@ main {
     color: #2b3a67;
 }
 
- #selectors {
-     display: flex;
-     flex-direction: column;
-     align-items: center;
-     gap: 1.5em;
-     margin: 2em auto;
- }
+#restContainer {
+    margin-bottom: 1.5em;
+    text-align: center;
+    font-size: 1.1em;
+    color: #2b3a67;
+}
 
- .horizontal-selectors {
-     display: flex;
-     gap: 1em;
-     flex-wrap: wrap;
-     justify-content: center;
-     align-items: center;
- }
+#selectors {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5em;
+    margin: 2em auto;
+}
 
- .search-bar {
-     display: flex;
-     gap: 1em;
-     flex-wrap: wrap;
-     justify-content: center;
-     align-items: center;
- }
+.horizontal-selectors {
+    display: flex;
+    gap: 1em;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
 
- #selectors label {
-     font-weight: bold;
- }
+.search-bar {
+    display: flex;
+    gap: 1em;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
 
- #selectors select,
- #selectors input {
-     padding: 0.5em;
-     border-radius: 6px;
-     border: 1px solid #ccc;
-     font-size: 0.95em;
- }
+#selectors label {
+    font-weight: bold;
+}
+
+#selectors select,
+#selectors input {
+    padding: 0.5em;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 0.95em;
+}
 
 #exercises {
     display: flex;
@@ -112,4 +119,3 @@ main {
 #exercises a:hover {
     color: #000; /* negro al pasar el mouse */
 }
-

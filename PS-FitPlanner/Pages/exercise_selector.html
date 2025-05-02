@@ -17,36 +17,33 @@
 <div id="main_header"></div>
 
 <main class="container">
-    <h1>Selector de Ejercicios</h1>
+    <h1>Exercise selector</h1>
 
     <!-- Filtro -->
     <div class="controls">
-        <label for="bodypart-select">Filtrar por grupo muscular:</label>
+        <label for="bodypart-select">Select muscular group:</label>
         <select id="bodypart-select">
-            <option disabled selected value="">-- Elige una parte del cuerpo --</option>
-            <option value="back">Espalda</option>
-            <option value="cardio">Cardio</option>
-            <option value="chest">Pecho</option>
-            <option value="lower_arms">Antebrazos</option>
-            <option value="lower_legs">Piernas (inferior)</option>
-            <option value="neck">Cuello</option>
-            <option value="shoulders">Hombros</option>
-            <option value="upper_arms">Brazos</option>
-            <option value="upper_legs">Piernas (superior)</option>
-            <option value="waist">Cintura</option>
+            <option value="" disabled selected>Choose by group</option>
         </select>
+
+        <label for="exercise-search">Buscar ejercicio:</label>
+        <input
+                id="exercise-search"
+                type="search"
+                placeholder="Nombre, target o equipamiento…"
+        />
     </div>
 
     <!-- Nombre, duración, descripción y botón único -->
     <div class="routine-controls">
-        <input type="text" id="routine-name" placeholder="Nombre de la rutina" />
-        <input type="text" id="routine-duration" placeholder="Duración (ej: 1h 0min)" style="width: 100%; max-width: 400px; border-radius: 8px; border: 1px solid #ccc; padding: 0.6rem;" />
-        <textarea id="routine-description" placeholder="Descripción de la rutina" rows="3" style="width: 100%; max-width: 400px; border-radius: 8px; border: 1px solid #ccc; padding: 0.6rem;"></textarea>
+        <input type="text" id="routine-name" placeholder="Routine name" />
+        <input type="text" id="routine-duration" placeholder="Duration (example: 1h 0min)" />
+        <input type="text" id="routine-rest" placeholder="Rest-time (example: 3:00 min)" />
+        <textarea id="routine-description" placeholder="Routine description" rows="3" style="width: 100%; max-width: 400px; border-radius: 8px; border: 1px solid #ccc; padding: 0.6rem;"></textarea>
 
-        <button id="save-export-routine" class="export-btn">💾 Guardar y Exportar Rutina</button>
+        <button id="save-export-routine" class="export-btn">Save routine</button>
     </div>
 
-    <!-- Lista de ejercicios -->
     <div id="exercise-list"></div>
 </main>
 

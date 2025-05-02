@@ -5,7 +5,7 @@ const logout = async () => {
     try {
         await signOut(auth);
         console.log("Sesión cerrada correctamente.");
-        window.location.href="../../Pages/first_page.html";
+        window.location.href="../Pages/first_page.html";
     } catch (error) {
         console.error("Error al cerrar sesión:", error.message);
     }

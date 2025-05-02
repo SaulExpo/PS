@@ -9,7 +9,8 @@
     <script src="../JavaScript/GlobalLoad/loadFooter.js"></script>
     <script src="../JavaScript/script.js"></script>
     <script src="../JavaScript/asignacion_prof.js"></script>
-    <script type="module" src="../JavaScript/Profile/profile.js"></script>
+    <script type="module" src="../JavaScript/profile.js"></script>
+    <script type="module" src="../JavaScript/firebase_config.js"></script>
     <title>Profile</title>
 
 </head>
@@ -18,41 +19,53 @@
 </header>
 
 <main>
-    <img id="icon" src="../Resources/imagen_vertical.png" alt="Name">
-    <h1 id="Nombre">Name</h1>
-    <img id="graphic" src="../Resources/graphic.png" onclick="location.replace('graphic.html')">
-    <img id="suscription" src="../Resources/suscription.png" onclick="location.replace('select_payment_plan.html')">
-    <div class="rectangle">
-        <p id="email">Lorem_Ipsum Gorem_Ipsum</p>
-        <hr>
-        <p id="edad">Lorem_Ipsum Gorem_Ipsum</p>
-        <hr>
-        <p id="genero">Lorem_Ipsum Gorem_Ipsum</p>
-        <hr>
-        <p id="altura">Lorem_Ipsum Gorem_Ipsum</p>
-        <hr>
-        <p id="peso">Lorem_Ipsum Gorem_Ipsum</p>
+
+
+    <div id="buttons_and_rectangle">
+        <div id="buttons_profile">
+            <ul>
+                <li>
+                    <button class="button_profile" onclick="location.replace('main_page.html')">
+                        <img id="home" src="../Resources/home.png" >
+                        Home
+                    </button>
+                    <button class="button_profile" onclick="location.replace('graphic.html')">
+                        <img id="graphic" src="../Resources/graphic.png" >
+                        Graficas
+                    </button>
+                    <button class="button_profile" onclick="location.replace('select_payment_plan.html')">
+                        <img src="../Resources/suscription.png" id="suscription" alt="foto perfil" >
+                        Suscripcion
+                    </button>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <div id="avatar_profile">
+                <img id="icon" alt="Name">
+                <h1 id="name_avatar"></h1>
+            </div>
+            <div class="rectangle">
+            </div>
+        </div>
+
     </div>
-    <p>Tu profesional asignado es: <span id="profesional"></span></p>
-    <button onclick="location.replace('../Pages/edit_profile.html')">Editar Perfil</button>
+
+    <div id="asignacion">
+        <h1>Lista de alumnos</h1>
+        <div id="alumnos_info">
+            <h2 id="alumnos"></h2>
+            <ul id="alum-list">
+            </ul>
+        </div>
+
+    </div>
+    <button onclick="location.replace('Pages/edit_profile.html')">Editar Perfil</button>
+
 </main>
 
 <footer id="main_footer">
 </footer>
 
-<script type="module">
-    import {loadTemplate} from "../JavaScript/GlobalLoad/loadHeader.js";
-    import {load} from "../JavaScript/Profile/profile.js";
-    Promise.all([loadTemplate("../Templates/header.html" , "main_header"),
-        loadTemplate("../Templates/footer.html" , "main_footer")]).then(() =>
-    {
-        load()
-        asignacion_prof("prueba2@gmail.com").then(pro =>
-        {
-            document.querySelector("#profesional").textContent = pro.profesional.name
-            document.querySelector("#profesional").style.border = "none"
-        })
-    })
-</script>
 </body>
 </html>
