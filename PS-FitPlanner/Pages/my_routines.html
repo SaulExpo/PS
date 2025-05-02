@@ -9,13 +9,15 @@
   <link rel="stylesheet" href="../Styles/footer.css" />
   <link rel="stylesheet" href="../Styles/my_routines.css" />
   <script src="../JavaScript/script.js"></script>
+  <script src="../JavaScript/firebase_config.js"></script>
+  <script type="module" src="../JavaScript/Excersices/my_routines.js"></script>
   <script type="module" src="../JavaScript/GlobalLoad/loadHeader.js"></script>
   <script src="../JavaScript/GlobalLoad/loadFooter.js"></script>
 </head>
 <body>
 
 <!-- Header -->
-<div id="header-container"></div>
+<div id="main_header"></div>
 
 <main class="container">
   <h1><strong>Mis Rutinas</strong></h1>
@@ -32,22 +34,10 @@
 </main>
 
 <!-- Footer -->
-<div id="footer-container"></div>
+<div id="main_footer"></div>
 
 <!-- Cargar header y footer -->
-<script>
-  fetch('header.html')
-          .then(res => res.text())
-          .then(html => {
-            document.getElementById('header-container').innerHTML = html;
-          });
 
-  fetch('footer.html')
-          .then(res => res.text())
-          .then(html => {
-            document.getElementById('footer-container').innerHTML = html;
-          });
-</script>
 <script type="module">
   import {loadTemplate, loadHeader} from "../JavaScript/GlobalLoad/loadHeader.js";
   Promise.all([loadTemplate("../Templates/header.html", "main_header"),
