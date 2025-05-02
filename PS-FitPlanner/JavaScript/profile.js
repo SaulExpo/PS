@@ -98,7 +98,6 @@ function getInfo(user)
                         </th>
                     </tr>
                 </table>`
-    document.querySelector("#icon").src = "../Resources/icono.avif"
 }
 
 
