@@ -84,7 +84,7 @@ async function generarRecuadros(filtro = "") {
         boton.textContent = 'Acceder';
         boton.classList.add('boton-acceder');
         boton.addEventListener('click', () => {
-            window.location.href = `../../../chat.html`;
+            window.location.href = `./chat.html?to=${otroUsuario}`;
         });
 
 
