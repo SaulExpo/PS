@@ -50,6 +50,13 @@ main {
     color: #2b3a67;
 }
 
+#restContainer {
+    margin-bottom: 1.5em;
+    text-align: center;
+    font-size: 1.1em;
+    color: #2b3a67;
+}
+
  #selectors {
      display: flex;
      flex-direction: column;
