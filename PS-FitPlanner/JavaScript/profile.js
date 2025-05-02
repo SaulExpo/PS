@@ -1,15 +1,13 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
 import {
-    getFirestore,
-    setDoc,
+    arrayRemove,
+    collection,
     doc,
     getDoc,
-    collection,
-    getDocs,
-    addDoc,
-    onSnapshot, updateDoc, arrayRemove
+    getFirestore,
+    updateDoc
 } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
-import { BehaviorSubject } from 'https://cdn.jsdelivr.net/npm/rxjs@7.8.1/+esm';
+
 // Initialize Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyC872To8NAS_2tw-h-MB_Rv9Py8donENrw",
@@ -27,10 +25,10 @@ let alumnos = []
 let profesor = ""
 
 todoas()
-//get_users()
 async function todoas()
 {
     await getProfesor("JkzYVjCBRaLhVjoFC8UY")
+    getInfo(profesor)
     await getalumnos()
     load_alumns()
     num_alumns()
@@ -57,11 +55,51 @@ async function getalumnos()
     }
 
 }
-onSnapshot(alumnosRef, (snap) =>
+function getInfo(user)
 {
-    load_alumns()
-    num_alumns()
-})
+    document.querySelector("#name_avatar").innerHTML = user.name
+    document.querySelector("#icon").src = "../Resources/icono.avif" //user.icon
+    document.querySelector(".rectangle").innerHTML = `<table>
+                    <tr>
+                        <th class="half-left">
+                            <div class="part">
+                                <label class="tag">Correo</label>
+                                <p>${user.email}</p>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="part">
+                                <label class="tag">Edad</label>
+                                <p>${user.edad}años</p>
+                            </div>
+                        </th>
+
+                    </tr>
+                    <tr>
+                        <th>
+                            <div class="part">
+                                <label class="tag">Altura</label>
+                                <p>${user.altura}cm</p>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="part">
+                                <label class="tag">Peso</label>
+                                <p>${user.peso}kg</p>
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="half-right">
+                            <div class="part">
+                                <label class="tag">Sexo</label>
+                                <p>${user.sexo}</p>
+                            </div>
+                        </th>
+                    </tr>
+                </table>`
+    document.querySelector("#icon").src = "../Resources/icono.avif"
+}
 
 
 
@@ -76,32 +114,7 @@ function load()
     } else {
         json = "../JSON/data.json"
     }
-    fetch(json).then(function(res)
-    {
-        return res.json();
-    })
-        .then(function (json)
-        {
-            const personal = json.personal;
-            document.querySelector("h1").textContent = personal.name
 
-            /*
-            let todo = ""
-            let temp = ""
-            temp = "<p class='info'>Correo: " + personal.correo+ "</p>"
-            todo += temp
-            temp = "<p class='info'>Edad: " + personal.edad+ "</p>"
-            todo += temp
-            temp = "<p class='info'>Sexo: " + personal.sexo+ "</p>"
-            todo += temp
-            temp = "<p class='info'>Altura: " + personal.altura.valor + personal.altura.medida+ "</p>"
-            todo += temp
-            temp = "<p class='info'>Peso: " + personal.peso.valor + personal.peso.medida+ "</p>"
-            todo += temp*/
-            document.querySelector(".rectangle").innerHTML = todo
-            document.querySelector("#icon").src = personal.image
-
-        })
     loadFooter()
     load_info()
 }
@@ -112,7 +125,7 @@ function load_info()
 }
 function num_alumns()
 {
-    document.querySelector("#alumnos").innerHTML = `Número de alumnos: ${alumnos.length}`
+    document.querySelector("#alumnos").innerHTML = `Número de alumnos: ${alumnos.length}/${profesor.capacidad}`
 }
 function load_alumns()
 {
@@ -142,8 +155,6 @@ async function desasignar(userID, userName)
         location.reload()
 
     }
-
-
 
 }
 
