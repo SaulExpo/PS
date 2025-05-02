@@ -1,26 +1,63 @@
-.wrapper {
-    max-width: 700px;
-    padding: 20px;
-    text-align: center;
+
+
+#main_login {
+    background-color: black;
+    padding: 40px 20px;
+    border-radius: 8px;
+    color: white;
+    width: 400px;
+    margin: 40px auto;
+
 }
 
 .wrapper h2 {
-    margin-bottom: 20px;
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 40px;
 }
 
 .input-box {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    text-align: left;
 }
 
-.input-box input {
+.input-box input[type="text"],
+.input-box input[type="password"] {
     width: 100%;
     padding: 10px;
-    border: 1px solid black;
-    border-radius: 8px;
+    border: none;
+    border-bottom: 2px solid white;
+    background-color: transparent;
+    color: white;
+    font-size: 1rem;
+}
+
+.input-box input[type="text"]::placeholder,
+.input-box input[type="password"]::placeholder {
+    color: white;
+    opacity: 0.8;
+}
+
+.input-box a {
+    color: white;
+    font-size: 0.9rem;
+    text-decoration: underline;
+    display: block;
+    margin-top: -10px;
 }
 
 .input-box input[type="submit"] {
-    background: black;
+    background-color: #d6453a;
     color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    width: 100%;
+    font-size: 1rem;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.input-box input[type="submit"]:hover {
+    background-color: #b03c32;
 }

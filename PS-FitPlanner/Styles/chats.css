@@ -1,0 +1,32 @@
+.recuadro {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 10px;
+    display: inline-block;
+    width: 200px;
+    text-align: center;
+}
+.boton-acceder {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.boton-acceder:hover {
+    background-color: #45a049;
+}
+
+.boton-cerrar {
+    padding: 10px;
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.boton-cerrar:hover {
+    background-color: darkred;
+}
+#abiertos{
+    display: none;
+}

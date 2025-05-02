@@ -5,14 +5,13 @@
     <link href="../Styles/profile.css" rel=stylesheet>
     <link href="../Styles/footer.css" rel=stylesheet>
     <link href="../Styles/header.css" rel=stylesheet>
-    <script src="../JavaScript/loadHeader.js"></script>
-    <script src="../JavaScript/loadFooter.js"></script>
+    <script type="module" src="../JavaScript/GlobalLoad/loadHeader.js"></script>
+    <script src="../JavaScript/GlobalLoad/loadFooter.js"></script>
     <script src="../JavaScript/script.js"></script>
     <script src="../JavaScript/asignacion_prof.js"></script>
-    <script src="../JavaScript/profile.js"></script>
+    <script type="module" src="../JavaScript/Profile/profile.js"></script>
     <title>Profile</title>
 
-    <script src="/PS-FitPlanner/JavaScript/xlu-include-file.js"></script>
 </head>
 <body>
 <header id="main_header">
@@ -20,28 +19,30 @@
 
 <main>
     <img id="icon" src="../Resources/imagen_vertical.png" alt="Name">
-    <h1>Name</h1>
+    <h1 id="Nombre">Name</h1>
     <img id="graphic" src="../Resources/graphic.png" onclick="location.replace('graphic.html')">
     <img id="suscription" src="../Resources/suscription.png" onclick="location.replace('select_payment_plan.html')">
     <div class="rectangle">
-        <p>Lorem_Ipsum Gorem_Ipsum</p>
+        <p id="email">Lorem_Ipsum Gorem_Ipsum</p>
         <hr>
-        <p>Lorem_Ipsum Gorem_Ipsum</p>
+        <p id="edad">Lorem_Ipsum Gorem_Ipsum</p>
         <hr>
-        <p>Lorem_Ipsum Gorem_Ipsum</p>
+        <p id="genero">Lorem_Ipsum Gorem_Ipsum</p>
         <hr>
-        <p>Lorem_Ipsum Gorem_Ipsum</p>
+        <p id="altura">Lorem_Ipsum Gorem_Ipsum</p>
         <hr>
-        <p>Lorem_Ipsum Gorem_Ipsum</p>
+        <p id="peso">Lorem_Ipsum Gorem_Ipsum</p>
     </div>
     <p>Tu profesional asignado es: <span id="profesional"></span></p>
-
+    <button onclick="location.replace('../Pages/edit_profile.html')">Editar Perfil</button>
 </main>
 
 <footer id="main_footer">
 </footer>
 
-<script>
+<script type="module">
+    import {loadTemplate} from "../JavaScript/GlobalLoad/loadHeader.js";
+    import {load} from "../JavaScript/Profile/profile.js";
     Promise.all([loadTemplate("../Templates/header.html" , "main_header"),
         loadTemplate("../Templates/footer.html" , "main_footer")]).then(() =>
     {

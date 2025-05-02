@@ -6,9 +6,9 @@
   <link rel="stylesheet" href="../Styles/header.css">
   <link rel="stylesheet" href="../Styles/footer.css">
   <link rel="stylesheet" href="../Styles/exercise_detail.css">
-  <script src="../JavaScript/loadHeader.js"></script>
-  <script src="../JavaScript/loadFooter.js"></script>
-  <script src="../JavaScript/exercise_detail.js"></script>
+  <script type="module" src="../JavaScript/GlobalLoad/loadHeader.js"></script>
+  <script src="../JavaScript/GlobalLoad/loadFooter.js"></script>
+  <script src="../JavaScript/Ejercicios/exercise_detail.js"></script>
 </head>
 <body>
 <header id="main_header"></header>
@@ -26,7 +26,8 @@
 
 <footer id="main_footer"></footer>
 
-<script>
+<script type="module">
+  import {loadTemplate, loadHeader} from "../JavaScript/GlobalLoad/loadHeader.js";
   loadTemplate("../Templates/header.html", "main_header");
   loadTemplate("../Templates/footer.html", "main_footer");
 

@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="../Styles/footer.css">
     <link rel="stylesheet" href="../Styles/add_exercise.css">
     <script src="../JavaScript/script.js"></script>
-    <script src="../JavaScript/loadFooter.js"></script>
-    <script src="../JavaScript/loadHeader.js"></script>
+    <script src="../JavaScript/GlobalLoad/loadFooter.js"></script>
+    <script type="module" src="../JavaScript/GlobalLoad/loadHeader.js"></script>
 </head>
 <body>
 
@@ -28,7 +28,8 @@
 <footer id="main_footer">
 </footer>
 
-<script>
+<script type="module">
+    import {loadTemplate, loadHeader} from "../JavaScript/GlobalLoad/loadHeader.js";
     Promise.all([loadTemplate("../Templates/header.html", "main_header"),
     loadTemplate("../Templates/footer.html", "main_footer")]
     ).then(() => {

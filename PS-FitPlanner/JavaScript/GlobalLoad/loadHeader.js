@@ -1,4 +1,17 @@
-function loadHeader()
+import { auth } from "../firebase_config.js";
+import { signOut } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+
+const logout = async () => {
+    try {
+        await signOut(auth);
+        console.log("Sesión cerrada correctamente.");
+        window.location.href="../../Pages/first_page.html";
+    } catch (error) {
+        console.error("Error al cerrar sesión:", error.message);
+    }
+};
+
+export function loadHeader()
 {
     let language = localStorage.getItem("language")
     let json
@@ -24,7 +37,7 @@ function loadHeader()
             }
 
             document.querySelector("#foto_perf").src = myJson.personal.image
-            document.querySelector("#logo").innerHTML = "<img id='logo' src='../Resources/logo (no text).png' width='64px' height='48px'>"
+            document.querySelector("#logo").innerHTML = "<img id='logo' src='../Resources/logo%20(no%20text).png' width='64px' height='48px'>"
             document.querySelector("#logo").style.margin = 0
 
 
@@ -43,7 +56,7 @@ function loadHeader()
 
             cerrar[0].addEventListener("click", function(){
                 localStorage.removeItem("jwt"); // Borra el token del almacenamiento
-                window.location.href = "../Pages/first_page.html";
+                logout()
             })
 
             if(localStorage.getItem("language")){
@@ -66,7 +79,7 @@ function loadHeader()
         })
 }
 
-function loadTemplate(templatePath, elementId) {
+export function loadTemplate(templatePath, elementId) {
     fetch(templatePath)
         .then(resp => resp.text())
         .then(data => {
@@ -74,3 +87,4 @@ function loadTemplate(templatePath, elementId) {
         })
         .catch(error => console.error(`Error cargando ${templatePath}:`, error));
 }
+

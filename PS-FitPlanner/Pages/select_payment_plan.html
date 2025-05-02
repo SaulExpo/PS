@@ -11,37 +11,88 @@
   <link href="../Styles/header.css" rel=stylesheet>
   <link href="../Styles/subscription.css" rel="stylesheet">
   <title>Pago</title>
-
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script src="../JavaScript/script.js"></script>
-  <script src="../JavaScript/loadHeader.js"></script>
-  <script src="../JavaScript/loadFooter.js"></script>
-  <script src="../JavaScript/getUser.js"></script>
-  <script src="../JavaScript/subscription.js"></script>
-  <script src="../JavaScript/updateMember.js"></script>
+  <script type="module" src="../JavaScript/GlobalLoad/loadHeader.js"></script>
+  <script src="../JavaScript/GlobalLoad/loadFooter.js"></script>
+  <script type="module" src="../JavaScript/Profile/updateMember.js"></script>
+
 </head>
 <body>
 <header id="main_header"></header>
 
   <main>
-    <img src="../Resources/Tabla-suscripcion.png" alt="">
-    <div class="buttons">
-      <input id="member" type="submit" value="Suscribirse como miembro">
+    <div class="pricing-table">
+      <!-- Miembro -->
+      <div class="plan basic">
+        <h2>Miembro</h2>
+        <ul>
+          <li>Contacto con entrenador</li>
+          <li>Calendario de actividades</li>
+          <li>Acceso a rutinas de ejercicios</li>
+          <li class="unavailable">Rutinas personalizadas</li>
+          <li class="unavailable">Rutinas exclusivas</li>
+          <li class="unavailable">Descuentos especiales</li>
+          <li class="unavailable">Atención personalizada</li>
+        </ul>
+        <div class="price">5€ / mes</div>
+      </div>
+
+      <!-- Miembro Superior -->
+      <div class="plan premium">
+        <h2>Miembro Superior</h2>
+        <ul>
+          <li>Contacto con entrenador</li>
+          <li>Calendario de actividades</li>
+          <li>Acceso a rutinas de ejercicios</li>
+          <li>Rutinas personalizadas</li>
+          <li>Rutinas exclusivas</li>
+          <li>Descuentos especiales</li>
+          <li>Atención personalizada</li>
+        </ul>
+        <div class="price">10€ / mes</div>
+      </div>
     </div>
-    <div class="rectangles">
-      <div class="sub" xlu-include-file="/Templates/subscription.html"></div>
-      <div class="sub" xlu-include-file="/Templates/subscription.html"></div>
-      <div class="sub" xlu-include-file="/Templates/subscription.html"></div>
-      <div class="sub" xlu-include-file="../Templates/subscription.html"></div>
-      <div class="sub" xlu-include-file="../Templates/subscription.html"></div>
-      <div class="sub" xlu-include-file="../Templates/subscription.html"></div>
+    <h1>Elige tu suscripción</h1>
+
+    <div class="subscription-option" onclick="showPaymentForm('Básica', '5€ / mes', 'miembro')">
+      <strong>Básica</strong><br>
+      Acceso limitado al contenido - <em>5€ / mes</em>
     </div>
+
+    <div class="subscription-option" onclick="showPaymentForm('Premium', '10€ / mes', 'miembro superior')">
+      <strong>Premium</strong><br>
+      Acceso completo a todos los servicios - <em>10€ / mes</em>
+    </div>
+    <button onclick="renovarSuscripcion()">Renovar Suscripción</button>
+
+    <div id="payment-form">
+      <h2 id="form-title">Pago</h2>
+      <form id="fake-payment-form">
+        <label>Nombre en la tarjeta:</label>
+        <input type="text" required>
+
+        <label>Número de tarjeta:</label>
+        <input type="text" placeholder="**** **** **** 4242" required>
+
+        <label>Fecha de vencimiento:</label>
+        <input type="text" placeholder="MM/AA" required>
+
+        <label>CVC:</label>
+        <input type="text" placeholder="123" required>
+
+        <button type="submit">Confirmar pago</button>
+      </form>
+    </div>
+
   </main>
 
 
   <footer id="main_footer"></footer>
 
 </body>
-<script>
+<script type="module">
+  import {loadTemplate, loadHeader} from "../JavaScript/GlobalLoad/loadHeader.js";
   Promise.all([loadTemplate("../Templates/header.html", "main_header"),
     loadTemplate("../Templates/footer.html", "main_footer")]
   ).then(() => {

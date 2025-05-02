@@ -20,11 +20,7 @@ function loadFooter()
             }
             document.querySelector("#logo_footer").innerHTML = "<img id=\"logo\" src=\"../Resources/logo.png\" style=\"width:128px; height:96px;\">"
 
-            let texto_footer2 = document.getElementsByClassName("footer_temp")[0].querySelectorAll("div")[1].querySelectorAll("nav")[0].querySelectorAll("a")
 
-            for (let i = 0; i < texto_footer2.length; i++) {
-                texto_footer2[i].textContent = myJson.company_footer[i]
-            }
             let otro = document.getElementsByClassName("footer_temp")[0].querySelectorAll("div")[2].querySelectorAll("img")
                 for (let i=0; i<otro.length; i++)
             {

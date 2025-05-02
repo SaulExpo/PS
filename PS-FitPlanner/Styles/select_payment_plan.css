@@ -60,6 +60,109 @@ p{
     margin-bottom: 10px;
 }
 
+body {
+     font-family: Arial, sans-serif;
+     padding: 40px;
+ }
+
+.subscription-option {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.subscription-option:hover {
+    background-color: #f0f0f0;
+}
+
+#payment-form {
+    display: none;
+    border: 1px solid #4CAF50;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+}
+
+input {
+    padding: 8px;
+    width: 100%;
+}
+
+button {
+    margin-top: 15px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
 
 
+.pricing-table {
+    display: flex;
+    gap: 30px;
+}
 
+.plan {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 30px 20px;
+    width: 260px;
+}
+
+.plan h2 {
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+
+.plan ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    text-align: left;
+}
+
+.plan ul li {
+    margin: 10px 0;
+    padding-left: 20px;
+    position: relative;
+}
+
+.plan ul li::before {
+    content: "✔";
+    position: absolute;
+    left: 0;
+    color: #4CAF50;
+}
+
+.plan ul li.unavailable::before {
+    content: "✘";
+    color: #E57373;
+}
+
+.price {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+    color: #2196F3;
+}
+
+.basic {
+    border-top: 5px solid #FFA726;
+}
+
+.premium {
+    border-top: 5px solid #1976D2;
+}

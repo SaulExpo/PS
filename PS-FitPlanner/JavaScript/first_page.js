@@ -1,5 +1,6 @@
+import {loadHeader} from "./GlobalLoad/loadHeader.js";
 
-function load()
+export function load()
 {
     loadHeader()
     let language = localStorage.getItem("language")

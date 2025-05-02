@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit Rutine</title>
-    <script src="/PS-FitPlanner/JavaScript/xlu-include-file.js"></script>
     <link rel="stylesheet" href="../Styles/header.css">
     <link rel="stylesheet" href="../Styles/footer.css">
     <link rel="stylesheet" href="../Styles/Edit_and_Delete.css">
     <link rel="stylesheet" href="../Styles/edit_rutine.css">
-    <script src = "../JavaScript/loadHeader.js"></script>
-    <script src = "../JavaScript/loadFooter.js"></script>
+    <script src = "../JavaScript/GlobalLoad/loadHeader.js"></script>
+    <script src = "../JavaScript/GlobalLoad/loadFooter.js"></script>
     <script src = "../JavaScript/script.js"></script>
 </head>
 <body>
@@ -17,15 +16,16 @@
     <main>
         <h2 id="title">Rutines</h2>
         <div id="ejercicios">
-            <div xlu-include-file="../Templates/Edit_and_Delete.html"></div>
-            <div xlu-include-file="../Templates/Edit_and_Delete.html"></div>
-            <div xlu-include-file="../Templates/Edit_and_Delete.html"></div>
-            <div xlu-include-file="../Templates/Edit_and_Delete.html"></div>
-            <div xlu-include-file="../Templates/Edit_and_Delete.html"></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
         </div>
     </main>
     <footer id="main_footer"></footer>
-<script>
+    <script type="module">
+        import {loadTemplate, loadHeader} from "../JavaScript/GlobalLoad/loadHeader.js";
     Promise.all([loadTemplate("../Templates/header.html" , "main_header"),
         loadTemplate("../Templates/footer.html" , "main_footer")]).then(() =>
     {

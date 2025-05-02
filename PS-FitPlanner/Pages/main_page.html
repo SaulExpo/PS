@@ -8,11 +8,10 @@
     <link rel="stylesheet" href="../Styles/footer.css">
     <link rel="stylesheet" href="../Styles/login.css">
     <link rel="stylesheet" href="../Styles/main_page.css">
-    <script src="../JavaScript/xlu-include-file.js"></script>
     <script src="../JavaScript/script.js"></script>
     <script src="../JavaScript/main_page.js"></script>
-    <script src="../JavaScript/loadHeader.js"></script>
-    <script src="../JavaScript/loadFooter.js"></script>
+    <script type="module" src="../JavaScript/GlobalLoad/loadHeader.js"></script>
+    <script src="../JavaScript/GlobalLoad/loadFooter.js"></script>
 </head>
 <body>
 
@@ -33,7 +32,8 @@
 <footer id="main_footer">
 </footer>
 
-<script>
+<script type="module">
+    import {loadTemplate, loadHeader} from "../JavaScript/GlobalLoad/loadHeader.js";
 
     Promise.all([loadTemplate("../Templates/footer.html", "main_footer"),
     loadTemplate("../Templates/header.html", "main_header")]

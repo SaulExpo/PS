@@ -1,5 +1,5 @@
 // Tu JSON con los datos de los ejercicios
-const exercises =
+//const exercises =
 
 // URL de tu API de Strapi (asegúrate de reemplazar con la URL de tu servidor)
 const strapiUrl = 'http://localhost:1337/api/rutines'; // Cambia la URL de Strapi

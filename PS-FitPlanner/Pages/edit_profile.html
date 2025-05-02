@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="../Styles/profile.css" rel=stylesheet>
+    <link href="../Styles/footer.css" rel=stylesheet>
+    <link href="../Styles/header.css" rel=stylesheet>
+    <script type="module" src="../JavaScript/GlobalLoad/loadHeader.js"></script>
+    <script src="../JavaScript/GlobalLoad/loadFooter.js"></script>
+    <script src="../JavaScript/script.js"></script>
+    <script type="module" src="../JavaScript/GetDB/getUser.js"></script>
+    <script type="module" src="../JavaScript/firebase_config.js"></script>
+    <script src="../JavaScript/asignacion_prof.js"></script>
+    <script type="module" src="../JavaScript/Profile/edit_profile.js"></script>
+
+    <title>Profile</title>
+
+</head>
+<body>
+<header id="main_header">
+</header>
+
+<main>
+    <div>
+        <form id="editProfileForm">
+            <div class="form-group">
+                <label for="editProfileName">Nombre</label>
+                <input type="text" class="form-control" id="editProfileName" required>
+            </div>
+            <div class="form-group">
+                <label for="editProfileSurname">Apellido</label>
+                <input type="text" class="form-control" id="editProfileSurname" required>
+            </div>
+            <div class="form-group">
+                <label for="editProfileEmail">Email</label>
+                <input type="email" class="form-control" id="editProfileEmail" required>
+            </div>
+            <div class="form-group">
+                <label for="editProfileEdad">Edad</label>
+                <input type="number" class="form-control" id="editProfileEdad" required>
+            </div>
+            <div class="form-group">
+                <label for="editProfileAltura">Altura</label>
+                <input type="number" class="form-control" id="editProfileAltura" required>
+            </div>
+            <div class="form-group">
+                <label for="editProfilePeso">Peso</label>
+                <input type="number" class="form-control" id="editProfilePeso" required>
+            </div>
+            <div class="form-group">
+                <select id="editProfileGenero">
+                    <option selected disabled value="">Selecciona el genero</option>
+                    <option value="Hombre">Hombre</option>
+                    <option value="Mujer">Mujer</option>
+                </select>
+            </div>
+            <button type="submit">Guardar Cambios</button>
+        </form>
+    </div>
+
+</main>
+
+<footer id="main_footer">
+</footer>
+
+<script type="module">
+    import {loadTemplate, loadHeader} from "../JavaScript/GlobalLoad/loadHeader.js";
+    Promise.all([loadTemplate("../Templates/header.html" , "main_header"),
+        loadTemplate("../Templates/footer.html" , "main_footer")]).then(() =>
+    {
+        loadHeader()
+        loadFooter()
+    })
+</script>
+</body>
+</html>

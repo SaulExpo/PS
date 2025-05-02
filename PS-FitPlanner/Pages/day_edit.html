@@ -5,12 +5,11 @@
   <link href="../Styles/day_edit.css" rel=stylesheet>
   <link href="../Styles/footer.css" rel=stylesheet>
   <link href="../Styles/header.css" rel=stylesheet>
-  <script src="../JavaScript/loadHeader.js"></script>
-  <script src="../JavaScript/loadFooter.js"></script>
+  <script type="module" src="../JavaScript/GlobalLoad/loadHeader.js"></script>
+  <script src="../JavaScript/GlobalLoad/loadFooter.js"></script>
   <script src="../JavaScript/script.js"></script>
   <title>Day Edit</title>
 
-  <script src="/PS-FitPlanner/JavaScript/xlu-include-file.js"></script>
 </head>
 <body>
 <header id="main_header">
@@ -28,7 +27,8 @@
 <footer id="main_footer">
 </footer>
 
-<script>
+<script type="module">
+  import {loadTemplate, loadHeader} from "../JavaScript/GlobalLoad/loadHeader.js";
   Promise.all([loadTemplate("../Templates/header.html" , "main_header"),
     loadTemplate("../Templates/footer.html" , "main_footer")]).then(() =>
   {

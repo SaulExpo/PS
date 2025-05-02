@@ -10,7 +10,7 @@
   "message_main_page" : "¡Transforma tu entrenamiento hoy mismo!\nCrea tu rutina personalizada en minutos y accede a entrenamientos pro diseñados por expertos. ¡Empieza ahora y lleva tu rendimiento al siguiente nivel!",
   "footer_text" :
   [
-    "Terminos", "Comunidad", "Estado"
+    "Sobre nosotros", "¿Quiénes somos?", "Equipo", "Contacto", "Centro de ayuda", "Blog", "Social", "Instagram", "Twitter", "Facebook", "Tik Tok", "fitplanner@hotmail.com", "(+34) 123 45 67 89"
   ],
   "company_footer" :
   [
@@ -75,50 +75,50 @@
   "suscripciones" :
   {
     "planes" :
-            [
-              {
-                "name" : "plan1",
-                "precio" : "5€"
-              },
-              {
-                "name" : "plan2",
-                "precio" : "15€"
-              },
-              {
-                "name" : "plan3",
-                "precio" : "25€"
-              }
-            ],
+    [
+      {
+        "name" : "plan1",
+        "precio" : "5€"
+      },
+      {
+        "name" : "plan2",
+        "precio" : "15€"
+      },
+      {
+        "name" : "plan3",
+        "precio" : "25€"
+      }
+    ],
     "preguntas" :
-            [
-              {
-                "pregunta": "¿Qué incluye cada plan de suscripción?",
-                "respuesta" : ""
-              },
-              {
-                "pregunta": "¿Puedo cambiar mi plan después de suscribirme?",
-                "respuesta" : ""
-              },
-              {
-                "pregunta": "¿Ofrecen un período de prueba gratuito?",
-                "respuesta" : ""
-              },
-              {
-                "pregunta": "¿Qué métodos de pago aceptan?",
-                "respuesta" : ""
-              },
-              {
-                "pregunta": "¿Qué pasa si cancelo mi suscripción antes de que termine el mes?",
-                "respuesta" : ""
-              },
-              {
-                "pregunta": "¿Las rutinas y el contenido son diferentes según el plan?",
-                "respuesta" : ""
-              },
-              {
-                "pregunta": "¿Puedo acceder a mi progreso y rutinas si no renuevo la suscripción?",
-                "respuesta" : ""
-              }
-            ]
+    [
+      {
+        "pregunta": "¿Qué incluye cada plan de suscripción?",
+        "respuesta" : ""
+      },
+      {
+        "pregunta": "¿Puedo cambiar mi plan después de suscribirme?",
+        "respuesta" : ""
+      },
+      {
+        "pregunta": "¿Ofrecen un período de prueba gratuito?",
+        "respuesta" : ""
+      },
+      {
+        "pregunta": "¿Qué métodos de pago aceptan?",
+        "respuesta" : ""
+      },
+      {
+        "pregunta": "¿Qué pasa si cancelo mi suscripción antes de que termine el mes?",
+        "respuesta" : ""
+      },
+      {
+        "pregunta": "¿Las rutinas y el contenido son diferentes según el plan?",
+        "respuesta" : ""
+      },
+      {
+        "pregunta": "¿Puedo acceder a mi progreso y rutinas si no renuevo la suscripción?",
+        "respuesta" : ""
+      }
+    ]
   }
 }

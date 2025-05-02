@@ -1,3 +1,7 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+import { getFirestore, collection, getDocs, doc, setDoc, addDoc, serverTimestamp, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js" // Asegúrate de importar el auth
+
 const firebaseConfig = {
     apiKey: "AIzaSyBTiD4Phk2rKe1sF62c9qDSk1c3jNFgLf4",
     authDomain: "ps-fitness-app.firebaseapp.com",
@@ -7,3 +11,8 @@ const firebaseConfig = {
     appId: "1:861934326277:web:863ae59d1904e86a00826c",
     measurementId: "G-3WZD6X5SC2"
 };
+
+export const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+export const db = getFirestore(app);
+

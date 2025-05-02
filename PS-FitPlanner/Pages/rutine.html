@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <title>Rutina</title>
   <script src="../JavaScript/script.js" defer></script>
-  <script src="../JavaScript/loadFooter.js" defer></script>
-  <script src="../JavaScript/loadHeader.js" defer></script>
-  <link rel="stylesheet" href="../Styles/header.css">
+  <script src="../JavaScript/GlobalLoad/loadFooter.js" defer></script>
+  <script src="../JavaScript/GlobalLoad/loadHeader.js" defer></script>
+  <link type="module" rel="stylesheet" href="../Styles/header.css">
   <link rel="stylesheet" href="../Styles/footer.css">
   <link rel="stylesheet" href="../Styles/info_exercise.css">
   <link rel="stylesheet" href="../Styles/rutine.css">
@@ -49,7 +49,8 @@
   <footer id="main_footer"></footer>
 </div>
 
-<script>
+<script type="module">
+  import {loadTemplate, loadHeader} from "../JavaScript/GlobalLoad/loadHeader.js";
   setTimeout(() => {
     loadHeader();
     loadFooter();

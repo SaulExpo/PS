@@ -8,7 +8,11 @@
 .header_temp
 {
     display: flex;
-    background: linear-gradient(to bottom, #191970, mediumblue);
+    background: linear-gradient(to bottom, #d51313, #a81515);
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    height: 80px;
 }
 #logo
 {
@@ -25,15 +29,19 @@
     margin-inline: 5px;
     font-size: .7em;
     font-family: "Barlow", sans-serif;
+    display: flex;
+    justify-content: center;
 }
 .enlaces:hover{
     color: lightblue;
 }
 nav
 {
-    margin-left: 50px;
-    margin-right: auto;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
+    gap:20px;
     align-items: center;
 }
 #buttons
@@ -41,6 +49,7 @@ nav
     margin-right: 30px;
     display: flex;
     align-items: center;
+    gap: 30px;
 }
 #buttons-login
 {
@@ -49,7 +58,7 @@ nav
 .logs
 {
     margin-inline: 3px;
-    background-color: #191970;
+    background-color: #d51313;
     color: white;
     border-style: none;
     font-size: 0.8em;
@@ -67,17 +76,18 @@ nav
     width: 1.5em;
     height: 1.5em;
     margin-top: 0.5em;
-    margin-right: 0.5em;
+    display: flex;
+    justify-content: flex-end;
 }
 
 #chat{
     margin-top: 0.5em;
     width: 1.5em;
     height: 1.5em;
-    margin-right: 0.5em;
+    display: flex;
+    justify-content: flex-end;
 }
 
 #spanish, #english{
     width: 30px;
 }
-

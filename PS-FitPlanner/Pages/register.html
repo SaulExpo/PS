@@ -8,11 +8,11 @@
     <link rel="stylesheet" href="../Styles/footer.css">
     <link rel="stylesheet" href="../Styles/login.css">
     <link rel="stylesheet" href="../Styles/register.css">
-    <script src="../JavaScript/register.js"></script>
-    <script src="../JavaScript/login.js"></script>
+    <script type="module" src="../JavaScript/firebase_config.js"></script>
+    <script type="module" src="../JavaScript/Autenticacion/register.js"></script>
     <script src="../JavaScript/script.js"></script>
-    <script src="../JavaScript/loadHeader.js"></script>
-    <script src="../JavaScript/loadFooter.js"></script>
+    <script type="module" src="../JavaScript/GlobalLoad/loadHeader.js"></script>
+    <script src="../JavaScript/GlobalLoad/loadFooter.js"></script>
 </head>
 <body>
 
@@ -76,8 +76,8 @@
 
 
     </footer>
-
-<script>
+    <script type="module">
+        import {loadTemplate, loadHeader} from "../JavaScript/GlobalLoad/loadHeader.js";
     Promise.all([loadTemplate("../Templates/footer.html", "main_footer"),
         loadTemplate("../Templates/header.html", "main_header")]
     ).then(() => {
