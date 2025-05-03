@@ -1,4 +1,3 @@
-// script.js
 import {collection, getDocs, getDoc, doc, query, where} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import {db} from "../firebase_config.js";
 const routinesCol = collection(db, "routines");

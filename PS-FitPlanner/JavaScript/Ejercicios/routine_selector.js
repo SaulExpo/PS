@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 allExercises[part] = await res.json();
                 console.log(`✅ ${part}: ${allExercises[part].length}`);
             } catch (err) {
-                console.error(`❌ Error en ${part}`, err);
+                console.error(`Error en ${part}`, err);
                 allExercises[part] = [];
             }
         }));
