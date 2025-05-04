@@ -21,7 +21,9 @@ async function getProfesores() {
     for (const profe of todo_profe.docs) {
         if (profe.data().asignado < profe.data().capacidad)
         {
-            profesores.push(profe.data())
+            profesores.push(
+                {id: profe.id, ...profe.data()}
+            )
         }
 
 
@@ -36,6 +38,17 @@ todoas()
 async function todoas()
 {
     user = await getUserProfile()
+    ///Provisional
+    if (!user.profe_asig)
+    {
+        let ref = doc(db, "user_app", user.id)
+        await updateDoc(ref, {
+            profe_asig: doc(db, "user_app", "null")
+        })
+        location.reload()
+        return
+
+    }
     getInfo()
     if (user.profesional) return await carga_profe()
     return await carga_alum()
@@ -50,6 +63,15 @@ async function carga_profe() {
 }
 
 async function carga_alum() {
+    if (user.profe_asig.id === "null")
+    {
+        document.querySelector("#profe_asig").innerHTML = "<p>No tienes ningún profesional asignado</p>"
+
+        console.log("No tienes profesionales")
+        await cargaProfesLibres()
+        document.querySelector("#alumn_view").style = "display:grid"
+        return
+    }
     let ref = doc(db, "user_app", user.profe_asig.id);
     let profeMio =  await getDoc(ref)
     cargaMiProfe(profeMio);
@@ -59,17 +81,23 @@ async function carga_alum() {
 }
 function cargaMiProfe(profe) {
     let temp = `<p>${profe.data().name}</p>
-            <button class="button_user_action">Dejar</button>
+            <button class="button_user_action" onclick="desasignarPro('${profe.data().id}', '${profe.data().name}')">Dejar</button>
             <button class="button_user_action">Chat</button>`
     document.querySelector("#profe_asig").innerHTML = temp
 }
 
-function cargaProfesLibres() {
+async function cargaProfesLibres() {
     let temp = ""
+    let miProfeRef = doc(db, "user_app", user.profe_asig.id);
+    let miProfe = await getDoc(miProfeRef)
     for (const profe of profesores) {
+        if (profe.id === miProfe.id)
+        {
+            continue
+        }
         temp += `<li class="profe">
                         <p>${profe.name} ${profe.asignado}/${profe.capacidad}</p>
-                        <button class="button_user_action">Seguir</button>
+                        <button class="button_user_action" onclick="cambiarPro('${profe.id}', '${profe.name}')">Seguir</button>
                     </li>`
     }
     document.querySelector("#profe_list").innerHTML = temp
@@ -152,8 +180,50 @@ function getInfo()
                 </table>`
 }
 
+function cancelarCambio()
+{
+    document.querySelector("#profes_info").style = "display:none"
+}
+async function cambiarPro(id, name)
+{
+    let userRef = doc(db, "user_app", user.id)
+    let newProfRef = doc(db, "user_app", id)
+    let miProfeRef = doc(db, "user_app", user.profe_asig.id)
 
+    let miProfe = await getDoc(miProfeRef);
+    let newProfe = await getDoc(newProfRef);
+    if (user.profe_asig.id === "null")
+    {
+        await updateDoc(newProfRef,
+            {
+                asignado: Number(newProfe.data().asignado) + 1
+            })
+        await cambioReferencia(userRef, newProfRef);
+        location.reload()
+        location.reload()
+    }
+    if (miProfe.id === newProfe.id)
+    {
+        console.log("Ya estas asignado a ese profesional")
+        return
+    }
 
+    await updateDoc(miProfeRef, {
+        asignado: Number(miProfe.data().asignado) - 1
+    })
+    await updateDoc(newProfRef, {
+        asignado: Number(newProfe.data().asignado) + 1
+    })
+    await cambioReferencia(userRef, newProfRef);
+    location.reload()
+
+    async function cambioReferencia(userRef, newProf) {
+        await updateDoc(userRef,
+            {
+                profe_asig: newProf
+            })
+    }
+}
 
 function load()
 {
@@ -206,6 +276,26 @@ async function desasignar(userID, userName)
 
 }
 
+async function desasignarPro(profeID, profeName)
+{
+    let userRef = doc(db, "user_app", user.id)
+    const confirmado = confirm(`Estas seguro de desasignar a ${profeName}?`)
+    if (confirmado)
+    {
+        let miProfeRef = doc(db, "user_app", user.profe_asig.id)
+        let miProfe = await getDoc(miProfeRef)
+        await updateDoc(miProfeRef,
+            {
+                asignado: Number(miProfe.data().asignado) - 1,
+            })
+        await updateDoc(userRef, {
+            profe_asig: doc(db, "user_app", "null"),
+        })
+        location.reload()
+    }
+
+}
+
 
 
 Promise.all([loadTemplate("../Templates/header.html" , "main_header"),
@@ -216,3 +306,6 @@ Promise.all([loadTemplate("../Templates/header.html" , "main_header"),
 
 window.desasignar = desasignar
 window.verProfes = verProfes
+window.cancelarCambio = cancelarCambio
+window.cambiarPro = cambiarPro
+window.desasignarPro = desasignarPro
