@@ -281,6 +281,8 @@ async function desasignar(userID, userName)
     {
         await updateDoc(profeRef,
             {alumnos: arrayRemove(alumRef)})
+        await updateDoc(alumRef,
+            {profe_asig: doc(db, "user_app", "null")})
         location.reload()
 
     }
