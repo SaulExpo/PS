@@ -1,4 +1,4 @@
-import {arrayRemove, collection, doc, getDoc, getFirestore, updateDoc, getDocs, query, where} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import {arrayRemove, collection, doc, getDoc, getFirestore, updateDoc, getDocs, query, where, arrayUnion} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
 import {auth, db} from "../firebase_config.js";
 import {getUserProfile} from "../GetDB/getUser.js";
@@ -198,8 +198,11 @@ async function cambiarPro(id, name)
             {
                 asignado: Number(newProfe.data().asignado) + 1
             })
+        await updateDoc(newProfRef,
+            {
+                alumnos: arrayUnion(userRef)
+            })
         await cambioReferencia(userRef, newProfRef);
-        location.reload()
         location.reload()
     }
     if (miProfe.id === newProfe.id)
@@ -214,6 +217,14 @@ async function cambiarPro(id, name)
     await updateDoc(newProfRef, {
         asignado: Number(newProfe.data().asignado) + 1
     })
+    await updateDoc(newProfRef,
+        {
+            alumnos: arrayUnion(userRef)
+        })
+    await updateDoc(miProfeRef,
+        {
+            alumnos: arrayRemove(userRef)
+        })
     await cambioReferencia(userRef, newProfRef);
     location.reload()
 
