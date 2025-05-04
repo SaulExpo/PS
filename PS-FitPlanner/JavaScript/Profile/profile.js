@@ -1,44 +1,84 @@
-import {arrayRemove, collection, doc, getDoc, getFirestore, updateDoc} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import {arrayRemove, collection, doc, getDoc, getFirestore, updateDoc, getDocs, query, where} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
 import {auth, db} from "../firebase_config.js";
 import {getUserProfile} from "../GetDB/getUser.js";
 import {loadHeader} from "../GlobalLoad/loadHeader.js";
 
+
 const token = localStorage.getItem("jwt");
 if (!token) {
     window.location.href = "../Pages/login.html"
 }
-
-const alumnosRef = collection(db, "profesores");
+let profesores = []
 let alumnos = []
-let profesor = ""
-const user = await getUserProfile()
+let user = undefined
 
 
+async function getProfesores() {
+
+    let ref = query(collection(db, "user_app"), where("profesional", "==", true));
+    let todo_profe = await getDocs(ref)
+    for (const profe of todo_profe.docs) {
+        if (profe.data().asignado < profe.data().capacidad)
+        {
+            profesores.push(profe.data())
+        }
+
+
+    }
+}
+
+getProfesores()
 todoas()
+
+
+
 async function todoas()
 {
-    await getProfesor(user.id)
-    getInfo(profesor)
+    user = await getUserProfile()
+    getInfo()
+    if (user.profesional) return await carga_profe()
+    return await carga_alum()
+
+}
+
+async function carga_profe() {
     await getalumnos()
     load_alumns()
     num_alumns()
-
+    document.querySelector("#profe_view").style = "display:grid"
 }
 
-async function getProfesor(profe)
-{
-    let ref = doc(db, "user_app", profe)
-    const snap = await getDoc(ref)
-    profesor = {id: snap.id, ...snap.data()}
-    console.log(profesor)
-
+async function carga_alum() {
+    let ref = doc(db, "user_app", user.profe_asig.id);
+    let profeMio =  await getDoc(ref)
+    cargaMiProfe(profeMio);
+    cargaProfesLibres();
+    document.querySelector("#alumn_view").style = "display:grid"
 
 }
+function cargaMiProfe(profe) {
+    let temp = `<p>${profe.data().name}</p>
+            <button class="button_user_action">Dejar</button>
+            <button class="button_user_action">Chat</button>`
+    document.querySelector("#profe_asig").innerHTML = temp
+}
+
+function cargaProfesLibres() {
+    let temp = ""
+    for (const profe of profesores) {
+        temp += `<li class="profe">
+                        <p>${profe.name} ${profe.asignado}/${profe.capacidad}</p>
+                        <button class="button_user_action">Seguir</button>
+                    </li>`
+    }
+    document.querySelector("#profe_list").innerHTML = temp
+}
+
 async function getalumnos()
 {
-    console.log(profesor)
-    for (const alum of profesor.alumnos) {
+
+    for (const alum of user.alumnos) {
         let alu = doc(db, "user_app", alum.id)
         let snap = await getDoc(alu)
         alumnos.push(
@@ -47,8 +87,14 @@ async function getalumnos()
         )
     }
 
+
 }
-function getInfo(user)
+
+function verProfes()
+{
+    document.querySelector("#profes_info").style = "display:block"
+}
+function getInfo()
 {
     document.querySelector("#name_avatar").innerHTML = user.name + " " + user.surname
     document.querySelector("#icon").src = "../Resources/icono.avif" //user.icon
@@ -130,19 +176,17 @@ function load_info()
 }
 function num_alumns()
 {
-    document.querySelector("#alumnos").innerHTML = `Número de alumnos: ${alumnos.length}/${profesor.capacidad}`
+    document.querySelector("#alumnos").innerHTML = `Número de alumnos: ${alumnos.length}/${user.capacidad}`
 }
 function load_alumns()
 {
-    console.log("hola")
-    console.log(alumnos)
     let temp = ''
     alumnos.forEach(alumno =>
     {
 
         temp += `<li class="alumno">
             <p>${alumno.name}</p>
-            <button class="button_desasig" onclick="desasignar('${alumno.id}\', \'${alumno.name}')">Desasignar</button>
+            <button class="button_user_action" onclick="desasignar('${alumno.id}\', \'${alumno.name}')">Desasignar</button>
          </li>`;
     })
     document.querySelector("#alum-list").innerHTML = temp
@@ -150,9 +194,8 @@ function load_alumns()
 async function desasignar(userID, userName)
 {
     let alumRef = doc(db, "user_app", userID)
-    let profeRef = doc(db, "profesional_user_app", profesor.id)
+    let profeRef = doc(db, "user_app", user.id)
     const confirmado = confirm(`Estas seguro de desasignar a ${userName}?`)
-    console.log(userID)
     if (confirmado)
     {
         await updateDoc(profeRef,
@@ -172,3 +215,4 @@ Promise.all([loadTemplate("../Templates/header.html" , "main_header"),
 })
 
 window.desasignar = desasignar
+window.verProfes = verProfes

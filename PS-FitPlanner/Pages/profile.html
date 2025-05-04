@@ -51,8 +51,29 @@
 
     </div>
 
-    <div id="asignacion">
-        <h1>Lista de alumnos</h1>
+    <div id="alumn_view">
+        <h1 class="titulo">Profesional asignado</h1>
+        <section id="profe_asig">
+        </section>
+        <section id="cambio_view">
+            <h1 class="titulo">¿Deseas cambiar de profesional?</h1>
+            <section id="cambio_profe">
+                <p>Si deseas cambiar de profesional por algún motivo pulse el siguiente boton</p>
+                <button class="button_user_action" onclick="verProfes()">Cambiar</button>
+            </section>
+            <section id="profes_info">
+                <h1>Profesionales disponibles</h1>
+                <ul id="profe_list">
+
+                </ul>
+                <button class="button_user_action" onclick="cancelarCambio()">Cancelar</button>
+            </section>
+
+        </section>
+    </div>
+
+    <div id="profe_view">
+        <h1 class="titulo">Lista de alumnos</h1>
         <div id="alumnos_info">
             <h2 id="alumnos"></h2>
             <ul id="alum-list">
