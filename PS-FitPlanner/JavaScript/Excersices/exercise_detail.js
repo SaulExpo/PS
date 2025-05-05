@@ -1,5 +1,4 @@
 import { db } from "../firebase_config.js";
-import { auth } from "./firebase_config.js";
 
 import {
     collection,
@@ -79,7 +78,6 @@ async function loadExerciseDetail() {
 
 document.addEventListener("DOMContentLoaded", () => {
     loadExerciseDetail();
-    // tus funciones globales de header/footer
     import("../GlobalLoad/loadHeader.js").then(m => m.loadHeader());
     import("../GlobalLoad/loadFooter.js").then(m => m.loadFooter());
 });

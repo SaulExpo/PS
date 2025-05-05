@@ -100,7 +100,6 @@ async function loadUserRoutines(user) {
     });
 }
 
-// Espera a que Firebase Auth establezca el estado del usuario
 onAuthStateChanged(auth, (user) => {
     if (user) {
         loadUserRoutines(user);
