@@ -1,22 +1,20 @@
-import {getFirestore, collection, getDocs, addDoc, updateDoc, doc as docRef, getDoc} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-import {db} from "../firebase_config.js";
-import {auth} from "../firebase_config.js";
+import { getFirestore, collection, getDocs, addDoc, updateDoc, doc as docRef, getDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import { db } from "../firebase_config.js";
+import { auth } from "../firebase_config.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 
-// Elementos del DOM
+// DOM elements
 const select         = document.getElementById("bodypart-select");
 const searchInput    = document.getElementById("exercise-search");
 const exerciseList   = document.getElementById("exercise-list");
+const summaryEl      = document.getElementById("selected-summary");
 const nameInput      = document.getElementById("routine-name");
 const descInput      = document.getElementById("routine-description");
 const durationInput  = document.getElementById("routine-duration");
 const restInput      = document.getElementById("routine-rest");
-const noteInput      = document.getElementById("routine-note");
 const saveBtn        = document.getElementById("save-export-routine");
 
-// Definimos el valor para la categoría "Favoritos"
 const FAVORITES_VALUE = "favoritos";
-
 const collectionNames = [
     "exercises_cardio",
     "exercises_chest",
@@ -30,15 +28,51 @@ const collectionNames = [
     "exercises_back"
 ];
 
-const allExercises = {};
-let currentList    = [];
-let selected       = [];
-let editId         = null;
-let favorites      = [];
+let allExercises = {};
+let currentList  = [];
+let selected     = [];
+let editId       = null;
+let favorites    = [];
 
 const userRoutinesCol = collection(db, "user_routines");
 
-// Función para renderizar tarjetas de ejercicio
+function updateSummary() {
+    summaryEl.innerHTML = "";
+    if (!selected.length) {
+        summaryEl.innerHTML = "<p>No hay ejercicios seleccionados.</p>";
+        return;
+    }
+    selected.forEach((e, idx) => {
+        const container = document.createElement("div");
+        container.className = "summary-item";
+
+        const nameEl = document.createElement("span");
+        nameEl.textContent = e.name;
+
+        const repsSelect = document.createElement("select");
+        repsSelect.innerHTML = `
+      <option value="3x10">3x10</option>
+      <option value="4x12">4x12</option>
+      <option value="5x15">5x15</option>`;
+        repsSelect.value = e.reps;
+        repsSelect.addEventListener("change", () => {
+            selected[idx].reps = repsSelect.value;
+            render(currentList);
+        });
+
+        const removeBtn = document.createElement("button");
+        removeBtn.textContent = "Eliminar";
+        removeBtn.addEventListener("click", () => {
+            selected = selected.filter((_, i) => i !== idx);
+            updateSummary();
+            render(currentList);
+        });
+
+        container.append(nameEl, repsSelect, removeBtn);
+        summaryEl.appendChild(container);
+    });
+}
+
 function render(list) {
     exerciseList.innerHTML = "";
     if (!list.length) {
@@ -50,7 +84,6 @@ function render(list) {
         card.className = "exercise-card";
         card.style.position = "relative";
 
-        // Botón de favorito (corazón)
         const favBtn = document.createElement("button");
         favBtn.className = "fav-btn";
         favBtn.textContent = favorites.includes(ex.id) ? "❤️" : "🤍";
@@ -59,32 +92,25 @@ function render(list) {
         favBtn.style.right = "8px";
         favBtn.addEventListener("click", async () => {
             const uid = auth.currentUser.uid;
-            if (favorites.includes(ex.id)) {
-                favorites = favorites.filter(id => id !== ex.id);
-            } else {
-                favorites.push(ex.id);
-            }
-            // Actualizar array de favoritos en user_app
+            favorites = favorites.includes(ex.id)
+                ? favorites.filter(id => id !== ex.id)
+                : [...favorites, ex.id];
             await updateDoc(docRef(db, "user_app", uid), { favorites });
-            // Actualizar icono
             favBtn.textContent = favorites.includes(ex.id) ? "❤️" : "🤍";
-            // Si estamos viendo Favoritos, refrescamos la lista
             if (select.value === FAVORITES_VALUE) {
-                const favList = Object.values(allExercises)
-                    .flat()
-                    .filter(e => favorites.includes(e.id));
+                const favList = Object.values(allExercises).flat().filter(e => favorites.includes(e.id));
                 render(favList);
             }
         });
         card.appendChild(favBtn);
 
-        // Checkbox y datos del ejercicio
         const cb = document.createElement("input");
         cb.type = "checkbox";
-        cb.checked = selected.some(e => e.id === ex.id);
+        cb.checked = selected.some(e => (e.id === ex.id) || (e.name === ex.name));
         cb.addEventListener("change", () => {
             if (cb.checked) selected.push({ ...ex, reps: repsSelect.value });
             else selected = selected.filter(e => e.id !== ex.id);
+            updateSummary();
         });
 
         const nameEl   = document.createElement("div"); nameEl.innerHTML   = `<strong>${ex.name}</strong>`;
@@ -96,10 +122,14 @@ function render(list) {
       <option value="3x10">3x10</option>
       <option value="4x12">4x12</option>
       <option value="5x15">5x15</option>`;
-        repsSelect.value = selected.find(e => e.id === ex.id)?.reps || "5x15";
+        const sel = selected.find(e => (e.id === ex.id) || (e.name === ex.name));
+        repsSelect.value = sel?.reps || "5x15";
         repsSelect.addEventListener("change", () => {
             const i = selected.findIndex(e => e.id === ex.id);
-            if (i >= 0) selected[i].reps = repsSelect.value;
+            if (i >= 0) {
+                selected[i].reps = repsSelect.value;
+                updateSummary();
+            }
         });
 
         [cb, nameEl, targetEl, equipEl, repsSelect].forEach(el => card.appendChild(el));
@@ -107,32 +137,27 @@ function render(list) {
     });
 }
 
-// Espera a que Auth cargue y luego inicializa
 onAuthStateChanged(auth, async (user) => {
-    if (!user) return alert("Debes iniciar sesión para acceder.");
+    if (!user) return alert("Inicia sesión para acceder.");
     const uid = user.uid;
 
-    // 1) Cargar favoritos del usuario
     const userSnap = await getDoc(docRef(db, "user_app", uid));
-    favorites = userSnap.exists() && Array.isArray(userSnap.data().favorites)
+    favorites = (userSnap.exists() && Array.isArray(userSnap.data().favorites))
         ? userSnap.data().favorites
         : [];
 
-    // 2) Cargar ejercicios de Firestore
     await Promise.all(collectionNames.map(async colName => {
         const snap = await getDocs(collection(db, colName));
         const part = colName.replace("exercises_", "");
         allExercises[part] = snap.docs.map(d => ({ id: d.id, ...d.data(), bodyPart: part }));
     }));
 
-    // 3) Poblar selector con Favoritos + grupos musculares
-    select.appendChild(new Option("Favoritos", FAVORITES_VALUE));
+    select.appendChild(new Option("Favorites", FAVORITES_VALUE));
     Object.keys(allExercises).sort().forEach(part => {
         const label = part.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
         select.appendChild(new Option(label, part));
     });
 
-    // 4) Si editId, cargar rutina existente (igual que antes)
     const params = new URLSearchParams(location.search);
     editId = params.get("editId");
     if (editId) {
@@ -143,8 +168,8 @@ onAuthStateChanged(auth, async (user) => {
             descInput.value     = r.description;
             durationInput.value = r.duration;
             restInput.value     = r.rest || "";
-            noteInput.value     = r.note || "";
             selected            = r.exercises.slice();
+            updateSummary();
             const first = selected[0]?.bodyPart;
             if (first) {
                 select.value    = first;
@@ -152,89 +177,81 @@ onAuthStateChanged(auth, async (user) => {
                 render(currentList);
             }
         }
+    } else {
+        exerciseList.innerHTML = `<p>Select a muscular group…</p>`;
+        updateSummary();
     }
-
-    // 5) Mensaje inicial
-    exerciseList.innerHTML = `<p>Selecciona un grupo muscular…</p>`;
+    `<p>Select a muscular group…</p>`;
+    updateSummary();
 });
 
-// Cambio de selector
 select.addEventListener("change", () => {
     if (select.value === FAVORITES_VALUE) {
-        const favList = Object.values(allExercises)
-            .flat()
-            .filter(e => favorites.includes(e.id));
+        const favList = Object.values(allExercises).flat().filter(e => favorites.includes(e.id));
         render(favList);
     } else {
         currentList    = allExercises[select.value] || [];
         searchInput.value = "";
-        selected       = [];
         render(currentList);
+        updateSummary();
     }
 });
 
-// Búsqueda en input
 searchInput.addEventListener("input", () => {
     const term = searchInput.value.trim().toLowerCase();
-    let listToFilter;
-    if (select.value === FAVORITES_VALUE) {
-        listToFilter = Object.values(allExercises).flat().filter(e => favorites.includes(e.id));
-    } else {
-        listToFilter = currentList;
-    }
+    const sourceList = select.value === FAVORITES_VALUE
+        ? Object.values(allExercises).flat().filter(e => favorites.includes(e.id))
+        : currentList;
     const filtered = !term
-        ? listToFilter
-        : listToFilter.filter(ex =>
+        ? sourceList
+        : sourceList.filter(ex =>
             ex.name.toLowerCase().includes(term) ||
             ex.target.toLowerCase().includes(term) ||
             (ex.equipment||"").toLowerCase().includes(term)
         );
     render(filtered);
+    updateSummary();
 });
 
-// Guardar rutina (sin cambios) ...
-
 saveBtn.addEventListener("click", async () => {
-    const name        = nameInput.value.trim();
-    const description = descInput.value.trim();
-    const duration    = durationInput.value.trim();
-    const rest        = restInput.value.trim();
-    const note        = noteInput.value.trim(); // Obtener la nota
+    const name = nameInput.value?.trim() || "";
+    const description = descInput.value?.trim() || "";
+    const duration = durationInput.value?.trim() || "";
+    const rest = restInput?.value?.trim() || "";
+
     if (!name || !description || !duration) {
-        return alert("Completa nombre, descripción y duración.");
+        return alert("Complete name, description, duration and rest time.");
     }
     if (!selected.length) {
-        return alert("Selecciona al menos un ejercicio.");
+        return alert("Select at least one exercise.");
     }
 
-    // 1) Obtener el usuario actual
     const user = auth.currentUser;
     if (!user) {
-        return alert("Debes iniciar sesión para guardar una rutina.");
+        return alert("You should log in first.");
     }
 
-    // 2) Incluir UID y nota en el payload
     const payload = {
         uid: user.uid,
         name,
         description,
         duration,
         rest,
-        note,
-        exercises: selected.map(e =>({
+        exercises: selected.map(e => ({
+            id: e.id,
             bodyPart: e.bodyPart,
-            name:     e.name,
-            reps:     e.reps
+            name: e.name,
+            reps: e.reps
         }))
     };
 
     try {
         if (editId) {
             await updateDoc(docRef(db, "user_routines", editId), payload);
-            alert("Rutina actualizada ✔");
+            alert("Routine updated");
         } else {
             await addDoc(userRoutinesCol, payload);
-            alert("Rutina guardada ✔");
+            alert("Routine saved");
         }
         location.href = "my_routines.html";
     } catch (err) {

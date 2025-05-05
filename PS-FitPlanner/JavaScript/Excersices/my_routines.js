@@ -22,7 +22,7 @@ async function loadUserRoutines(user) {
     console.log(`Documentos recibidos para ${user.uid}:`, snap.docs.length);
 
     if (snap.empty) {
-        listEl.innerHTML = "<p>No tienes rutinas guardadas aún.</p>";
+        listEl.innerHTML = "<p>You don´t have any routine yet.</p>";
         return;
     }
 
@@ -33,36 +33,32 @@ async function loadUserRoutines(user) {
         const card = document.createElement("div");
         card.className = "routine-card";
 
-        // Nombre y descripción
         const nameEl = document.createElement("div");
         nameEl.className = "routine-name";
         nameEl.textContent = data.name;
 
         const descEl = document.createElement("div");
         descEl.className = "routine-description";
-        descEl.textContent = data.description || "Sin descripción.";
+        descEl.textContent = data.description || "Without description.";
 
-        // Mostrar nota actual
         const noteDisplay = document.createElement("div");
         noteDisplay.className = "routine-note-display";
         noteDisplay.textContent = data.note || "";
 
-        // Botón para editar nota
         const noteBtn = document.createElement("button");
         noteBtn.className = "note-btn";
-        noteBtn.textContent = "✏️ Nota";
+        noteBtn.textContent = "✏️ Note";
 
-        // Editor de nota oculto
         const noteEditor = document.createElement("div");
         noteEditor.className = "note-editor";
         noteEditor.style.display = "none";
         const textarea = document.createElement("textarea");
         textarea.className = "note-input";
-        textarea.placeholder = "Añadir nota…";
+        textarea.placeholder = "Add note…";
         textarea.value = data.note || "";
         const saveNoteBtn = document.createElement("button");
         saveNoteBtn.className = "save-note-btn";
-        saveNoteBtn.textContent = "Guardar nota";
+        saveNoteBtn.textContent = "Save note";
         noteEditor.append(textarea, saveNoteBtn);
 
         noteBtn.addEventListener("click", () => {
@@ -80,16 +76,16 @@ async function loadUserRoutines(user) {
 
         const editBtn = document.createElement("button");
         editBtn.className = "edit-btn";
-        editBtn.textContent = "Editar";
+        editBtn.textContent = "Edit";
         editBtn.onclick = () => {
             window.location.href = `exercise_selector.html?editId=${id}`;
         };
 
         const deleteBtn = document.createElement("button");
         deleteBtn.className = "delete-btn";
-        deleteBtn.textContent = "Eliminar";
+        deleteBtn.textContent = "Delete";
         deleteBtn.onclick = async () => {
-            if (!confirm("¿Eliminar esta rutina?")) return;
+            if (!confirm("¿Delete this routine?")) return;
             await deleteDoc(doc(db, "user_routines", id));
             loadUserRoutines(user);
         };
