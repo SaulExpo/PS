@@ -122,13 +122,13 @@ table
     color: white;
     border-radius: 0.3em;
 }
-#asignacion
+#profe_view
 {
     margin-block: 3em;
-    display: grid;
+    display: none;
     text-align: center;
 }
-#asignacion h1
+#profe_view h1
 {
     background-color: black;
     color: white;
@@ -144,7 +144,7 @@ table
     margin-left: 2em;
 }
 
-.button_desasig
+.button_user_action
 {
     border-radius: 0.3em;
     border-style: none;
@@ -165,4 +165,62 @@ table
 #avatar_profile
 {
     margin-bottom: 1em;
+}
+
+#alumn_view
+{
+    display: none;
+    margin-block: 3em;
+    text-align: center;
+}
+
+#alumn_view h1
+{
+    background-color: black;
+    color: white;
+    font-size: 1.5em;
+    width: 97%;
+    justify-self: center;
+    border-radius: 1em;
+}
+
+#profe_asig
+{
+    display: flex;
+    margin-left: 2em;
+    margin-top: 1em;
+    margin-bottom: 2em;
+}
+
+.titulo
+{
+    background-color: black;
+    color: white;
+    font-size: 1.5em;
+    width: 97%;
+    justify-self: center;
+    border-radius: 1em;
+}
+
+#cambio_profe
+{
+    margin-top: 1em;
+    margin-bottom: 2em;
+}
+#profe_list
+{
+    margin-top: 1em;
+    margin-bottom: 2em;
+    margin-left: 2em;
+}
+
+.profe
+{
+    display: flex;
+    margin-block: 1em;
+}
+
+#profes_info
+{
+    display: none;
 }
