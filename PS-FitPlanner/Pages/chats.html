@@ -15,22 +15,47 @@
     <script type="module" src="../JavaScript/firebase_config.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 
 </head>
+<body>
+
 <header id="main_header"></header>
 
-<body>
-<button id="cerrados">Mostrar Cerrados</button>
-<button id="abiertos">Mostrar Abiertos</button>
-<form action="chat.html">
-    <select name="to" id="p_select">
-    </select>
-    <button type="submit">Iniciar Chat</button>
-</form>
-<input type="text" id="buscador" placeholder="Buscar chats por nombre..." style="margin: 10px; padding: 10px; width: 300px;">
+<main>
+<div class="max-w-md mx-auto bg-white shadow-lg rounded-xl p-4 mb-4 space-y-4">
 
-<div id="contenedor"></div>
+    <div class="flex items-center justify-between gap-2 flex-wrap">
+        <button id="cerrados" class="botonesChat">Mostrar Cerrados</button>
+        <button id="abiertos" class="botonesChat">Mostrar Abiertos</button>
 
+        <form action="chat.html">
+            <select name="to" id="p_select" class="text-sm border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <option selected disabled>Selecciona un profesional</option>
+            </select>
+
+            <button type="submit" class="botonesChat">
+                Iniciar Chat
+            </button>
+        </form>
+    </div>
+
+    <!-- Buscador -->
+    <input id="buscador" type="text" placeholder="Buscar chats por nombre..." class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"/>
+</div>
+
+
+<div class="max-w-md mx-auto bg-white shadow-lg rounded-xl">
+    <h2 class="text-xl font-bold p-4 border-b">Selecciona un chat</h2>
+    <ul id="chatSelection" class="divide-y divide-gray-200">
+    </ul>
+</div>
+
+</main>
+
+
+<footer id="main_footer"></footer>
+</body>
 <script type="module">
     import {loadTemplate, loadHeader} from "../JavaScript/GlobalLoad/loadHeader.js";
     Promise.all([loadTemplate("../Templates/header.html" , "main_header"),
@@ -40,8 +65,5 @@
         loadFooter()
     })
 </script>
-</body>
-<footer id="main_footer"></footer>
-
 </html>
 
