@@ -1,6 +1,6 @@
-// routine_selector.js
 import {getFirestore, collection, getDocs, addDoc, updateDoc, doc as docRef, getDoc} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import {db} from "../firebase_config.js";
+import {auth} from "../firebase_config.js";
 
 const select         = document.getElementById("bodypart-select");
 const searchInput    = document.getElementById("exercise-search");
@@ -9,6 +9,7 @@ const nameInput      = document.getElementById("routine-name");
 const descInput      = document.getElementById("routine-description");
 const durationInput  = document.getElementById("routine-duration");
 const restInput      = document.getElementById("routine-rest");
+const noteInput      = document.getElementById("routine-note"); // Nuevo textarea para notas
 const saveBtn        = document.getElementById("save-export-routine");
 
 const collectionNames = [
@@ -24,13 +25,12 @@ const collectionNames = [
     "exercises_back"
 ];
 
-const allExercises = {};  // { cardio: [...], chest: [...], … }
-let currentList    = [];  // ejercicios del grupo seleccionado
-let selected       = [];  // ejercicios marcados
+const allExercises = {};
+let currentList    = [];
+let selected       = [];
 let editId         = null;
 
 const userRoutinesCol = collection(db, "user_routines");
-
 
 function render(list) {
     exerciseList.innerHTML = "";
@@ -75,7 +75,6 @@ function render(list) {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-    // 7.1) Carga todas las colecciones
     await Promise.all(collectionNames.map(async colName => {
         const snap = await getDocs(collection(db, colName));
         const part = colName.replace("exercises_", "");
@@ -97,6 +96,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             descInput.value     = r.description;
             durationInput.value = r.duration;
             restInput.value     = r.rest || "";
+            noteInput.value     = r.note || ""; // Cargar nota existente
             selected            = r.exercises.slice();
             const first = selected[0]?.bodyPart;
             if (first) {
@@ -134,6 +134,7 @@ saveBtn.addEventListener("click", async () => {
     const description = descInput.value.trim();
     const duration    = durationInput.value.trim();
     const rest        = restInput.value.trim();
+    const note        = noteInput.value.trim(); // Obtener la nota
     if (!name || !description || !duration) {
         return alert("Completa nombre, descripción y duración.");
     }
@@ -141,8 +142,21 @@ saveBtn.addEventListener("click", async () => {
         return alert("Selecciona al menos un ejercicio.");
     }
 
-    const payload = { name, description, duration, rest,
-        exercises: selected.map(e => ({
+    // 1) Obtener el usuario actual
+    const user = auth.currentUser;
+    if (!user) {
+        return alert("Debes iniciar sesión para guardar una rutina.");
+    }
+
+    // 2) Incluir UID y nota en el payload
+    const payload = {
+        uid: user.uid,
+        name,
+        description,
+        duration,
+        rest,
+        note,
+        exercises: selected.map(e =>({
             bodyPart: e.bodyPart,
             name:     e.name,
             reps:     e.reps
