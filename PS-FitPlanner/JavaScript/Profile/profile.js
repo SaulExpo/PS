@@ -82,7 +82,7 @@ async function carga_alum() {
 function cargaMiProfe(profe) {
     let temp = `<p>${profe.data().name}</p>
             <button class="button_user_action" onclick="desasignarPro('${profe.data().id}', '${profe.data().name}')">Dejar</button>
-            <button class="button_user_action">Chat</button>`
+            <button class="button_user_action" onclick=location.href="./chat.html?to=${profe.data().email}">Chat</button>`
     document.querySelector("#profe_asig").innerHTML = temp
 }
 
@@ -174,6 +174,12 @@ function getInfo()
                             <div class="part">
                                 <label class="tag">Sexo</label>
                                 <p>${user.genero}</p>
+                            </div>
+                        </th>
+                        <th class="half-right">
+                            <div class="part">
+                                <label class="tag">Suscripción</label>
+                                <p>${user.tipo_suscripcion}</p>
                             </div>
                         </th>
                     </tr>

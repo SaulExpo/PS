@@ -1,8 +1,17 @@
-import  {where, collection, getDocs, doc, setDoc, query} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import {
+    where,
+    collection,
+    getDocs,
+    doc,
+    setDoc,
+    query, getDoc
+} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import {db} from "../firebase_config.js";
 import {getUserProfile} from "../GetDB/getUser.js";
+
 let profesionales = []
 let chats = []
+
 async function obtenerProfesionales() {
     try {
         // Obtener los documentos de la colección "chats"
@@ -18,6 +27,7 @@ async function obtenerProfesionales() {
         console.error("Error obteniendo los chats: ", error);
     }
 }
+
 async function obtenerChats(estado) {
     chats = [];
     try {
@@ -55,63 +65,78 @@ async function obtenerChats(estado) {
         console.error("Error obteniendo los chats: ", error);
     }
 }
+
+
 async function generarRecuadros(filtro = "") {
     const user = await getUserProfile();
-    const contenedor = document.getElementById('contenedor');
+    const contenedor = document.getElementById('chatSelection');
     // Limpiar el contenedor antes de agregar los recuadros (por si ya hay contenido)
     contenedor.innerHTML = '';
     console.log(contenedor)
 
+
     // Recorrer la lista de profesionales
-    chats.forEach(chat => {
-        const otroUsuario = chat.users[0] === user.email ? chat.users[1] : chat.users[0];
-
-        if (!otroUsuario.toLowerCase().includes(filtro.toLowerCase())) return; // Filtrar por nombre
-        // Crear el recuadro
-        const recuadro = document.createElement('div');
-        recuadro.classList.add('recuadro');
-
-        // Crear el nombre del profesional
-        const nombre = document.createElement('h3');
-        nombre.textContent = otroUsuario;
-
-        const fecha = document.createElement('div');
-        const date = new Date(chat.messages[0].time * 1000);
-        fecha.textContent = date;
-
-        // Crear el botón "Acceder"
-        const boton = document.createElement('button');
-        boton.textContent = 'Acceder';
-        boton.classList.add('boton-acceder');
-        boton.addEventListener('click', () => {
-            window.location.href = `./chat.html?to=${otroUsuario}`;
+    for (const chat of chats) {
+        let otroUsuario = chat.users[0] === user.email ? chat.users[1] : chat.users[0];
+        const q = query(collection(db, "user_app"), where("email", "==", otroUsuario));
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+            otroUsuario = doc.data();
         });
+        console.log(otroUsuario);
+
+        if (!otroUsuario.email.toLowerCase().includes(filtro.toLowerCase())) continue; // Filtrar por nombre
+        // Crear el recuadro
+        const li = document.createElement('li');
+        const a = document.createElement("a");
+        a.className = "opcionChat"
+        a.href = `./chat.html?to=${otroUsuario.email}`
+        const img = document.createElement("img");
+        img.className = "w-12 h-12 rounded-full object-cover mr-4";
+        if (otroUsuario.profilePicture){
+            img.src = otroUsuario.profilePicture;
+        } else {
+            img.src = "../Resources/icono.avif"
+        }
+        const div1 = document.createElement("div");
+        div1.className="flex-1"
+        const div2 = document.createElement("div");
+        const div3 = document.createElement("div");
+        div2.className="text-sm font-semibold text-gray-900"
+        div2.textContent = otroUsuario.name;
+        div3.className="text-xs text-gray-500"
+        const date = new Date(chat.messages[0].time.seconds * 1000);
+        const opciones = { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+        const fechaFormateada = date.toLocaleString('es-ES', opciones).replace(',', ' a las');
+        div3.textContent = "Último mensaje : " + fechaFormateada;
 
 
-        // Agregar el nombre y el botón al recuadro
-        recuadro.appendChild(nombre);
-        recuadro.appendChild(fecha);
-        recuadro.appendChild(boton);
+
+        li.appendChild(a);
+        a.appendChild(img);
+        a.appendChild(div1);
+        div1.appendChild(div2);
+        div1.appendChild(div3);
 
         if (user.profesional === true) {
-            const boton2 = document.createElement('button');
-            boton2.textContent = 'Cerrar Chat';
-            boton2.classList.add('boton-cerrar');
-            boton2.addEventListener('click', async () => {
+            const boton= document.createElement('button');
+            boton.textContent = 'Cerrar Chat';
+            boton.classList.add('boton-cerrar');
+            boton.addEventListener('click', async () => {
                 const chatRef = doc(db, "chats", chat.id);
                 await setDoc(chatRef, {
                     cerrado: true,
                 }, {merge: true});
             });
-            recuadro.appendChild(boton2);
+            a.appendChild(boton);
         }
 
         // Agregar el recuadro al contenedor
-        contenedor.appendChild(recuadro);
-    });
+        contenedor.appendChild(li);
+    }
 }
 
-function generarSelect(){
+function generarSelect() {
     profesionales.forEach(profesional => {
         const option = document.createElement('option');
         const select = document.getElementById("p_select")
@@ -120,12 +145,13 @@ function generarSelect(){
         select.appendChild(option);
     });
 }
+
 const token = localStorage.getItem("jwt");
 if (!token) {
     window.location.href = "../Pages/login.html"
 }
 
-obtenerProfesionales().then(profesionales =>{
+obtenerProfesionales().then(profesionales => {
     obtenerChats(false).then(item => {
         generarRecuadros();
         generarSelect();

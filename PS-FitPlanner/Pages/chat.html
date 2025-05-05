@@ -17,17 +17,19 @@
   <script type="module" src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js"></script>
 
 </head>
+<body>
 <header id="main_header"></header>
 
-<body>
 
-<h2>Chat Privado</h2>
+<main>
+<h2 id="privateChat">Chat Privado</h2>
 
 <div id="chatbox"></div>
-
 <input type="text" id="usermsg" placeholder="Escribe un mensaje..." size="50" />
 <button id="send">Enviar</button>
+</main>
 
+<footer id="main_footer"></footer>
 <script type="module">
   import {loadTemplate, loadHeader} from "../JavaScript/GlobalLoad/loadHeader.js";
   Promise.all([loadTemplate("../Templates/header.html" , "main_header"),
@@ -38,7 +40,5 @@
   })
 </script>
 </body>
-<footer id="main_footer"></footer>
-
 </html>
 

@@ -3,13 +3,17 @@ import {getUserProfile} from "./GetDB/getUser.js";
 
 export async function load() {
 
-    const user = await getUserProfile()
-    document.getElementById("calendar").addEventListener("click", function (e) {
-        if (user.tipo_suscripcion == "usuario") {
-            e.preventDefault()
-            alert("Necesitas suscribirte")
-        }
-    })
+
+    if (localStorage.getItem("jwt")) {
+        const user = await getUserProfile()
+        document.getElementById("calendar").addEventListener("click", function (e) {
+            if (user.tipo_suscripcion == "usuario") {
+                e.preventDefault()
+                alert("Necesitas suscribirte")
+            }
+        })
+    }
+
     loadHeader()
     let language = localStorage.getItem("language")
     let json_language

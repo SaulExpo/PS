@@ -25,6 +25,7 @@ async function main() {
             querySnapshot.forEach((doc) => {
                 receiver_data = doc.data();
             });
+            document.getElementById("privateChat").textContent = `Chat Privado con ${receiver_data.name}`
 
             // Marcar como en línea
             await setDoc(userRef, {
@@ -206,5 +207,6 @@ async function loadChatFromFirestore(user1, user2) {
         renderChat(user2);  // Función personalizada para renderizar el chat
     });
 }
+
 
 window.addEventListener("load", main);
