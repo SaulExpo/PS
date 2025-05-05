@@ -9,6 +9,8 @@
 }
 label{
     color: white;
+    display: inline-block;
+    width: 90px;
 }
 .form-group
 {

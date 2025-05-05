@@ -112,7 +112,6 @@ async function generarRecuadros(filtro = "") {
 
 
 
-        // Agregar el nombre y el botón al recuadro
         li.appendChild(a);
         a.appendChild(img);
         a.appendChild(div1);
@@ -120,16 +119,16 @@ async function generarRecuadros(filtro = "") {
         div1.appendChild(div3);
 
         if (user.profesional === true) {
-            const boton2 = document.createElement('button');
-            boton2.textContent = 'Cerrar Chat';
-            boton2.classList.add('boton-cerrar');
-            boton2.addEventListener('click', async () => {
+            const boton= document.createElement('button');
+            boton.textContent = 'Cerrar Chat';
+            boton.classList.add('boton-cerrar');
+            boton.addEventListener('click', async () => {
                 const chatRef = doc(db, "chats", chat.id);
                 await setDoc(chatRef, {
                     cerrado: true,
                 }, {merge: true});
             });
-            recuadro.appendChild(boton2);
+            a.appendChild(boton);
         }
 
         // Agregar el recuadro al contenedor
