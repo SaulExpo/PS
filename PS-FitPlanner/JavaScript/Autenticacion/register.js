@@ -21,7 +21,7 @@ const register = async (email, password) => {
             createdAt: new Date(),
             tipo_suscripcion: "usuario"
         });
-        window.location.href="../../Pages/login.html";
+        window.location.href="../Pages/login.html";
     } catch (error) {
         console.error("Error al registrar:", error.message);
     }
