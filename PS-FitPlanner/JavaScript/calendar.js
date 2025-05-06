@@ -83,6 +83,30 @@ document.addEventListener('DOMContentLoaded', async function () {
                         return r.id == info.event.id;
                     });
                     editUserRoutine(user, rutine.rutine, convertirFecha(info.event.start), rutine.id)
+                },
+                eventContent: function(arg) {
+                    return {
+                        html: `<div class="custom-event-dot" title="${arg.event.title}">•</div>`
+                    };
+                },
+                eventMouseEnter: function(info) {
+                    // Mostrar el título en la pestaña flotante al pasar el ratón
+                    var eventTitle = info.event.title;
+                    var tooltip = document.getElementById('titleTooltip');
+                    var tooltipTitle = document.getElementById('tooltipTitle');
+
+                    tooltipTitle.textContent = eventTitle; // Establecer el título en el tooltip
+                    tooltip.style.display = 'block'; // Mostrar la pestaña flotante
+
+                    // Posicionar el tooltip cerca del punto del evento
+                    var rect = info.el.getBoundingClientRect();
+                    tooltip.style.left = rect.left + rect.width / 2 - tooltip.offsetWidth / 2 + 'px'; // Centrado horizontal
+                    tooltip.style.top = rect.top - tooltip.offsetHeight - 10 + 'px'; // Justo encima del punto
+                },
+                eventMouseLeave: function(info) {
+                    // Ocultar el tooltip cuando el ratón salga del punto
+                    var tooltip = document.getElementById('titleTooltip');
+                    tooltip.style.display = 'none';
                 }
             });
             calendar.render();
@@ -195,19 +219,35 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
 
         const progresoMensual = dividirPasadasYFuturas(rutinasMesActual);
-        console.log(progresoMensual);
         const progresoSemanal = dividirPasadasYFuturas(rutinasSemanaActual);
-        console.log(progresoSemanal);
-        const porcentajeMensual = (progresoMensual.pasadas / progresoMensual.total) * 100;
-        const porcentajeSemanal = (progresoSemanal.pasadas / progresoSemanal.total) * 100;
+        let porcentajeMensual
+        let porcentajeSemanal
+        if (progresoMensual.pasadas === 0 && progresoMensual.total === 0){
+            porcentajeMensual = 100;
+            document.getElementById('progress-label-month').textContent = `No han habido rutinas este mes`;
+            document.getElementById('progress-bar-month').style.width = `${porcentajeMensual}%`;
 
-        document.getElementById('progress-label-month').textContent = `Progreso mensual: ${progresoMensual.pasadas} / ${progresoMensual.total}`;
-        document.getElementById('progress-bar-month').style.width = `${porcentajeMensual}%`;
-        document.getElementById('progress-label-week').textContent = `Progreso semanal: ${progresoSemanal.pasadas} / ${progresoSemanal.total}`;
-        document.getElementById('progress-bar-week').style.width = `${porcentajeSemanal}%`;
+        } else{
+            porcentajeMensual = (progresoMensual.pasadas / progresoMensual.total) * 100;
+            document.getElementById('progress-label-month').textContent = `Progreso mensual: ${progresoMensual.pasadas} / ${progresoMensual.total}`;
+            document.getElementById('progress-bar-month').style.width = `${porcentajeMensual}%`;
+        }
+        if (progresoSemanal.pasadas === 0 && progresoSemanal.total === 0){
+            porcentajeSemanal = 100;
+            document.getElementById('progress-label-week').textContent = `No han habido rutinas esta semana`;
+            document.getElementById('progress-bar-week').style.width = `${porcentajeSemanal}%`;
 
-        console.log(groupByWeek(userRoutines))
-        console.log(groupByMonth(userRoutines))
+        } else{
+            porcentajeSemanal = (progresoSemanal.pasadas / progresoSemanal.total) * 100;
+            document.getElementById('progress-label-week').textContent = `Progreso semanal: ${progresoSemanal.pasadas} / ${progresoSemanal.total}`;
+            document.getElementById('progress-bar-week').style.width = `${porcentajeSemanal}%`;
+        }
+
+
+
+
+        console.log(progresoMensual)
+        console.log(progresoSemanal)
 
     });
 

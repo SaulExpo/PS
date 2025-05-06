@@ -64,6 +64,7 @@ async function main() {
         }
 
         await loadChatFromFirestore(user_name, receiver);
+        await loadInputText(user_name, receiver);
 
         document.getElementById("send").addEventListener("click", async () => {
             const msg = document.getElementById("usermsg").value.trim();
@@ -130,9 +131,21 @@ function renderChat(userKey) {
     const chatbox = document.getElementById("chatbox");
     chatbox.innerHTML = "";
     (chatHistory[userKey] || []).forEach(m => {
+        const fecha = m.time
+        let hora = fecha.split(":")[0]
+        let minuto = fecha.split(":")[1]
         const who = m.from === "self" ? "Tú" : m.from;
         const className = m.from === "self" ? "me" : "them";
-        chatbox.innerHTML += `<div class="${className}"><b>${who}</b> [${m.time}]: ${m.msg}</div>`;
+        const className1 = m.from === "self" ? "me1" : "them1";
+        chatbox.innerHTML += `
+  <div class="${className1}">
+    <div class="${className}">
+      <div class="sender-name"><b>${who}</b></div>
+      <div class="message-text">${m.msg}</div>
+      <div class="message-time">${hora}:${minuto}</div>
+    </div>
+  </div>
+`;
     });
     chatbox.scrollTop = chatbox.scrollHeight;
 }
@@ -160,13 +173,13 @@ function sendEmail(){
 }
 
 async function loadChatFromFirestore(user1, user2) {
-    const chatId = getChatId(user1, user2); // Función personalizada para obtener el chatId
-    if (unsubscribe) unsubscribe();  // Cancelar cualquier suscripción anterior
+    const chatId = getChatId(user1, user2);
+    if (unsubscribe) unsubscribe();
 
 
-    const chatRef = doc(db, "chats", chatId);  // Referencia al documento del chat
-    const messagesRef = collection(chatRef, "messages");  // Referencia a la subcolección de mensajes
-    const messagesQuery = query(messagesRef, orderBy("time"));  // Ordenamos los mensajes por tiempo*/
+    const chatRef = doc(db, "chats", chatId);
+    const messagesRef = collection(chatRef, "messages");
+    const messagesQuery = query(messagesRef, orderBy("time"));
 
     unsubscribe = onSnapshot(messagesQuery, async snapshot => {
         const q = query(collection(db, "user_app"), where("email", "==", receiver));
@@ -189,7 +202,6 @@ async function loadChatFromFirestore(user1, user2) {
 
         messages.push(msgObj);
 
-        // Mostrar notificaciones si es necesario
         if (!fromSelf && index >= lastVisibleMessage) {
             const isVisible = document.visibilityState === "visible";
             const currentRecipient = receiver;
@@ -203,9 +215,21 @@ async function loadChatFromFirestore(user1, user2) {
         }
     });
 
-        chatHistory[user2] = messages;  // Actualizar el historial del chat
-        renderChat(user2);  // Función personalizada para renderizar el chat
+        chatHistory[user2] = messages;
+        renderChat(user2);
     });
+
+}
+
+async function loadInputText(user1, user2) {
+    const chatId = getChatId(user1, user2);
+
+    const chatRef = doc(db, "chats", chatId);
+    const Michat = await getDoc(chatRef);
+    if (Michat.data().cerrado === true){
+        document.getElementById("input-container").style.display = "none";
+    }
+
 }
 
 

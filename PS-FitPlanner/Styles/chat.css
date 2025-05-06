@@ -57,10 +57,57 @@ a:hover { text-decoration:underline; }
 .msgln { margin:0 0 2px 0; }
 
 body { font-family: Arial; padding: 20px; }
-#chatbox { width: 90%; height: 300px; border: 1px solid #ccc; overflow-y: scroll; padding: 10px; margin-bottom: 10px; }
+
 input, select { margin: 5px 0; }
-div.me { color: blue; }
-div.them { color: green; }
+
+#chatbox {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    height: 300px;
+    border: 1px solid #ccc;
+    overflow-y: scroll;
+    padding: 10px;
+    margin-bottom: 10px;
+    scrollbar-width: auto;
+    scrollbar-color: #d51313 transparent;
+    border-radius: 20px;
+}
+
+.me1 {
+    text-align: right;
+    flex: 0 0 auto;
+    padding: 10px;
+}
+
+.them1 {
+    flex: 0 0 auto;
+    padding: 10px;
+}
+
+.me {
+    background-color: #f17070;
+    display: inline-block;
+    border-radius: 8px;
+    padding: 6px 10px;
+    max-width: 70%;
+    word-wrap: break-word;
+    position: relative;
+    font-size: 14px;
+    margin: 6px 0;
+    min-width: 10%;
+}
+.them {
+    background-color: lightgrey;
+    display: inline-block;
+    border-radius: 8px;
+    padding: 6px 10px;
+    max-width: 70%;
+    word-wrap: break-word;
+    position: relative;
+    font-size: 14px;
+    margin: 6px 0;
+}
 
 body{
     padding: 0;
@@ -68,4 +115,87 @@ body{
 
 main{
     padding:10px;
+}
+
+.sender-name {
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.message-text {
+    margin-bottom: 4px;
+}
+
+.me .message-time {
+    font-size: 20px;
+    color: #bd0000;
+    position: relative;
+    bottom: 4px;
+}
+
+.them .message-time {
+    font-size: 20px;
+    color: grey;
+    position: relative;
+    bottom: 4px;
+}
+
+.me1 .me::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -10px;
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    border-top-color: #f17070;
+    border-bottom: 0;
+    }
+
+.them1 .them::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -10px;
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    border-top-color: lightgrey;
+    border-bottom: 0;
+}
+
+#input-container {
+    display: flex;
+    align-items: center;
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+#usermsg {
+    flex: 1;
+    border: none;
+    padding: 12px 16px;
+    font-size: 14px;
+    outline: none;
+}
+
+#send {
+    height: 50px;
+    border: none;
+    background-color: #d51313;
+    color: white;
+    padding: 12px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#send:hover {
+    background-color: #7b0606;
 }

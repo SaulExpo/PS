@@ -35,3 +35,28 @@ main
     align-items: center;
     flex-direction: column;
 }
+
+.custom-event-dot {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 12px; /* Ajusta el tamaño del punto */
+    height: 12px; /* Ajusta el tamaño del punto */
+    font-size: 64px;
+    color: red; /* Color del punto */
+    border-radius: 50%; /* Asegura que el punto sea un círculo */
+    pointer-events: none; /* Permite que el drag funcione */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centra el punto en la celda */
+    z-index: 10; /* Asegura que el punto esté por encima de otros elementos */
+}
+
+.fc-event {
+    background: transparent !important; /* Sin fondo */
+    border: none !important;
+    cursor: grab;
+    position: relative;
+}
+
