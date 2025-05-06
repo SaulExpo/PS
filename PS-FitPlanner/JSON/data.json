@@ -120,5 +120,8 @@
         "respuesta" : ""
       }
     ]
-  }
+  },
+  "prueba": [
+    "Tipo de rutina: "
+  ]
 }
