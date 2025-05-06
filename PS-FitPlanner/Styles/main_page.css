@@ -1,27 +1,93 @@
-body
-{
-    display: grid;
+/* Estructura general */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
+
+main.hero-section {
+    position: relative;
+    flex: 1;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Imagen de fondo */
 #imagenes {
-    width: 99%;
-    height: 70vh;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%; /* Ajusta la parte visible */
+    z-index: 0;
 }
 
-.text-box
-{
-    margin-block: 1em;
-    padding-inline: 1em;
-}
-.text-box p
-{
-    margin-inline: 10em;
-    background-color: rgb(217, 217, 217);
-    font-size: 2em;
-    border-radius: 0.2em;
+/* Contenedor del texto + botones */
+.text-box {
+    position: absolute;
+    bottom: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
+    gap: 2rem;
+    padding-inline: 2rem;
 }
 
 
+/* Texto */
+.text-box p {
+    color: white;
+    font-size: 1.5rem;
+    max-width: 900px;
+    margin: 0;
+    white-space: pre-line; /* Para respetar los \n del JSON */
+}
+
+/* Contenedor botones */
+.main-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Botones estilo hero */
+.hero-btn {
+    padding: 0.8rem 1.6rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 2rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Botón azul */
+.hero-btn.blue {
+    background-color: #e74c3c; /* rojo claro */
+    color: white;
+}
+
+.hero-btn.blue:hover {
+    background-color: #c0392b; /* rojo más oscuro para hover */
+}
+
+
+/* Botón oscuro */
+.hero-btn.dark {
+    background-color: #2e2e2e;
+    color: white;
+}
+
+.hero-btn.dark:hover {
+    background-color: #1a1a1a;
+}

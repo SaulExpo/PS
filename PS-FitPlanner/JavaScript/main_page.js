@@ -16,8 +16,8 @@ export function load()
         .then(function (json)
         {
             console.log(document.getElementsByClassName("text-box")[0])
-            document.getElementsByClassName("text-box")[0].innerHTML = "<p>"+json.message_main_page+"</p>"
-            document.querySelector("#imagenes").src = "../Resources/main_foto.jpg"
+            document.querySelector("#main-text").innerText = json.message_main_page;
+            document.querySelector("#imagenes").src = "../Resources/portada_main.png"
         })
     loadFooter()
 }

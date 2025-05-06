@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-
     <title>Main Page</title>
     <link rel="stylesheet" href="../Styles/header.css">
     <link rel="stylesheet" href="../Styles/footer.css">
@@ -15,35 +14,34 @@
 </head>
 <body>
 
-<header id="main_header">
-</header>
+<header id="main_header"></header>
 
-<main>
-    <img id="imagenes" src="../Resources/imagen_vertical.png" alt="Exercise Image">
+<main class="hero-section">
+    <img id="imagenes" src="../Resources/portada_main.png" alt="Imagen">
     <div class="text-box">
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum,
-            ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
-            inceptos himenaeos.
+        <p id="main-text">
+            ¡Transforma tu físico en semanas!\nPlanes personalizados, motivación real\nTu cambio empieza hoy
         </p>
+        <div class="main-buttons">
+            <button class="hero-btn blue" onclick="location.replace('../Pages/register.html')">Comienza ahora</button>
+            <button class="hero-btn dark" onclick="location.replace('../Pages/login.html')">Iniciar sesión</button>
+        </div>
     </div>
 </main>
 
-<footer id="main_footer">
-</footer>
+<footer id="main_footer"></footer>
 
 <script type="module">
-    import {loadTemplate, loadHeader} from "../JavaScript/GlobalLoad/loadHeader.js";
-    import {load} from "../JavaScript/main_page.js";
-    Promise.all([loadTemplate("../Templates/footer.html", "main_footer"),
-    loadTemplate("../Templates/header.html", "main_header")]
-    ).then(() => {
-        load()
-    })
+    import { loadTemplate, loadHeader } from "../JavaScript/GlobalLoad/loadHeader.js";
+    import { load } from "../JavaScript/main_page.js";
 
-
+    Promise.all([
+        loadTemplate("../Templates/footer.html", "main_footer"),
+        loadTemplate("../Templates/header.html", "main_header")
+    ]).then(() => {
+        load();
+    });
 </script>
-
 
 </body>
 </html>
