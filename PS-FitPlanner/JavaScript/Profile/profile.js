@@ -209,6 +209,9 @@ async function cambiarPro(id, name)
                 alumnos: arrayUnion(userRef)
             })
         await cambioReferencia(userRef, newProfRef);
+
+        sendEmail(newProfe.data(), `El usuario ${user.name} con correo ${user.email}, se ha asignado a sus alumnos`)
+        sendEmail(user, `Usted se ha asignado a la lista de alumnos del profesional ${newProfe.data().name}`)
         location.reload()
     }
     if (miProfe.id === newProfe.id)
@@ -285,8 +288,13 @@ async function desasignar(userID, userName)
     const confirmado = confirm(`Estas seguro de desasignar a ${userName}?`)
     if (confirmado)
     {
+        let miAlumno = await getDoc(alumRef)
+        let miProfe = await getDoc(profeRef)
+        sendEmail(miAlumno.data(), `El profesor ${miProfe.data().name}, le ha desasignado de sus alumnos`)
         await updateDoc(profeRef,
-            {alumnos: arrayRemove(alumRef)})
+            {alumnos: arrayRemove(alumRef),
+                asignado: miProfe.data().asignado - 1,
+            })
         await updateDoc(alumRef,
             {profe_asig: doc(db, "user_app", "null")})
         location.reload()
@@ -299,13 +307,15 @@ async function desasignarPro(profeID, profeName)
 {
     let userRef = doc(db, "user_app", user.id)
     const confirmado = confirm(`Estas seguro de desasignar a ${profeName}?`)
+
     if (confirmado)
     {
         let miProfeRef = doc(db, "user_app", user.profe_asig.id)
         let miProfe = await getDoc(miProfeRef)
+        sendEmail(miProfe.data(), `El usuario ${user.name} con correo ${user.email}, se ha desasignado de sus alumnos`)
         await updateDoc(miProfeRef,
             {
-                asignado: Number(miProfe.data().asignado) - 1,
+                asignado: miProfe.data().asignado- 1,
             })
         await updateDoc(userRef, {
             profe_asig: doc(db, "user_app", "null"),
@@ -313,6 +323,25 @@ async function desasignarPro(profeID, profeName)
         location.reload()
     }
 
+}
+
+function sendEmail(userdata, message){
+    emailjs.init('CTnfkkYqegWMlezAo'); // Reemplaza con tu public key de EmailJS
+
+    const params = {
+        email: userdata.email,
+        message: message,
+        title: "Cambio en los usuarios"
+    };
+    console.log(params)
+    emailjs.send('service_cmud1pq', 'template_ckg59mk', params)
+        .then(function(response) {
+            console.log(response)
+            alert('Correo enviado con éxito');
+        }, function(error) {
+            alert('Error al enviar el correo');
+            console.log(error);
+        });
 }
 
 

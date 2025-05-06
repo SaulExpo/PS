@@ -125,6 +125,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 deleteUserRoutine(rutine.id)
             });
         })
+        console.log(userRoutines)
 
     });
 
