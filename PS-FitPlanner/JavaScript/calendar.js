@@ -125,7 +125,89 @@ document.addEventListener('DOMContentLoaded', async function () {
                 deleteUserRoutine(rutine.id)
             });
         })
-        console.log(userRoutines)
+        function toDate(timestamp) {
+            return new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1e6);
+        }
+        function groupByWeek(data) {
+            const groups = {};
+
+            data.forEach(item => {
+                const date = new Date(item.date); // usar item.date
+
+                const monday = new Date(date);
+                const day = monday.getDay();
+                const diff = monday.getDate() - day + (day === 0 ? -6 : 1); // lunes como inicio
+                monday.setDate(diff);
+                monday.setHours(0, 0, 0, 0);
+
+                const key = monday.toISOString().split('T')[0];
+                if (!groups[key]) groups[key] = [];
+                groups[key].push(item);
+            });
+
+            return groups;
+        }
+
+        function groupByMonth(data) {
+            const groups = {};
+
+            data.forEach(item => {
+                const date = new Date(item.date); // usar item.date
+                const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`; // "2025-04"
+
+                if (!groups[key]) groups[key] = [];
+                groups[key].push(item);
+            });
+
+            return groups;
+        }
+        // 📅 Fecha actual
+        const now = new Date();
+
+// 🔸 Para agrupar por mes actual:
+        const currentMonthKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+
+// 🔸 Para agrupar por semana actual:
+        function getMonday(date) {
+            const monday = new Date(date);
+            const day = monday.getDay();
+            const diff = monday.getDate() - day + (day === 0 ? -6 : 1); // lunes como inicio
+            monday.setDate(diff);
+            monday.setHours(0, 0, 0, 0);
+            return monday;
+        }
+        const currentWeekKey = getMonday(now).toISOString().split('T')[0];
+        const rutinasPorMes = groupByMonth(userRoutines);
+        const rutinasPorSemana = groupByWeek(userRoutines);
+
+        const rutinasMesActual = rutinasPorMes[currentMonthKey] || [];
+        const rutinasSemanaActual = rutinasPorSemana[currentWeekKey] || [];
+        function dividirPasadasYFuturas(rutinas) {
+            const ahora = new Date();
+            const pasadas = rutinas.filter(r => new Date(r.date) < ahora);
+            const futuras = rutinas.filter(r => new Date(r.date) >= ahora);
+
+            return {
+                total: rutinas.length,
+                pasadas: pasadas.length,
+                futuras: futuras.length
+            };
+        }
+
+        const progresoMensual = dividirPasadasYFuturas(rutinasMesActual);
+        console.log(progresoMensual);
+        const progresoSemanal = dividirPasadasYFuturas(rutinasSemanaActual);
+        console.log(progresoSemanal);
+        const porcentajeMensual = (progresoMensual.pasadas / progresoMensual.total) * 100;
+        const porcentajeSemanal = (progresoSemanal.pasadas / progresoSemanal.total) * 100;
+
+        document.getElementById('progress-label-month').textContent = `Progreso mensual: ${progresoMensual.pasadas} / ${progresoMensual.total}`;
+        document.getElementById('progress-bar-month').style.width = `${porcentajeMensual}%`;
+        document.getElementById('progress-label-week').textContent = `Progreso semanal: ${progresoSemanal.pasadas} / ${progresoSemanal.total}`;
+        document.getElementById('progress-bar-week').style.width = `${porcentajeSemanal}%`;
+
+        console.log(groupByWeek(userRoutines))
+        console.log(groupByMonth(userRoutines))
 
     });
 
