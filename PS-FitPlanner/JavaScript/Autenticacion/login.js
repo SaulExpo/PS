@@ -1,4 +1,4 @@
-import {signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+import {signInWithEmailAndPassword, signOut} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 import {auth, db} from "../firebase_config.js";
 import {collection, doc, getDoc, getDocs, query, updateDoc, where} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
@@ -6,6 +6,16 @@ import {collection, doc, getDoc, getDocs, query, updateDoc, where} from "https:/
 const login = async (email, password) => {
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        console.log(user)
+        if (user.emailVerified) {
+            console.log('Inicio de sesión exitoso y verificado');
+            // Redirige al usuario o continúa la sesión
+        } else {
+            signOut(auth); // Cierra la sesión si no está verificado
+            alert('Debes verificar tu correo antes de poder iniciar sesión.');
+            return
+        }
         await comprobarSuscripción()
         window.location.href="http://localhost:63342/PS/PS-FitPlanner/Pages/first_page.html?_ijt=vgob1go66v0h87q0cjc6046q57&_ij_reload=RELOAD_ON_SAVE";
         localStorage.setItem("jwt", "Sesion Cerrada");
