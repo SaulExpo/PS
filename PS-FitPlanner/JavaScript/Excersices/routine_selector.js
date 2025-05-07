@@ -38,23 +38,29 @@ const userRoutinesCol = collection(db, "user_routines");
 
 function updateSummary() {
     summaryEl.innerHTML = "";
+
     if (!selected.length) {
         summaryEl.innerHTML = "<p>There is not any exercise selected.</p>";
 
         return;
     }
+
     selected.forEach((e, idx) => {
         const container = document.createElement("div");
         container.className = "summary-item";
 
-        const nameEl = document.createElement("span");
-        nameEl.textContent = e.name;
+        const linkEl = document.createElement("a");
+        linkEl.textContent = e.name;
+        linkEl.href       = `exercise_detail.html?name=${encodeURIComponent(e.name)}`;
+        linkEl.target     = "_blank";
+        linkEl.className  = "summary-link";
 
         const repsSelect = document.createElement("select");
         repsSelect.innerHTML = `
       <option value="3x10">3x10</option>
       <option value="4x12">4x12</option>
-      <option value="5x15">5x15</option>`;
+      <option value="5x15">5x15</option>
+    `;
         repsSelect.value = e.reps;
         repsSelect.addEventListener("change", () => {
             selected[idx].reps = repsSelect.value;
@@ -69,7 +75,8 @@ function updateSummary() {
             render(currentList);
         });
 
-        container.append(nameEl, repsSelect, removeBtn);
+        container.append(linkEl, repsSelect, removeBtn);
+
         summaryEl.appendChild(container);
     });
 }
@@ -114,7 +121,13 @@ function render(list) {
             updateSummary();
         });
 
-        const nameEl   = document.createElement("div"); nameEl.innerHTML   = `<strong>${ex.name}</strong>`;
+        const nameEl = document.createElement("div");
+        nameEl.innerHTML = (
+            `<strong>` +
+            `<a href="exercise_detail.html?name=${encodeURIComponent(ex.name)}" target="_blank">${ex.name}</a>` +
+            `</strong>`
+        );
+        card.appendChild(nameEl);
         const targetEl = document.createElement("div"); targetEl.textContent = `Target: ${ex.target}`;
         const equipEl  = document.createElement("div"); equipEl.textContent  = `Equip: ${ex.equipment}`;
 

@@ -86,3 +86,25 @@ section
     gap: 2em;
     flex-wrap: wrap;
 }
+
+#image_text3 {
+    display: block !important;
+}
+#image_text3 ul {
+    list-style: disc inside;
+    margin: 0;
+    padding: 0 1em;
+}
+#image_text3 ul li {
+    margin-bottom: 0.5rem;
+}
+#image_text3 ul li a {
+    display: inline;
+    text-transform: capitalize;
+    text-decoration: none;
+    color: #333;
+    transition: color 0.2s;
+}
+#image_text3 ul li a:hover {
+    color: #e16666;
+}

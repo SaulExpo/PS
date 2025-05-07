@@ -40,21 +40,21 @@ main {
 #title {
     text-align: center;
     font-size: 1.8em;
-    color: #2b3a67;
+    color: #ef4545;
 }
 
 #durationContainer {
     margin-bottom: 1.5em;
     text-align: center;
     font-size: 1.1em;
-    color: #2b3a67;
+    color: #ef4545;
 }
 
 #restContainer {
     margin-bottom: 1.5em;
     text-align: center;
     font-size: 1.1em;
-    color: #2b3a67;
+    color: #ef4545;
 }
 
 #selectors {
@@ -111,11 +111,11 @@ main {
 
 #exercises a {
     text-decoration: none;
-    color: #333; /* gris oscuro */
+    color: #333;
     font-weight: 600;
     transition: color 0.2s ease;
 }
 
 #exercises a:hover {
-    color: #000; /* negro al pasar el mouse */
+    color: #000;
 }

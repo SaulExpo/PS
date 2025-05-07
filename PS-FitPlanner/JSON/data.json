@@ -68,9 +68,10 @@
   "first_page" :
   {
     "today" : "Rutina funcional enfocada en el grupo \"core\" para nivel beginner.",
-    "today_img" : "../Resources/today_image.webp",
+    "today_img" : "../Resources/exercise.png",
     "calendar" : "Accede a tu calendario y revisa de un vistazo tus entrenamientos pasados, los que tienes programados y tus días de descanso. Mantén el control de tu progreso y organiza fácilmente tus próximas sesiones.",
-    "calendar_img" : "../Resources/calendar.png"
+    "calendar_img" : "../Resources/calendar2.png",
+    "recommendations_image": "../Resources/recommendations.png"
   },
   "suscripciones" :
   {
