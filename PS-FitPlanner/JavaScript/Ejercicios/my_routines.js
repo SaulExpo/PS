@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     list.innerHTML = '';
 
     if (!routines.length) {
-        list.innerHTML = "<p>No tienes rutinas guardadas aún.</p>";
+        list.innerHTML = "<p>You do not have any rutines saved yet.</p>";
         return;
     }
 
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const editBtn = document.createElement('button');
         editBtn.className = 'edit-btn';
-        editBtn.textContent = 'Editar';
+        editBtn.textContent = 'Edit';
         editBtn.onclick = () => {
             localStorage.setItem('editIndex', index);
             window.location.href = 'exercise_selector.html';
@@ -35,9 +35,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const deleteBtn = document.createElement('button');
         deleteBtn.className = 'delete-btn';
-        deleteBtn.textContent = 'Eliminar';
+        deleteBtn.textContent = 'Delete';
         deleteBtn.onclick = () => {
-            if (confirm('¿Eliminar esta rutina?')) {
+            if (confirm('Do you want to delete this rutine?')) {
                 routines.splice(index, 1);
                 localStorage.setItem('routines', JSON.stringify(routines));
                 location.reload();

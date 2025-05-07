@@ -100,6 +100,6 @@ onAuthStateChanged(auth, (user) => {
     if (user) {
         loadUserRoutines(user);
     } else {
-        listEl.innerHTML = "<p>Inicia sesión para ver tus rutinas.</p>";
+        listEl.innerHTML = "<p>Login you see your rutines.</p>";
     }
 });

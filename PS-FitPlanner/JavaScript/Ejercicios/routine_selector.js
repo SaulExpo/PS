@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let ready = false;
 
     const fetchExercises = async () => {
-        exerciseList.innerHTML = '<p style="color:gray">⏳ Cargando ejercicios...</p>';
+        exerciseList.innerHTML = '<p style="color:gray">⏳ Loading...</p>';
         await Promise.all(parts.map(async part => {
             try {
                 const res = await fetch(`https://raw.githubusercontent.com/SaulExpo/PS/main/exercises_${part}.json`);

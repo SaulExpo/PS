@@ -39,7 +39,8 @@ const userRoutinesCol = collection(db, "user_routines");
 function updateSummary() {
     summaryEl.innerHTML = "";
     if (!selected.length) {
-        summaryEl.innerHTML = "<p>No hay ejercicios seleccionados.</p>";
+        summaryEl.innerHTML = "<p>There is not any exercise selected.</p>";
+
         return;
     }
     selected.forEach((e, idx) => {
