@@ -108,3 +108,23 @@ section
 #image_text3 ul li a:hover {
     color: #e16666;
 }
+
+.image-wrapper {
+    height: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-wrapper #picture,
+#image_text #picture,
+#image_text2 #picture,
+#image_text3 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    margin: 0;
+    display: block;
+}

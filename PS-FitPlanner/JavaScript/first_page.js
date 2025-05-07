@@ -86,7 +86,6 @@ export async function load() {
         return all.slice(0, 3);
     }
 
-    // Fisher–Yates
     function shuffle(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
