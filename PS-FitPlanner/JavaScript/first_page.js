@@ -1,7 +1,7 @@
 import {loadHeader} from "./GlobalLoad/loadHeader.js";
 import {getUserProfile} from "./GetDB/getUser.js";
 import { db } from "./firebase_config.js";
-import { collection, getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import {collection, doc, getDoc, getDocs} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
 const exerciseCollections = [
     "exercises_back",
@@ -92,4 +92,7 @@ export async function load() {
             [array[i], array[j]] = [array[j], array[i]];
         }
     }
+
+    const user = await getUserProfile()
+    console.log(user)
 }

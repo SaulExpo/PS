@@ -5,14 +5,12 @@ document.addEventListener("DOMContentLoaded", async function () {
     const user = await getUserProfile()
         const name = document.getElementById('editProfileName')
     const surname = document.getElementById('editProfileSurname')
-    const email = document.getElementById('editProfileEmail')
     const edad = document.getElementById('editProfileEdad')
     const peso = document.getElementById('editProfilePeso')
     const altura = document.getElementById('editProfileAltura')
     const genero = document.getElementById('editProfileGenero')
     name.value = user.name
     surname.value = user.surname
-    email.value = user.email
     edad.value = user.edad
     peso.value = user.peso
     altura.value = user.altura
@@ -25,7 +23,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         await setDoc(userRef, {
             name: name.value,
             surname: surname.value,
-            email: email.value,
             edad: edad.value,
             peso: peso.value,
             altura: altura.value,
