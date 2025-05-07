@@ -2,12 +2,11 @@
     font-size: 2.5rem;
     font-weight: bold;
     text-align: center;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
+    margin: 2rem 0 1rem;
 }
 .new-btn {
     background-color: #ef4545;
-    color: white;
+    color: #fff;
     padding: 0.8rem 1.5rem;
     font-size: 1rem;
     border: none;
@@ -15,91 +14,145 @@
     cursor: pointer;
     display: block;
     margin: 0 auto 2rem;
+    transition: background 0.2s;
+}
+.new-btn:hover {
+    background-color: #d43d3d;
 }
 
 .routine-list {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    margin-bottom: 3rem;
 }
 
 .routine-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #e1e1e1;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     padding: 1rem;
-    border-radius: 10px;
     max-width: 600px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.routine-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 .routine-name {
-    font-weight: bold;
-    font-size: 1.1rem;
-}
-
-.routine-actions button {
-    margin-left: 0.5rem;
-    padding: 0.4rem 0.8rem;
-    font-size: 0.9rem;
-    border: none;
-    border-radius: 6px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
     cursor: pointer;
+    margin-bottom: 0.5rem;
+    transition: color 0.2s;
+}
+.routine-name:hover {
+    color: #bc2742;
 }
 
-.delete-btn {
-    background-color: #dc3545;
-    color: white;
-}
 .routine-description {
-    font-style: italic;
     color: #555;
-}
-
-.routine-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 1rem;
-}
-
-.routine-description {
-    display: none;
+    margin-bottom: 0.75rem;
 }
 
 .routine-note-display {
-    margin: 0.5rem 0 1rem;
-    font-style: italic;
-    color: #333;
+    font-size: 0.95rem;
+    color: #444;
+    margin-bottom: 0.75rem;
+    background: #fce3e3;
+    padding: 0.5rem;
+    border-left: 4px solid #ffbaba;
+    border-radius: 4px;
+}
+
+.note-editor {
+    margin-bottom: 0.75rem;
+}
+.note-input {
+    width: 100%;
+    min-height: 60px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 6px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+}
+.save-note-btn {
+    background: #e16666;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.save-note-btn:hover {
+    background: #ff0000;
 }
 
 .routine-actions {
     display: flex;
-    width: 100%;
-    gap: .5rem;
-    justify-content: space-between;
-    flex-wrap: nowrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
 }
-
 .routine-actions button {
-    flex: 1 1 0;
-    padding: .6rem;
-    font-size: .9rem;
-}
-
-.edit-btn    { order: 1; background-color: #e69d9d; }
-.delete-btn  { order: 2; background-color: #dc3545; }
-.note-btn    { order: 3; background-color: #ffc107; }
-
-.routine-actions button {
+    flex: 1;
+    padding: 0.6rem;
+    font-size: 0.9rem;
     color: #fff;
     border: none;
     border-radius: 6px;
     cursor: pointer;
+    transition: background 0.2s;
+}
+.edit-btn {
+    background-color: #8a2222;
+}
+.edit-btn:hover {
+    background-color: #8a2222;
+}
+.delete-btn {
+    background-color: #dc3545;
+}
+.delete-btn:hover {
+    background-color: #c82333;
+}
+.note-btn {
+    background-color: #bc2742;
+    color: #212529;
+}
+.note-btn:hover {
+    background-color: #bc2742;
 }
 
-.routine-list {
-    margin-bottom: 3rem;
+.routine-extra-details {
+    display: none;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
 }
+.routine-duration,
+.routine-rest {
+    font-size: 0.95rem;
+    color: #444;
+    margin-bottom: 0.5rem;
+}
+.routine-exercises {
+    list-style: disc inside;
+    margin: 0;
+    padding-left: 1rem;
+    color: #333;
+}
+.routine-exercises li {
+    margin-bottom: 0.25rem;
+    font-size: 0.93rem;
+}
+

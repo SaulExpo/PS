@@ -35,6 +35,7 @@ async function loadUserRoutines(user) {
         const nameEl = document.createElement("div");
         nameEl.className = "routine-name";
         nameEl.textContent = data.name;
+        nameEl.style.cursor = "pointer";
 
         const descEl = document.createElement("div");
         descEl.className = "routine-description";
@@ -76,9 +77,7 @@ async function loadUserRoutines(user) {
         const editBtn = document.createElement("button");
         editBtn.className = "edit-btn";
         editBtn.textContent = "Edit";
-        editBtn.onclick = () => {
-            window.location.href = `exercise_selector.html?editId=${id}`;
-        };
+        editBtn.onclick = () => window.location.href = `exercise_selector.html?editId=${id}`;
 
         const deleteBtn = document.createElement("button");
         deleteBtn.className = "delete-btn";
@@ -90,15 +89,39 @@ async function loadUserRoutines(user) {
         };
 
         actions.append(noteBtn, editBtn, deleteBtn);
-        card.append(nameEl, descEl, noteDisplay, noteEditor, actions);
+
+        const detailsEl = document.createElement("div");
+        detailsEl.className = "routine-extra-details";
+        detailsEl.style.display = "none";
+
+        const durationEl = document.createElement("div");
+        durationEl.className = "routine-duration";
+        durationEl.textContent = `Duration: ${data.duration || "-"}`;
+
+        const restEl = document.createElement("div");
+        restEl.className = "routine-rest";
+        restEl.textContent = `Rest: ${data.rest || "-"}`;
+
+        const exercisesList = document.createElement("ul");
+        exercisesList.className = "routine-exercises";
+        (data.exercises || []).forEach((ex) => {
+            const li = document.createElement("li");
+            li.textContent = `${ex.name} — ${ex.reps}`;
+            exercisesList.appendChild(li);
+        });
+
+        detailsEl.append(durationEl, restEl, exercisesList);
+
+        nameEl.addEventListener("click", () => {
+            detailsEl.style.display = detailsEl.style.display === "none" ? "block" : "none";
+        });
+
+        card.append(nameEl, descEl, noteDisplay, noteEditor, actions, detailsEl);
         listEl.appendChild(card);
     });
 }
 
 onAuthStateChanged(auth, (user) => {
-    if (user) {
-        loadUserRoutines(user);
-    } else {
-        listEl.innerHTML = "<p>Login you see your rutines.</p>";
-    }
+    if (user) loadUserRoutines(user);
+    else listEl.innerHTML = "<p>Login you see your rutines.</p>";
 });

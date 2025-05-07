@@ -37,9 +37,6 @@ let favorites    = [];
 
 const userRoutinesCol = collection(db, "user_routines");
 
-/**
- * Actualiza el resumen de ejercicios seleccionados.
- */
 function updateSummary() {
     summaryEl.innerHTML = "";
     if (!selected.length) {
@@ -51,14 +48,12 @@ function updateSummary() {
         const container = document.createElement("div");
         container.className = "summary-item";
 
-        // Link al detalle
         const linkEl = document.createElement("a");
         linkEl.textContent = e.name;
         linkEl.href        = `exercise_detail.html?name=${encodeURIComponent(e.name)}`;
         linkEl.target      = "_blank";
         linkEl.className   = "summary-link";
 
-        // Selector de repeticiones
         const repsSelect = document.createElement("select");
         repsSelect.innerHTML = `
       <option value="3x10">3x10</option>
@@ -70,7 +65,6 @@ function updateSummary() {
             render(currentList);
         });
 
-        // Botón eliminar
         const removeBtn = document.createElement("button");
         removeBtn.textContent = "Eliminar";
         removeBtn.addEventListener("click", () => {
