@@ -1,4 +1,3 @@
-// my_routines.js
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 import {
     collection,
@@ -47,7 +46,7 @@ async function loadUserRoutines(user) {
 
         const noteBtn = document.createElement("button");
         noteBtn.className = "note-btn";
-        noteBtn.textContent = "✏️ Note";
+        noteBtn.textContent = "✏️";
 
         const noteEditor = document.createElement("div");
         noteEditor.className = "note-editor";
