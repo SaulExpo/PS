@@ -7,6 +7,7 @@ let email
 let name
 let surname
 let password
+let repeatPassword
 
 // Registrar usuario
 const register = async (email, password) => {
@@ -42,7 +43,13 @@ document.addEventListener("DOMContentLoaded", () => {
         name = document.getElementById("name").value.trim();
         surname = document.getElementById("surname").value.trim();
         password = document.getElementById("password").value;
+        repeatPassword = document.getElementById("repeat_password").value;
 
+        if (password !== repeatPassword)
+        {
+            alert("Las contraseñas no coinciden")
+            return
+        }
         if (email && password) {
             register(email, password);
         } else {
