@@ -1,6 +1,7 @@
 import {signInWithEmailAndPassword, signOut} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 import {auth, db} from "../firebase_config.js";
 import {collection, doc, getDoc, getDocs, query, updateDoc, where} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import Swal from 'https://cdn.skypack.dev/sweetalert2';
 
 //Ininicar Sesión
 const login = async (email, password) => {
@@ -13,7 +14,12 @@ const login = async (email, password) => {
             // Redirige al usuario o continúa la sesión
         } else {
             signOut(auth); // Cierra la sesión si no está verificado
-            alert('Debes verificar tu correo antes de poder iniciar sesión.');
+            Swal.fire({
+                title: "Debes verificar tu correo antes de poder iniciar sesión.",
+                icon: "error",
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "Ok"
+            })
             return
         }
         await comprobarSuscripción()
@@ -66,7 +72,12 @@ document.addEventListener("DOMContentLoaded", () => {
         if (email && password) {
             login(email, password);
         } else {
-            alert("Por favor completa todos los campos.");
+            Swal.fire({
+                title: "Por favor completa todos los campos.",
+                icon: "warning",
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "Ok"
+            })
         }
     });
 });

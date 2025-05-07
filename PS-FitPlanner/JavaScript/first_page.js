@@ -1,7 +1,9 @@
 import {loadHeader} from "./GlobalLoad/loadHeader.js";
 import {getUserProfile} from "./GetDB/getUser.js";
 import { db } from "./firebase_config.js";
-import { collection, getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import {collection, doc, getDoc, getDocs} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import Swal from 'https://cdn.skypack.dev/sweetalert2';
+
 
 const exerciseCollections = [
     "exercises_back",
@@ -23,7 +25,12 @@ export async function load() {
         document.getElementById("calendar").addEventListener("click", function (e) {
             if (user.tipo_suscripcion == "usuario") {
                 e.preventDefault();
-                alert("Necesitas suscribirte");
+                Swal.fire({
+                    title: "Debes Suscribirte!",
+                    icon: "warning",
+                    confirmButtonColor: "#3085d6",
+                    confirmButtonText: "Ok"
+                })
             }
         });
     }
@@ -92,4 +99,7 @@ export async function load() {
             [array[i], array[j]] = [array[j], array[i]];
         }
     }
+
+    const user = await getUserProfile()
+    console.log(user)
 }

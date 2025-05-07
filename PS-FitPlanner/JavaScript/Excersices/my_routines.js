@@ -9,6 +9,10 @@ import {
     updateDoc
 } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import { auth, db } from "../firebase_config.js";
+const token = localStorage.getItem("jwt");
+if (!token) {
+    window.location.href = "../Pages/login.html"
+}
 
 const userRoutinesCol = collection(db, "user_routines");
 const listEl = document.getElementById("routine-list");

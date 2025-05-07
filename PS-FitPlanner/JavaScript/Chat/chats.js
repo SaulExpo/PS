@@ -9,6 +9,11 @@ import {
 import {db} from "../firebase_config.js";
 import {getUserProfile} from "../GetDB/getUser.js";
 
+const token = localStorage.getItem("jwt");
+if (!token) {
+    window.location.href = "../Pages/login.html"
+}
+
 let profesionales = []
 let chats = []
 
