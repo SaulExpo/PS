@@ -31,7 +31,7 @@ main {
 
 #info {
     margin-inline: 0;
-    background-color: #e1e7ef;
+    background-color: #f4c6c6;
     border-radius: 8px;
     padding: 1em;
     font-weight: 500;
@@ -40,21 +40,23 @@ main {
 #title {
     text-align: center;
     font-size: 1.8em;
-    color: #ef4545;
+    margin-bottom: 0.5em;
+    color: #9c2a2a;
 }
 
 #durationContainer {
     margin-bottom: 1.5em;
     text-align: center;
     font-size: 1.1em;
-    color: #ef4545;
+    margin-top: 0.5em;
+    color: #9c2a2a;
 }
 
 #restContainer {
     margin-bottom: 1.5em;
     text-align: center;
     font-size: 1.1em;
-    color: #ef4545;
+    color: #9c2a2a;
 }
 
 #selectors {
@@ -100,7 +102,7 @@ main {
 }
 
 #exercises > div {
-    background-color: #e6ecf3;
+    background-color: #f4c6c6;
     padding: 1em;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
@@ -111,7 +113,7 @@ main {
 
 #exercises a {
     text-decoration: none;
-    color: #333;
+    color: #000001;
     font-weight: 600;
     transition: color 0.2s ease;
 }
