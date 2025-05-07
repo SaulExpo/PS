@@ -5,7 +5,7 @@ import {onAuthStateChanged} from "https://www.gstatic.com/firebasejs/9.22.0/fire
 export async function getUserProfile() {
     const user = await new Promise((resolve, reject) => {
         const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-            unsubscribe(); // Nos desuscribimos inmediatamente
+            unsubscribe();
             if (firebaseUser) resolve(firebaseUser);
             else reject("No hay usuario autenticado");
         });

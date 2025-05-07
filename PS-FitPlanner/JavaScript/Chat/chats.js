@@ -24,7 +24,7 @@ async function obtenerProfesionales() {
         });
         return profesionales
     } catch (error) {
-        console.error("Error obteniendo los chats: ", error);
+        console.error("Error getting the chats: ", error);
     }
 }
 
@@ -108,7 +108,7 @@ async function generarRecuadros(filtro = "") {
         const date = new Date(chat.messages[0].time.seconds * 1000);
         const opciones = { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' };
         const fechaFormateada = date.toLocaleString('es-ES', opciones).replace(',', ' a las');
-        div3.textContent = "Último mensaje : " + fechaFormateada;
+        div3.textContent = "Last message : " + fechaFormateada;
 
 
 
@@ -120,7 +120,7 @@ async function generarRecuadros(filtro = "") {
 
         if (user.profesional === true) {
             const boton= document.createElement('button');
-            boton.textContent = 'Cerrar Chat';
+            boton.textContent = 'Close chat';
             boton.classList.add('boton-cerrar');
             boton.addEventListener('click', async () => {
                 const chatRef = doc(db, "chats", chat.id);

@@ -65,9 +65,9 @@ async function carga_profe() {
 async function carga_alum() {
     if (user.profe_asig.id === "null")
     {
-        document.querySelector("#profe_asig").innerHTML = "<p>No tienes ningún profesional asignado</p>"
+        document.querySelector("#profe_asig").innerHTML = "<p>There is not a professional assigned</p>"
 
-        console.log("No tienes profesionales")
+        console.log("You don't have professionals")
         await cargaProfesLibres()
         document.querySelector("#alumn_view").style = "display:grid"
         return
@@ -81,7 +81,7 @@ async function carga_alum() {
 }
 function cargaMiProfe(profe) {
     let temp = `<p>${profe.data().name}</p>
-            <button class="button_user_action" onclick="desasignarPro('${profe.data().id}', '${profe.data().name}')">Dejar</button>
+            <button class="button_user_action" onclick="desasignarPro('${profe.data().id}', '${profe.data().name}')">Leave</button>
             <button class="button_user_action" onclick=location.href="./chat.html?to=${profe.data().email}">Chat</button>`
     document.querySelector("#profe_asig").innerHTML = temp
 }
@@ -97,7 +97,7 @@ async function cargaProfesLibres() {
         }
         temp += `<li class="profe">
                         <p>${profe.name} ${profe.asignado}/${profe.capacidad}</p>
-                        <button class="button_user_action" onclick="cambiarPro('${profe.id}', '${profe.name}')">Seguir</button>
+                        <button class="button_user_action" onclick="cambiarPro('${profe.id}', '${profe.name}')">Follow</button>
                     </li>`
     }
     document.querySelector("#profe_list").innerHTML = temp
@@ -143,13 +143,13 @@ function getInfo()
                     <tr>
                         <th class="half-left">
                             <div class="part">
-                                <label class="tag">Correo</label>
+                                <label class="tag">Email</label>
                                 <p>${user.email}</p>
                             </div>
                         </th>
                         <th>
                             <div class="part">
-                                <label class="tag">Edad</label>
+                                <label class="tag">Age</label>
                                 <p>${user.edad}años</p>
                             </div>
                         </th>
@@ -158,13 +158,13 @@ function getInfo()
                     <tr>
                         <th>
                             <div class="part">
-                                <label class="tag">Altura</label>
+                                <label class="tag">Height</label>
                                 <p>${user.altura}cm</p>
                             </div>
                         </th>
                         <th>
                             <div class="part">
-                                <label class="tag">Peso</label>
+                                <label class="tag">Weight</label>
                                 <p>${user.peso}kg</p>
                             </div>
                         </th>
@@ -172,13 +172,13 @@ function getInfo()
                     <tr>
                         <th class="half-right">
                             <div class="part">
-                                <label class="tag">Sexo</label>
+                                <label class="tag">Sex</label>
                                 <p>${user.genero}</p>
                             </div>
                         </th>
                         <th class="half-right">
                             <div class="part">
-                                <label class="tag">Suscripción</label>
+                                <label class="tag">Suscription</label>
                                 <p>${user.tipo_suscripcion}</p>
                             </div>
                         </th>
@@ -210,13 +210,13 @@ async function cambiarPro(id, name)
             })
         await cambioReferencia(userRef, newProfRef);
 
-        sendEmail(newProfe.data(), `El usuario ${user.name} con correo ${user.email}, se ha asignado a sus alumnos`)
-        sendEmail(user, `Usted se ha asignado a la lista de alumnos del profesional ${newProfe.data().name}`)
+        sendEmail(newProfe.data(), `The user ${user.name} with email ${user.email}, had been assigned to your students`)
+        sendEmail(user, `You had been assigned to the professional's list ${newProfe.data().name}`)
         location.reload()
     }
     if (miProfe.id === newProfe.id)
     {
-        console.log("Ya estas asignado a ese profesional")
+        console.log("You are already assigned to that professional")
         return
     }
 
@@ -266,7 +266,7 @@ function load_info()
 }
 function num_alumns()
 {
-    document.querySelector("#alumnos").innerHTML = `Número de alumnos: ${alumnos.length}/${user.capacidad}`
+    document.querySelector("#alumnos").innerHTML = `Number of Students: ${alumnos.length}/${user.capacidad}`
 }
 function load_alumns()
 {
@@ -276,7 +276,7 @@ function load_alumns()
 
         temp += `<li class="alumno">
             <p>${alumno.name}</p>
-            <button class="button_user_action" onclick="desasignar('${alumno.id}\', \'${alumno.name}')">Desasignar</button>
+            <button class="button_user_action" onclick="desasignar('${alumno.id}\', \'${alumno.name}')">Leave</button>
          </li>`;
     })
     document.querySelector("#alum-list").innerHTML = temp
@@ -285,12 +285,12 @@ async function desasignar(userID, userName)
 {
     let alumRef = doc(db, "user_app", userID)
     let profeRef = doc(db, "user_app", user.id)
-    const confirmado = confirm(`Estas seguro de desasignar a ${userName}?`)
+    const confirmado = confirm(`Are you sure to want to unassign ${userName}?`)
     if (confirmado)
     {
         let miAlumno = await getDoc(alumRef)
         let miProfe = await getDoc(profeRef)
-        sendEmail(miAlumno.data(), `El profesor ${miProfe.data().name}, le ha desasignado de sus alumnos`)
+        sendEmail(miAlumno.data(), `The teacher ${miProfe.data().name}, had unassign you from his students`)
         await updateDoc(profeRef,
             {alumnos: arrayRemove(alumRef),
                 asignado: miProfe.data().asignado - 1,
@@ -306,13 +306,13 @@ async function desasignar(userID, userName)
 async function desasignarPro(profeID, profeName)
 {
     let userRef = doc(db, "user_app", user.id)
-    const confirmado = confirm(`Estas seguro de desasignar a ${profeName}?`)
+    const confirmado = confirm(`Are you sure to want to unassign ${profeName}?`)
 
     if (confirmado)
     {
         let miProfeRef = doc(db, "user_app", user.profe_asig.id)
         let miProfe = await getDoc(miProfeRef)
-        sendEmail(miProfe.data(), `El usuario ${user.name} con correo ${user.email}, se ha desasignado de sus alumnos`)
+        sendEmail(miProfe.data(), `The user ${user.name} with email ${user.email}, had unassign from his students`)
         await updateDoc(miProfeRef,
             {
                 asignado: miProfe.data().asignado- 1,
@@ -326,7 +326,7 @@ async function desasignarPro(profeID, profeName)
 }
 
 function sendEmail(userdata, message){
-    emailjs.init('CTnfkkYqegWMlezAo'); // Reemplaza con tu public key de EmailJS
+    emailjs.init('CTnfkkYqegWMlezAo');
 
     const params = {
         email: userdata.email,

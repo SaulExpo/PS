@@ -25,7 +25,7 @@ async function main() {
             querySnapshot.forEach((doc) => {
                 receiver_data = doc.data();
             });
-            document.getElementById("privateChat").textContent = `Chat Privado con ${receiver_data.name}`
+            document.getElementById("privateChat").textContent = `Private chat with ${receiver_data.name}`
 
             // Marcar como en línea
             await setDoc(userRef, {
@@ -44,11 +44,11 @@ async function main() {
                 }, { merge: true });
             });
         } else {
-            console.log("Usuario no autenticado");
+            console.log("User not found");
         }
 
         user_name = user.email;
-        console.log("Usuario:", user_name);
+        console.log("User:", user_name);
 
         // Inicializa historial de chat
         const saved = localStorage.getItem("chatHistory");
@@ -58,7 +58,6 @@ async function main() {
 
 
 
-        // Configura los listeners de notificaciones
         if (Notification.permission !== "granted") {
             Notification.requestPermission();
         }
@@ -77,23 +76,22 @@ async function main() {
                 return;
             }
 
-            // Añadir mensaje al chat
             addMessage("self", to, msg, time);
             document.getElementById("usermsg").value = "";
 
-            // Obtener el chatId
+
             const chatId = getChatId(user_name, to);
 
-            // Usamos setDoc para actualizar o crear el documento de chat
+
             await setDoc(doc(db, "chats", chatId), { users: [user_name, to], cerrado: false}, { merge: true });
 
-            // Agregar mensaje a la subcolección "messages"
+
             const messagesRef = collection(doc(db, "chats", chatId), "messages");
             await addDoc(messagesRef, {
                 from: user_name,
                 to: to,
                 msg: msg,
-                time: serverTimestamp(), // Marca de tiempo del servidor
+                time: serverTimestamp(),
             });
 
             if(!receiver_data.notificacion || receiver_data.notificacion == "NO"){
@@ -155,7 +153,7 @@ function getChatId(user1, user2) {
 }
 
 function sendEmail(){
-    emailjs.init('CTnfkkYqegWMlezAo'); // Reemplaza con tu public key de EmailJS
+    emailjs.init('CTnfkkYqegWMlezAo');
         const params = {
         from_name: user_name,
         reply_to: receiver_data.email,
@@ -165,9 +163,9 @@ function sendEmail(){
     emailjs.send('service_cmud1pq', 'template_rzkpa2j', params)
     .then(function(response) {
         console.log(response)
-        alert('Correo enviado con éxito');
+        alert('Email sent');
     }, function(error) {
-        alert('Error al enviar el correo');
+        alert('There was an error sending the email');
         console.log(error);
     });
 }
@@ -207,7 +205,7 @@ async function loadChatFromFirestore(user1, user2) {
             const currentRecipient = receiver;
 
             if (Notification.permission === "granted" && (user2 !== currentRecipient || !isVisible)) {
-                new Notification(`Nuevo mensaje de ${data.from}`, {
+                new Notification(`New message from ${data.from}`, {
                     body: data.msg,
                     icon: "https://cdn-icons-png.flaticon.com/512/1384/1384023.png"
                 });

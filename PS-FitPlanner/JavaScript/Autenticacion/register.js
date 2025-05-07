@@ -30,7 +30,7 @@ const register = async (email, password) => {
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("register-form");
     form.addEventListener("submit", (e) => {
-        e.preventDefault(); // Evita que se recargue la página
+        e.preventDefault();
         email = document.getElementById("email").value.trim();
         name = document.getElementById("name").value.trim();
         surname = document.getElementById("surname").value.trim();
