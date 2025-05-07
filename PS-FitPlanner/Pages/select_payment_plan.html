@@ -68,16 +68,16 @@
       <h2 id="form-title">Pago</h2>
       <form id="fake-payment-form">
         <label>Nombre en la tarjeta:</label>
-        <input type="text" required>
+        <input type="text" required minlength="4">
 
         <label>Número de tarjeta:</label>
-        <input type="text" placeholder="**** **** **** 4242" required>
+        <input type="text" placeholder="**** **** **** 4242" required minlength="16">
 
         <label>Fecha de vencimiento:</label>
-        <input type="text" placeholder="MM/AA" required>
+        <input type="text" placeholder="MM/AA" required minlength="5" maxlength="5">
 
         <label>CVC:</label>
-        <input type="text" placeholder="123" required>
+        <input type="text" placeholder="123" required minlength="3">
 
         <button type="submit">Confirmar pago</button>
       </form>
