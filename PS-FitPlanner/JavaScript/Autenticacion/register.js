@@ -2,6 +2,7 @@ import { createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasej
 import { auth, db } from "../firebase_config.js";
 import {doc, setDoc} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import {sendEmailVerification} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+import Swal from 'https://cdn.skypack.dev/sweetalert2';
 
 let email
 let name
@@ -47,13 +48,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (password !== repeatPassword)
         {
-            alert("Las contraseñas no coinciden")
+            Swal.fire({
+                title: "Las contraseñas no coinciden.",
+                icon: "warning",
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "Ok"
+            })
             return
         }
         if (email && password) {
             register(email, password);
         } else {
-            alert("Por favor completa todos los campos.");
+            Swal.fire({
+                title: "Por favor completa todos los campos.",
+                icon: "warning",
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "Ok"
+            })
         }
     });
 });

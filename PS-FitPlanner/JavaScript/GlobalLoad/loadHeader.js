@@ -1,6 +1,7 @@
 import { auth } from "../firebase_config.js";
 import { signOut } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 import {getUserProfile} from "../GetDB/getUser.js";
+import Swal from 'https://cdn.skypack.dev/sweetalert2';
 
 const logout = async () => {
     try {
@@ -78,13 +79,23 @@ export async function loadHeader() {
     document.getElementById("crear_rutinas").addEventListener("click", function (e){
         if (user.tipo_suscripcion == "usuario" || user.tipo_suscripcion == "miembro"){
             e.preventDefault()
-            alert("Aumenta tu suscripción")
+            Swal.fire({
+                title: "Debes aumentar tu suscripción!",
+                icon: "warning",
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "Ok"
+            })
         }
     })
 
     document.getElementById("chat").addEventListener("click", function (e){
         if (user.tipo_suscripcion == "usuario"){
-            alert("Necesitas suscribirte")
+            Swal.fire({
+                title: "Debes Suscribirte!",
+                icon: "warning",
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "Ok"
+            })
         } else {
             location.replace("../Pages/chats.html");
         }
