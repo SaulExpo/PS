@@ -37,26 +37,30 @@ main
 }
 
 .custom-event-dot {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 12px; /* Ajusta el tamaño del punto */
-    height: 12px; /* Ajusta el tamaño del punto */
-    font-size: 64px;
-    color: red; /* Color del punto */
-    border-radius: 50%; /* Asegura que el punto sea un círculo */
-    pointer-events: none; /* Permite que el drag funcione */
-    position: absolute;
+    width: 16px;
+    height: 16px;
+    background-color: red;
+    border-radius: 50%;
+    transition: transform 0.2s;
+    cursor: pointer;
+    position: relative;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); /* Centra el punto en la celda */
-    z-index: 10; /* Asegura que el punto esté por encima de otros elementos */
+    transform: translate(-50%, -50%);
 }
+
 
 .fc-event {
-    background: transparent !important; /* Sin fondo */
-    border: none !important;
-    cursor: grab;
     position: relative;
+    background: transparent !important;
+    border: none !important;
 }
 
+#titleTooltip {
+    position: fixed;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    display: none;
+    z-index: 9999;
+}

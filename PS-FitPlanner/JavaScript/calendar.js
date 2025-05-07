@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 },
                 eventContent: function(arg) {
                     return {
-                        html: `<div class="custom-event-dot" title="${arg.event.title}">•</div>`
+                        html: `<div class="custom-event-dot" data-title="${arg.event.title}"></div>`
                     };
                 },
                 eventMouseEnter: function(info) {
