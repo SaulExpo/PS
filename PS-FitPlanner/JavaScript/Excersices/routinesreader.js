@@ -14,14 +14,12 @@ const exercisesEl     = document.getElementById("exercises");
 
 let allRoutines = [];
 
-// — Carga todas las rutinas en memoria para el search global
 async function loadAllRoutines() {
     const snap = await getDocs(routinesCol);
     allRoutines = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     console.log("Loaded routines:", allRoutines.length);
 }
 
-// — Carga tipos únicos en el selector
 async function loadRoutineTypes() {
     const snap = await getDocs(routinesCol);
     const types = new Set();
@@ -32,7 +30,6 @@ async function loadRoutineTypes() {
     });
 }
 
-// — Al elegir un tipo, cargamos sus nombres de rutina
 async function loadRoutineNames(type) {
     const q = query(routinesCol, where("routineType", "==", type));
     const snap = await getDocs(q);
@@ -47,7 +44,6 @@ async function loadRoutineNames(type) {
     routineSelector.disabled = false;
 }
 
-// — Al elegir una rutina, cargamos sus detalles
 async function loadRoutine(id) {
     const d = await getDoc(doc(routinesCol, id));
     if (!d.exists()) {
@@ -79,7 +75,6 @@ async function loadRoutine(id) {
     });
 }
 
-// — Buscador global en memoria
 globalSearch.addEventListener("input", () => {
     const q = globalSearch.value.toLowerCase();
     searchResults.innerHTML = '<option disabled selected>Results will appear here</option>';
@@ -103,12 +98,10 @@ globalSearch.addEventListener("input", () => {
     }
 });
 
-// — Listeners
 typeSelector   .addEventListener("change", () => loadRoutineNames(typeSelector.value));
 routineSelector.addEventListener("change", () => loadRoutine(routineSelector.value));
 searchResults  .addEventListener("change", () => loadRoutine(searchResults.value));
 
-// — Inicialización
 loadAllRoutines().then(() => {
     console.log("All routines loaded successfully.");
 });

@@ -42,13 +42,14 @@ select {
 .exercise-card input[type="checkbox"] {
     transform: scale(1.3);
     margin-bottom: 0.5rem;
+    accent-color: #ef4545;
 }
 
 .export-btn {
     display: block;
     margin: 2rem auto 1rem;
     padding: 0.8rem 2rem;
-    background-color: #007bff;
+    background-color: #e16666;
     color: white;
     font-size: 1rem;
     border: none;
@@ -59,7 +60,7 @@ select {
 .json-output {
     white-space: pre-wrap;
     background: #111;
-    color: #0f0;
+    color: #e16666;
     padding: 1rem;
     border-radius: 10px;
     font-size: 0.8em;
@@ -84,3 +85,83 @@ select {
     border-radius: 8px;
     border: 1px solid #ccc;
 }
+
+.summary-link {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.summary-link:hover {
+    color: #ef4545;
+    text-decoration: none;
+}
+
+.exercise-card a {
+    color: inherit;
+    text-decoration: none;
+}
+.exercise-card a:hover {
+    color: #ef4545;
+}
+
+/* ——— Estilos unificados para inputs de texto y buscador ——— */
+.controls input[type="search"],
+.routine-controls input[type="text"] {
+    font-size: 1rem;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: 0.75rem center;
+}
+
+/* ——— Icono de lupa en el buscador ——— */
+.search-wrapper {
+    position: relative;
+    width: 100%;
+}
+.controls input[type="search"] {
+    padding-left: 2.5rem;
+    background-image: url('../Resources/lupa.jpg');
+    background-size: 2rem 2rem;
+}
+
+.controls input[type="search"]:focus,
+.routine-controls input[type="text"]:focus,
+.routine-controls textarea:focus {
+    outline: none;
+    border-color: #e16666;
+    box-shadow: 0 0 0 2px rgb(225, 102, 102);
+}
+
+#routine-duration,
+#routine-rest {
+    font-size: 1rem;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+}
+
+.routine-controls textarea {
+    font-size: 1rem;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 600px;    /* más ancho */
+    min-height: 120px;   /* más alto */
+    box-sizing: border-box;
+}
+
+.controls input[type="search"] {
+    cursor: text;
+}
+

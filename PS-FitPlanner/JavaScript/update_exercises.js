@@ -1,10 +1,8 @@
-// update_exercises.js
 const fs    = require('fs');
 const path  = require('path');
 const fetch = require('node-fetch');
 const admin = require('firebase-admin');
 
-// carga tu JSON de credenciales
 const serviceAccount = require('../JSON/serviceAccountKey.json');
 
 admin.initializeApp({
@@ -18,12 +16,11 @@ if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir);
 
 async function getExercisesByBodyPart(bodyPart) {
     const url = `https://…/bodyPart/${encodeURIComponent(bodyPart)}`;
-    const options = { /* tus headers */ };
+    const options = {};
 
     const res    = await fetch(url, options);
     const result = await res.json();
 
-    // sobrescribe JSON local
     const filePath = path.join(outputDir, `exercises_${bodyPart.replace(/ /g,'_')}.json`);
     fs.writeFileSync(filePath, JSON.stringify(result, null, 2));
 

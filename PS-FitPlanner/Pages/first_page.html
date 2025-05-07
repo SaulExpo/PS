@@ -27,7 +27,13 @@
       <div class="container" id="image_text2"></div>
     </div>
   </section>
-    </div>
+    <section>
+        <h2 class="title"><a id="ejercicios">Recommendations</a></h2>
+        <div class="card">
+            <div class="container" id="image_text3"></div>
+        </div>
+    </section>
+</div>
 </main>
 <footer id="main_footer"></footer>
 <script type="module">
@@ -37,7 +43,8 @@
         Promise.all([loadTemplate("../Templates/header.html" , "main_header"),
             loadTemplate("../Templates/footer.html" , "main_footer"),
             loadTemplate("../Templates/image_and_text.html", "image_text"),
-            loadTemplate("../Templates/image_and_text.html", "image_text2")]
+            loadTemplate("../Templates/image_and_text.html", "image_text2"),
+            loadTemplate("../Templates/image_and_text.html", "image_text3")]
         ).then(() =>
         {
             load()
