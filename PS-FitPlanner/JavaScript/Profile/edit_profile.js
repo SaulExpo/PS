@@ -3,7 +3,7 @@ import {doc, serverTimestamp, setDoc} from "https://www.gstatic.com/firebasejs/9
 import {db} from "../firebase_config.js";
 document.addEventListener("DOMContentLoaded", async function () {
     const user = await getUserProfile()
-    const name = document.getElementById('editProfileName')
+        const name = document.getElementById('editProfileName')
     const surname = document.getElementById('editProfileSurname')
     const email = document.getElementById('editProfileEmail')
     const edad = document.getElementById('editProfileEdad')
