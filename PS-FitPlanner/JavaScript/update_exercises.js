@@ -1,42 +1,54 @@
-const fs    = require('fs');
-const path  = require('path');
-const fetch = require('node-fetch');
-const admin = require('firebase-admin');
+import { db } from "./firebase_config.js";
+import { doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
-const serviceAccount = require('../JSON/serviceAccountKey.json');
+let body_parts;
+body_parts = [
+"back",
+    "cardio",
+    "chest",
+    "lower arms",
+    "lower legs",
+    "neck",
+    "shoulders",
+    "upper arms",
+    "upper legs",
+    "waist"
+];
 
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)
-});
-const db = admin.firestore();
 
-const BODY_PARTS = [/*…*/];
-const outputDir = path.join(__dirname, '..', 'JSON');
-if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir);
+const baseUrl = 'https://exercisedb.p.rapidapi.com/exercises/bodyPart';
+const fetchOptions = {
+    method: 'GET',
+    headers: {
+        'x-rapidapi-key': '002e9eeff7msh94fe3ba3c69eb11p1809a1jsnd6873efe76cc',
+        'x-rapidapi-host': 'exercisedb.p.rapidapi.com'
+    }
+};
 
-async function getExercisesByBodyPart(bodyPart) {
-    const url = `https://…/bodyPart/${encodeURIComponent(bodyPart)}`;
-    const options = {};
+async function uploadExercises() {
+    for (const part of body_parts) {
+        console.log(`Fetching exercises for: ${part}`);
+        try {
+            const url = `${baseUrl}/${encodeURIComponent(part)}`;
+            const response = await fetch(url, fetchOptions);
+            if (!response.ok) {
+                console.error(`Error fetching ${part}: ${response.status} ${response.statusText}`);
+                continue;
+            }
+            const exercises = await response.json();
 
-    const res    = await fetch(url, options);
-    const result = await res.json();
-
-    const filePath = path.join(outputDir, `exercises_${bodyPart.replace(/ /g,'_')}.json`);
-    fs.writeFileSync(filePath, JSON.stringify(result, null, 2));
-
-    // sube a Firestore
-    const collName = `exercises_${bodyPart.replace(/ /g, '_')}`;
-    const batch    = db.batch();
-    result.forEach(ej => {
-        const ref = db.collection(collName).doc(ej.id.toString());
-        batch.set(ref, ej);
-    });
-    await batch.commit();
+            const collName = `exercises_${part.replace(/\s+/g, "_")}`;
+            for (const ex of exercises) {
+                const docRef = doc(db, collName, ex.id.toString());
+                ex.uploadedAt = serverTimestamp();
+                await setDoc(docRef, ex, { merge: true });
+            }
+            console.log(`Uploaded ${exercises.length} exercises for ${part}`);
+        } catch (err) {
+            console.error(`Upload error for ${part}:`, err);
+        }
+    }
+    console.log("All exercises have been uploaded successfully.");
 }
 
-(async () => {
-    for (const part of BODY_PARTS) {
-        await getExercisesByBodyPart(part);
-    }
-    console.log('¡Listo!');
-})();
+uploadExercises().catch(err => console.error('Critical upload error:', err));
