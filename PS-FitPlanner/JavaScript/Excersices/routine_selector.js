@@ -40,7 +40,7 @@ const userRoutinesCol = collection(db, "user_routines");
 function updateSummary() {
     summaryEl.innerHTML = "";
     if (!selected.length) {
-        summaryEl.innerHTML = "<p>No hay ejercicios seleccionados.</p>";
+        summaryEl.innerHTML = "<p>No selected exercises.</p>";
         return;
     }
 
@@ -85,7 +85,7 @@ function updateSummary() {
 function render(list) {
     exerciseList.innerHTML = "";
     if (!list.length) {
-        exerciseList.innerHTML = `<p>No hay ejercicios que coincidan.</p>`;
+        exerciseList.innerHTML = `<p>Not same exercises</p>`;
         return;
     }
 
@@ -185,7 +185,6 @@ onAuthStateChanged(auth, async (user) => {
         ? userSnap.data().favorites
         : [];
 
-    // Cargar ejercicios por grupo
     await Promise.all(collectionNames.map(async colName => {
         const snap = await getDocs(collection(db, colName));
         const part = colName.replace("exercises_", "");
@@ -196,14 +195,12 @@ onAuthStateChanged(auth, async (user) => {
         }));
     }));
 
-    // Rellenar selector de grupos
     select.appendChild(new Option("Favorites", FAVORITES_VALUE));
     Object.keys(allExercises).sort().forEach(part => {
         const label = part.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
         select.appendChild(new Option(label, part));
     });
 
-    // Modo edición
     const params = new URLSearchParams(location.search);
     editId = params.get("editId");
     if (editId) {
