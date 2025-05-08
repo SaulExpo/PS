@@ -91,19 +91,21 @@ section
     display: block !important;
 }
 #image_text3 ul {
-    list-style: disc inside;
-    margin: 0;
-    padding: 0 1em;
+    list-style-type: disc;
+    list-style-position: outside;
+    padding-left: 1em;
 }
 #image_text3 ul li {
     margin-bottom: 0.5rem;
 }
 #image_text3 ul li a {
-    display: inline;
-    text-transform: capitalize;
+    display: block;
     text-decoration: none;
-    color: #333;
-    transition: color 0.2s;
+    color: black;
+    position: relative;
+    padding-left: 1em;
+    font-size: clamp(0.5rem, 2vw, 1rem);
+    line-height: 1.2;
 }
 #image_text3 ul li a:hover {
     color: #e16666;
