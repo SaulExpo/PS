@@ -1,5 +1,6 @@
 import {getFirestore, doc, updateDoc, collection, query, where, getDocs, serverTimestamp} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import {auth, db} from "../firebase_config.js";
+import Swal from 'https://cdn.skypack.dev/sweetalert2';
 
 document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("fake-payment-form").addEventListener("submit", async function(e) {
@@ -32,10 +33,16 @@ async function actualizarSuscripcion(tipo) {
             tipo_suscripcion: tipo,  // Por ejemplo: 'miembro' o 'miembro superior'
             inicio_suscripcion: serverTimestamp(),
         });
-        let message = "Gracias por comprar una suscripción a nuestra web.\n" +
+        Swal.fire({
+            title: "Updated subscription!",
+            icon: "success",
+            confirmButtonColor: "#d51313",
+            confirmButtonText: "Ok"
+        })
+        let message = "Thank you for purchasing a subscription to our website.\n" +
             "\n" +
-            "Usted se ha registrado como " + tipo + " para contar con nuevas características";
-        let title = "Suscripción Actualizada!"
+            "You have registered as " + tipo + " to have new features\n";
+        let title = "Updated Subscription!"
         sendEmail(user.email, message, title)
 
     } else {
@@ -63,11 +70,15 @@ async function renovarSuscripcion() {
             inicio_suscripcion: serverTimestamp(),
         });
         let time = new Date()
-        let message= "Su suscripción ha sido renovada con éxito con fecha de inicio: " + time.toLocaleString('es-ES')
-            + " dispone de 30 días hábiles con su suscripcíón"
+        let message= "Your subscription has been successfully renewed with a start date of: " + time.toLocaleString('es-ES')
+            + " You have 30 business days with your subscription"
         sendEmail(user.email, message, "Suscripción Renovada!")
-        alert("Suscripción renovada")
-
+        Swal.fire({
+            title: "Renewed subscription!",
+            icon: "success",
+            confirmButtonColor: "#d51313",
+            confirmButtonText: "Ok"
+        })
     } else {
         console.error("No se encontró el usuario en Firestore.");
     }
@@ -94,7 +105,7 @@ function sendEmail(email, message, title) {
     emailjs.send('service_cmud1pq', 'template_ckg59mk', params)
         .then(function(response) {
             console.log(response)
-            alert('Correo enviado con éxito');
+
         }, function(error) {
             alert('Error al enviar el correo');
             console.log(error);

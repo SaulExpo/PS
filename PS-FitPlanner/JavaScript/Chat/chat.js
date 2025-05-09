@@ -163,7 +163,6 @@ function sendEmail(){
     emailjs.send('service_cmud1pq', 'template_rzkpa2j', params)
     .then(function(response) {
         console.log(response)
-        alert('Email sent');
     }, function(error) {
         alert('There was an error sending the email');
         console.log(error);

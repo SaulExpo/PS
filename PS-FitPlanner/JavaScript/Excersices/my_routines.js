@@ -8,6 +8,8 @@ import {
     deleteDoc,
     updateDoc
 } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import Swal from 'https://cdn.skypack.dev/sweetalert2';
+
 import { auth, db } from "../firebase_config.js";
 const token = localStorage.getItem("jwt");
 if (!token) {
@@ -87,9 +89,22 @@ async function loadUserRoutines(user) {
         deleteBtn.className = "delete-btn";
         deleteBtn.textContent = "Delete";
         deleteBtn.onclick = async () => {
-            if (!confirm("¿Delete this routine?")) return;
-            await deleteDoc(doc(db, "user_routines", id));
-            loadUserRoutines(user);
+            Swal.fire({
+                title: "¿Delete this routine?",
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: "Yes, delete",
+                denyButtonText: `Don't delete`
+            }).then(async (result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    await deleteDoc(doc(db, "user_routines", id));
+                    loadUserRoutines(user);
+                } else if (result.isDenied) {
+                    return;
+                }
+            });
+
         };
 
         actions.append(noteBtn, editBtn, deleteBtn);

@@ -49,9 +49,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (password !== repeatPassword)
         {
             Swal.fire({
-                title: "Las contraseñas no coinciden.",
+                title: "The passwords do not match.",
                 icon: "warning",
-                confirmButtonColor: "#3085d6",
+                confirmButtonColor: "#d51313",
                 confirmButtonText: "Ok"
             })
             return
@@ -60,9 +60,9 @@ document.addEventListener("DOMContentLoaded", () => {
             register(email, password);
         } else {
             Swal.fire({
-                title: "Por favor completa todos los campos.",
+                title: "Please complete all fields.",
                 icon: "warning",
-                confirmButtonColor: "#3085d6",
+                confirmButtonColor: "#d51313",
                 confirmButtonText: "Ok"
             })
         }

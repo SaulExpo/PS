@@ -80,9 +80,9 @@ export async function loadHeader() {
                 if (user.tipo_suscripcion == "usuario" || user.tipo_suscripcion == "miembro") {
                     e.preventDefault()
                     Swal.fire({
-                        title: "Debes aumentar tu suscripción!",
+                        title: "You must increase your subscription!",
                         icon: "warning",
-                        confirmButtonColor: "#3085d6",
+                        confirmButtonColor: "#d51313",
                         confirmButtonText: "Ok"
                     })
                 }
@@ -95,9 +95,9 @@ export async function loadHeader() {
                 }
                 if (user.tipo_suscripcion == "usuario") {
                     Swal.fire({
-                        title: "Debes Suscribirte!",
+                        title: "You must subscribe!",
                         icon: "warning",
-                        confirmButtonColor: "#3085d6",
+                        confirmButtonColor: "#d51313",
                         confirmButtonText: "Ok"
                     })
                 } else {

@@ -4,7 +4,7 @@ import {
     getDocs,
     doc,
     setDoc,
-    query, getDoc
+    query, getDoc, deleteDoc
 } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import {db} from "../firebase_config.js";
 import {getUserProfile} from "../GetDB/getUser.js";
@@ -122,7 +122,7 @@ async function generarRecuadros(filtro = "") {
         a.appendChild(div1);
         div1.appendChild(div2);
         div1.appendChild(div3);
-
+        console.log(chat)
         if (user.profesional === true) {
             const boton= document.createElement('button');
             if(chat.cerrado === false){

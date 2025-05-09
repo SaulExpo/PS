@@ -1,4 +1,5 @@
 import {arrayRemove, collection, doc, getDoc, getFirestore, updateDoc, getDocs, query, where, arrayUnion} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import Swal from 'https://cdn.skypack.dev/sweetalert2';
 
 import {auth, db} from "../firebase_config.js";
 import {getUserProfile} from "../GetDB/getUser.js";
@@ -360,7 +361,12 @@ function sendEmail(userdata, message){
     emailjs.send('service_cmud1pq', 'template_ckg59mk', params)
         .then(function(response) {
             console.log(response)
-            alert('Correo enviado con éxito');
+            Swal.fire({
+                title: "email sent successfully",
+                icon: "warning",
+                confirmButtonColor: "#d51313",
+                confirmButtonText: "Ok"
+            })
         }, function(error) {
             alert('Error al enviar el correo');
             console.log(error);

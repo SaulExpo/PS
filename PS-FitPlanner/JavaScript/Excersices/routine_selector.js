@@ -6,10 +6,11 @@ import {
     doc as docRef,
     getDoc,
     query,
-    where
+    where, deleteDoc, doc
 } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import { db, auth } from "../firebase_config.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+import Swal from 'https://cdn.skypack.dev/sweetalert2';
 
 // DOM elements
 const select        = document.getElementById("bodypart-select");
@@ -267,14 +268,32 @@ saveBtn.addEventListener("click", async () => {
     const rest        = restInput.value.trim();
 
     if (!name || !description || !duration) {
-        return alert("Complete name, description, duration and rest time.");
+        Swal.fire({
+            title: "Complete name, description, duration and rest time.",
+            icon: "warning",
+            confirmButtonColor: "#d51313",
+            confirmButtonText: "Ok"
+        })
+        return
     }
     if (!selected.length) {
-        return alert("Select at least one exercise.");
+        Swal.fire({
+            title: "Select at least one exercise.",
+            icon: "warning",
+            confirmButtonColor: "#d51313",
+            confirmButtonText: "Ok"
+        })
+        return
     }
     const user = auth.currentUser;
     if (!user) {
-        return alert("You should log in first.");
+        Swal.fire({
+            title: "You should log in first.",
+            icon: "warning",
+            confirmButtonColor: "#d51313",
+            confirmButtonText: "Ok"
+        })
+        return
     }
 
     const payload = {
@@ -294,12 +313,25 @@ saveBtn.addEventListener("click", async () => {
     try {
         if (editId) {
             await updateDoc(docRef(db, "user_routines", editId), payload);
-            alert("Routine updated");
+            Swal.fire({
+                title: "Routine updated.",
+                icon: "success",
+                confirmButtonColor: "#d51313",
+                confirmButtonText: "Ok"
+            }).then((result) => {
+                location.href = "my_routines.html";
+            });
         } else {
             await addDoc(userRoutinesCol, payload);
-            alert("Routine saved");
+            Swal.fire({
+                title: "Routine saved.",
+                icon: "success",
+                confirmButtonColor: "#d51313",
+                confirmButtonText: "Ok"
+            }).then((result) => {
+                location.href = "my_routines.html";
+            });
         }
-        location.href = "my_routines.html";
     } catch (err) {
         console.error(err);
         alert("Error guardando rutina: " + err.message);

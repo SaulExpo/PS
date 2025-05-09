@@ -1,5 +1,8 @@
 import {getUserRoutines, getRoutines, addUserRoutine, deleteUserRoutine, editUserRoutine} from "./GetDB/getUserRoutines.js";
 import {getUserProfile} from "./GetDB/getUser.js";
+import {deleteDoc, doc} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import {db} from "./firebase_config.js";
+import Swal from 'https://cdn.skypack.dev/sweetalert2';
 
 function convertirFecha(fecha) {
     const date = new Date(fecha);
@@ -146,7 +149,21 @@ document.addEventListener('DOMContentLoaded', async function () {
                 var rutine = userRoutines.find(function (r) {
                     return r.rutine.id == rutineId;
                 })
-                deleteUserRoutine(rutine.id)
+                Swal.fire({
+                    title: "¿Delete this routine?",
+                    showDenyButton: true,
+                    showCancelButton: true,
+                    confirmButtonText: "Yes, delete",
+                    denyButtonText: `Don't delete`
+                }).then(async (result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        deleteUserRoutine(rutine.id)
+                    } else if (result.isDenied) {
+                        return;
+                    }
+                });
+
             });
         })
         function toDate(timestamp) {

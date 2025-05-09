@@ -15,9 +15,9 @@ const login = async (email, password) => {
         } else {
             signOut(auth); // Cierra la sesión si no está verificado
             Swal.fire({
-                title: "Debes verificar tu correo antes de poder iniciar sesión.",
+                title: "You must verify your email before you can log in.",
                 icon: "error",
-                confirmButtonColor: "#3085d6",
+                confirmButtonColor: "#d51313",
                 confirmButtonText: "Ok"
             })
             return
@@ -73,9 +73,9 @@ document.addEventListener("DOMContentLoaded", () => {
             login(email, password);
         } else {
             Swal.fire({
-                title: "Por favor completa todos los campos.",
+                title: "Please complete all fields.",
                 icon: "warning",
-                confirmButtonColor: "#3085d6",
+                confirmButtonColor: "#d51313",
                 confirmButtonText: "Ok"
             })
         }
