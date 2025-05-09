@@ -1,18 +1,38 @@
-import {collection, getDocs, getDoc, doc, query, where} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-import {db} from "../firebase_config.js";
-const routinesCol = collection(db, "routines");
+import {
+    collection, getDocs, getDoc, doc,
+    query, where, updateDoc, setDoc
+} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import { db, auth } from "../firebase_config.js";
+import { onAuthStateChanged }
+    from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 
-const typeSelector    = document.getElementById("typeSelector");
-const routineSelector = document.getElementById("routineSelector");
-const globalSearch    = document.getElementById("globalSearch");
-const searchResults   = document.getElementById("searchResults");
-const titleEl         = document.getElementById("title");
-const infoEl          = document.getElementById("info");
-const durationEl      = document.getElementById("durationContainer");
-const restEl          = document.getElementById("restContainer");
-const exercisesEl     = document.getElementById("exercises");
+const routinesCol      = collection(db, "routines");
+const typeSelector     = document.getElementById("typeSelector");
+const routineSelector  = document.getElementById("routineSelector");
+const globalSearch     = document.getElementById("globalSearch");
+const searchResults    = document.getElementById("searchResults");
+const titleEl          = document.getElementById("title");
+const infoEl           = document.getElementById("info");
+const durationEl       = document.getElementById("durationContainer");
+const restEl           = document.getElementById("restContainer");
+const exercisesEl      = document.getElementById("exercises");
 
-let allRoutines = [];
+let allRoutines       = [];
+let routineFavorites  = [];
+
+onAuthStateChanged(auth, async (user) => {
+    if (!user) return;
+    const uid     = user.uid;
+    const userRef = doc(db, "user_app", uid);
+    const snap    = await getDoc(userRef);
+
+    if (snap.exists() && Array.isArray(snap.data().routineFavorites)) {
+        routineFavorites = snap.data().routineFavorites;
+    } else {
+        await setDoc(userRef, { routineFavorites: [] }, { merge: true });
+        routineFavorites = [];
+    }
+});
 
 async function loadAllRoutines() {
     const snap = await getDocs(routinesCol);
@@ -22,40 +42,81 @@ async function loadAllRoutines() {
 
 async function loadRoutineTypes() {
     const snap = await getDocs(routinesCol);
-    const types = new Set();
-    snap.docs.forEach(d => types.add(d.data().routineType));
+    const types = new Set(snap.docs.map(d => d.data().routineType));
+
+    typeSelector.innerHTML =
+        '<option disabled selected>Select type</option>';
     Array.from(types).sort().forEach(type => {
-        const opt = new Option(type.toUpperCase(), type);
-        typeSelector.appendChild(opt);
+        typeSelector.appendChild(
+            new Option(type.toUpperCase(), type)
+        );
     });
+    typeSelector.appendChild(
+        new Option("FAVORITES", "favorites")
+    );
 }
 
 async function loadRoutineNames(type) {
-    const q = query(routinesCol, where("routineType", "==", type));
-    const snap = await getDocs(q);
-    routineSelector.innerHTML = '<option disabled selected>Select routine</option>';
-    snap.docs.forEach(d => {
-        const { name } = d.data();
+    routineSelector.innerHTML =
+        '<option disabled selected>Select routine</option>';
+
+    let list = [];
+    if (type === "favorites") {
+        list = allRoutines.filter(r =>
+            routineFavorites.includes(r.id)
+        );
+    } else {
+        const q    = query(routinesCol, where("routineType", "==", type));
+        const snap = await getDocs(q);
+        list = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    }
+
+    if (list.length === 0) {
         const opt = document.createElement("option");
-        opt.value = d.id;
-        opt.textContent = name;
+        opt.disabled = true;
+        opt.textContent =
+            type === "favorites"
+                ? "No tienes rutinas favoritas"
+                : "No hay rutinas de este tipo";
         routineSelector.appendChild(opt);
-    });
+    } else {
+        list.forEach(r => {
+            routineSelector.appendChild(
+                new Option(r.name, r.id)
+            );
+        });
+    }
     routineSelector.disabled = false;
 }
 
 async function loadRoutine(id) {
     const d = await getDoc(doc(routinesCol, id));
     if (!d.exists()) {
-        alert("Rutina no encontrada");
-        return;
+        return alert("Rutine not found");
     }
     const r = d.data();
-    titleEl.innerText    = r.name;
-    infoEl.innerText     = r.description;
-    durationEl.textContent = `Duration: ${r.duration || "—"}`;
-    restEl.textContent = `Rest time during sets: ${r.rest || "—"} minutes`;
 
+    titleEl.innerText = r.name;
+    const favBtn = document.createElement("button");
+    favBtn.textContent = routineFavorites.includes(id) ? "❤️" : "🤍";
+    favBtn.style.marginLeft = "10px";
+    favBtn.addEventListener("click", async () => {
+        const user = auth.currentUser;
+        if (!user) return alert("Log in to use favorites");
+        const uid = user.uid;
+
+        routineFavorites = routineFavorites.includes(id)
+            ? routineFavorites.filter(x => x !== id)
+            : [...routineFavorites, id];
+
+        await updateDoc(doc(db, "user_app", uid), { routineFavorites });
+        favBtn.textContent = routineFavorites.includes(id) ? "❤️" : "🤍";
+    });
+    titleEl.appendChild(favBtn);
+
+    infoEl.innerText        = r.description;
+    durationEl.textContent  = `Duration: ${r.duration || "—"}`;
+    restEl.textContent      = `Rest during sets: ${r.rest || "—"} minutes`;
 
     exercisesEl.innerHTML = "";
     r.exercises.forEach((ex, i) => {
@@ -63,7 +124,7 @@ async function loadRoutine(id) {
         wrapper.id = `exercise_${i}`;
         exercisesEl.appendChild(wrapper);
         fetch("../Templates/info_exercise.html")
-            .then(resp => resp.text())
+            .then(res => res.text())
             .then(tpl => {
                 wrapper.innerHTML = tpl;
                 wrapper.querySelector("#name_exercise").innerHTML = `
@@ -77,32 +138,35 @@ async function loadRoutine(id) {
 
 globalSearch.addEventListener("input", () => {
     const q = globalSearch.value.toLowerCase();
-    searchResults.innerHTML = '<option disabled selected>Results will appear here</option>';
+    searchResults.innerHTML =
+        '<option disabled selected>Results will appear here</option>';
     const filtered = allRoutines.filter(r =>
         r.name.toLowerCase().includes(q) ||
         r.routineType.toLowerCase().includes(q) ||
         r.description.toLowerCase().includes(q)
     );
-    if (filtered.length === 0) {
+    if (!filtered.length) {
         const opt = document.createElement("option");
         opt.disabled = true;
         opt.textContent = "No se encontraron coincidencias";
         searchResults.appendChild(opt);
     } else {
         filtered.forEach(r => {
-            const opt = document.createElement("option");
-            opt.value = r.id;
-            opt.textContent = `[${r.routineType}] ${r.name}`;
-            searchResults.appendChild(opt);
+            searchResults.appendChild(
+                new Option(`[${r.routineType}] ${r.name}`, r.id)
+            );
         });
     }
 });
 
-typeSelector   .addEventListener("change", () => loadRoutineNames(typeSelector.value));
-routineSelector.addEventListener("change", () => loadRoutine(routineSelector.value));
-searchResults  .addEventListener("change", () => loadRoutine(searchResults.value));
+typeSelector.addEventListener("change", () =>
+    loadRoutineNames(typeSelector.value)
+);
+routineSelector.addEventListener("change", () =>
+    loadRoutine(routineSelector.value)
+);
+searchResults.addEventListener("change", () =>
+    loadRoutine(searchResults.value)
+);
 
-loadAllRoutines().then(() => {
-    console.log("All routines loaded successfully.");
-});
-loadRoutineTypes().then(() => {});
+loadAllRoutines().then(loadRoutineTypes);
