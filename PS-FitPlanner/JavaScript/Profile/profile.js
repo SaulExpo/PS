@@ -3,7 +3,7 @@ import {arrayRemove, collection, doc, getDoc, getFirestore, updateDoc, getDocs, 
 import {auth, db} from "../firebase_config.js";
 import {getUserProfile} from "../GetDB/getUser.js";
 import {loadHeader} from "../GlobalLoad/loadHeader.js";
-
+//import {uploadExercises} from "../update_exercises"
 
 const token = localStorage.getItem("jwt");
 if (!token) {
@@ -56,6 +56,29 @@ async function todoas()
 }
 
 async function carga_profe() {
+    document.querySelector("#buttons_profile").innerHTML = `<ul>
+                <li>
+                    <button class="button_profile" onclick="location.replace('main_page.html')">
+                        <img id="home" src="../Resources/home.png" >
+                        Home
+                    </button>
+                    <button class="button_profile" onclick="location.replace('graphic.html')">
+                        <img id="graphic" src="../Resources/graphic.png" >
+                        Graphics
+                    </button>
+                    <button class="button_profile" onclick="location.replace('select_payment_plan.html')">
+                        <img src="../Resources/suscription.png" id="suscription" alt="foto perfil" >
+                        Suscription
+                    </button>
+                    <button class="button_profile" onclick="location.replace('./edit_profile.html')">
+                        <img src="../Resources/edit.jpg" id="editProfile" alt="foto perfil" >
+                        Edit Profile
+                    </button>
+                    <button class="button_profile" onclick="uploadExercises()">
+                        Update exercises
+                    </button>
+                </li>
+            </ul>`
     await getalumnos()
     load_alumns()
     num_alumns()
@@ -75,7 +98,7 @@ async function carga_alum() {
     let ref = doc(db, "user_app", user.profe_asig.id);
     let profeMio =  await getDoc(ref)
     cargaMiProfe(profeMio);
-    cargaProfesLibres();
+    await cargaProfesLibres();
     document.querySelector("#alumn_view").style = "display:grid"
 
 }
@@ -105,7 +128,6 @@ async function cargaProfesLibres() {
 
 async function getalumnos()
 {
-
     for (const alum of user.alumnos) {
         let alu = doc(db, "user_app", alum.id)
         let snap = await getDoc(alu)
