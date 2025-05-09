@@ -125,14 +125,29 @@ async function generarRecuadros(filtro = "") {
 
         if (user.profesional === true) {
             const boton= document.createElement('button');
-            boton.textContent = 'Close chat';
-            boton.classList.add('boton-cerrar');
-            boton.addEventListener('click', async () => {
-                const chatRef = doc(db, "chats", chat.id);
-                await setDoc(chatRef, {
-                    cerrado: true,
-                }, {merge: true});
-            });
+            if(chat.cerrado === false){
+                boton.textContent = 'Close chat';
+                boton.classList.add('boton-cerrar');
+                boton.addEventListener('click', async (e) => {
+                    e.preventDefault()
+                    const chatRef = doc(db, "chats", chat.id);
+                    await setDoc(chatRef, {
+                        cerrado: true,
+                    }, {merge: true});
+                    location.reload()
+                });
+            } else if(chat.cerrado === true) {
+                boton.textContent = 'Open chat';
+                boton.classList.add('boton-cerrar');
+                boton.addEventListener('click', async (e) => {
+                    e.preventDefault()
+                    const chatRef = doc(db, "chats", chat.id);
+                    await setDoc(chatRef, {
+                        cerrado: false,
+                    }, {merge: true});
+                    location.reload()
+                });
+            }
             a.appendChild(boton);
         }
 
@@ -151,12 +166,12 @@ function generarSelect() {
     });
 }
 
-const token = localStorage.getItem("jwt");
 if (!token) {
     window.location.href = "../Pages/login.html"
 }
 
 obtenerProfesionales().then(profesionales => {
+    console.log(profesionales)
     obtenerChats(false).then(item => {
         generarRecuadros();
         generarSelect();
