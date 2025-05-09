@@ -33,7 +33,7 @@ async function getProfesores() {
 getProfesores()
 todoas()
 
-
+//sadapic936@exitings.com
 
 async function todoas()
 {
@@ -299,6 +299,7 @@ function load_alumns()
         temp += `<li class="alumno">
             <p>${alumno.name}</p>
             <button class="button_user_action" onclick="desasignar('${alumno.id}\', \'${alumno.name}')">Leave</button>
+            <button class="button_user_action" onclick=location.href="./chat.html?to=${alumno.email}">Chat</button>
          </li>`;
     })
     document.querySelector("#alum-list").innerHTML = temp
