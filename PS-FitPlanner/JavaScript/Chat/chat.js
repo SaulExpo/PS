@@ -163,7 +163,6 @@ function sendEmail(){
     emailjs.send('service_cmud1pq', 'template_rzkpa2j', params)
     .then(function(response) {
         console.log(response)
-        alert('Email sent');
     }, function(error) {
         alert('There was an error sending the email');
         console.log(error);
@@ -224,9 +223,12 @@ async function loadInputText(user1, user2) {
 
     const chatRef = doc(db, "chats", chatId);
     const Michat = await getDoc(chatRef);
-    if (Michat.data().cerrado === true){
-        document.getElementById("input-container").style.display = "none";
+    if(Michat.data()){
+        if (Michat.data().cerrado === true){
+            document.getElementById("input-container").style.display = "none";
+        }
     }
+
 
 }
 

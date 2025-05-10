@@ -1,4 +1,3 @@
-// my_routines.js
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 import {
     collection,
@@ -9,7 +8,13 @@ import {
     deleteDoc,
     updateDoc
 } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import Swal from 'https://cdn.skypack.dev/sweetalert2';
+
 import { auth, db } from "../firebase_config.js";
+const token = localStorage.getItem("jwt");
+if (!token) {
+    window.location.href = "../Pages/login.html"
+}
 
 const userRoutinesCol = collection(db, "user_routines");
 const listEl = document.getElementById("routine-list");
@@ -36,6 +41,7 @@ async function loadUserRoutines(user) {
         const nameEl = document.createElement("div");
         nameEl.className = "routine-name";
         nameEl.textContent = data.name;
+        nameEl.style.cursor = "pointer";
 
         const descEl = document.createElement("div");
         descEl.className = "routine-description";
@@ -47,7 +53,7 @@ async function loadUserRoutines(user) {
 
         const noteBtn = document.createElement("button");
         noteBtn.className = "note-btn";
-        noteBtn.textContent = "✏️ Note";
+        noteBtn.textContent = "✏️";
 
         const noteEditor = document.createElement("div");
         noteEditor.className = "note-editor";
@@ -77,29 +83,64 @@ async function loadUserRoutines(user) {
         const editBtn = document.createElement("button");
         editBtn.className = "edit-btn";
         editBtn.textContent = "Edit";
-        editBtn.onclick = () => {
-            window.location.href = `exercise_selector.html?editId=${id}`;
-        };
+        editBtn.onclick = () => window.location.href = `exercise_selector.html?editId=${id}`;
 
         const deleteBtn = document.createElement("button");
         deleteBtn.className = "delete-btn";
         deleteBtn.textContent = "Delete";
         deleteBtn.onclick = async () => {
-            if (!confirm("¿Delete this routine?")) return;
-            await deleteDoc(doc(db, "user_routines", id));
-            loadUserRoutines(user);
+            Swal.fire({
+                title: "¿Delete this routine?",
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: "Yes, delete",
+                denyButtonText: `Don't delete`
+            }).then(async (result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    await deleteDoc(doc(db, "user_routines", id));
+                    loadUserRoutines(user);
+                } else if (result.isDenied) {
+                    return;
+                }
+            });
+
         };
 
         actions.append(noteBtn, editBtn, deleteBtn);
-        card.append(nameEl, descEl, noteDisplay, noteEditor, actions);
+
+        const detailsEl = document.createElement("div");
+        detailsEl.className = "routine-extra-details";
+        detailsEl.style.display = "none";
+
+        const durationEl = document.createElement("div");
+        durationEl.className = "routine-duration";
+        durationEl.textContent = `Duration: ${data.duration || "-"}`;
+
+        const restEl = document.createElement("div");
+        restEl.className = "routine-rest";
+        restEl.textContent = `Rest: ${data.rest || "-"}`;
+
+        const exercisesList = document.createElement("ul");
+        exercisesList.className = "routine-exercises";
+        (data.exercises || []).forEach((ex) => {
+            const li = document.createElement("li");
+            li.textContent = `${ex.name} — ${ex.reps}`;
+            exercisesList.appendChild(li);
+        });
+
+        detailsEl.append(durationEl, restEl, exercisesList);
+
+        nameEl.addEventListener("click", () => {
+            detailsEl.style.display = detailsEl.style.display === "none" ? "block" : "none";
+        });
+
+        card.append(nameEl, descEl, noteDisplay, noteEditor, actions, detailsEl);
         listEl.appendChild(card);
     });
 }
 
 onAuthStateChanged(auth, (user) => {
-    if (user) {
-        loadUserRoutines(user);
-    } else {
-        listEl.innerHTML = "<p>Login you see your rutines.</p>";
-    }
+    if (user) loadUserRoutines(user);
+    else listEl.innerHTML = "<p>Login you see your rutines.</p>";
 });

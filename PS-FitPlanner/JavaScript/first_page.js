@@ -1,7 +1,15 @@
 import {loadHeader} from "./GlobalLoad/loadHeader.js";
 import {getUserProfile} from "./GetDB/getUser.js";
 import { db } from "./firebase_config.js";
-import { collection, getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import {
+    collection,
+    deleteDoc,
+    doc,
+    getDoc,
+    getDocs
+} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import Swal from 'https://cdn.skypack.dev/sweetalert2';
+
 
 const exerciseCollections = [
     "exercises_back",
@@ -23,13 +31,18 @@ export async function load() {
         document.getElementById("calendar").addEventListener("click", function (e) {
             if (user.tipo_suscripcion == "usuario") {
                 e.preventDefault();
-                alert("Necesitas suscribirte");
+                Swal.fire({
+                    title: "You must subscribe!",
+                    icon: "warning",
+                    confirmButtonColor: "#d51313",
+                    confirmButtonText: "Ok"
+                })
             }
         });
     }
 
-    loadHeader();
-    loadFooter();
+    await loadHeader();
+    await loadFooter();
 
     let language = localStorage.getItem("language");
     let json_language = language === "english"
@@ -41,7 +54,6 @@ export async function load() {
             return res.json();
         })
         .then(function (json) {
-            setTimeout(() => {
                 document.querySelectorAll(".info")[0].textContent = json.first_page.today;
                 document.querySelectorAll(".info")[1].textContent = json.first_page.calendar;
                 document.querySelectorAll("#picture")[0].src = json.first_page.today_img;
@@ -68,7 +80,6 @@ export async function load() {
 
                     document.querySelectorAll(".info")[2].appendChild(ul);
                 });
-            }, 100);
         })
         .catch(function (err) {
             console.error("Error cargando JSON:", err);
@@ -86,11 +97,13 @@ export async function load() {
         return all.slice(0, 3);
     }
 
-    // Fisher–Yates
     function shuffle(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]];
         }
     }
+
+    const user = await getUserProfile()
+    console.log(user)
 }

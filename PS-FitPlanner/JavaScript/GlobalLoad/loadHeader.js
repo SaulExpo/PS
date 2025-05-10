@@ -1,6 +1,8 @@
 import { auth } from "../firebase_config.js";
 import { signOut } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 import {getUserProfile} from "../GetDB/getUser.js";
+import Swal from 'https://cdn.skypack.dev/sweetalert2';
+import {documentId} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
 const logout = async () => {
     try {
@@ -22,7 +24,7 @@ export async function loadHeader() {
     }
     fetch(json).then(function (response) {
         return response.json();
-    }).then(function (myJson) {
+    }).then(async function (myJson) {
         let navega = document.getElementsByClassName("enlaces")
         for (let i = 0; i < navega.length; i++) {
             navega[i].textContent = myJson.nav_items_header[i]
@@ -72,23 +74,43 @@ export async function loadHeader() {
             localStorage.removeItem("language")
             window.location.reload()
         })
-    })
-    const user = await getUserProfile()
-
-    document.getElementById("crear_rutinas").addEventListener("click", function (e){
-        if (user.tipo_suscripcion == "usuario" || user.tipo_suscripcion == "miembro"){
-            e.preventDefault()
-            alert("Aumenta tu suscripción")
-        }
-    })
-
-    document.getElementById("chat").addEventListener("click", function (e){
-        if (user.tipo_suscripcion == "usuario"){
-            alert("Necesitas suscribirte")
+        if (token) {
+            const user = await getUserProfile()
+            document.getElementById("crear_rutinas").addEventListener("click", function (e) {
+                if (user.tipo_suscripcion == "usuario" || user.tipo_suscripcion == "miembro") {
+                    e.preventDefault()
+                    Swal.fire({
+                        title: "You must increase your subscription!",
+                        icon: "warning",
+                        confirmButtonColor: "#d51313",
+                        confirmButtonText: "Ok"
+                    })
+                }
+            })
+            console.log(document.getElementById("crear_rutinas"))
+            document.getElementById("chat").addEventListener("click", function (e) {
+                console.log("A")
+                if (!user) {
+                    location.replace("../Pages/login.html");
+                }
+                if (user.tipo_suscripcion == "usuario") {
+                    Swal.fire({
+                        title: "You must subscribe!",
+                        icon: "warning",
+                        confirmButtonColor: "#d51313",
+                        confirmButtonText: "Ok"
+                    })
+                } else {
+                    location.replace("../Pages/chats.html");
+                }
+            })
         } else {
-            location.replace("../Pages/chats.html");
+            document.getElementById("chat").addEventListener("click", function (e) {
+                location.replace("../Pages/login.html");
+            })
         }
     })
+
 
 
 }

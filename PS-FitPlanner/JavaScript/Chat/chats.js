@@ -4,10 +4,15 @@ import {
     getDocs,
     doc,
     setDoc,
-    query, getDoc
+    query, getDoc, deleteDoc
 } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import {db} from "../firebase_config.js";
 import {getUserProfile} from "../GetDB/getUser.js";
+
+const token = localStorage.getItem("jwt");
+if (!token) {
+    window.location.href = "../Pages/login.html"
+}
 
 let profesionales = []
 let chats = []
@@ -117,17 +122,32 @@ async function generarRecuadros(filtro = "") {
         a.appendChild(div1);
         div1.appendChild(div2);
         div1.appendChild(div3);
-
+        console.log(chat)
         if (user.profesional === true) {
             const boton= document.createElement('button');
-            boton.textContent = 'Close chat';
-            boton.classList.add('boton-cerrar');
-            boton.addEventListener('click', async () => {
-                const chatRef = doc(db, "chats", chat.id);
-                await setDoc(chatRef, {
-                    cerrado: true,
-                }, {merge: true});
-            });
+            if(chat.cerrado === false){
+                boton.textContent = 'Close chat';
+                boton.classList.add('boton-cerrar');
+                boton.addEventListener('click', async (e) => {
+                    e.preventDefault()
+                    const chatRef = doc(db, "chats", chat.id);
+                    await setDoc(chatRef, {
+                        cerrado: true,
+                    }, {merge: true});
+                    location.reload()
+                });
+            } else if(chat.cerrado === true) {
+                boton.textContent = 'Open chat';
+                boton.classList.add('boton-cerrar');
+                boton.addEventListener('click', async (e) => {
+                    e.preventDefault()
+                    const chatRef = doc(db, "chats", chat.id);
+                    await setDoc(chatRef, {
+                        cerrado: false,
+                    }, {merge: true});
+                    location.reload()
+                });
+            }
             a.appendChild(boton);
         }
 
@@ -146,12 +166,12 @@ function generarSelect() {
     });
 }
 
-const token = localStorage.getItem("jwt");
 if (!token) {
     window.location.href = "../Pages/login.html"
 }
 
 obtenerProfesionales().then(profesionales => {
+    console.log(profesionales)
     obtenerChats(false).then(item => {
         generarRecuadros();
         generarSelect();

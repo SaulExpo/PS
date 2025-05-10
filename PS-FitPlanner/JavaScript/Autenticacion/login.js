@@ -1,11 +1,27 @@
-import {signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+import {signInWithEmailAndPassword, signOut} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 import {auth, db} from "../firebase_config.js";
 import {collection, doc, getDoc, getDocs, query, updateDoc, where} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import Swal from 'https://cdn.skypack.dev/sweetalert2';
 
 //Ininicar Sesión
 const login = async (email, password) => {
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        console.log(user)
+        if (user.emailVerified) {
+            console.log('Inicio de sesión exitoso y verificado');
+            // Redirige al usuario o continúa la sesión
+        } else {
+            signOut(auth); // Cierra la sesión si no está verificado
+            Swal.fire({
+                title: "You must verify your email before you can log in.",
+                icon: "error",
+                confirmButtonColor: "#d51313",
+                confirmButtonText: "Ok"
+            })
+            return
+        }
         await comprobarSuscripción()
         window.location.href="http://localhost:63342/PS/PS-FitPlanner/Pages/first_page.html?_ijt=vgob1go66v0h87q0cjc6046q57&_ij_reload=RELOAD_ON_SAVE";
         localStorage.setItem("jwt", "Sesion Cerrada");
@@ -56,7 +72,12 @@ document.addEventListener("DOMContentLoaded", () => {
         if (email && password) {
             login(email, password);
         } else {
-            alert("Por favor completa todos los campos.");
+            Swal.fire({
+                title: "Please complete all fields.",
+                icon: "warning",
+                confirmButtonColor: "#d51313",
+                confirmButtonText: "Ok"
+            })
         }
     });
 });
