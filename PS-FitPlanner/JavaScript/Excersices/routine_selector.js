@@ -12,7 +12,6 @@ import { db, auth } from "../firebase_config.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 import Swal from 'https://cdn.skypack.dev/sweetalert2';
 
-// DOM elements
 const select        = document.getElementById("bodypart-select");
 const searchInput   = document.getElementById("exercise-search");
 const exerciseList  = document.getElementById("exercise-list");
@@ -79,10 +78,6 @@ function updateSummary() {
     });
 }
 
-/**
- * Renderiza las tarjetas de selección de ejercicios.
- * @param {Array} list Array de ejercicios.
- */
 function render(list) {
     exerciseList.innerHTML = "";
     if (!list.length) {
@@ -95,7 +90,6 @@ function render(list) {
         card.className = "exercise-card";
         card.style.position = "relative";
 
-        // Botón favorito
         const favBtn = document.createElement("button");
         favBtn.className = "fav-btn";
         favBtn.textContent = favorites.includes(ex.id) ? "❤️" : "🤍";
@@ -117,7 +111,6 @@ function render(list) {
             }
         });
 
-        // 1) Crear selector de reps antes del checkbox
         const repsSelect = document.createElement("select");
         repsSelect.innerHTML = `
       <option value="3x10">3x10</option>
@@ -133,7 +126,6 @@ function render(list) {
             }
         });
 
-        // 2) Crear checkbox referenciando repsSelect
         const cb = document.createElement("input");
         cb.type    = "checkbox";
         cb.checked = selected.some(s => s.id === ex.id);
@@ -154,7 +146,6 @@ function render(list) {
             render(list);
         });
 
-        // Detalles del ejercicio
         const nameEl = document.createElement("div");
         nameEl.innerHTML = `<strong>
       <a href="exercise_detail.html?name=${encodeURIComponent(ex.name)}" target="_blank">
@@ -175,7 +166,6 @@ function render(list) {
     });
 }
 
-// Carga inicial tras login
 onAuthStateChanged(auth, async (user) => {
     if (!user) return alert("Inicia sesión para acceder.");
     const uid = user.uid;
@@ -228,7 +218,6 @@ onAuthStateChanged(auth, async (user) => {
     }
 });
 
-// Handlers de UI
 select.addEventListener("change", () => {
     if (select.value === FAVORITES_VALUE) {
         currentList = Object.values(allExercises)
@@ -260,7 +249,6 @@ searchInput.addEventListener("input", () => {
     updateSummary();
 });
 
-// Guardar o actualizar rutina
 saveBtn.addEventListener("click", async () => {
     const name        = nameInput.value.trim();
     const description = descInput.value.trim();
