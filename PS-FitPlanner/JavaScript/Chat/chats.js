@@ -4,9 +4,9 @@ import {
     getDocs,
     doc,
     setDoc,
-    query, getDoc, deleteDoc
+    query, getDoc, deleteDoc, updateDoc, arrayUnion, doc as docRef, arrayRemove
 } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-import {db} from "../firebase_config.js";
+import {auth, db} from "../firebase_config.js";
 import {getUserProfile} from "../GetDB/getUser.js";
 
 const token = localStorage.getItem("jwt");
@@ -16,10 +16,28 @@ if (!token) {
 
 let profesionales = []
 let chats = []
+let favorites = [];
+let fav_variable
+obtenerFavoritos().then((favs) => {
+    favorites = favs;
+});
+
+async function obtenerFavoritos() {
+    const user = await getUserProfile();
+    const userRef = doc(db, "user_app", user.id);
+    const userSnap = await getDoc(userRef);
+
+    if (userSnap.exists()) {
+        const userData = userSnap.data();
+        return userData.favoriteChats || []; // devuelve el array o uno vacío si no existe
+    } else {
+        console.warn("Usuario no encontrado en la colección user_app");
+        return [];
+    }
+}
 
 async function obtenerProfesionales() {
     try {
-        // Obtener los documentos de la colección "chats"
         const q = query(collection(db, "user_app"), where("profesional", "==", true));
         const querySnapshot = await getDocs(q);
 
@@ -32,6 +50,8 @@ async function obtenerProfesionales() {
         console.error("Error getting the chats: ", error);
     }
 }
+
+
 
 async function obtenerChats(estado) {
     chats = [];
@@ -72,7 +92,34 @@ async function obtenerChats(estado) {
 }
 
 
-async function generarRecuadros(filtro = "") {
+async function marcarChatComoFavorito(chatId) {
+    const user = await getUserProfile();
+    const chatRef = doc(db, "chats", chatId);
+    const chatSnap = await getDoc(chatRef);
+
+    if (!chatSnap.exists()) {
+        console.error("El chat no existe");
+        return;
+    }
+
+
+    const userRef = doc(db, "user_app", user.id);
+    await updateDoc(userRef, {
+        favoriteChats: arrayUnion(chatId)
+    });
+
+    console.log("Chat marcado como favorito con éxito");
+}
+
+async function quitarChatDeFavoritos(chatId) {
+    const user = await getUserProfile();
+    const userRef = doc(db, "user_app", user.id);
+    await updateDoc(userRef, {
+        favoriteChats: arrayRemove(chatId)
+    });
+}
+
+async function generarRecuadros(filtro = "", favoritos) {
     const user = await getUserProfile();
     const contenedor = document.getElementById('chatSelection');
     // Limpiar el contenedor antes de agregar los recuadros (por si ya hay contenido)
@@ -82,6 +129,10 @@ async function generarRecuadros(filtro = "") {
 
     // Recorrer la lista de profesionales
     for (const chat of chats) {
+        let esFavorito = favorites.includes(chat.id);
+        if (favoritos === true){
+            if (!esFavorito) continue
+        }
         let otroUsuario = chat.users[0] === user.email ? chat.users[1] : chat.users[0];
         const q = query(collection(db, "user_app"), where("email", "==", otroUsuario));
         const querySnapshot = await getDocs(q);
@@ -118,6 +169,38 @@ async function generarRecuadros(filtro = "") {
 
 
         li.appendChild(a);
+        li.style.position = "relative";
+        const favBtn = document.createElement("button");
+        favBtn.className = "fav-btn";
+        console.log(esFavorito)
+        if (esFavorito){
+            favBtn.textContent = "❤️";
+        }else {
+            favBtn.textContent = "🤍";
+        }
+        favBtn.style.position = "absolute";
+        favBtn.style.top      = "8px";
+        favBtn.style.right    = "8px";
+        favBtn.addEventListener("click", async () => {
+            favBtn.addEventListener("click", async () => {
+                if (esFavorito) {
+                    await quitarChatDeFavoritos(chat.id);
+                    esFavorito = false;
+                    favBtn.textContent = "🤍";
+                    obtenerFavoritos().then((favs) => {
+                        favorites = favs;
+                    });
+                } else {
+                    await marcarChatComoFavorito(chat.id);
+                    esFavorito = true;
+                    favBtn.textContent = "❤️";
+                    obtenerFavoritos().then((favs) => {
+                        favorites = favs;
+                    });
+                }
+            });
+        });
+        li.appendChild(favBtn);
         a.appendChild(img);
         a.appendChild(div1);
         div1.appendChild(div2);
@@ -148,6 +231,8 @@ async function generarRecuadros(filtro = "") {
                     location.reload()
                 });
             }
+
+
             a.appendChild(boton);
         }
 
@@ -180,10 +265,16 @@ obtenerProfesionales().then(profesionales => {
 
 let cerrado = document.getElementById('cerrados')
 let abierto = document.getElementById('abiertos')
+let favoritos = document.getElementById('favoritos')
+let nofavoritos = document.getElementById('nofavoritos')
 
 cerrado.addEventListener('click', () => {
     obtenerChats(true).then(item => {
-        generarRecuadros();
+        if (fav_variable){
+            generarRecuadros("", true);
+        } else {
+            generarRecuadros();
+        }
     })
     abierto.style.display = 'block'
     cerrado.style.display = 'none'
@@ -191,12 +282,31 @@ cerrado.addEventListener('click', () => {
 
 abierto.addEventListener('click', () => {
     obtenerChats(false).then(item => {
-        generarRecuadros();
+        if (fav_variable){
+            generarRecuadros("", true);
+        } else {
+            generarRecuadros();
+        }
     })
     abierto.style.display = 'none'
     cerrado.style.display = 'block'
 });
 
+favoritos.addEventListener("click", (e) => {
+    generarRecuadros("", true)
+    fav_variable = true
+    nofavoritos.style.display = 'block'
+    favoritos.style.display = 'none'
+})
+
+nofavoritos.addEventListener("click", (e) => {
+    generarRecuadros("", false)
+    fav_variable = false
+    nofavoritos.style.display = 'none'
+    favoritos.style.display = 'block'
+})
+
 document.getElementById("buscador").addEventListener("input", (e) => {
     generarRecuadros(e.target.value);
 });
+

@@ -33,6 +33,10 @@
     display: none;
 }
 
+#nofavoritos{
+    display: none;
+}
+
 .opcionChat{
     align-items: center;
     justify-content: center;

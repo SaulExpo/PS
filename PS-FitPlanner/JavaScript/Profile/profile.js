@@ -1,4 +1,4 @@
-import {arrayRemove, collection, doc, getDoc, getFirestore, updateDoc, getDocs, query, where, arrayUnion} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import {serverTimestamp, addDoc, arrayRemove, collection, doc, getDoc, getFirestore, updateDoc, getDocs, query, where, arrayUnion} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import Swal from 'https://cdn.skypack.dev/sweetalert2';
 
 import {auth, db} from "../firebase_config.js";
@@ -35,6 +35,7 @@ getProfesores()
 todoas()
 
 //sadapic936@exitings.com
+//kilih41722@idoidraw.com
 
 async function todoas()
 {
@@ -104,6 +105,7 @@ async function carga_alum() {
 
 }
 function cargaMiProfe(profe) {
+    console.log(profe.data())
     let temp = `<p>${profe.data().name}</p>
             <button class="button_user_action" onclick="desasignarPro('${profe.data().id}', '${profe.data().name}')">Leave</button>
             <button class="button_user_action" onclick=location.href="./chat.html?to=${profe.data().email}">Chat</button>`
@@ -132,6 +134,7 @@ async function getalumnos()
     for (const alum of user.alumnos) {
         let alu = doc(db, "user_app", alum.id)
         let snap = await getDoc(alu)
+        if (snap.data() === undefined) continue
         alumnos.push(
             {id: snap.id,
                 ...snap.data()}
@@ -231,7 +234,13 @@ async function cambiarPro(id, name)
             {
                 alumnos: arrayUnion(userRef)
             })
+        const refAsig = collection(db, "registro_asignacion")
+        await addDoc(refAsig, {
+            asignacion: `${newProfe.data().name}:${user.name}`,
+            timeAsig: serverTimestamp()
+        })
         await cambioReferencia(userRef, newProfRef);
+
 
         sendEmail(newProfe.data(), `The user ${user.name} with email ${user.email}, had been assigned to your students`)
         sendEmail(user, `You had been assigned to the professional's list ${newProfe.data().name}`)
@@ -257,6 +266,11 @@ async function cambiarPro(id, name)
         {
             alumnos: arrayRemove(userRef)
         })
+    const refAsig = collection(db, "registro_asignacion")
+    await addDoc(refAsig, {
+        asignacion: `${newProfe.data().name}:${user.name}`,
+        timeAsig: serverTimestamp()
+    })
     await cambioReferencia(userRef, newProfRef);
     location.reload()
 
@@ -321,6 +335,13 @@ async function desasignar(userID, userName)
             })
         await updateDoc(alumRef,
             {profe_asig: doc(db, "user_app", "null")})
+
+        const refAsig = collection(db, "registro_asignacion")
+        addDoc(refAsig, {
+            asignacion: `null:${miAlumno.data().name}`,
+            timeAsig: serverTimestamp()
+        })
+
         location.reload()
 
     }
@@ -343,6 +364,11 @@ async function desasignarPro(profeID, profeName)
             })
         await updateDoc(userRef, {
             profe_asig: doc(db, "user_app", "null"),
+        })
+        const refAsig = collection(db, "registro_asignacion")
+        addDoc(refAsig, {
+            asignacion: `null:${user.name}`,
+            timeAsig: serverTimestamp()
         })
         location.reload()
     }
