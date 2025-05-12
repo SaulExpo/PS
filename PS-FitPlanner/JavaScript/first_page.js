@@ -9,6 +9,7 @@ import {
     getDocs
 } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import Swal from 'https://cdn.skypack.dev/sweetalert2';
+import {getCollectionCached} from "./Excercises/cacheLoad.js";
 
 
 const exerciseCollections = [
@@ -88,10 +89,8 @@ export async function load() {
     async function loadRecommendations() {
         const all = [];
         for (const coll of exerciseCollections) {
-            const snap = await getDocs(collection(db, coll));
-            snap.forEach(doc => {
-                all.push(doc.data().name);
-            });
+            const docs = await getCollectionCached(coll);
+            docs.forEach(d => all.push(d.name));
         }
         shuffle(all);
         return all.slice(0, 3);
