@@ -21,12 +21,14 @@ export async function getUserRoutines(email) {
     }
 }
 
-export async function addUserRoutine(user, rutine, date) {
+export async function addUserRoutine(user, rutine, date, remember, color) {
     try {
         const formData = {
             user_app: user,
             rutine: rutine,
             date: date,
+            rememberDays: remember,
+            color: color,
             createdAt: serverTimestamp()
         };
         console.log(formData);
@@ -38,13 +40,15 @@ export async function addUserRoutine(user, rutine, date) {
     }
 }
 
-export async function editUserRoutine(user, rutine, date, docId) {
+export async function editUserRoutine(user, rutine, date, docId, remember, color) {
     try {
         const routineRef = doc(db, "user_routine", docId);
         await updateDoc(routineRef, {
             user_app: user,
             rutine: rutine,
-            date: date
+            date: date,
+            rememberDays: remember,
+            color: color
         });
         location.reload();
     } catch (error) {

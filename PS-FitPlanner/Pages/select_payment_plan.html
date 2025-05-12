@@ -34,7 +34,7 @@
           <li class="unavailable">Descuentos especiales</li>
           <li class="unavailable">Atención personalizada</li>
         </ul>
-        <div class="price">5€ / mes</div>
+        <div class="price">5€ / mes - 50€ / año</div>
       </div>
 
       <div class="plan premium">
@@ -48,21 +48,29 @@
           <li>Descuentos especiales</li>
           <li>Atención personalizada</li>
         </ul>
-        <div class="price">10€ / mes</div>
+        <div class="price">10€ / mes - 100€ / año</div>
       </div>
     </div>
     <h1>Elige tu suscripción</h1>
 
-    <div class="subscription-option" onclick="showPaymentForm('Básica', '5€ / mes', 'miembro')">
+    <div class="subscription-option" onclick="showPaymentForm('Básica', '5€ / mes', 'miembro', 'mes')">
       <strong>Básica</strong><br>
       Acceso limitado al contenido - <em>5€ / mes</em>
     </div>
+    <div class="subscription-option" onclick="showPaymentForm('Básica', '50€ / año', 'miembro', 'año')">
+      <strong>Básica</strong><br>
+      Acceso limitado al contenido - <em>50€ / año</em>
+    </div>
 
-    <div class="subscription-option" onclick="showPaymentForm('Premium', '10€ / mes', 'miembro superior')">
+    <div class="subscription-option" onclick="showPaymentForm('Premium', '10€ / mes', 'miembro superior', 'mes')">
       <strong>Premium</strong><br>
       Acceso completo a todos los servicios - <em>10€ / mes</em>
     </div>
-    <button id="renovar" onclick="renovarSuscripcion()">Renovar Suscripción</button>
+    <div class="subscription-option" onclick="showPaymentForm('Premium', '100€ / año', 'miembro superior', 'año')">
+      <strong>Premium</strong><br>
+      Acceso completo a todos los servicios - <em>100€ / año</em>
+    </div>
+    <button id="renovar" onclick="cancelarSuscripcion()">Cancelar Suscripción</button>
 
     <div id="payment-form">
       <h2 id="form-title">Pago</h2>
