@@ -7,8 +7,8 @@ function loadData(filename, range = 'month') {
     fetch(filename)
         .then(response => response.json())
         .then(data => {
+            const today = new Date();
             if (range === 'week') {
-                const today = new Date();
                 const last7Days = [];
                 for(let i = 6; i >= 0; i--){
                     const d = new Date(today);
@@ -16,7 +16,7 @@ function loadData(filename, range = 'month') {
                     const day = d.getDate().toString();
                     last7Days.push(day);
                 }
-                data = data.filter(item => last7Days.includes(item.dia));
+                data = data.filter(item => last7Days.includes(parseInt(item.dia).toString()));
             }
             drawChart(data, filename);
         })
@@ -33,22 +33,37 @@ function drawChart(dataArray, filename) {
     const monthName = monthNames[now.getMonth()];
     const year = now.getFullYear();
 
+    const  isWeek = dataArray.length === 7;
+
     let title, vAxisTitle;
 
     const daysinMonth = new Date(year, now.getMonth()+1, 0).getDate();
-    const allDays = [];
-    for(let i = 1; i <= daysinMonth; i++) {
-        allDays.push(i.toString());
+    let allDays = [];
+
+    if(isWeek){
+        for(let i = 6; i >= 0; i--){
+            const d = new Date(now);
+            d.setDate(now.getDate() - i);
+            allDays.push(d.getDate().toString());
+        }
+    } else{
+        const daysinMonth = new Date(year, now.getMonth()+1, 0).getDate();
+        for(let i = 1; i <= daysinMonth;i++){
+            allDays.push(i.toString());
+        }
     }
 
     const dataMap = {};
     dataArray.forEach(item => {
-        dataMap[item.dia] = item;
+        const dia = parseInt(item.dia).toString();
+        dataMap[dia] = item;
     });
 
     if (filename === '../JavaScript/calorias.js') {
         data.addColumn('number', 'Calories Burn');
-        title = 'Calories Burn per Day';
+        currentTitle = isWeek
+            ? 'Calories Burn - Last 7 Days'
+            : `Calories Burn per Day - ${monthName} ${year}`;
         vAxisTitle = 'Calories';
 
         allDays.forEach(day => {
@@ -62,7 +77,9 @@ function drawChart(dataArray, filename) {
         });
     } else {
         data.addColumn('number', 'Steps');
-        title = `Steps Done per Day - ${monthName} ${year}`;
+        currentTitle = isWeek
+            ? 'Steps Done - Last 7 Days'
+            : `Steps Done per Day - ${monthName} ${year}`;
         vAxisTitle = 'Steps';
 
         allDays.forEach(day => {
