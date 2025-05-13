@@ -2,19 +2,23 @@ import {getFirestore, doc, updateDoc, collection, query, where, getDocs, serverT
 import {auth, db} from "../firebase_config.js";
 import Swal from 'https://cdn.skypack.dev/sweetalert2';
 
+let tipoEscogido
+let periodoEscogido
+let precioEscogido
+
+
+
 document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("fake-payment-form").addEventListener("submit", async function(e) {
         e.preventDefault();
-        const tipo = document.getElementById('payment-form').dataset.tipoSuscripcion;
-        const periodo = document.getElementById('payment-form').dataset.tipoRenovacion;
 
-        await actualizarSuscripcion(tipo, periodo);
+        await actualizarSuscripcion();
         document.getElementById('payment-form').style.display = 'none';
     });
 });
 
 
-async function actualizarSuscripcion(tipo, periodo) {
+async function actualizarSuscripcion() {
     const user = auth.currentUser;
 
     if (!user) {
@@ -31,8 +35,8 @@ async function actualizarSuscripcion(tipo, periodo) {
         const userRef = doc(db, "user_app", userDoc.id);
 
         await updateDoc(userRef, {
-            tipo_suscripcion: tipo,
-            periodo_suscripcion: periodo,
+            tipo_suscripcion: tipoEscogido,
+            periodo_suscripcion: periodoEscogido,
             inicio_suscripcion: serverTimestamp(),
         });
         Swal.fire({
@@ -44,7 +48,7 @@ async function actualizarSuscripcion(tipo, periodo) {
         let time = new Date()
         let message = "Thank you for purchasing a subscription to our website.\n" +
             "\n" +
-            "You have registered as " + tipo + " to have new features\n" +
+            "You have registered as " + tipoEscogido + " to have new features\n" +
             "Your subscription started at: " + time.toLocaleString('es-ES') + ".\n" +
             "If you have any questions you can contact us at this email: produccionsoftware5@gmail.com";
         let title = "Updated Subscription!"
@@ -125,12 +129,40 @@ async function cancelarSuscripcion() {
 
 function showPaymentForm(plan, price, tipo, periodo) {
     const form = document.getElementById('payment-form');
+    document.getElementById("paypal-button-container").innerHTML = ``
     document.getElementById('form-title').innerText = `Pago - Plan ${plan} (${price})`;
     form.style.display = 'block';
 
     // Guardamos el tipo elegido para luego usarlo en el submit
-    form.dataset.tipoSuscripcion = tipo;
-    form.dataset.tipoRenovacion = periodo;
+    precioEscogido = parseInt(price.split(" ")[0].split("€")[0])
+    console.log(precioEscogido)
+    tipoEscogido = tipo;
+    periodoEscogido = periodo;
+    paypal.Buttons({
+        // 1. Crear orden de pago
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value:precioEscogido // Precio del producto
+                    }
+                }]
+            });
+        },
+
+        // 2. Cuando el pago se autoriza
+        onApprove: function(data, actions) {
+            actualizarSuscripcion()
+        },
+
+        // 3. En caso de error o cancelación
+        onCancel: function(data) {
+            alert('❌ Pago cancelado');
+        },
+        onError: function(err) {
+            console.error('💥 Error en el pago:', err);
+        }
+    }).render('#paypal-button-container');
 }
 window.showPaymentForm = showPaymentForm;
 window.cancelarSuscripcion = cancelarSuscripcion;
@@ -151,3 +183,4 @@ function sendEmail(email, message, title) {
             console.log(error);
         });
 }
+

@@ -1,6 +1,7 @@
 import {getFirestore, collection, getDocs, doc, setDoc, addDoc, serverTimestamp, query, orderBy, onSnapshot, getDoc, where} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import {onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 import {db, auth} from "../firebase_config.js";
+import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js";
 
 let chatHistory = {};
 let user_name;
@@ -9,7 +10,7 @@ let unsubscribe = null;
 let unsubscribe2 = null;
 const urlParams = new URLSearchParams(window.location.search);
 const receiver = urlParams.get('to');
-
+const storage = getStorage();
 
 
 async function main() {
@@ -68,7 +69,6 @@ async function main() {
         document.getElementById("send").addEventListener("click", async () => {
             const msg = document.getElementById("usermsg").value.trim();
             const to = receiver;
-            console.log(to);
             const time = new Date().toLocaleTimeString();
 
             if (!msg || !user_name || !to) {
@@ -76,7 +76,7 @@ async function main() {
                 return;
             }
 
-            addMessage("self", to, msg, time);
+            addMessage("self", to, msg, time, "text");
             document.getElementById("usermsg").value = "";
 
 
@@ -92,6 +92,7 @@ async function main() {
                 to: to,
                 msg: msg,
                 time: serverTimestamp(),
+                type: "text",
             });
 
             if(!receiver_data.notificacion || receiver_data.notificacion == "NO"){
@@ -113,11 +114,15 @@ async function main() {
         }
     });
 
+    document.getElementById("imageSend").addEventListener("click", async () => {
+        await handleImageUpload(user_name, receiver);
+    })
+
 }
 
-function addMessage(who, userKey, message, time) {
+function addMessage(who, userKey, message, time, type) {
     if (!chatHistory[userKey]) chatHistory[userKey] = [];
-    chatHistory[userKey].push({ from: who, msg: message, time });
+    chatHistory[userKey].push({ from: who, msg: message, time, type});
     localStorage.setItem("chatHistory", JSON.stringify(chatHistory));
 
     if (receiver === userKey) {
@@ -135,15 +140,28 @@ function renderChat(userKey) {
         const who = m.from === "self" ? "Tú" : m.from;
         const className = m.from === "self" ? "me" : "them";
         const className1 = m.from === "self" ? "me1" : "them1";
-        chatbox.innerHTML += `
-  <div class="${className1}">
-    <div class="${className}">
-      <div class="sender-name"><b>${who}</b></div>
-      <div class="message-text">${m.msg}</div>
-      <div class="message-time">${hora}:${minuto}</div>
-    </div>
-  </div>
-`;
+        if (m.type != "image") {
+            chatbox.innerHTML += `
+              <div class="${className1}">
+                <div class="${className}">
+                  <div class="sender-name"><b>${who}</b></div>
+                  <div class="message-text">${m.msg}</div>
+                  <div class="message-time">${hora}:${minuto}</div>
+                </div>
+              </div>
+            `;
+        } else{
+            chatbox.innerHTML += `
+              <div class="${className1}">
+                <div class="${className}">
+                  <div class="sender-name"><b>${who}</b></div>
+                  <img src="${m.msg}" alt="">
+                  <div class="message-time">${hora}:${minuto}</div>
+                </div>
+              </div>
+            `;
+        }
+        
     });
     chatbox.scrollTop = chatbox.scrollHeight;
 }
@@ -159,7 +177,6 @@ function sendEmail(){
         reply_to: receiver_data.email,
         message: receiver_data.email,
     };
-    console.log(params)
     emailjs.send('service_cmud1pq', 'template_rzkpa2j', params)
     .then(function(response) {
         console.log(response)
@@ -195,11 +212,11 @@ async function loadChatFromFirestore(user1, user2) {
         snapshot.docs.forEach((doc, index) => {
             const data = doc.data();
             const fromSelf = data.from === user1;
-
             const msgObj = {
             from: fromSelf ? "self" : data.from,
             msg: data.msg,
-            time: data.time ? new Date(data.time.toDate()).toLocaleTimeString() : "..."
+            time: data.time ? new Date(data.time.toDate()).toLocaleTimeString() : "...",
+                type: data.type,
         };
 
         messages.push(msgObj);
@@ -238,6 +255,47 @@ async function loadInputText(user1, user2) {
     }
 
 
+}
+
+async function handleImageUpload(user1, user2) {
+    const chatId = getChatId(user1, user2);
+    const messagesRef = collection(db, "chats", chatId, "messages");
+    const fileInput = document.getElementById("imageInput");
+    const file = fileInput.files[0];
+    if (!file) {
+        alert("Selecciona una imagen primero.");
+        return;
+    }
+
+    try {
+        // 1. Crear una referencia en Firebase Storage
+        const imagePath = `chat_images/${chatId}/${Date.now()}_${file.name}`;
+        const imageRef = storageRef(storage, imagePath);
+
+        // 2. Subir la imagen
+        await uploadBytes(imageRef, file);
+
+        // 3. Obtener la URL pública de la imagen
+        const imageURL = await getDownloadURL(imageRef);
+        const to = receiver;
+        const time = new Date().toLocaleTimeString();
+        addMessage("self", to, imageURL, time, "image");
+
+        // 4. Guardar mensaje con la URL en Firestore
+        await addDoc(messagesRef, {
+            from: user_name,
+            to: to,
+            msg: imageURL,
+            time: serverTimestamp(),
+            type: "image",
+        });
+
+
+        fileInput.value = "";
+
+    } catch (error) {
+        console.error("❌ Error al subir imagen o guardar mensaje:", error);
+    }
 }
 
 
