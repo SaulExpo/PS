@@ -1,3 +1,5 @@
+
+
 google.charts.load('current', {packages: ['corechart']});
 google.charts.setOnLoadCallback(() => loadData('../JavaScript/calorias.js', 'month'));
 
