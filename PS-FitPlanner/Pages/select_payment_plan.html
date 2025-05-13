@@ -16,6 +16,8 @@
   <script type="module" src="../JavaScript/GlobalLoad/loadHeader.js"></script>
   <script src="../JavaScript/GlobalLoad/loadFooter.js"></script>
   <script type="module" src="../JavaScript/Profile/updateMember.js"></script>
+  <script src="https://www.paypal.com/sdk/js?client-id=Ae8ZG3QAb96YV8YB9XS0VavDR873cUfw7iAc1Az4sqgtlPmQlIEf1oatOY0Po0TT_RoxjBUZqkCX7odG&currency=EUR"></script>
+
 
 </head>
 <body>
@@ -75,24 +77,11 @@
     <div id="payment-form">
       <h2 id="form-title">Pago</h2>
       <form id="fake-payment-form">
-        <label>Nombre en la tarjeta:</label>
-        <input type="text" required minlength="4">
-
-        <label>Número de tarjeta:</label>
-        <input type="text" placeholder="**** **** **** 4242" required minlength="16">
-
-        <label>Fecha de vencimiento:</label>
-        <input type="text" placeholder="MM/AA" required minlength="5" maxlength="5">
-
-        <label>CVC:</label>
-        <input type="text" placeholder="123" required minlength="3">
-
-        <button type="submit">Confirmar pago</button>
+        <div id="paypal-button-container"></div>
       </form>
     </div>
 
   </main>
-
 
   <footer id="main_footer"></footer>
 
