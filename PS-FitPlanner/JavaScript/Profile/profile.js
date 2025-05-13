@@ -20,6 +20,7 @@ async function getProfesores() {
     let ref = query(collection(db, "user_app"), where("profesional", "==", true));
     let todo_profe = await getDocs(ref)
     for (const profe of todo_profe.docs) {
+
         if (profe.data().asignado < profe.data().capacidad)
         {
             profesores.push(
@@ -106,9 +107,10 @@ async function carga_alum() {
 }
 function cargaMiProfe(profe) {
     console.log(profe.data())
-    let temp = `<p>${profe.data().name}</p>
+    let temp = `<p>${profe.data().name} ${profe.data().calificacion}⭐</p>
             <button class="button_user_action" onclick="desasignarPro('${profe.data().id}', '${profe.data().name}')">Leave</button>
-            <button class="button_user_action" onclick=location.href="./chat.html?to=${profe.data().email}">Chat</button>`
+            <button class="button_user_action" onclick=location.href="./chat.html?to=${profe.data().email}">Chat</button>
+            <button class="button_user_action" onclick="calificar()">Calificar</button>`
     document.querySelector("#profe_asig").innerHTML = temp
 }
 
@@ -122,7 +124,7 @@ async function cargaProfesLibres() {
             continue
         }
         temp += `<li class="profe">
-                        <p>${profe.name} ${profe.asignado}/${profe.capacidad}</p>
+                        <p>${profe.name} ${profe.calificacion}⭐ ${profe.asignado}/${profe.capacidad}</p>
                         <button class="button_user_action" onclick="cambiarPro('${profe.id}', '${profe.name}')">Follow</button>
                     </li>`
     }
@@ -375,6 +377,47 @@ async function desasignarPro(profeID, profeName)
 
 }
 
+function calificar()
+{
+    let temp = document.querySelector("#calificacion")
+    temp.innerHTML = `<div id="calificacion-content">
+        <p>Cuanta puntuacion le das al profe</p>
+            <label>
+                <select id="estrellas" required>
+                    <option value="" disabled selected>Seleccione alguna <opcion></opcion></option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </label>
+            <div id="cali-buttons">
+                <button type="submit" onclick="calificar_pro()">Calificar</button>
+                <button onclick="cancelar_cali()">Cancelar</button>
+            </div></div>`
+    temp.style.display = "flex"
+
+}
+function cancelar_cali(){
+    document.querySelector("#calificacion").style.display = "none"
+}
+async function calificar_pro(){
+    let opcion = document.querySelector("#estrellas")
+    if (!opcion.value)
+    {
+        alert("Elige una opcion")
+        return
+    }
+    let ref = doc(db, "user_app", user.profe_asig.id);
+    await updateDoc(ref, {
+        calificacion: Number(opcion.value)
+    })
+    document.querySelector("#calificacion").style.display = "none"
+    location.reload()
+
+}
+
 function sendEmail(userdata, message){
     emailjs.init('CTnfkkYqegWMlezAo');
 
@@ -412,3 +455,6 @@ window.verProfes = verProfes
 window.cancelarCambio = cancelarCambio
 window.cambiarPro = cambiarPro
 window.desasignarPro = desasignarPro
+window.calificar = calificar
+window.cancelar_cali = cancelar_cali
+window.calificar_pro = calificar_pro
