@@ -392,6 +392,7 @@ function calificar()
                     <option value="5">5</option>
                 </select>
             </label>
+            <input id="comment" type="text" placeholder="Escribe un comentario">
             <div id="cali-buttons">
                 <button type="submit" onclick="calificar_pro()">Calificar</button>
                 <button onclick="cancelar_cali()">Cancelar</button>
@@ -411,7 +412,12 @@ async function calificar_pro(){
     }
     let ref = doc(db, "user_app", user.profe_asig.id);
     await updateDoc(ref, {
-        calificacion: Number(opcion.value)
+        calificacion: Number(opcion.value),
+        comentarios: arrayUnion(ref,
+            {
+                alumno: user.name,
+                comentario: document.querySelector("#comment").value
+            })
     })
     document.querySelector("#calificacion").style.display = "none"
     location.reload()
