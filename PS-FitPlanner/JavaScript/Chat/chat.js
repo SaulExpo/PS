@@ -6,6 +6,7 @@ let chatHistory = {};
 let user_name;
 let receiver_data
 let unsubscribe = null;
+let unsubscribe2 = null;
 const urlParams = new URLSearchParams(window.location.search);
 const receiver = urlParams.get('to');
 
@@ -63,7 +64,6 @@ async function main() {
         }
 
         await loadChatFromFirestore(user_name, receiver);
-        await loadInputText(user_name, receiver);
 
         document.getElementById("send").addEventListener("click", async () => {
             const msg = document.getElementById("usermsg").value.trim();
@@ -172,12 +172,17 @@ function sendEmail(){
 async function loadChatFromFirestore(user1, user2) {
     const chatId = getChatId(user1, user2);
     if (unsubscribe) unsubscribe();
+    if (unsubscribe2) unsubscribe();
 
 
     const chatRef = doc(db, "chats", chatId);
     const messagesRef = collection(chatRef, "messages");
     const messagesQuery = query(messagesRef, orderBy("time"));
 
+    unsubscribe2 = onSnapshot(chatRef, async docSnapshot => {
+        const chatData = docSnapshot.data();
+        await loadInputText(user1, user2);
+    });
     unsubscribe = onSnapshot(messagesQuery, async snapshot => {
         const q = query(collection(db, "user_app"), where("email", "==", receiver));
         const querySnapshot = await getDocs(q);
@@ -226,6 +231,9 @@ async function loadInputText(user1, user2) {
     if(Michat.data()){
         if (Michat.data().cerrado === true){
             document.getElementById("input-container").style.display = "none";
+        }
+        else if (Michat.data().cerrado === false){
+            document.getElementById("input-container").style.display = "flex";
         }
     }
 
