@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Actualizar Ejercicios</title>
+  <script type="module">
+    import { app, db } from "../JavaScript/firebase_config.js";
+    import { doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+    const BODY_PARTS = [
+      "back",
+      "cardio",
+      "chest",
+      "lower arms",
+      "lower legs",0
+      "neck",
+      "shoulders",
+      "upper arms",
+      "upper legs",
+      "waist"
+    ];
+
+    const baseUrl = 'https://exercisedb.p.rapidapi.com/exercises/bodyPart';
+    const fetchOptions = {
+      method: 'GET',
+      headers: {
+        'x-rapidapi-key': '002e9eeff7msh94fe3ba3c69eb11p1809a1jsnd6873efe76cc',
+        'x-rapidapi-host': 'exercisedb.p.rapidapi.com'
+      }
+    };
+
+    async function uploadExercises() {
+      const logContainer = document.getElementById('log');
+      logContainer.textContent = '';
+
+      for (const part of BODY_PARTS) {
+        logContainer.textContent += `Fetching ${part}...\n`;
+        try {
+          // Fetch all exercises for this body part
+          const url = `${baseUrl}/${encodeURIComponent(part)}`;
+          const response = await fetch(url, fetchOptions);
+          if (!response.ok) {
+            logContainer.textContent += `  ERROR: ${response.status} ${response.statusText}\n`;
+            continue;
+          }
+          const exercises = await response.json();
+
+          const collName = `exercises_${part.replace(/\s+/g, "_")}`;
+          for (const ex of exercises) {
+            const docRef = doc(db, collName, ex.id.toString());
+            ex.uploadedAt = serverTimestamp();
+            await setDoc(docRef, ex, { merge: true });
+          }
+
+          logContainer.textContent += `  Uploaded ${exercises.length} for ${part}\n`;
+        } catch (err) {
+          console.error(err);
+          logContainer.textContent += `  Fetch error for ${part}: ${err.message}\n`;
+        }
+      }
+      logContainer.textContent += 'All exercises updated successfully.\n';
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const btn = document.getElementById('uploadBtn');
+      btn.addEventListener('click', () => {
+        uploadExercises().catch(err => {
+          console.error('Upload error:', err);
+          document.getElementById('log').textContent += `Upload error: ${err.message}\n`;
+        });
+      });
+    });
+  </script>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 1rem; }
+    #uploadBtn { padding: 0.5rem 1rem; font-size: 1rem; }
+    #log { white-space: pre-wrap; background: #f4f4f4; padding: 1rem; margin-top: 1rem; height: 300px; overflow: auto; border-radius: 4px; }
+  </style>
+</head>
+<body>
+<h1>Actualizar Ejercicios</h1>
+<button id="uploadBtn">Actualizar Base de Datos</button>
+<div id="log"></div>
+</body>
+</html>

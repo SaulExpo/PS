@@ -9,6 +9,7 @@ import {
     where, deleteDoc, doc
 } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import { db, auth } from "../firebase_config.js";
+import { getCollectionCached } from "./cacheLoad.js"
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 import Swal from 'https://cdn.skypack.dev/sweetalert2';
 
@@ -170,18 +171,17 @@ onAuthStateChanged(auth, async (user) => {
     if (!user) return alert("Inicia sesión para acceder.");
     const uid = user.uid;
 
-    // Cargar favoritos
     const userSnap = await getDoc(docRef(db, "user_app", uid));
     favorites = (userSnap.exists() && Array.isArray(userSnap.data().favorites))
         ? userSnap.data().favorites
         : [];
 
     await Promise.all(collectionNames.map(async colName => {
-        const snap = await getDocs(collection(db, colName));
+        const docs = await getCollectionCached(colName);
         const part = colName.replace("exercises_", "");
-        allExercises[part] = snap.docs.map(d => ({
+        allExercises[part] = docs.map(d => ({
             id:       d.id,
-            ...d.data(),
+            ...d,
             bodyPart: part
         }));
     }));

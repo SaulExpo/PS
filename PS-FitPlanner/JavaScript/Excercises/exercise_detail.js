@@ -1,9 +1,7 @@
 import { db } from "../firebase_config.js";
 
-import {
-    collection,
-    getDocs
-} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import {collection, getDocs} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import {getCollectionCached} from "./cacheLoad.js";
 
 const exerciseCollections = [
     "exercises_back",
@@ -22,7 +20,7 @@ function getQueryParam(param) {
     return new URLSearchParams(window.location.search).get(param);
 }
 
-async function loadExerciseDetail() {
+export async function loadExerciseDetail() {
     const nameParam = getQueryParam("name");
     if (!nameParam) {
         document.getElementById("exercise-name").textContent = "Nombre no especificado.";
@@ -33,14 +31,13 @@ async function loadExerciseDetail() {
     let foundCollection = null;
 
     for (const collName of exerciseCollections) {
-        const snap = await getDocs(collection(db, collName));
-        snap.forEach(docSnap => {
-            const data = docSnap.data();
+        const docs = await getCollectionCached(collName);
+        for (const data of docs) {
             if (data.name.toLowerCase() === nameParam.toLowerCase()) {
                 foundExercise = data;
                 foundCollection = collName;
             }
-        });
+        }
         if (foundExercise) break;
     }
 
@@ -49,14 +46,14 @@ async function loadExerciseDetail() {
         return;
     }
 
-    const imagesSnap = await getDocs(collection(db, "exercises_images"));
-    let imageUrl = "";
-    imagesSnap.forEach(docSnap => {
-        const data = docSnap.data();
-        if (data[foundCollection]) {
-            imageUrl = data[foundCollection];
-        }
-    });
+    const images = await getCollectionCached("exercises_images");
+    const imageDoc = images.find(doc => Boolean(doc[foundCollection]));
+    const imageUrl = imageDoc ? imageDoc[foundCollection] : "";
+
+    const imgEl = document.getElementById("exercise-image");
+    imgEl.src = imageUrl;
+    imgEl.alt = foundExercise.name;
+
 
     document.getElementById("exercise-image").src = imageUrl;
     document.getElementById("exercise-image").alt = foundExercise.name;
