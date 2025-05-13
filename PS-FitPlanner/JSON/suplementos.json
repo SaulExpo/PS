@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Omega-3 Aceite de Pescado 1000mg – 365 Cápsulas",
+    "description": "Suplemento de Omega-3 con alto contenido de EPA y DHA, ideal para la salud cardiovascular y articular.",
+    "imageUrl": "https://m.media-amazon.com/images/I/71GMKwsCCrL._AC_SL1500_.jpg",
+    "externalUrl": "https://www.amazon.es/dp/B01BFIHWDS"
+  },
+  {
+    "name": "Multivitamínico Centrum Hombre – 60 Comprimidos",
+    "description": "Complejo multivitamínico diseñado para satisfacer las necesidades nutricionales específicas de los hombres.",
+    "imageUrl": "https://m.media-amazon.com/images/I/61mXttWvzbL._AC_SL1500_.jpg",
+    "externalUrl": "https://www.amazon.es/Multicentrum-Complemento-Alimenticio-Multivitaminas-Comprimidos/dp/B09VY3RLGM?utm_source=chatgpt.com"
+  },
+  {
+    "name": "Colágeno con Magnesio Ana María Lajusticia – 450 Comprimidos",
+    "description": "Suplemento que contribuye al mantenimiento de huesos y músculos en condiciones normales.",
+    "imageUrl": "https://m.media-amazon.com/images/I/51aTvTat-RL._AC_SL1500_.jpg",
+    "externalUrl": "https://www.amazon.es/dp/B00XO27QH6"
+  },
+  {
+    "name": "Vitamina D3 4000 IU – 365 Cápsulas Blandas",
+    "description": "Vitamina D3 de alta potencia para apoyar el sistema inmunológico y la salud ósea.",
+    "imageUrl": "https://m.media-amazon.com/images/I/61ZexlJ7A5L._AC_SL1500_.jpg",
+    "externalUrl": "https://www.amazon.es/dp/B08KFL41MD"
+  },
+  {
+    "name": "Magnesio Citrato 200mg – 180 Cápsulas",
+    "description": "Suplemento de magnesio en forma de citrato para mejorar la absorción y apoyar la función muscular.",
+    "imageUrl": "https://m.media-amazon.com/images/I/71kHiWkgr8L._AC_SL1500_.jpg",
+    "externalUrl": "https://www.amazon.es/dp/B01D58042W"
+  },
+  {
+    "name": "Zinc 50mg – 365 Comprimidos",
+    "description": "Suplemento de zinc para apoyar el sistema inmunológico y la salud de la piel.",
+    "imageUrl": "https://m.media-amazon.com/images/I/71hxHtYmqWL._AC_SL1500_.jpg",
+    "externalUrl": "https://www.amazon.es/Bisglicinato-Biodisponible-Suplemento-Alimenticio-Innecesarios/dp/B07TB8VDFQ?utm_source=chatgpt.com"
+  },
+  {
+    "name": "Vitamina C 1000mg con Bioflavonoides – 240 Comprimidos",
+    "description": "Vitamina C de alta potencia con bioflavonoides para mejorar la absorción y apoyar el sistema inmunológico.",
+    "imageUrl": "https://m.media-amazon.com/images/I/61x7lrRoLuL._AC_SL1500_.jpg",
+    "externalUrl": "https://www.amazon.es/dp/B081TFLPW2"
+  },
+  {
+    "name": "Glucosamina Condroitina MSM – 365 Comprimidos",
+    "description": "Suplemento para la salud de las articulaciones que combina glucosamina, condroitina y MSM.",
+    "imageUrl": "",
+    "externalUrl": "https://www.amazon.es/dp/B0DLF3PN91"
+  },
+  {
+    "name": "Complejo B – 120 Cápsulas",
+    "description": "Complejo de vitaminas B para apoyar el metabolismo energético y la función del sistema nervioso.",
+    "imageUrl": "https://m.media-amazon.com/images/I/71YjWC0kKkL._AC_SL1500_.jpg",
+    "externalUrl": "https://www.amazon.es/dp/B09GC63MCY"
+  },
+  {
+    "name": "Hierro con Vitamina C – 180 Comprimidos",
+    "description": "Suplemento de hierro con vitamina C para mejorar la absorción y prevenir la fatiga.",
+    "imageUrl": "https://m.media-amazon.com/images/I/61WIgJRKMfL._AC_SL1500_.jpg",
+    "externalUrl": "https://www.amazon.es/dp/B08S7CZ26J"
+  }
+]
