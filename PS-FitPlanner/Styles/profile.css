@@ -242,4 +242,9 @@ table
     background-color: white;
     padding: 2em;
     display: grid;
+    row-gap: 0.5em;
+}
+#comment
+{
+    padding-bottom: 4em
 }
