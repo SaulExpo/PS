@@ -25,7 +25,7 @@
 <main>
 <div class="max-w-md mx-auto bg-white shadow-lg rounded-xl p-4 mb-4 space-y-4">
 
-    <div class="flex items-center justify-between gap-2 flex-wrap">
+    <div class="flex items-center justify-between gap-2">
         <button id="cerrados" class="botonesChat">Show Close</button>
         <button id="abiertos" class="botonesChat">Show Open</button>
         <button id="favoritos" class="botonesChat">Show Favourites</button>
@@ -33,10 +33,10 @@
 
         <form action="chat.html">
             <select name="to" id="p_select" class="text-sm border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-400">
-                <option selected disabled>Select a professional</option>
+                <option id="firstOption" selected disabled>Select a professional</option>
             </select>
 
-            <button type="submit" class="botonesChat">
+            <button type="submit" class="botonesChat" id="StartChat">
                 Start chat
             </button>
         </form>
@@ -48,7 +48,7 @@
 
 
 <div class="max-w-md mx-auto bg-white shadow-lg rounded-xl">
-    <h2 class="text-xl font-bold p-4 border-b">Select a chat</h2>
+    <h2 class="text-xl font-bold p-4 border-b" id="select">Select a chat</h2>
     <ul id="chatSelection" class="divide-y divide-gray-200">
     </ul>
 </div>

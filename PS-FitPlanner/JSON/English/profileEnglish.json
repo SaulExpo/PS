@@ -1,0 +1,15 @@
+{
+  "HomeLabel": "Home",
+  "GraphLabel": "Graphics",
+  "SuscriptionLabel": "Suscription",
+  "EditLabel": "Edit Profile",
+  "Assigned": "Assigned Professional",
+  "Change": "Do you want to change your professional?",
+  "ChangeP": "If you want to change the professional for any reason, click on the button",
+  "ChangeButton": "Change",
+  "Available": "Available Professionals",
+  "Cancel": "Cancel",
+  "Student": "Student's List",
+  "height": "Height",
+  "age": "Age"
+}
