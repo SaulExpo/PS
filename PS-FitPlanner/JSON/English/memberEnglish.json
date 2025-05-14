@@ -1,0 +1,23 @@
+{
+  "member": "Member",
+  "superior": "Superior Member",
+  "contact": "Contact with coach",
+  "calendar": "Activities calendar",
+  "rutines": "Access to exercise routines",
+  "perso": "Personalized routines",
+  "exclusive": "Exclusive routines",
+  "discounts": "Special discounts",
+  "attention": "Personalized attention",
+  "_5": "5€ / month - 50€ / year",
+  "_10": "10€ / month - 100€ / year",
+  "choose": "Choose your suscription",
+  "basica": "Basic",
+  "limited": "Limited access to content",
+  "_52": "5€ / month",
+  "_50": "50€ / month",
+  "_102": "10€ / month",
+  "_100": "100€ / month",
+  "complete": "Full access to all services",
+  "renovar": "Cancel suscription",
+  "form_title": "Pay"
+}

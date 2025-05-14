@@ -22,6 +22,26 @@ export async function profileLanguage() {
             document.getElementById("Student").textContent = json.Student
             document.getElementById("height").textContent = json.height
             document.getElementById("age").textContent = json.age
+            if (language === "english") {
+                document.getElementById("años").textContent += "years"
+            } else {
+                document.getElementById("años").textContent += "años"
+            }
+            document.getElementById("weight").textContent = json.weight
+            document.getElementById("sex").textContent = json.sex
+            document.getElementById("suscription2").textContent = json.suscription
+            if(document.getElementById("genero").textContent === "Hombre" && language === "english"){
+                document.getElementById("genero").textContent = "Man"
+            } else if (document.getElementById("genero").textContent === "Mujer" && language === "english"){
+                document.getElementById("genero").textContent = "Woman"
+            }
+            if(document.getElementById("tipo_suscripcion").textContent === "miembro" && language === "english"){
+                document.getElementById("tipo_suscripcion").textContent = "Member"
+            } else if (document.getElementById("tipo_suscripcion").textContent === "miembro superior" && language === "english"){
+                document.getElementById("tipo_suscripcion").textContent = "Superior member"
+            } else if (document.getElementById("tipo_suscripcion").textContent === "usuario" && language === "english"){
+                document.getElementById("tipo_suscripcion").textContent = "User"
+            }
         })
         .catch(function (err) {
             console.error("Error cargando JSON:", err);

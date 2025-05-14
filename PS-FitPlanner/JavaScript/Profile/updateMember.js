@@ -1,14 +1,16 @@
 import {getFirestore, doc, updateDoc, collection, query, where, getDocs, serverTimestamp} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import {auth, db} from "../firebase_config.js";
 import Swal from 'https://cdn.skypack.dev/sweetalert2';
+import {memberLanguage} from "../Language/memberLanguage.js";
 
 let tipoEscogido
 let periodoEscogido
 let precioEscogido
-
+let language = localStorage.getItem("language");
 
 
 document.addEventListener("DOMContentLoaded", function() {
+    memberLanguage()
     document.getElementById("fake-payment-form").addEventListener("submit", async function(e) {
         e.preventDefault();
 
@@ -81,7 +83,7 @@ export async function renovarSuscripcion() {
         let time = new Date()
         let message= "Your subscription has been successfully renewed with a start date of: " + time.toLocaleString('es-ES')
             + " You have 30 business days with your subscription"
-        sendEmail(user.email, message, "Suscripción Renovada!")
+        sendEmail(user.email, message, "Renewed subscription!")
         Swal.fire({
             title: "Renewed subscription!",
             icon: "success",
@@ -130,7 +132,11 @@ async function cancelarSuscripcion() {
 function showPaymentForm(plan, price, tipo, periodo) {
     const form = document.getElementById('payment-form');
     document.getElementById("paypal-button-container").innerHTML = ``
-    document.getElementById('form-title').innerText = `Pago - Plan ${plan} (${price})`;
+    if(language === "english"){
+        document.getElementById('form-title').innerText = `Pay - Plan ${plan} (${price})`;
+    } else {
+        document.getElementById('form-title').innerText = `Pago - Plan ${plan} (${price})`;
+    }
     form.style.display = 'block';
 
     // Guardamos el tipo elegido para luego usarlo en el submit

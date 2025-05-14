@@ -180,7 +180,7 @@ function getInfo()
                         <th>
                             <div class="part">
                                 <label id="age" class="tag">Age</label>
-                                <p>${user.edad}años</p>
+                                <p id="años">${user.edad}</p>
                             </div>
                         </th>
 
@@ -194,7 +194,7 @@ function getInfo()
                         </th>
                         <th>
                             <div class="part">
-                                <label class="tag">Weight</label>
+                                <label id="weight" class="tag">Weight</label>
                                 <p>${user.peso}kg</p>
                             </div>
                         </th>
@@ -202,14 +202,14 @@ function getInfo()
                     <tr>
                         <th class="half-right">
                             <div class="part">
-                                <label class="tag">Sex</label>
-                                <p>${user.genero}</p>
+                                <label id="sex" class="tag">Sex</label>
+                                <p id="genero">${user.genero}</p>
                             </div>
                         </th>
                         <th class="half-right">
                             <div class="part">
-                                <label class="tag">Suscription</label>
-                                <p>${user.tipo_suscripcion}</p>
+                                <label id="suscription2" class="tag">Suscription</label>
+                                <p id="tipo_suscripcion">${user.tipo_suscripcion}</p>
                             </div>
                         </th>
                     </tr>

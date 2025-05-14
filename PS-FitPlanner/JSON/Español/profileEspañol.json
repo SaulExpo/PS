@@ -11,5 +11,8 @@
   "Cancel": "Cancelar",
   "Student": "Lista de estudiantes",
   "height": "Altura",
-  "age": "Edad"
+  "age": "Edad",
+  "weight": "Peso",
+  "sex": "Género",
+  "suscription": "Suscripción"
 }

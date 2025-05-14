@@ -11,5 +11,8 @@
   "Cancel": "Cancel",
   "Student": "Student's List",
   "height": "Height",
-  "age": "Age"
+  "age": "Age",
+  "weight": "Weight",
+  "sex": "Sex",
+  "suscription": "Suscription"
 }
