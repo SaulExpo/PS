@@ -1,9 +1,26 @@
-
-
 google.charts.load('current', {packages: ['corechart']});
-google.charts.setOnLoadCallback(() => loadData('../JavaScript/calorias.js', 'month'));
+google.charts.setOnLoadCallback(() => initChart('../JavaScript/calorias.js', 'month'));
 
 let currentChart = null;
+let userPeso = 0;
+
+async function initChart(filename, range) {
+    try {
+        const { getUserProfile } = await import('../JavaScript/GetDB/getUser.js');
+        const user = await getUserProfile();
+        console.log("Perfil del usuario recibido:", user);
+
+        userPeso = user && user.peso != null ? parseFloat(user.peso) : 0;
+        console.log("Peso del usuario:", userPeso);
+    } catch (error) {
+        console.warn("No se pudo obtener el peso del usuario, se usará 0 por defecto", error);
+        userPeso = 0;
+    }
+
+    loadData(filename, range);
+}
+
+
 
 function loadData(filename, range = 'month') {
     fetch(filename)
@@ -35,7 +52,7 @@ function drawChart(dataArray, filename) {
     const monthName = monthNames[now.getMonth()];
     const year = now.getFullYear();
 
-    const  isWeek = dataArray.length === 7;
+    const isWeek = dataArray.length === 7;
 
     let title, vAxisTitle;
 
@@ -49,8 +66,7 @@ function drawChart(dataArray, filename) {
             allDays.push(d.getDate().toString());
         }
     } else{
-        const daysinMonth = new Date(year, now.getMonth()+1, 0).getDate();
-        for(let i = 1; i <= daysinMonth;i++){
+        for(let i = 1; i <= daysinMonth; i++){
             allDays.push(i.toString());
         }
     }
@@ -63,7 +79,7 @@ function drawChart(dataArray, filename) {
 
     if (filename === '../JavaScript/calorias.js') {
         data.addColumn('number', 'Calories Burn');
-        currentTitle = isWeek
+        title = isWeek
             ? 'Calories Burn - Last 7 Days'
             : `Calories Burn per Day - ${monthName} ${year}`;
         vAxisTitle = 'Calories';
@@ -71,7 +87,7 @@ function drawChart(dataArray, filename) {
         allDays.forEach(day => {
             if (dataMap[day]) {
                 const item = dataMap[day];
-                const caloriasQuemadas = calcularCalorias(item.met, item.peso, item.minutos);
+                const caloriasQuemadas = calcularCalorias(item.met, userPeso, item.minutos);
                 data.addRow([day, caloriasQuemadas]);
             } else {
                 data.addRow([day, 0]);
@@ -79,7 +95,7 @@ function drawChart(dataArray, filename) {
         });
     } else {
         data.addColumn('number', 'Steps');
-        currentTitle = isWeek
+        title = isWeek
             ? 'Steps Done - Last 7 Days'
             : `Steps Done per Day - ${monthName} ${year}`;
         vAxisTitle = 'Steps';
@@ -112,7 +128,6 @@ function drawChart(dataArray, filename) {
     document.getElementById('chart_div').innerHTML = '';
     document.getElementById('monthTitle').textContent = monthName + ' ' + year;
 
-
     currentChart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
     currentChart.draw(data, options);
 }
@@ -120,8 +135,6 @@ function drawChart(dataArray, filename) {
 function calcularCalorias(met, peso, minutos) {
     return ((met * peso * 3.5) / 200) * minutos;
 }
-
-
 
 function downloadChart(){
     if(currentChart){
