@@ -1,0 +1,23 @@
+{
+  "member": "Miembro",
+  "superior": "Miembro Superior",
+  "contact": "Contacto con entrenador",
+  "calendar": "Calendario de actividades",
+  "rutines": "Acceso a rutinas de ejercicios",
+  "perso": "Rutinas personalizadas",
+  "exclusive": "Rutinas exclusivas",
+  "discounts": "Descuentos especiales",
+  "attention": "Atención personalizada",
+  "5": "5€ / mes - 50€ / año",
+  "10": "10€ / mes - 100€ / año",
+  "choose": "Elige tu suscripción",
+  "basica": "Básica",
+  "limited": "Acceso limitado al contenido",
+  "52": "5€ / mes",
+  "50": "50€ / año",
+  "102": "10€ / mes",
+  "100": "100€ / año",
+  "complete": "Acceso completo a todos los servicios",
+  "renovar": "Cancelar Suscripción",
+  "form-title": "Pago"
+}

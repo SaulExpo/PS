@@ -3,6 +3,7 @@ import {getUserProfile} from "./GetDB/getUser.js";
 import {deleteDoc, doc} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import {db} from "./firebase_config.js";
 import Swal from 'https://cdn.skypack.dev/sweetalert2';
+import {calendarLanguage} from "./Language/calendarLanguage.js";
 
 function convertirFecha(fecha) {
     const date = new Date(fecha);
@@ -22,6 +23,38 @@ const fechaOriginal = "Tue May 06 2025 09:00:00 GMT+0100";
 const fechaConvertida = convertirFecha(fechaOriginal);
 
 document.addEventListener('DOMContentLoaded', async function () {
+    let language = localStorage.getItem("language");
+    let locale
+    let buttonstext
+    let noEventsText
+    if (language == "english"){
+        locale = "en"
+        buttonstext = {
+            prev: 'prev',
+            next: 'next',
+            today: 'today',
+            year: 'year',
+            month: 'month',
+            week: 'week',
+            day: 'day',
+            list: 'list',
+        }
+        noEventsText ="No events to display";
+    } else{
+        locale = "es"
+        buttonstext = {
+            prev: 'Ant',
+            next: 'Sig',
+            today: 'Hoy',
+            year: 'Año',
+            month: 'Mes',
+            week: 'Semana',
+            day: 'Día',
+            list: 'Agenda',
+        }
+        noEventsText = 'No hay eventos para mostrar'
+    }
+    calendarLanguage()
     const token = localStorage.getItem("jwt");
     if (!token) {
         window.location.href = "../Pages/login.html"
@@ -61,7 +94,9 @@ document.addEventListener('DOMContentLoaded', async function () {
                     center: 'title',
                     right: 'dayGridMonth,dayGridWeek,dayGridDay,listDay'
                 },
-                locale: 'en',
+                buttonText: buttonstext,
+                noEventsText:noEventsText ,
+                locale: locale,
                 initialView: 'dayGridMonth',
                 aspectRatio: 1.5,
                 themeSystem: 'bootstrap5',
@@ -261,22 +296,32 @@ document.addEventListener('DOMContentLoaded', async function () {
         let porcentajeSemanal
         if (progresoMensual.pasadas === 0 && progresoMensual.total === 0){
             porcentajeMensual = 100;
-            document.getElementById('progress-label-month').textContent = `No han habido rutinas este mes`;
+            if (language == "english"){
+                document.getElementById('progress-label-month').textContent = `There have been no routines this month`;
+
+            }else {
+                document.getElementById('progress-label-month').textContent = `No han habido rutinas este mes`;
+            }
             document.getElementById('progress-bar-month').style.width = `${porcentajeMensual}%`;
 
         } else{
             porcentajeMensual = (progresoMensual.pasadas / progresoMensual.total) * 100;
-            document.getElementById('progress-label-month').textContent = `Progreso mensual: ${progresoMensual.pasadas} / ${progresoMensual.total}`;
+            document.getElementById('progress-label-month').textContent += ` ${progresoMensual.pasadas} / ${progresoMensual.total}`;
             document.getElementById('progress-bar-month').style.width = `${porcentajeMensual}%`;
         }
         if (progresoSemanal.pasadas === 0 && progresoSemanal.total === 0){
             porcentajeSemanal = 100;
-            document.getElementById('progress-label-week').textContent = `No han habido rutinas esta semana`;
+            if (language == "english"){
+                document.getElementById('progress-label-week').textContent = `There have been no routines this week`;
+
+            }else {
+                document.getElementById('progress-label-week').textContent = `No han habido rutinas esta semana`;
+            }
             document.getElementById('progress-bar-week').style.width = `${porcentajeSemanal}%`;
 
         } else{
             porcentajeSemanal = (progresoSemanal.pasadas / progresoSemanal.total) * 100;
-            document.getElementById('progress-label-week').textContent = `Progreso semanal: ${progresoSemanal.pasadas} / ${progresoSemanal.total}`;
+            document.getElementById('progress-label-week').textContent += ` ${progresoSemanal.pasadas} / ${progresoSemanal.total}`;
             document.getElementById('progress-bar-week').style.width = `${porcentajeSemanal}%`;
         }
 

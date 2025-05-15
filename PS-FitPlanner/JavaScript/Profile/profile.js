@@ -4,6 +4,7 @@ import Swal from 'https://cdn.skypack.dev/sweetalert2';
 import {auth, db} from "../firebase_config.js";
 import {getUserProfile} from "../GetDB/getUser.js";
 import {loadHeader} from "../GlobalLoad/loadHeader.js";
+import {profileLanguage} from "../Language/profileLanguage.js";
 //import {uploadExercises} from "../update_exercises"
 
 const token = localStorage.getItem("jwt");
@@ -52,7 +53,8 @@ async function todoas()
         return
 
     }
-    getInfo()
+    await getInfo()
+    profileLanguage()
     if (user.profesional) return await carga_profe()
     return await carga_alum()
 
@@ -177,8 +179,8 @@ function getInfo()
                         </th>
                         <th>
                             <div class="part">
-                                <label class="tag">Age</label>
-                                <p>${user.edad}años</p>
+                                <label id="age" class="tag">Age</label>
+                                <p id="años">${user.edad}</p>
                             </div>
                         </th>
 
@@ -186,13 +188,13 @@ function getInfo()
                     <tr>
                         <th>
                             <div class="part">
-                                <label class="tag">Height</label>
+                                <label id="height" class="tag">Height</label>
                                 <p>${user.altura}cm</p>
                             </div>
                         </th>
                         <th>
                             <div class="part">
-                                <label class="tag">Weight</label>
+                                <label id="weight" class="tag">Weight</label>
                                 <p>${user.peso}kg</p>
                             </div>
                         </th>
@@ -200,14 +202,14 @@ function getInfo()
                     <tr>
                         <th class="half-right">
                             <div class="part">
-                                <label class="tag">Sex</label>
-                                <p>${user.genero}</p>
+                                <label id="sex" class="tag">Sex</label>
+                                <p id="genero">${user.genero}</p>
                             </div>
                         </th>
                         <th class="half-right">
                             <div class="part">
-                                <label class="tag">Suscription</label>
-                                <p>${user.tipo_suscripcion}</p>
+                                <label id="suscription2" class="tag">Suscription</label>
+                                <p id="tipo_suscripcion">${user.tipo_suscripcion}</p>
                             </div>
                         </th>
                     </tr>
@@ -382,16 +384,13 @@ function calificar()
     let temp = document.querySelector("#calificacion")
     temp.innerHTML = `<div id="calificacion-content">
         <p>Cuanta puntuacion le das al profe</p>
-            <label>
-                <select id="estrellas" required>
-                    <option value="" disabled selected>Seleccione alguna <opcion></opcion></option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </label>
+        <div class="star-rating">
+          <input type="radio" id="star5" name="rating" value="1"><label for="star5">1⭐</label>
+          <input type="radio" id="star4" name="rating" value="2"><label for="star4">2⭐</label>
+          <input type="radio" id="star3" name="rating" value="3"><label for="star3">3⭐</label>
+          <input type="radio" id="star2" name="rating" value="4"><label for="star2">4⭐</label>
+          <input type="radio" id="star1" name="rating" value="5"><label for="star1">5⭐</label>
+        </div>
             <input id="comment" type="text" placeholder="Escribe un comentario">
             <div id="cali-buttons">
                 <button type="submit" onclick="calificar_pro()">Calificar</button>
@@ -404,7 +403,7 @@ function cancelar_cali(){
     document.querySelector("#calificacion").style.display = "none"
 }
 async function calificar_pro(){
-    let opcion = document.querySelector("#estrellas")
+    const opcion = document.querySelector('input[name="rating"]:checked');
     if (!opcion.value)
     {
         alert("Elige una opcion")
@@ -413,10 +412,15 @@ async function calificar_pro(){
     let ref = doc(db, "user_app", user.profe_asig.id);
     await updateDoc(ref, {
         calificacion: Number(opcion.value),
-        comentarios: arrayUnion(ref,
+        comentarios: arrayUnion(
             {
                 alumno: user.name,
                 comentario: document.querySelector("#comment").value
+            }),
+        estrellas: arrayUnion(
+            {
+                alumno: user.name,
+                estrella: Number(opcion.value)
             })
     })
     document.querySelector("#calificacion").style.display = "none"

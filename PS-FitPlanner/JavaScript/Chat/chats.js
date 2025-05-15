@@ -8,6 +8,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import {auth, db} from "../firebase_config.js";
 import {getUserProfile} from "../GetDB/getUser.js";
+import {chatsLanguage} from "../Language/chatsLanguage.js";
 
 const token = localStorage.getItem("jwt");
 if (!token) {
@@ -18,6 +19,8 @@ let profesionales = []
 let chats = []
 let favorites = [];
 let fav_variable
+let language = localStorage.getItem("language");
+chatsLanguage()
 obtenerFavoritos().then((favs) => {
     favorites = favs;
 });
@@ -163,8 +166,13 @@ async function generarRecuadros(filtro = "", favoritos) {
         div3.className="text-xs text-gray-500"
         const date = new Date(chat.messages[0].time.seconds * 1000);
         const opciones = { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' };
-        const fechaFormateada = date.toLocaleString('es-ES', opciones).replace(',', ' a las');
-        div3.textContent = "Last message : " + fechaFormateada;
+        if (language == "english"){
+            const fechaFormateada = date.toLocaleString('en-EN', opciones).replace(',', ' at');
+            div3.textContent = "Last message: " + fechaFormateada;
+        } else{
+            const fechaFormateada = date.toLocaleString('es-ES', opciones).replace(',', ' a las');
+            div3.textContent = "Último mensaje: " + fechaFormateada;
+        }
 
 
 
