@@ -41,5 +41,5 @@ function getCalorias(userRoutine){
             calorias += 15*level
         }
     })
-    console.log(userRoutine.rutine.name + calorias);
+    return userRoutine.rutine.name + calorias;
 }

@@ -1,5 +1,5 @@
-google.charts.load('current', {packages: ['corechart']});
-google.charts.setOnLoadCallback(() => initChart('../JavaScript/calorias.js', 'month'));
+google.charts.load('current', { packages: ['corechart'] });
+google.charts.setOnLoadCallback(() => initChart('../JavaScript/calorias_data.js', 'month'));
 
 let currentChart = null;
 let userPeso = 0;
@@ -20,53 +20,39 @@ async function initChart(filename, range) {
     loadData(filename, range);
 }
 
-
-
 function loadData(filename, range = 'month') {
     fetch(filename)
         .then(response => response.json())
         .then(data => {
-            const today = new Date();
-            if (range === 'week') {
-                const last7Days = [];
-                for(let i = 6; i >= 0; i--){
-                    const d = new Date(today);
-                    d.setDate(today.getDate() - i);
-                    const day = d.getDate().toString();
-                    last7Days.push(day);
-                }
-                data = data.filter(item => last7Days.includes(parseInt(item.dia).toString()));
-            }
-            drawChart(data, filename);
+            drawChart(data, filename, range); // ✅ Se pasa "range"
         })
         .catch(error => console.error('Error cargando datos:', error));
 }
 
-function drawChart(dataArray, filename) {
-    var data = new google.visualization.DataTable();
+function drawChart(dataArray, filename, range) {
+    const data = new google.visualization.DataTable();
     data.addColumn('string', 'Day');
 
     const now = new Date();
     const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-        'July', 'August', 'September', 'October', 'November','December'];
+        'July', 'August', 'September', 'October', 'November', 'December'];
     const monthName = monthNames[now.getMonth()];
     const year = now.getFullYear();
 
-    const isWeek = dataArray.length === 7;
+    const isWeek = (range === 'week');
 
     let title, vAxisTitle;
-
-    const daysinMonth = new Date(year, now.getMonth()+1, 0).getDate();
     let allDays = [];
 
-    if(isWeek){
-        for(let i = 6; i >= 0; i--){
+    if (isWeek) {
+        for (let i = 6; i >= 0; i--) {
             const d = new Date(now);
             d.setDate(now.getDate() - i);
             allDays.push(d.getDate().toString());
         }
-    } else{
-        for(let i = 1; i <= daysinMonth; i++){
+    } else {
+        const daysinMonth = new Date(year, now.getMonth() + 1, 0).getDate();
+        for (let i = 1; i <= daysinMonth; i++) {
             allDays.push(i.toString());
         }
     }
@@ -77,7 +63,7 @@ function drawChart(dataArray, filename) {
         dataMap[dia] = item;
     });
 
-    if (filename === '../JavaScript/calorias.js') {
+    if (filename === '../JavaScript/calorias_data.js') {
         data.addColumn('number', 'Calories Burn');
         title = isWeek
             ? 'Calories Burn - Last 7 Days'
@@ -109,10 +95,10 @@ function drawChart(dataArray, filename) {
         });
     }
 
-    var options = {
+    const options = {
         title: title,
-        hAxis: {title: 'Day of the Month'},
-        vAxis: {title: vAxisTitle},
+        hAxis: { title: 'Day of the Month' },
+        vAxis: { title: vAxisTitle },
         legend: 'none',
         colors: ['#4285F4'],
         tooltip: {
@@ -136,8 +122,8 @@ function calcularCalorias(met, peso, minutos) {
     return ((met * peso * 3.5) / 200) * minutos;
 }
 
-function downloadChart(){
-    if(currentChart){
+function downloadChart() {
+    if (currentChart) {
         const imageURI = currentChart.getImageURI();
         const link = document.createElement('a');
         link.href = imageURI;
@@ -145,8 +131,7 @@ function downloadChart(){
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-    }
-    else{
+    } else {
         alert("There is not any graphic available to download");
     }
 }
