@@ -133,6 +133,7 @@ function showPaymentForm(plan, price, tipo, periodo) {
     const form = document.getElementById('payment-form');
     document.getElementById("paypal-button-container").innerHTML = ``
     if(language === "english"){
+        if(plan === "Básica")plan = "Basic"
         document.getElementById('form-title').innerText = `Pay - Plan ${plan} (${price})`;
     } else {
         document.getElementById('form-title').innerText = `Pago - Plan ${plan} (${price})`;

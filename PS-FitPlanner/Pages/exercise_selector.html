@@ -18,15 +18,15 @@
 <div id="main_header"></div>
 
 <main class="container">
-    <h1>Exercise selector</h1>
+    <h1 id="selector">Exercise selector</h1>
 
     <div class="controls">
-        <label for="bodypart-select">Select muscular group:</label>
+        <label for="bodypart-select" id="mgroup">Select muscular group:</label>
         <select id="bodypart-select">
-            <option value="" disabled selected>Choose by group</option>
+            <option id="option" value="" disabled selected>Choose by group</option>
         </select>
 
-        <label for="exercise-search">Search exercises:</label>
+        <label for="exercise-search" id="search">Search exercises:</label>
         <div class="search-wrapper">
             <input
                     id="exercise-search"

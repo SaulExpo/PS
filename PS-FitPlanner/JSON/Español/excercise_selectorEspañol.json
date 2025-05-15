@@ -1,0 +1,12 @@
+{
+  "selector": "Selector de ejercicios",
+  "mgroup": "Selecciona un grupo muscular:",
+  "option": "Elige por grupo",
+  "search": "Busca ejercicios:",
+  "exercise_search": "Nombre, objetivo, equipamiento...",
+  "routine_name": "Nombre de la rutina",
+  "routine_duration": "Duración (ejemplo: 1h 0min)",
+  "routine_rest": "Tiempo de descanso (ejemplo: 3:00 min)",
+  "routine_description": "Descripción de la rutina",
+  "save_export_routine": "Guardar rutina"
+}

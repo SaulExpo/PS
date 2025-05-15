@@ -1,15 +1,11 @@
-import {
-    collection,
-    addDoc,
-    updateDoc,
-    doc as docRef,
-    getDoc,
-} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import {collection, addDoc, updateDoc, doc as docRef, getDoc,} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import { db, auth } from "../firebase_config.js";
 import { getCollectionCached } from "./cacheLoad.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 import Swal from "https://cdn.skypack.dev/sweetalert2";
 import Sortable from "https://cdn.skypack.dev/sortablejs";
+import {excersiseSelectorLanguage} from "../Language/excercise_selectorLanguage.js";
+import {translateText} from "../translate.js";
 
 const select        = document.getElementById("bodypart-select");
 const searchInput   = document.getElementById("exercise-search");
@@ -23,18 +19,26 @@ const saveBtn       = document.getElementById("save-export-routine");
 
 // Botón para seleccionar 4 ejercicios aleatorios
 const randomBtn = document.createElement("button");
+let language = localStorage.getItem("language");
+excersiseSelectorLanguage()
 randomBtn.id = "random-four-btn";
-randomBtn.textContent = "Random exercises";
+if (language === "english") {
+    randomBtn.textContent = "Random exercises";
+}else{
+    randomBtn.textContent = "Ejercicios aleatorios";
+}
 randomBtn.className = "random-btn";
 saveBtn.parentNode.insertBefore(randomBtn, saveBtn);
 
-const FAVORITES_VALUE = "favoritos";
+let FAVORITES_VALUE = "favoritos";
 const ALL_VALUE       = "";
-const COLLECTIONS     = [
+let COLLECTIONS     = [
     "exercises_cardio","exercises_chest","exercises_lower_arms",
     "exercises_lower_legs","exercises_neck","exercises_shoulders",
     "exercises_upper_arms","exercises_upper_legs","exercises_waist","exercises_back"
 ];
+
+
 
 let currentList = [];
 let selected    = [];
@@ -42,26 +46,43 @@ let editId      = null;
 let favorites   = [];
 const userRoutinesCol = collection(db, "user_routines");
 
+function splitArrayIntoChunks(arr, chunkSize) {
+    const chunks = [];
+    for (let i = 0; i < arr.length; i += chunkSize) {
+        chunks.push(arr.slice(i, i + chunkSize));
+    }
+    return chunks;
+}
+
+
 async function fetchExercises(part) {
-    const all = [];
+    let all = [];
     for (const col of COLLECTIONS) {
         const docs = await getCollectionCached(col);
-        const bp = col.replace("exercises_", "");
+        let bp = col.replace("exercises_", "");
         docs.forEach(d => all.push({ id: d.id, bodyPart: bp, ...d }));
     }
+    console.log(all);
     if (part === ALL_VALUE) return all;
     if (part === FAVORITES_VALUE) return all.filter(e => favorites.includes(e.id));
     return all.filter(e => e.bodyPart === part);
 }
 
-function updateSummary() {
+async function updateSummary() {
     summaryEl.innerHTML = "";
     if (!selected.length) {
         summaryEl.innerHTML = "<p>No hay ejercicios seleccionados.</p>";
         return;
     }
 
-    selected.forEach((e, idx) => {
+    for (const e of selected) {
+        const idx = selected.indexOf(e);
+        let nombre
+        if (language !== "english") {
+            nombre = await translateText(e.name, "es")
+        } else {
+            nombre = e.name
+        }
         const container = document.createElement("div");
         container.className = "summary-item";
         container.setAttribute("data-id", e.id);
@@ -74,9 +95,9 @@ function updateSummary() {
         dragHandle.style.padding = "0 8px";
 
         const linkEl = document.createElement("a");
-        linkEl.textContent = e.name;
-        linkEl.href      = `exercise_detail.html?name=${encodeURIComponent(e.name)}`;
-        linkEl.target    = "_blank";
+        linkEl.textContent = nombre;
+        linkEl.href = `exercise_detail.html?name=${encodeURIComponent(e.name)}`;
+        linkEl.target = "_blank";
         linkEl.className = "summary-link";
         linkEl.style.marginRight = "8px";
 
@@ -92,7 +113,11 @@ function updateSummary() {
         });
 
         const removeBtn = document.createElement("button");
-        removeBtn.textContent = "Eliminar";
+        if (language === "english") {
+            removeBtn.textContent = "Delete";
+        }else{
+            removeBtn.textContent = "Eliminar";
+        }
         removeBtn.style.margin = "0 8px";
         removeBtn.addEventListener("click", () => {
             selected.splice(idx, 1);
@@ -101,16 +126,29 @@ function updateSummary() {
 
         container.append(dragHandle, linkEl, repsSelect, removeBtn);
         summaryEl.appendChild(container);
-    });
+    }
 }
 
-function render(list) {
+async function render(list) {
     exerciseList.innerHTML = "";
     if (!list.length) {
         exerciseList.innerHTML = "<p>No hay ejercicios para mostrar.</p>";
         return;
     }
-    list.forEach(ex => {
+    for (const ex of list) {
+        let nombre
+        let equip
+        let target
+        if (language !== "english") {
+            nombre = await translateText(ex.name, "es")
+            equip = await translateText(ex.equipment, "es")
+            target = await translateText(ex.target, "es")
+        } else{
+            nombre = ex.name
+            equip = ex.equipment
+            target = ex.target
+        }
+
         const card = document.createElement("div");
         card.className = "exercise-card";
         card.style.position = "relative";
@@ -120,14 +158,14 @@ function render(list) {
         favBtn.className = "fav-btn";
         favBtn.textContent = favorites.includes(ex.id) ? "❤️" : "🤍";
         favBtn.style.position = "absolute";
-        favBtn.style.top      = "8px";
-        favBtn.style.right    = "8px";
+        favBtn.style.top = "8px";
+        favBtn.style.right = "8px";
         favBtn.addEventListener("click", async () => {
             const uid = auth.currentUser.uid;
             favorites = favorites.includes(ex.id)
                 ? favorites.filter(id => id !== ex.id)
                 : [...favorites, ex.id];
-            await updateDoc(docRef(db, "user_app", uid), { favorites });
+            await updateDoc(docRef(db, "user_app", uid), {favorites});
             favBtn.textContent = favorites.includes(ex.id) ? "❤️" : "🤍";
             if (select.value === FAVORITES_VALUE) {
                 currentList = await fetchExercises(FAVORITES_VALUE);
@@ -149,10 +187,10 @@ function render(list) {
         cb.addEventListener("change", () => {
             if (cb.checked) {
                 selected.push({
-                    id:       ex.id,
+                    id: ex.id,
                     bodyPart: ex.bodyPart,
-                    name:     ex.name,
-                    reps:     repsSelect.value
+                    name: ex.name,
+                    reps: repsSelect.value
                 });
             } else {
                 selected = selected.filter(s => s.id !== ex.id);
@@ -160,29 +198,36 @@ function render(list) {
             updateSummary();
         });
 
-        const nameEl   = document.createElement("div");
+        const nameEl = document.createElement("div");
         nameEl.innerHTML = `<strong>
       <a href="exercise_detail.html?name=${encodeURIComponent(ex.name)}" target="_blank">
-        ${ex.name}
+        ${nombre}
       </a>
     </strong>`;
         const targetEl = document.createElement("div");
-        targetEl.textContent = `Target: ${ex.target}`;
-        const equipEl  = document.createElement("div");
-        equipEl.textContent  = `Equip: ${ex.equipment}`;
+        targetEl.textContent = `Target: ${target}`;
+        const equipEl = document.createElement("div");
+        equipEl.textContent = `Equip: ${equip}`;
 
         [favBtn, cb, nameEl, targetEl, equipEl, repsSelect]
             .forEach(el => card.appendChild(el));
 
         exerciseList.appendChild(card);
-    });
+    }
+    ;
 }
 
 randomBtn.addEventListener("click", async () => {
+    let title
+    if (language !== "english") {
+        title = "No hay suficientes ejercicios para seleccionar"
+    } else{
+        title ="Not enogh exercises to select."
+    }
     const pool = await fetchExercises(select.value);
     if (pool.length < 4) {
         return Swal.fire({
-            title: "Not enogh exercises to select.",
+            title: title,
             icon:  "warning",
             confirmButtonColor: "#d51313",
             confirmButtonText:  "Ok"
@@ -213,13 +258,24 @@ onAuthStateChanged(auth, async (user) => {
         ? userSnap.data().favorites
         : [];
 
-    select.appendChild(new Option("Todos",      ALL_VALUE));
-    select.appendChild(new Option("Favorites",  FAVORITES_VALUE));
-    COLLECTIONS.forEach(col => {
+    if (language !== "english") {
+        select.appendChild(new Option("Todos",      ALL_VALUE));
+        select.appendChild(new Option("Favoritos",  FAVORITES_VALUE));
+    } else{
+        select.appendChild(new Option("All",      ALL_VALUE));
+        select.appendChild(new Option("Favorites",  FAVORITES_VALUE));
+    }
+    for (const col of COLLECTIONS) {
         const bp    = col.replace("exercises_", "").replace(/_/g, " ");
-        const label = bp[0].toUpperCase() + bp.slice(1);
+        let label
+        if (language !== "english"){
+            label = await translateText(bp[0].toUpperCase() + bp.slice(1), "es");
+            if (label === "Atrás") label = "Espalda"
+        } else{
+            label = bp[0].toUpperCase() + bp.slice(1);
+        }
         select.appendChild(new Option(label, col.replace("exercises_", "")));
-    });
+    }
 
     select.value = ALL_VALUE;
     select.dispatchEvent(new Event("change"));
@@ -246,7 +302,6 @@ onAuthStateChanged(auth, async (user) => {
             durationInput.value = r.duration;
             restInput.value     = r.rest || "";
             selected            = r.exercises.slice();
-            updateSummary();
             select.value = r.exercises[0]?.bodyPart || ALL_VALUE;
             select.dispatchEvent(new Event("change"));
         }
