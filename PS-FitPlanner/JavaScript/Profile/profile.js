@@ -382,16 +382,13 @@ function calificar()
     let temp = document.querySelector("#calificacion")
     temp.innerHTML = `<div id="calificacion-content">
         <p>Cuanta puntuacion le das al profe</p>
-            <label>
-                <select id="estrellas" required>
-                    <option value="" disabled selected>Seleccione alguna <opcion></opcion></option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </label>
+        <div class="star-rating">
+          <input type="radio" id="star5" name="rating" value="1"><label for="star5">1⭐</label>
+          <input type="radio" id="star4" name="rating" value="2"><label for="star4">2⭐</label>
+          <input type="radio" id="star3" name="rating" value="3"><label for="star3">3⭐</label>
+          <input type="radio" id="star2" name="rating" value="4"><label for="star2">4⭐</label>
+          <input type="radio" id="star1" name="rating" value="5"><label for="star1">5⭐</label>
+        </div>
             <input id="comment" type="text" placeholder="Escribe un comentario">
             <div id="cali-buttons">
                 <button type="submit" onclick="calificar_pro()">Calificar</button>
@@ -404,7 +401,7 @@ function cancelar_cali(){
     document.querySelector("#calificacion").style.display = "none"
 }
 async function calificar_pro(){
-    let opcion = document.querySelector("#estrellas")
+    const opcion = document.querySelector('input[name="rating"]:checked');
     if (!opcion.value)
     {
         alert("Elige una opcion")
@@ -413,10 +410,15 @@ async function calificar_pro(){
     let ref = doc(db, "user_app", user.profe_asig.id);
     await updateDoc(ref, {
         calificacion: Number(opcion.value),
-        comentarios: arrayUnion(ref,
+        comentarios: arrayUnion(
             {
                 alumno: user.name,
                 comentario: document.querySelector("#comment").value
+            }),
+        estrellas: arrayUnion(
+            {
+                alumno: user.name,
+                estrella: Number(opcion.value)
             })
     })
     document.querySelector("#calificacion").style.display = "none"
