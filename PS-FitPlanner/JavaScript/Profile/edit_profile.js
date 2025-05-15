@@ -1,7 +1,9 @@
 import {getUserProfile} from "../GetDB/getUser.js";
 import {doc, serverTimestamp, setDoc} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import {db} from "../firebase_config.js";
+import {edit_profileLanguage} from "../Language/edit_profileLanguage.js";
 document.addEventListener("DOMContentLoaded", async function () {
+    edit_profileLanguage()
     const user = await getUserProfile()
         const name = document.getElementById('editProfileName')
     const surname = document.getElementById('editProfileSurname')

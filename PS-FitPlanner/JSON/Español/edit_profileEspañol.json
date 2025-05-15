@@ -1,0 +1,13 @@
+{
+  "name": "Nombre",
+  "surname": "Apellido",
+  "age": "Edad",
+  "height": "Altura",
+  "weight": "Peso",
+  "sex": "Género",
+  "select": "Selecciona el género",
+  "male": "Hombre",
+  "female": "Mujer",
+  "save": "Guardar Cambios",
+  "cancel": "Cancelar Cambios"
+}

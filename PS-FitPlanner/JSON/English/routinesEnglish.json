@@ -1,0 +1,13 @@
+{
+  "prueba": "Routine type:",
+  "option1": "Select type",
+  "routine": "Routine:",
+  "option2": "Select routine",
+  "search": "Search routine (global):",
+  "globalSearch": "Ej. push beginner, core, etc.",
+  "option3": "Results will appear here",
+  "title": "Routine",
+  "info": "Select your routine to see the exercises",
+  "duration": "Duration:",
+  "rest": "Rest during sets:"
+}

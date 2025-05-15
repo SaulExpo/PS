@@ -1,0 +1,13 @@
+{
+  "prueba": "Tipo de rutina:",
+  "option1": "Selecciona tipo",
+  "routine": "Rutina:",
+  "option2": "Selecciona rutina",
+  "search": "Busca rutina (global):",
+  "globalSearch": "Ej. Empujar principiante, core, etc.",
+  "option3": "Los resultados aparecerán aquí",
+  "title": "Rutina",
+  "info": "Selecciona tu rutina para ver sus ejercicios",
+  "duration": "Duración:",
+  "rest": "Descanso entre sets:"
+}

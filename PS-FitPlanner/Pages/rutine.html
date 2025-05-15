@@ -21,20 +21,20 @@
     <div class="horizontal-selectors">
       <label for="typeSelector" id="prueba">Routine type:</label>
       <select id="typeSelector">
-        <option disabled selected>Select type</option>
+        <option id="option1" disabled selected>Select type</option>
       </select>
 
-      <label for="routineSelector">Routine:</label>
+      <label for="routineSelector" id="routine">Routine:</label>
       <select id="routineSelector" disabled>
-        <option disabled selected>Select routine</option>
+        <option id="option2" disabled selected>Select routine</option>
       </select>
     </div>
 
     <div class="search-bar">
-      <label for="globalSearch">Search routine (global):</label>
+      <label for="globalSearch" id="search">Search routine (global):</label>
       <input type="text" id="globalSearch" placeholder="Ej. push beginner, core, etc." />
       <select id="searchResults">
-        <option disabled selected>Results will appear here</option>
+        <option id="option3" disabled selected>Results will appear here</option>
       </select>
     </div>
   </section>
@@ -43,10 +43,10 @@
     <h2 id="title">Routine</h2>
     <p id="info">Select your routine to see the exercises</p>
     <div id="durationContainer">
-      <p><strong>Duration:</strong>
+      <p><strong id="duration">Duration:</strong>
     </div>
     <div id="restContainer">
-      <p><strong>Rest during sets:</strong>
+      <p><strong id="rest">Rest during sets:</strong>
     </div>
     <div id="exercises"></div>
   </main>
