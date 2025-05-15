@@ -1,33 +1,45 @@
-[
-    {"dia": "1", "peso": 70, "minutos": 30, "met": 8},
-    {"dia": "2", "peso": 72, "minutos": 45, "met": 7},
-    {"dia": "3", "peso": 68, "minutos": 60, "met": 6},
-    {"dia": "4", "peso": 75, "minutos": 25, "met": 9},
-    {"dia": "5", "peso": 80, "minutos": 50, "met": 5.5},
-    {"dia": "6", "peso": 78, "minutos": 40, "met": 6.8},
-    {"dia": "7", "peso": 74, "minutos": 35, "met": 7.5},
-    {"dia": "8", "peso": 77, "minutos": 20, "met": 10},
-    {"dia": "9", "peso": 73, "minutos": 55, "met": 5.2},
-    {"dia": "10", "peso": 79, "minutos": 65, "met": 4.8},
-    {"dia": "11", "peso": 71, "minutos": 30, "met": 8.5},
-    {"dia": "12", "peso": 76, "minutos": 45, "met": 6.3},
-    {"dia": "13", "peso": 69, "minutos": 50, "met": 7.2},
-    {"dia": "14", "peso": 82, "minutos": 60, "met": 5.7},
-    {"dia": "15", "peso": 85, "minutos": 25, "met": 9.1},
-    {"dia": "16", "peso": 74, "minutos": 35, "met": 6.9},
-    {"dia": "17", "peso": 70, "minutos": 40, "met": 8.4},
-    {"dia": "18", "peso": 67, "minutos": 30, "met": 7.1},
-    {"dia": "19", "peso": 79, "minutos": 50, "met": 5.6},
-    {"dia": "20", "peso": 81, "minutos": 55, "met": 6.2},
-    {"dia": "21", "peso": 83, "minutos": 45, "met": 7.3},
-    {"dia": "22", "peso": 77, "minutos": 35, "met": 8.2},
-    {"dia": "23", "peso": 75, "minutos": 20, "met": 9.5},
-    {"dia": "24", "peso": 80, "minutos": 60, "met": 5.9},
-    {"dia": "25", "peso": 72, "minutos": 30, "met": 7.6},
-    {"dia": "26", "peso": 85, "minutos": 40, "met": 6.1},
-    {"dia": "27", "peso": 78, "minutos": 50, "met": 5.4},
-    {"dia": "28", "peso": 76, "minutos": 45, "met": 8.3},
-    {"dia": "29", "peso": 74, "minutos": 55, "met": 7.9},
-    {"dia": "30", "peso": 79, "minutos": 60, "met": 6.7}
-]
+import {getUserRoutines} from "./GetDB/getUserRoutines.js";
+import {getUserProfile} from "./GetDB/getUser.js";
 
+document.addEventListener("DOMContentLoaded", async () => {
+    const user = await getUserProfile();
+    getUserRoutines(user.email).then(userRoutines => {
+        userRoutines.forEach(userRoutine => {
+            getCalorias(userRoutine);
+        })
+    })
+})
+
+function getCalorias(userRoutine){
+    let calorias=0
+    let level
+    if (userRoutine.level === "begginer"){
+        level = 1
+    } else if(userRoutine.level === "intermediate"){
+        level = 1.5
+    } else{
+        level = 2
+    }
+    userRoutine.rutine.exercises.forEach(exercise => {
+        if (exercise.reps == "3x10"){
+            calorias += 7*level
+        } else if (exercise.reps == "4x10"){
+            calorias += 9*level
+        } else if (exercise.reps == "5x10"){
+            calorias += 11*level
+        } else if (exercise.reps == "3x12"){
+            calorias += 8*level
+        } else if (exercise.reps == "4x12"){
+            calorias += 10*level
+        } else if (exercise.reps == "5x12"){
+            calorias += 12*level
+        } else if (exercise.reps == "3x15"){
+            calorias += 11*level
+        } else if (exercise.reps == "4x15"){
+            calorias += 13*level
+        } else if (exercise.reps == "5x15"){
+            calorias += 15*level
+        }
+    })
+    console.log(userRoutine.rutine.name + calorias);
+}

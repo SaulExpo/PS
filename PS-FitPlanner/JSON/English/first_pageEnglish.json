@@ -1,0 +1,12 @@
+{
+  "first_page": {
+    "today": "Functional routine focused on the 'core' group for beginner level.",
+    "today_img": "../Resources/exercise.png",
+    "calendar": "Access your calendar and quickly review past workouts, scheduled sessions, and rest days. Keep track of your progress and easily organize upcoming sessions.",
+    "calendar_img": "../Resources/calendar2.png",
+    "recommendations_image": "../Resources/recommendations.png",
+    "calendar_title": "Calendar",
+    "today_title": "Today",
+    "recommendations_title": "Recommendations"
+  }
+}

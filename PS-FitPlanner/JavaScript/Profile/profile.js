@@ -4,6 +4,7 @@ import Swal from 'https://cdn.skypack.dev/sweetalert2';
 import {auth, db} from "../firebase_config.js";
 import {getUserProfile} from "../GetDB/getUser.js";
 import {loadHeader} from "../GlobalLoad/loadHeader.js";
+import {profileLanguage} from "../Language/profileLanguage.js";
 //import {uploadExercises} from "../update_exercises"
 
 const token = localStorage.getItem("jwt");
@@ -52,7 +53,8 @@ async function todoas()
         return
 
     }
-    getInfo()
+    await getInfo()
+    profileLanguage()
     if (user.profesional) return await carga_profe()
     return await carga_alum()
 
@@ -177,8 +179,8 @@ function getInfo()
                         </th>
                         <th>
                             <div class="part">
-                                <label class="tag">Age</label>
-                                <p>${user.edad}años</p>
+                                <label id="age" class="tag">Age</label>
+                                <p id="años">${user.edad}</p>
                             </div>
                         </th>
 
@@ -186,13 +188,13 @@ function getInfo()
                     <tr>
                         <th>
                             <div class="part">
-                                <label class="tag">Height</label>
+                                <label id="height" class="tag">Height</label>
                                 <p>${user.altura}cm</p>
                             </div>
                         </th>
                         <th>
                             <div class="part">
-                                <label class="tag">Weight</label>
+                                <label id="weight" class="tag">Weight</label>
                                 <p>${user.peso}kg</p>
                             </div>
                         </th>
@@ -200,14 +202,14 @@ function getInfo()
                     <tr>
                         <th class="half-right">
                             <div class="part">
-                                <label class="tag">Sex</label>
-                                <p>${user.genero}</p>
+                                <label id="sex" class="tag">Sex</label>
+                                <p id="genero">${user.genero}</p>
                             </div>
                         </th>
                         <th class="half-right">
                             <div class="part">
-                                <label class="tag">Suscription</label>
-                                <p>${user.tipo_suscripcion}</p>
+                                <label id="suscription2" class="tag">Suscription</label>
+                                <p id="tipo_suscripcion">${user.tipo_suscripcion}</p>
                             </div>
                         </th>
                     </tr>

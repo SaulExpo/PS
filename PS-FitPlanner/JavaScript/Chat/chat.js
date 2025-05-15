@@ -2,6 +2,7 @@ import {getFirestore, collection, getDocs, doc, setDoc, addDoc, serverTimestamp,
 import {onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 import {db, auth} from "../firebase_config.js";
 import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js";
+import {chatLanguage} from "../Language/chatLanguage.js ";
 
 let chatHistory = {};
 let user_name;
@@ -11,9 +12,11 @@ let unsubscribe2 = null;
 const urlParams = new URLSearchParams(window.location.search);
 const receiver = urlParams.get('to');
 const storage = getStorage();
+let language = localStorage.getItem("language");
 
 
 async function main() {
+    chatLanguage()
     const token = localStorage.getItem("jwt");
     if (!token) {
         window.location.href = "../Pages/login.html"
@@ -27,7 +30,11 @@ async function main() {
             querySnapshot.forEach((doc) => {
                 receiver_data = doc.data();
             });
-            document.getElementById("privateChat").textContent = `Private chat with ${receiver_data.name}`
+            if(language === "english") {
+                document.getElementById("privateChat").textContent = `Private chat with ${receiver_data.name}`
+            } else{
+                document.getElementById("privateChat").textContent = `Chat privado con ${receiver_data.name}`
+            }
 
             // Marcar como en línea
             await setDoc(userRef, {
@@ -67,13 +74,25 @@ async function main() {
         await loadChatFromFirestore(user_name, receiver);
 
         document.getElementById("send").addEventListener("click", async () => {
+            const fileInput = document.getElementById('imageInput');
+            let files = false
+            if (fileInput.files && fileInput.files.length > 0) {
+                files = true
+                await handleImageUpload(user_name, receiver);
+                const preview = document.getElementById('preview');
+                fileInput.value = '';
+                preview.src = '';
+                preview.style.display = 'none';
+            }
             const msg = document.getElementById("usermsg").value.trim();
             const to = receiver;
             const time = new Date().toLocaleTimeString();
 
-            if (!msg || !user_name || !to) {
-                alert("Completa todos los campos");
+            if ((!msg && !files) || !user_name || !to) {
                 return;
+            }
+            if (msg === ""){
+                return
             }
 
             addMessage("self", to, msg, time, "text");
@@ -114,9 +133,7 @@ async function main() {
         }
     });
 
-    document.getElementById("imageSend").addEventListener("click", async () => {
-        await handleImageUpload(user_name, receiver);
-    })
+
 
 }
 
@@ -137,7 +154,12 @@ function renderChat(userKey) {
         const fecha = m.time
         let hora = fecha.split(":")[0]
         let minuto = fecha.split(":")[1]
-        const who = m.from === "self" ? "Tú" : m.from;
+        let who
+        if (language === "english") {
+            who = m.from === "self" ? "You" : m.from;
+        } else{
+            who = m.from === "self" ? "Tú" : m.from;
+        }
         const className = m.from === "self" ? "me" : "them";
         const className1 = m.from === "self" ? "me1" : "them1";
         if (m.type != "image") {
@@ -297,6 +319,21 @@ async function handleImageUpload(user1, user2) {
         console.error("❌ Error al subir imagen o guardar mensaje:", error);
     }
 }
+
+document.getElementById('imageInput').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    const preview = document.getElementById('preview');
+
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            preview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
 
 
 window.addEventListener("load", main);

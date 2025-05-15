@@ -29,19 +29,19 @@
                 <li>
                     <button class="button_profile" onclick="location.replace('main_page.html')">
                         <img id="home" src="../Resources/home.png" >
-                        Home
+                        <span id="HomeLabel">Home</span>
                     </button>
                     <button class="button_profile" onclick="location.replace('graphic.html')">
                         <img id="graphic" src="../Resources/graphic.png" >
-                        Graphics
+                        <span id="GraphLabel">Graphics</span>
                     </button>
                     <button class="button_profile" onclick="location.replace('select_payment_plan.html')">
                         <img src="../Resources/suscription.png" id="suscription" alt="foto perfil" >
-                        Suscription
+                        <span id="SuscriptionLabel">Suscription</span>
                     </button>
                     <button class="button_profile" onclick="location.replace('./edit_profile.html')">
                         <img src="../Resources/edit.jpg" id="editProfile" alt="foto perfil" >
-                        Edit Profile
+                        <span id="EditLabel">Edit Profile</span>
                     </button>
                 </li>
             </ul>
@@ -58,27 +58,27 @@
     </div>
 
     <div id="alumn_view">
-        <h1 class="titulo">Assigned Professional</h1>
+        <h1 class="titulo" id="Assigned">Assigned Professional</h1>
         <section id="profe_asig">
         </section>
         <section id="cambio_view">
-            <h1 class="titulo">Do you want to change your professional?</h1>
+            <h1 class="titulo" id="Change">Do you want to change your professional?</h1>
             <section id="cambio_profe">
-                <p>If you want to change the professional for any reason, click on the button</p>
-                <button class="button_user_action" onclick="verProfes()">Change</button>
+                <p id="ChangeP">If you want to change the professional for any reason, click on the button</p>
+                <button id="ChangeButton" class="button_user_action" onclick="verProfes()">Change</button>
             </section>
             <section id="profes_info">
-                <h1>Available Professionals</h1>
+                <h1 id="Available">Available Professionals</h1>
                 <ul id="profe_list">
                 </ul>
-                <button class="button_user_action" onclick="cancelarCambio()">Cancel</button>
+                <button id="Cancel" class="button_user_action" onclick="cancelarCambio()">Cancel</button>
             </section>
 
         </section>
     </div>
 
     <div id="profe_view">
-        <h1 class="titulo">Student's List</h1>
+        <h1 id="Student" class="titulo">Student's List</h1>
         <div id="alumnos_info">
             <h2 id="alumnos"></h2>
             <ul id="alum-list">

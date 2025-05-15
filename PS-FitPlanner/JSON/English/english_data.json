@@ -1,0 +1,109 @@
+{
+  "nav_items_header": [
+    "Create Routine", "Routines"
+  ],
+  "logeo_header": [
+    "Sign Up", "Log In", "Log Out"
+  ],
+  "message_main_page": "Transform your body in weeks!\nPersonalized plans, real motivation\nYour transformation starts today",
+  "footer_text": [
+    "About Us", "Who are we?", "Team", "Contact", "Help Center", "Blog", "Social", "Instagram", "Twitter", "Facebook", "Tik Tok", "fitplanner@hotmail.com", "(+34) 123 45 67 89"
+  ],
+  "company_footer": [
+    "About Us", "Team", "Blog"
+  ],
+  "redes_sociales_footer": [
+    {
+      "name": "instagram",
+      "imagen": "../Resources/instagram_logo.png",
+      "link": "https://www.instagram.com"
+    },
+    {
+      "name": "facebook",
+      "imagen": "../Resources/facebook_logo.png",
+      "link": "https://www.facebook.com"
+    },
+    {
+      "name": "twitter",
+      "imagen": "../Resources/twitter_logo.png",
+      "link": "https://www.x.com"
+    },
+    {
+      "name": "tiktok",
+      "imagen": "../Resources/tiktok_logo.png",
+      "link": "https://www.tiktok.com"
+    }
+  ],
+  "personal": {
+    "image": "../Resources/icono.avif",
+    "name": "admin",
+    "correo": "admin@correo.com",
+    "edad": "20",
+    "sexo": "Male",
+    "altura": {
+      "valor": "183",
+      "medida": "cm"
+    },
+    "peso": {
+      "valor": "86",
+      "medida": "kg"
+    }
+  },
+  "day_info": {
+    "date": "02/13/2025",
+    "rutine": "Core Advanced Routine #2"
+  },
+  "first_page": {
+    "today": "Functional routine focused on the 'core' group for beginner level.",
+    "today_img": "../Resources/exercise.png",
+    "calendar": "Access your calendar and quickly review past workouts, scheduled sessions, and rest days. Keep track of your progress and easily organize upcoming sessions.",
+    "calendar_img": "../Resources/calendar2.png",
+    "recommendations_image": "../Resources/recommendations.png"
+  },
+  "suscripciones": {
+    "planes": [
+      {
+        "name": "plan1",
+        "precio": "5€"
+      },
+      {
+        "name": "plan2",
+        "precio": "15€"
+      },
+      {
+        "name": "plan3",
+        "precio": "25€"
+      }
+    ],
+    "preguntas": [
+      {
+        "pregunta": "What does each subscription plan include?",
+        "respuesta": ""
+      },
+      {
+        "pregunta": "Can I change my plan after subscribing?",
+        "respuesta": ""
+      },
+      {
+        "pregunta": "Do you offer a free trial period?",
+        "respuesta": ""
+      },
+      {
+        "pregunta": "What payment methods do you accept?",
+        "respuesta": ""
+      },
+      {
+        "pregunta": "What happens if I cancel my subscription before the end of the month?",
+        "respuesta": ""
+      },
+      {
+        "pregunta": "Are the routines and content different depending on the plan?",
+        "respuesta": ""
+      },
+      {
+        "pregunta": "Can I access my progress and routines if I don’t renew my subscription?",
+        "respuesta": ""
+      }
+    ]
+  }
+}

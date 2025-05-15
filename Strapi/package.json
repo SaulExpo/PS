@@ -15,6 +15,7 @@
     "upgrade:dry": "npx @strapi/upgrade latest --dry"
   },
   "dependencies": {
+    "@fullcalendar/core": "^6.1.17",
     "@strapi/plugin-cloud": "5.11.2",
     "@strapi/plugin-users-permissions": "5.11.2",
     "@strapi/strapi": "5.11.2",
