@@ -58,23 +58,38 @@
     </div>
 
     <div id="alumn_view">
-        <h1 class="titulo" id="Assigned">Assigned Professional</h1>
-        <section id="profe_asig">
-        </section>
-        <section id="cambio_view">
-            <h1 class="titulo" id="Change">Do you want to change your professional?</h1>
-            <section id="cambio_profe">
-                <p id="ChangeP">If you want to change the professional for any reason, click on the button</p>
-                <button id="ChangeButton" class="button_user_action" onclick="verProfes()">Change</button>
+        <div>
+            <h1 class="titulo" id="Assigned">Assigned Professional</h1>
+            <section id="profe_asig">
             </section>
-            <section id="profes_info">
-                <h1 id="Available">Available Professionals</h1>
-                <ul id="profe_list">
-                </ul>
-                <button id="Cancel" class="button_user_action" onclick="cancelarCambio()">Cancel</button>
-            </section>
+            <section id="cambio_view">
+                <h1 class="titulo" id="Change">Do you want to change your professional?</h1>
+                <section id="cambio_profe">
+                    <p id="ChangeP">If you want to change the professional for any reason, click on the button</p>
+                    <button id="ChangeButton" class="button_user_action" onclick="verProfes()">Change</button>
+                </section>
+                <section id="profes_info">
+                    <h1 id="Available">Available Professionals</h1>
+                    <ul id="profe_list">
+                    </ul>
+                    <button id="Cancel" class="button_user_action" onclick="cancelarCambio()">Cancel</button>
+                </section>
 
-        </section>
+            </section>
+        </div>
+        <div>
+            <h1 class="titulo">Objetivos</h1>
+            <p>Ponte nuevos objetivos para  alcanzar el siguiente nivel</p>
+            <select>
+                <option disabled selected>¿Cual sera el proximo objetivo?</option>
+                <option>Pérdida de peso</option>
+                <option>Tren superior</option>
+                <option>Tren inferior</option>
+                <option>LLegar a nivel intermedio</option>
+                <option>LLegar a nivel avanzado</option>
+            </select>
+        </div>
+
     </div>
 
     <div id="profe_view">
