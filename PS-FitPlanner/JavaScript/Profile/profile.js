@@ -113,7 +113,7 @@ function cargaMiProfe(profe) {
         calificacion += estrella.estrella
     }
     calificacion /= estrellas.length
-    let temp = `<p>${profe.data().name} ${calificacion}⭐</p>
+    let temp = `<p>${profe.data().name} ${calificacion.toFixed(2)}⭐</p>
             <button class="button_user_action" onclick="desasignarPro('${profe.data().id}', '${profe.data().name}')">Leave</button>
             <button class="button_user_action" onclick=location.href="./chat.html?to=${profe.data().email}">Chat</button>
             <button class="button_user_action" onclick="calificar()">Calificar</button>`
@@ -137,7 +137,7 @@ async function cargaProfesLibres() {
         }
         calificacion /= estrellas.length
         temp += `<li class="profe">
-                        <p>${profe.name} ${calificacion}⭐ ${profe.asignado}/${profe.capacidad}</p>
+                        <p>${profe.name} ${calificacion.toFixed(2)}⭐ ${profe.asignado}/${profe.capacidad}</p>
                         <button class="button_user_action" onclick="cambiarPro('${profe.id}', '${profe.name}')">Follow</button>
                     </li>`
     }
