@@ -108,8 +108,13 @@ async function carga_alum() {
 
 }
 function cargaMiProfe(profe) {
-    console.log(profe.data())
-    let temp = `<p>${profe.data().name} ${profe.data().calificacion}⭐</p>
+    let estrellas = profe.data().estrellas
+    let calificacion = 0;
+    for (const estrella of estrellas) {
+        calificacion += estrella.estrella
+    }
+    calificacion /= estrellas.length
+    let temp = `<p>${profe.data().name} ${calificacion}⭐</p>
             <button class="button_user_action" onclick="desasignarPro('${profe.data().id}', '${profe.data().name}')">Leave</button>
             <button class="button_user_action" onclick=location.href="./chat.html?to=${profe.data().email}">Chat</button>
             <button class="button_user_action" onclick="calificar()">Calificar</button>`
@@ -125,8 +130,15 @@ async function cargaProfesLibres() {
         {
             continue
         }
+        let estrellas = profe.estrellas
+        let calificacion = 0;
+        console.log(profe)
+        for (const estrella of estrellas) {
+            calificacion += estrella.estrella
+        }
+        calificacion /= estrellas.length
         temp += `<li class="profe">
-                        <p>${profe.name} ${profe.calificacion}⭐ ${profe.asignado}/${profe.capacidad}</p>
+                        <p>${profe.name} ${calificacion}⭐ ${profe.asignado}/${profe.capacidad}</p>
                         <button class="button_user_action" onclick="cambiarPro('${profe.id}', '${profe.name}')">Follow</button>
                     </li>`
     }

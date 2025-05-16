@@ -279,10 +279,14 @@ async function loadInputText(user1, user2) {
 
 }
 
+const input = document.getElementById('imageInput');
+const preview = document.getElementById('preview');
+const removeBtn = document.getElementById('removePreview');
+
 async function handleImageUpload(user1, user2) {
     const chatId = getChatId(user1, user2);
     const messagesRef = collection(db, "chats", chatId, "messages");
-    const fileInput = document.getElementById("imageInput");
+    const fileInput = input;
     const file = fileInput.files[0];
     if (!file) {
         alert("Selecciona una imagen primero.");
@@ -303,7 +307,6 @@ async function handleImageUpload(user1, user2) {
         const time = new Date().toLocaleTimeString();
         addMessage("self", to, imageURL, time, "image");
 
-        // 4. Guardar mensaje con la URL en Firestore
         await addDoc(messagesRef, {
             from: user_name,
             to: to,
@@ -320,7 +323,8 @@ async function handleImageUpload(user1, user2) {
     }
 }
 
-document.getElementById('imageInput').addEventListener('change', function(event) {
+
+input.addEventListener('change', function(event) {
     const file = event.target.files[0];
     const preview = document.getElementById('preview');
 
@@ -329,11 +333,20 @@ document.getElementById('imageInput').addEventListener('change', function(event)
         reader.onload = function(e) {
             preview.src = e.target.result;
             preview.style.display = 'block';
+            removeBtn.style.display = "flex"
         };
         reader.readAsDataURL(file);
     }
 });
 
+
+removeBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    preview.src = '';
+    preview.style.display = 'none';
+    removeBtn.style.display = 'none';
+    input.value = '';
+});
 
 
 window.addEventListener("load", main);

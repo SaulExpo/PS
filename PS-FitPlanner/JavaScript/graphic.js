@@ -1,32 +1,54 @@
 google.charts.load('current', { packages: ['corechart'] });
-google.charts.setOnLoadCallback(() => initChart('../JavaScript/calorias_data.js', 'month'));
+google.charts.setOnLoadCallback(() => initChart('routines', 'month'));
 
 let currentChart = null;
 let userPeso = 0;
 
-async function initChart(filename, range) {
+async function initChart(_, range) {
     try {
         const { getUserProfile } = await import('../JavaScript/GetDB/getUser.js');
+        const { getUserRoutines } = await import('../JavaScript/GetDB/getUserRoutines.js');
+
         const user = await getUserProfile();
         console.log("Perfil del usuario recibido:", user);
 
         userPeso = user && user.peso != null ? parseFloat(user.peso) : 0;
         console.log("Peso del usuario:", userPeso);
-    } catch (error) {
-        console.warn("No se pudo obtener el peso del usuario, se usará 0 por defecto", error);
-        userPeso = 0;
-    }
 
-    loadData(filename, range);
+        const routines = await getUserRoutines(user.email);
+        console.log("Rutinas del usuario:", routines);
+
+        loadRoutineData(routines, range);
+    } catch (error) {
+        console.warn("Error al obtener datos del usuario o rutinas:", error);
+        userPeso = 0;
+        loadRoutineData([], range);
+    }
 }
 
-function loadData(filename, range = 'month') {
-    fetch(filename)
-        .then(response => response.json())
-        .then(data => {
-            drawChart(data, filename, range); // ✅ Se pasa "range"
-        })
-        .catch(error => console.error('Error cargando datos:', error));
+function loadRoutineData(routines, range = 'month') {
+    const parsedData = routines.map(r => {
+        const dateObj = new Date(r.date);
+        const day = dateObj.getDate().toString();
+        const durationMin = parseDurationToMinutes(r.rutine.duration);
+        const met = 6;
+
+        return {
+            dia: day,
+            met: met,
+            minutos: durationMin
+        };
+    });
+
+    drawChart(parsedData, 'routines', range);
+}
+
+function parseDurationToMinutes(durationStr) {
+    const match = durationStr.match(/(?:(\d+)h)?\s*(?:(\d+)min)?/);
+    if (!match) return 0;
+    const hours = parseInt(match[1]) || 0;
+    const minutes = parseInt(match[2]) || 0;
+    return hours * 60 + minutes;
 }
 
 function drawChart(dataArray, filename, range) {
@@ -40,7 +62,6 @@ function drawChart(dataArray, filename, range) {
     const year = now.getFullYear();
 
     const isWeek = (range === 'week');
-
     let title, vAxisTitle;
     let allDays = [];
 
@@ -63,7 +84,7 @@ function drawChart(dataArray, filename, range) {
         dataMap[dia] = item;
     });
 
-    if (filename === '../JavaScript/calorias_data.js') {
+    if (filename === 'routines') {
         data.addColumn('number', 'Calories Burn');
         title = isWeek
             ? 'Calories Burn - Last 7 Days'
