@@ -71,8 +71,10 @@ async function updateSummary() {
             : "<p>No hay ejercicios seleccionados.</p>";
         return;
     }
+    console.log(selected)
 
     for (const e of selected) {
+        console.log(e)
         const idx = selected.indexOf(e);
         let nombre = language !== "english"
             ? await translateText(e.name, "es")
@@ -116,6 +118,7 @@ async function updateSummary() {
         container.append(dragHandle, linkEl, repsSelect, removeBtn);
         summaryEl.appendChild(container);
     }
+    console.log(summaryEl)
 }
 
 // Renderizado de tarjetas con traducción
@@ -269,10 +272,9 @@ onAuthStateChanged(auth, async (user) => {
                 };
             }).filter(x => x.id);
 
-            updateSummary();
             select.value = ALL_VALUE;
             render(currentList);
-            select.dispatchEvent(new Event("change"));
+            await updateSummary();
         } catch (err) {
             console.error(err);
             const errMsg = language === "english"
@@ -294,7 +296,6 @@ onAuthStateChanged(auth, async (user) => {
             restInput.value     = r.rest || "";
             selected            = r.exercises.slice();
             select.value = selected[0]?.bodyPart || ALL_VALUE;
-            select.dispatchEvent(new Event("change"));
         }
     }
 
@@ -319,7 +320,7 @@ select.addEventListener("change", async () => {
     currentList = await fetchExercises(select.value);
     searchInput.value = "";
     render(currentList);
-    updateSummary();
+    updateSummary()
 });
 
 searchInput.addEventListener("input", () => {

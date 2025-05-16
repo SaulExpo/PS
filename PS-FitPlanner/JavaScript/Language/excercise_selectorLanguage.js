@@ -11,7 +11,6 @@ export async function excersiseSelectorLanguage() {
             console.log(json);
             document.getElementById("selector").textContent = json.selector
             document.getElementById("mgroup").textContent = json.mgroup
-            document.getElementById("option").textContent = json.option
             document.getElementById("search").textContent = json.search
             document.getElementById("exercise-search").placeholder = json.exercise_search
             document.getElementById("routine-name").placeholder = json.routine_name
