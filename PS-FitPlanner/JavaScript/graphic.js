@@ -1,10 +1,15 @@
+import {graphicLanguage} from "./Language/graphicLanguage.js";
+
 google.charts.load('current', { packages: ['corechart'] });
 google.charts.setOnLoadCallback(() => initChart('routines', 'month'));
 
 let currentChart = null;
 let userPeso = 0;
+let language = localStorage.getItem("language");
+
 
 async function initChart(_, range) {
+    graphicLanguage()
     try {
         const { getUserProfile } = await import('../JavaScript/GetDB/getUser.js');
         const { getUserRoutines } = await import('../JavaScript/GetDB/getUserRoutines.js');
@@ -43,6 +48,8 @@ function loadRoutineData(routines, range = 'month') {
     drawChart(parsedData, 'routines', range);
 }
 
+window.initChart = initChart;
+
 function parseDurationToMinutes(durationStr) {
     const match = durationStr.match(/(?:(\d+)h)?\s*(?:(\d+)min)?/);
     if (!match) return 0;
@@ -56,13 +63,19 @@ function drawChart(dataArray, filename, range) {
     data.addColumn('string', 'Day');
 
     const now = new Date();
-    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-        'July', 'August', 'September', 'October', 'November', 'December'];
+    let monthNames
+    if (language === "english"){
+        monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'];
+    } else {
+        monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+            'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+    }
     const monthName = monthNames[now.getMonth()];
     const year = now.getFullYear();
 
     const isWeek = (range === 'week');
-    let title, vAxisTitle;
+    let title, vAxisTitle, hAxisTitle;
     let allDays = [];
 
     if (isWeek) {
@@ -85,11 +98,22 @@ function drawChart(dataArray, filename, range) {
     });
 
     if (filename === 'routines') {
-        data.addColumn('number', 'Calories Burn');
-        title = isWeek
-            ? 'Calories Burn - Last 7 Days'
-            : `Calories Burn per Day - ${monthName} ${year}`;
-        vAxisTitle = 'Calories';
+        if (language !== "english"){
+            data.addColumn('number', 'Calorías quemadas');
+            title = isWeek
+                ? 'Calorías quemadas - Últimos 7 días'
+                : `Calorías quemadas por día - ${monthName} ${year}`;
+            vAxisTitle = 'Calorías';
+            hAxisTitle = "Dia del mes";
+        } else{
+            data.addColumn('number', 'Calories Burn');
+            title = isWeek
+                ? 'Calories Burn - Last 7 Days'
+                : `Calories Burn per Day - ${monthName} ${year}`;
+            vAxisTitle = 'Calories';
+            hAxisTitle = "Day of the month";
+        }
+
 
         allDays.forEach(day => {
             if (dataMap[day]) {
@@ -102,6 +126,7 @@ function drawChart(dataArray, filename, range) {
         });
     } else {
         data.addColumn('number', 'Steps');
+
         title = isWeek
             ? 'Steps Done - Last 7 Days'
             : `Steps Done per Day - ${monthName} ${year}`;
@@ -115,13 +140,12 @@ function drawChart(dataArray, filename, range) {
             }
         });
     }
-
     const options = {
         title: title,
-        hAxis: { title: 'Day of the Month' },
+        hAxis: { title: hAxisTitle },
         vAxis: { title: vAxisTitle },
         legend: 'none',
-        colors: ['#4285F4'],
+        colors: ['#d51313'],
         tooltip: {
             isHtml: false,
             textStyle: {
@@ -131,6 +155,8 @@ function drawChart(dataArray, filename, range) {
             }
         }
     };
+
+    console.log(options)
 
     document.getElementById('chart_div').innerHTML = '';
     document.getElementById('monthTitle').textContent = monthName + ' ' + year;

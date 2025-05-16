@@ -10,7 +10,7 @@ body {
 }
 
 button {
-    background-color: #4285F4;
+    background-color: #d51313;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -22,7 +22,7 @@ button {
 }
 
 button:hover {
-    background-color: #3367D6;
+    background-color: #780505;
 }
 
 .chart-container {
