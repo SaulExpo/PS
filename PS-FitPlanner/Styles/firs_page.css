@@ -96,6 +96,8 @@ section
     list-style-type: disc;
     list-style-position: outside;
     padding-left: 1em;
+    max-height: 230px;
+    overflow-y: auto;
 }
 #recomendationContainer ul li {
     margin-bottom: 0.5rem;

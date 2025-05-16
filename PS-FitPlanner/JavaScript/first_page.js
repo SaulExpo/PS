@@ -1,16 +1,9 @@
 import {loadHeader} from "./GlobalLoad/loadHeader.js";
 import {getUserProfile} from "./GetDB/getUser.js";
-import { db } from "./firebase_config.js";
-import {
-    collection,
-    deleteDoc,
-    doc,
-    getDoc,
-    getDocs
-} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import Swal from 'https://cdn.skypack.dev/sweetalert2';
 import {getCollectionCached} from "./Excercises/cacheLoad.js";
 import {first_pageLanguage} from "./Language/first_pageLanguage.js";
+import {translateText} from "./translate.js";
 
 
 const exerciseCollections = [
@@ -25,6 +18,7 @@ const exerciseCollections = [
     "exercises_upper_legs",
     "exercises_waist",
 ];
+let language = localStorage.getItem("language");
 
 export async function load() {
 
@@ -51,14 +45,19 @@ export async function load() {
     const ul = document.createElement("ul");
     ul.id = "recommendations-list";
 
-    picks.forEach(function (name) {
+    for (const name of picks){
         const li = document.createElement("li");
         const a = document.createElement("a");
-        a.textContent = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+        if (language === "english") {
+            a.textContent = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+        } else {
+            a.textContent = await translateText(name.charAt(0).toUpperCase() + name.slice(1).toLowerCase(), "es");
+        }
+
         a.href = "exercise_detail.html?name=" + encodeURIComponent(name);
         li.appendChild(a);
         ul.appendChild(li);
-    });
+    };
     console.log(picks)
     console.log(document.getElementById("recommendations"));
     console.log(ul)
@@ -66,7 +65,6 @@ export async function load() {
 
 
     async function loadRecommendations() {
-        console.log("A")
         const all = [];
         for (const coll of exerciseCollections) {
             const docs = await getCollectionCached(coll);
