@@ -14,5 +14,15 @@
   "age": "Age",
   "weight": "Weight",
   "sex": "Sex",
-  "suscription": "Suscription"
+  "suscription": "Suscription",
+  "objectives": "Objectives",
+  "oLabel": "Set new goals to reach the next level",
+  "ooption": "What will be the next objective?",
+  "o1": "Weight loss",
+  "o2": "Upper body",
+  "o3": "Lower body",
+  "o4": "Reach intermediate level",
+  "o5": "Reach advanced level",
+  "confirm": "Confirm"
+
 }

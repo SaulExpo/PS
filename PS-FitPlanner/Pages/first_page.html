@@ -10,7 +10,6 @@
     <script type="module" src="../JavaScript/GlobalLoad/loadHeader.js"></script>
     <script src="../JavaScript/GlobalLoad/loadFooter.js"></script>
     <script type="module" src="../JavaScript/first_page.js"></script>
-    <script type="module" src="../JavaScript/calorias.js"></script>
 </head>
 <body>
 <header id="main_header"></header>
@@ -19,13 +18,23 @@
   <section>
     <h2 class="title">Today</h2>
       <div class="card">
-    <div class="container" id="image_text"></div>
+    <div class="container" id="image_text">
+        <div class="content">
+            <img id="picture" src="../Resources/exercise.png">
+            <p class="info">Dorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit</p>
+        </div>
+    </div>
       </div>
   </section>
   <section>
       <h2 class="title"><a id="calendar" href="calendar.html">Calendar</a></h2>
     <div class="card">
-      <div class="container" id="image_text2"></div>
+      <div class="container" id="image_text2">
+          <div class="content">
+              <img id="picture" src="../Resources/calendar.png">
+              <p class="info">Dorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit</p>
+          </div>
+      </div>
     </div>
   </section>
     <section>
@@ -47,10 +56,7 @@
     import {load} from "../JavaScript/first_page.js";
     document.addEventListener("DOMContentLoaded", () => {
         Promise.all([loadTemplate("../Templates/header.html" , "main_header"),
-            loadTemplate("../Templates/footer.html" , "main_footer"),
-            loadTemplate("../Templates/image_and_text.html", "image_text"),
-            loadTemplate("../Templates/image_and_text.html", "image_text2"),
-            loadTemplate("../Templates/image_and_text.html", "image_text3")]
+            loadTemplate("../Templates/footer.html" , "main_footer")]
         ).then(() =>
         {
             load()

@@ -13,6 +13,7 @@ let repeatPassword
 // Registrar usuario
 const register = async (email, password) => {
     try {
+        console.log(email, password)
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
         sendEmailVerification(user)
