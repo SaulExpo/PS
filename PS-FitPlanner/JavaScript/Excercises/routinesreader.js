@@ -4,16 +4,13 @@ import {
     query,
     where,
     updateDoc,
-    setDoc,
     addDoc,
     getDocs
 } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import { db, auth } from "../firebase_config.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
-import {
-    getCollectionCached,
-    getDocCached
-} from "./cacheLoad.js";
+import { getCollectionCached, getDocCached } from "./cacheLoad.js";
+import { getUserProfile } from "../GetDB/getUser.js";
 import Swal from "https://cdn.skypack.dev/sweetalert2";
 
 const typeSelector    = document.getElementById("typeSelector");
@@ -33,16 +30,22 @@ feedbackList.id = "feedbackList";
 
 let allRoutines       = [];
 let routineFavorites  = [];
+let isSuperior        = false;   // Will be determined via subscription type
 let currentRoutineId  = null;
 let selectedRating    = 0;
 
 function loadRoutineTypes() {
-    const types = [...new Set(allRoutines.map(r => r.routineType))];
+    const types = [...new Set(
+        allRoutines.filter(r => !r.isExclusive).map(r => r.routineType)
+    )];
     typeSelector.innerHTML = '<option disabled selected>Select type</option>';
     types.sort().forEach(type =>
         typeSelector.appendChild(new Option(type.toUpperCase(), type))
     );
     typeSelector.appendChild(new Option("FAVORITES", "favorites"));
+    if (isSuperior) {
+        typeSelector.appendChild(new Option("EXCLUSIVE", "exclusive"));
+    }
     typeSelector.disabled = false;
 }
 
@@ -51,90 +54,119 @@ async function loadRoutineNames(type) {
     let list = [];
     if (type === "favorites") {
         list = allRoutines.filter(r => routineFavorites.includes(r.id));
+    } else if (type === "exclusive") {
+        list = allRoutines.filter(r => r.isExclusive);
     } else {
-        list = allRoutines.filter(r => r.routineType === type);
+        list = allRoutines.filter(r => r.routineType === type && !r.isExclusive);
     }
     if (!list.length) {
         const opt = document.createElement("option");
         opt.disabled = true;
         opt.textContent = type === "favorites"
-            ? "You don´t have favorites yet."
-            : "No rutines of this group";
+            ? "You don’t have favorites yet."
+            : type === "exclusive"
+                ? "No exclusive routines"
+                : "No routines of this group";
         routineSelector.appendChild(opt);
     } else {
-        list.forEach(r => routineSelector.appendChild(new Option(r.name, r.id)));
+        list.forEach(r => {
+            const label = r.name + (r.isExclusive ? ' ⭐' : '');
+            routineSelector.appendChild(new Option(label, r.id));
+        });
     }
     routineSelector.disabled = false;
 }
 
 async function loadRoutine(id) {
     currentRoutineId = id;
-    const docData = await getDocCached("routines", id);
-    const r = docData || allRoutines.find(x => x.id === id);
-    if (!r) return Swal.fire("Not found rutine");
-
-    titleEl.innerText      = r.name;
-    infoEl.innerText       = r.description;
-    durationEl.textContent = `Duration: ${r.duration || "—"}`;
-    restEl.textContent     = `Rest during sets: ${r.rest || "—"} minutes`;
-
-    // Remove existing use and favorite buttons
-    const existingUse = titleEl.querySelector(".create-from-predef-btn");
-    if (existingUse) existingUse.remove();
-    const existingFav = titleEl.querySelector(".fav-btn");
-    if (existingFav) existingFav.remove();
-
-    // Button to create routine from this
-    const useBtn = document.createElement("button");
-    useBtn.textContent = "Create from this";
-    useBtn.className = "create-from-predef-btn";
-    useBtn.style.marginLeft = "10px";
-    useBtn.addEventListener("click", () => {
-        if (!auth.currentUser) {
-            return Swal.fire({
-                title: "Be superior member to use this feature.",
-                icon: "warning",
-                confirmButtonColor: "#d51313",
-                confirmButtonText: "Ok"
-            });
+    // Determine if this is a normal or exclusive routine
+    let r = null;
+    let fromExclusive = false;
+    const docNormal = await getDocCached("routines", id);
+    if (docNormal) {
+        r = docNormal;
+    } else {
+        const docEx = await getDocCached("exclusive_routines", id);
+        if (docEx) {
+            r = docEx;
+            fromExclusive = true;
         }
-        window.location.href = `../Pages/exercise_selector.html?fromPredefined=${id}`;
-    });
-    titleEl.appendChild(useBtn);
+    }
+    // Fallback to allRoutines cache
+    if (!r) {
+        r = allRoutines.find(x => x.id === id);
+        fromExclusive = r?.isExclusive || false;
+    }
+    if (!r) return Swal.fire("Routine not found");
+    // Ensure isExclusive flag is set properly
+    r.isExclusive = fromExclusive;
+
+
+    titleEl.innerHTML = r.name + (r.isExclusive ? ' <span class="badge exclusive">Exclusive</span>' : '');
+    infoEl.innerText = r.description;
+    if (r.isExclusive && r.exclusiveDescription) {
+        const desc = document.createElement('p');
+        desc.className = 'exclusive-desc';
+        desc.innerText = r.exclusiveDescription;
+        infoEl.appendChild(desc);
+    }
+    durationEl.textContent = `Duration: ${r.duration || '—'}`;
+    restEl.textContent     = `Rest: ${r.rest || '—'} mins`;
+
+    // Remove existing buttons
+    const oldUse = titleEl.querySelector('.create-from-predef-btn');
+    if (oldUse) oldUse.remove();
+    const oldFav = titleEl.querySelector('.fav-btn');
+    if (oldFav) oldFav.remove();
+
+    // Create-from-predef button (only for non-exclusive routines)
+    if (!r.isExclusive) {
+        const useBtn = document.createElement('button');
+        useBtn.textContent = 'Create from this';
+        useBtn.className = 'create-from-predef-btn';
+        useBtn.style.marginLeft = '10px';
+        useBtn.addEventListener('click', () => {
+            if (!auth.currentUser) {
+                return Swal.fire({ title: 'Log in to use this feature.', icon: 'warning' });
+            }
+            window.location.href = `../Pages/exercise_selector.html?fromPredefined=${id}`;
+        });
+        titleEl.appendChild(useBtn);
+    }
 
     // Favorite button
-    const favBtn = document.createElement("button");
-    favBtn.textContent = routineFavorites.includes(id) ? "❤️" : "🤍";
-    favBtn.className   = "fav-btn";
-    favBtn.style.marginLeft = "10px";
-    favBtn.addEventListener("click", async () => {
-        if (!auth.currentUser) return Swal.fire("Log in to use favorites");
+    const favBtn = document.createElement('button');
+    favBtn.textContent = routineFavorites.includes(id) ? '❤️' : '🤍';
+    favBtn.className = 'fav-btn';
+    favBtn.style.marginLeft = '10px';
+    favBtn.addEventListener('click', async () => {
+        if (!auth.currentUser) return Swal.fire('Log in to use favorites');
         const uid = auth.currentUser.uid;
         routineFavorites = routineFavorites.includes(id)
             ? routineFavorites.filter(x => x !== id)
             : [...routineFavorites, id];
-        await updateDoc(doc(db, "user_app", uid), { routineFavorites });
-        favBtn.textContent = routineFavorites.includes(id) ? "❤️" : "🤍";
+        await updateDoc(doc(db, 'user_app', uid), { routineFavorites });
+        favBtn.textContent = routineFavorites.includes(id) ? '❤️' : '🤍';
     });
     titleEl.appendChild(favBtn);
 
-    exercisesEl.innerHTML = "";
+    // Exercises rendering
+    exercisesEl.innerHTML = '';
     r.exercises.forEach((ex, i) => {
-        const wrapper = document.createElement("div");
+        const wrapper = document.createElement('div');
         wrapper.id = `exercise_${i}`;
         exercisesEl.appendChild(wrapper);
-        fetch("../Templates/info_exercise.html")
+        fetch('../Templates/info_exercise.html')
             .then(res => res.text())
             .then(tpl => {
                 wrapper.innerHTML = tpl;
-                wrapper.querySelector("#name_exercise").innerHTML =
-                    `<a href="./exercise_detail.html?name=${encodeURIComponent(ex.name)}">
-            ${ex.name}
-          </a>`;
-                wrapper.querySelector("#reps").innerText = ex.reps;
+                wrapper.querySelector('#name_exercise').innerHTML =
+                    `<a href="./exercise_detail.html?name=${encodeURIComponent(ex.name)}">${ex.name}</a>`;
+                wrapper.querySelector('#reps').innerText = ex.reps;
             });
     });
 
+    // Feedback UI
     feedbackContainer.innerHTML = `
     <h3>Rate and comment this routine</h3>
     <div id="starRating">
@@ -146,65 +178,57 @@ async function loadRoutine(id) {
     </div>
     <textarea id="commentBox" placeholder="Write your comment..." rows="3"></textarea>
     <button id="submitFeedback">Send feedback</button>
-  `;
-
+    `;
     feedbackContainer.appendChild(feedbackList);
     exercisesEl.parentNode.appendChild(feedbackContainer);
 
-    // Handlers de estrellas
-    document.querySelectorAll("#starRating .star").forEach(star => {
-        star.addEventListener("click", () => {
+    // Star rating
+    document.querySelectorAll('#starRating .star').forEach(star => {
+        star.addEventListener('click', () => {
             selectedRating = +star.dataset.value;
-            document.querySelectorAll("#starRating .star").forEach(s =>
-                s.textContent = +s.dataset.value <= selectedRating ? "★" : "☆"
+            document.querySelectorAll('#starRating .star').forEach(s =>
+                s.textContent = +s.dataset.value <= selectedRating ? '★' : '☆'
             );
         });
     });
-
-    document.getElementById("submitFeedback").onclick = async () => {
-        const comment = document.getElementById("commentBox").value.trim();
-        if (!auth.currentUser) return Swal.fire("Log in first to comment");
-        if (!comment) return Swal.fire("Write a comment");
-        try {
-            await addDoc(collection(db, "routines_feedback"), {
-                routineId: currentRoutineId,
-                uid:       auth.currentUser.uid,
-                rating:    selectedRating,
-                comment,
-                timestamp: Date.now()
-            });
-            Swal.fire("Thanks for your feedback!");
-            document.getElementById("commentBox").value = "";
-            document.querySelectorAll("#starRating .star").forEach(s => s.textContent = "☆");
-            selectedRating = 0;
-            loadFeedback(currentRoutineId);
-        } catch (err) {
-            console.error(err);
-            Swal.fire("Error sending feedback");
-        }
+    document.getElementById('submitFeedback').onclick = async () => {
+        const comment = document.getElementById('commentBox').value.trim();
+        if (!auth.currentUser) return Swal.fire('Log in first to comment');
+        if (!comment) return Swal.fire('Write a comment');
+        await addDoc(collection(db, 'routines_feedback'), {
+            routineId: currentRoutineId,
+            uid: auth.currentUser.uid,
+            rating: selectedRating,
+            comment,
+            timestamp: Date.now()
+        });
+        Swal.fire('Thanks for your feedback!');
+        document.getElementById('commentBox').value = '';
+        document.querySelectorAll('#starRating .star').forEach(s => s.textContent = '☆');
+        selectedRating = 0;
+        loadFeedback(currentRoutineId);
     };
-
     loadFeedback(id);
 }
 
 async function loadFeedback(routineId) {
     const feedbackSnap = await getDocs(
         query(
-            collection(db, "routines_feedback"),
-            where("routineId", "==", routineId)
+            collection(db, 'routines_feedback'),
+            where('routineId', '==', routineId)
         )
     );
     const feedbacks = feedbackSnap.docs
         .map(d => d.data())
         .sort((a, b) => b.timestamp - a.timestamp);
-    feedbackList.innerHTML = "";
+    feedbackList.innerHTML = '';
     if (!feedbacks.length) {
-        feedbackList.innerHTML = "<p>No feedback yet.</p>";
+        feedbackList.innerHTML = '<p>No feedback yet.</p>';
         return;
     }
     feedbacks.forEach(f => {
-        const div = document.createElement("div");
-        div.className = "feedback-item";
+        const div = document.createElement('div');
+        div.className = 'feedback-item';
         const stars = '★'.repeat(f.rating) + '☆'.repeat(5 - f.rating);
         const date = new Date(f.timestamp).toLocaleString();
         div.innerHTML = `
@@ -216,36 +240,43 @@ async function loadFeedback(routineId) {
     });
 }
 
-globalSearch.addEventListener("input", () => {
+globalSearch.addEventListener('input', () => {
     const q = globalSearch.value.trim().toLowerCase();
-    searchResults.innerHTML = '<option disabled selected>Resultados</option>';
+    searchResults.innerHTML = '<option disabled selected>Results</option>';
     const filtered = allRoutines.filter(r =>
-        r.name.toLowerCase().includes(q) ||
-        r.routineType.toLowerCase().includes(q) ||
-        r.description.toLowerCase().includes(q)
+        (r.name + ' ' + r.routineType + ' ' + r.description)
+            .toLowerCase().includes(q)
     );
     if (!filtered.length) {
-        const opt = document.createElement("option");
+        const opt = document.createElement('option');
         opt.disabled = true;
-        opt.textContent = "No se encontraron coincidencias";
+        opt.textContent = 'No matches';
         searchResults.appendChild(opt);
     } else {
-        filtered.forEach(r =>
-            searchResults.appendChild(new Option(`[${r.routineType}] ${r.name}`, r.id))
-        );
+        filtered.forEach(r => {
+            const label = `[${r.routineType}] ${r.name}` + (r.isExclusive ? ' ⭐' : '');
+            searchResults.appendChild(new Option(label, r.id));
+        });
     }
 });
 
-typeSelector.addEventListener("change", () => loadRoutineNames(typeSelector.value));
-routineSelector.addEventListener("change", () => loadRoutine(routineSelector.value));
-searchResults.addEventListener("change", () => loadRoutine(searchResults.value));
+typeSelector.addEventListener('change', () => loadRoutineNames(typeSelector.value));
+routineSelector.addEventListener('change', () => loadRoutine(routineSelector.value));
+searchResults.addEventListener('change', () => loadRoutine(searchResults.value));
 
-onAuthStateChanged(auth, async user => {
-    if (!user) return;
-    const uid     = user.uid;
-    const userSnap = await getDocCached("user_app", uid);
-    routineFavorites = userSnap?.routineFavorites || [];
+onAuthStateChanged(auth, async firebaseUser => {
+    if (!firebaseUser) return;
+    const profile = await getUserProfile();
+    routineFavorites = profile.routineFavorites || [];
+    isSuperior       = profile.tipo_suscripcion === 'miembro superior';
 
-    allRoutines = await getCollectionCached("routines");
+    const base = await getCollectionCached('routines');
+    allRoutines = base.map(r => ({ ...r, isExclusive: false }));
+    if (isSuperior) {
+        const exclusives = await getCollectionCached('exclusive_routines');
+        exclusives.forEach(r => r.isExclusive = true);
+        allRoutines = allRoutines.concat(exclusives);
+    }
+
     loadRoutineTypes();
 });
