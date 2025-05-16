@@ -1,0 +1,12 @@
+{
+  "new_event": "Nuevo Evento",
+  "date": "Fecha",
+  "rutine": "Rutina",
+  "remember": "Dias de recordatorio",
+  "create_event": "Crear evento",
+  "edit_event": "Editar evento",
+  "save_changes": "Guardar cambios",
+  "delete": "Borrar evento",
+  "month": "Progreso mensual",
+  "week": "Progreso semanal"
+}

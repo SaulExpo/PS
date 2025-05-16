@@ -26,51 +26,51 @@
   <main>
     <div class="pricing-table">
       <div class="plan basic">
-        <h2>Miembro</h2>
+        <h2 id="member">Miembro</h2>
         <ul>
-          <li>Contacto con entrenador</li>
-          <li>Calendario de actividades</li>
-          <li>Acceso a rutinas de ejercicios</li>
-          <li class="unavailable">Rutinas personalizadas</li>
-          <li class="unavailable">Rutinas exclusivas</li>
-          <li class="unavailable">Descuentos especiales</li>
-          <li class="unavailable">Atención personalizada</li>
+          <li class="contact">Contacto con entrenador</li>
+          <li class="calendar">Calendario de actividades</li>
+          <li class="rutines">Acceso a rutinas de ejercicios</li>
+          <li class="unavailable perso">Rutinas personalizadas</li>
+          <li class="unavailable exclusive">Rutinas exclusivas</li>
+          <li class="unavailable discounts">Descuentos especiales</li>
+          <li class="unavailable attention">Atención personalizada</li>
         </ul>
-        <div class="price">5€ / mes - 50€ / año</div>
+        <div id="5" class="price">5€ / mes - 50€ / año</div>
       </div>
 
       <div class="plan premium">
-        <h2>Miembro Superior</h2>
+        <h2 id="superior">Miembro Superior</h2>
         <ul>
-          <li>Contacto con entrenador</li>
-          <li>Calendario de actividades</li>
-          <li>Acceso a rutinas de ejercicios</li>
-          <li>Rutinas personalizadas</li>
-          <li>Rutinas exclusivas</li>
-          <li>Descuentos especiales</li>
-          <li>Atención personalizada</li>
+          <li class="contact">Contacto con entrenador</li>
+          <li class="calendar">Calendario de actividades</li>
+          <li class="rutines">Acceso a rutinas de ejercicios</li>
+          <li class="perso">Rutinas personalizadas</li>
+          <li class="exclusive">Rutinas exclusivas</li>
+          <li class="discounts">Descuentos especiales</li>
+          <li class="attention">Atención personalizada</li>
         </ul>
-        <div class="price">10€ / mes - 100€ / año</div>
+        <div id="10" class="price">10€ / mes - 100€ / año</div>
       </div>
     </div>
-    <h1>Elige tu suscripción</h1>
+    <h1 id="choose">Elige tu suscripción</h1>
 
     <div class="subscription-option" onclick="showPaymentForm('Básica', '5€ / mes', 'miembro', 'mes')">
-      <strong>Básica</strong><br>
-      Acceso limitado al contenido - <em>5€ / mes</em>
+      <strong class="basica">Básica</strong><br>
+      <span class="limited">Acceso limitado al contenido</span> - <em id="52">5€ / mes</em>
     </div>
     <div class="subscription-option" onclick="showPaymentForm('Básica', '50€ / año', 'miembro', 'año')">
-      <strong>Básica</strong><br>
-      Acceso limitado al contenido - <em>50€ / año</em>
+      <strong class="basica">Básica</strong><br>
+      <span class="limited">Acceso limitado al contenido</span> - <em id="50">50€ / año</em>
     </div>
 
     <div class="subscription-option" onclick="showPaymentForm('Premium', '10€ / mes', 'miembro superior', 'mes')">
       <strong>Premium</strong><br>
-      Acceso completo a todos los servicios - <em>10€ / mes</em>
+      <span class="complete">Acceso completo a todos los servicios</span> - <em id="102">10€ / mes</em>
     </div>
     <div class="subscription-option" onclick="showPaymentForm('Premium', '100€ / año', 'miembro superior', 'año')">
       <strong>Premium</strong><br>
-      Acceso completo a todos los servicios - <em>100€ / año</em>
+      <span class="complete">Acceso completo a todos los servicios</span> - <em id="100">100€ / año</em>
     </div>
     <button id="renovar" onclick="cancelarSuscripcion()">Cancelar Suscripción</button>
 

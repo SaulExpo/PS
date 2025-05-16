@@ -1,0 +1,13 @@
+{
+  "name": "Name",
+  "surname": "Surname",
+  "age": "Age",
+  "height": "Height",
+  "weight": "Weight",
+  "sex": "Sex",
+  "select": "Select the sex",
+  "male": "Male",
+  "female": "Female",
+  "save": "Save Changes",
+  "cancel": "Cancel Changes"
+}

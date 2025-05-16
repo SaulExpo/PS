@@ -1,0 +1,18 @@
+{
+  "HomeLabel": "Inicio",
+  "GraphLabel": "Gráfica",
+  "SuscriptionLabel": "Suscripción",
+  "EditLabel": "Editar Perfil",
+  "Assigned": "Profesional Asignado",
+  "Change": "¿Quieres cambiar a tu profesional?",
+  "ChangeP": "Si quieres cambiar a tu profesional por alguna razón, clica el botón",
+  "ChangeButton": "Cambiar",
+  "Available": "Profesionales Disponibles",
+  "Cancel": "Cancelar",
+  "Student": "Lista de estudiantes",
+  "height": "Altura",
+  "age": "Edad",
+  "weight": "Peso",
+  "sex": "Género",
+  "suscription": "Suscripción"
+}

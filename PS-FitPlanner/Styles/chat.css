@@ -199,3 +199,43 @@ main{
 #send:hover {
     background-color: #7b0606;
 }
+
+#chat_submit{
+    margin: 0 20px;
+    align-items: center;
+    width: 90%;
+    display: flex;
+}
+
+.upload-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.upload-icon {
+    top: 4px;
+    right: 20px;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    background-color: #eee;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.image-preview {
+    position: absolute;
+    top: -10px;
+    left: 100%;
+    width: 65px;
+    height: 65px;
+    margin-left: 10px;
+    border-radius: 5px;
+    object-fit: cover;
+    display: none;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    z-index: 10;
+}

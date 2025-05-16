@@ -1,15 +1,9 @@
 import {loadHeader} from "./GlobalLoad/loadHeader.js";
 import {getUserProfile} from "./GetDB/getUser.js";
-import { db } from "./firebase_config.js";
-import {
-    collection,
-    deleteDoc,
-    doc,
-    getDoc,
-    getDocs
-} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import Swal from 'https://cdn.skypack.dev/sweetalert2';
 import {getCollectionCached} from "./Excercises/cacheLoad.js";
+import {first_pageLanguage} from "./Language/first_pageLanguage.js";
+import {translateText} from "./translate.js";
 
 
 const exerciseCollections = [
@@ -24,6 +18,7 @@ const exerciseCollections = [
     "exercises_upper_legs",
     "exercises_waist",
 ];
+let language = localStorage.getItem("language");
 
 export async function load() {
 
@@ -44,47 +39,30 @@ export async function load() {
 
     await loadHeader();
     await loadFooter();
+    await first_pageLanguage()
+    const picks = await loadRecommendations(); // Espera los resultados
 
-    let language = localStorage.getItem("language");
-    let json_language = language === "english"
-        ? "../JSON/english_data.json"
-        : "../JSON/data.json";
+    const ul = document.createElement("ul");
+    ul.id = "recommendations-list";
 
-    fetch(json_language)
-        .then(function (res) {
-            return res.json();
-        })
-        .then(function (json) {
-                document.querySelectorAll(".info")[0].textContent = json.first_page.today;
-                document.querySelectorAll(".info")[1].textContent = json.first_page.calendar;
-                document.querySelectorAll("#picture")[0].src = json.first_page.today_img;
-                document.querySelectorAll("#picture")[1].src = json.first_page.calendar_img;
-                document.querySelectorAll("#picture")[1].addEventListener("click", () => {
-                    location.replace("../Pages/calendar.html");
-                });
+    for (const name of picks){
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        if (language === "english") {
+            a.textContent = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+        } else {
+            a.textContent = await translateText(name.charAt(0).toUpperCase() + name.slice(1).toLowerCase(), "es");
+        }
 
-                document.querySelectorAll("#picture")[2].src = json.first_page.recommendations_image;
-                document.querySelectorAll("#picture")[2].alt = "Recommendations";
-                document.querySelectorAll(".info")[2].innerHTML = "";
-                loadRecommendations().then(function (picks) {
-                    var ul = document.createElement("ul");
-                    ul.id = "recommendations-list";
+        a.href = "exercise_detail.html?name=" + encodeURIComponent(name);
+        li.appendChild(a);
+        ul.appendChild(li);
+    };
+    console.log(picks)
+    console.log(document.getElementById("recommendations"));
+    console.log(ul)
+    document.getElementById("recommendations").appendChild(ul);
 
-                    picks.forEach(function (name) {
-                        var li = document.createElement("li");
-                        var a = document.createElement("a");
-                        a.textContent = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
-                        a.href = "exercise_detail.html?name=" + encodeURIComponent(name);
-                        li.appendChild(a);
-                        ul.appendChild(li);
-                    });
-
-                    document.querySelectorAll(".info")[2].appendChild(ul);
-                });
-        })
-        .catch(function (err) {
-            console.error("Error cargando JSON:", err);
-        });
 
     async function loadRecommendations() {
         const all = [];
@@ -95,6 +73,7 @@ export async function load() {
         shuffle(all);
         return all.slice(0, 3);
     }
+
 
     function shuffle(array) {
         for (let i = array.length - 1; i > 0; i--) {
