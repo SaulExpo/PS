@@ -59,12 +59,14 @@ export async function loadExerciseDetail() {
     document.getElementById("exercise-image").src = imageUrl;
     document.getElementById("exercise-image").alt = foundExercise.name;
     if (language === "english") {
+        document.getElementById("InstructionsLabel").textContent = "Instructions";
         document.getElementById("exercise-name").textContent = foundExercise.name.toUpperCase();
         document.getElementById("body-part").innerHTML = `<strong>Body Part:</strong> ${foundExercise.bodyPart}`;
         document.getElementById("equipment").innerHTML = `<strong>Equipment:</strong> ${foundExercise.equipment}`;
         document.getElementById("target").innerHTML = `<strong>Primary Muscle:</strong> ${foundExercise.target}`;
         document.getElementById("secondary-muscles").innerHTML = `<strong>Secondary Muscles:</strong> ${foundExercise.secondaryMuscles.join(", ")}`;
     } else{
+        document.getElementById("InstructionsLabel").textContent = "Instrucciones";
         document.getElementById("exercise-name").textContent = await translateText(foundExercise.name.toUpperCase(), "es");
         document.getElementById("body-part").innerHTML = `<strong>Parte del cuerpo:</strong> ${await translateText(foundExercise.bodyPart, "es")}`;
         document.getElementById("equipment").innerHTML = `<strong>Equipamiento:</strong> ${await translateText(foundExercise.equipment, "es")}`;
@@ -89,6 +91,4 @@ export async function loadExerciseDetail() {
 
 document.addEventListener("DOMContentLoaded", () => {
     loadExerciseDetail();
-    import("../GlobalLoad/loadHeader.js").then(m => m.loadHeader());
-    import("../GlobalLoad/loadFooter.js").then(m => m.loadFooter());
 });

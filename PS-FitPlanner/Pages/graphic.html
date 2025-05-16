@@ -12,7 +12,7 @@
     <script src="../JavaScript/GlobalLoad/loadFooter.js"></script>
     <script type="module" src="../JavaScript/GlobalLoad/loadHeader.js"></script>
     <script src="../JavaScript/script.js"></script>
-    <script src="../JavaScript/graphic.js"></script>
+    <script type="module" src="../JavaScript/graphic.js"></script>
     <script type="module" src="../JavaScript/GetDB/getUser.js"></script>
 
 </head>
@@ -21,8 +21,7 @@
 <header id="main_header"></header>
 
 <div class="buttons-container">
-    <button onclick="loadData('../JavaScript/calorias.json', 'month')">Show Calories</button>
-    <button onclick="loadData('../JavaScript/pasos.js', 'month')">Show Steps</button>
+    <button id="month" onclick="initChart('routines', 'month')">Mes - Calorías</button>
 </div>
 
 <h2 id="monthTitle"></h2>
@@ -30,12 +29,11 @@
 <div id="chart_div" class="chart-container"></div>
 
 <div class="buttons-container">
-    <button onclick="loadData('../JavaScript/calorias_data.js', 'week')">Week - Calorías</button>
-    <button onclick="loadData('../JavaScript/pasos.js', 'week')">Week - Pasos</button>
+    <button id="last" onclick="initChart('routines', 'week')">últimos 7 días</button>
 </div>
 
 <div class="buttons-container">
-    <button onclick="downloadChart()">Download</button>
+    <button id="download" onclick="downloadChart()">Download</button>
 </div>
 
 
