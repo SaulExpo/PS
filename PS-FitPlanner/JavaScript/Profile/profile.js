@@ -32,7 +32,6 @@ async function getProfesores() {
 
     }
 }
-
 getProfesores()
 todoas()
 
@@ -439,6 +438,22 @@ async function calificar_pro(){
     location.reload()
 
 }
+async function seleccionarObjetivo()
+{
+    let objetivos = ["Pérdida de peso", "Tren superior", "Tren inferior", "LLegar a nivel intermedio", "LLegar a nivel avanzado"]
+    let objetivo = document.querySelector("#objetivos")
+    if (!objetivo.value)
+    {
+        alert("Seleccione un objetivo")
+        return
+    }
+    let ref = doc(db, "user_app", user.id)
+    await updateDoc(ref,
+        {
+            objetivo: objetivos[objetivo.value]
+        })
+    alert("Objetivo actualizado")
+}
 
 function sendEmail(userdata, message){
     emailjs.init('CTnfkkYqegWMlezAo');
@@ -480,3 +495,4 @@ window.desasignarPro = desasignarPro
 window.calificar = calificar
 window.cancelar_cali = cancelar_cali
 window.calificar_pro = calificar_pro
+window.seleccionarObjetivo = seleccionarObjetivo

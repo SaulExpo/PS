@@ -58,23 +58,39 @@
     </div>
 
     <div id="alumn_view">
-        <h1 class="titulo" id="Assigned">Assigned Professional</h1>
-        <section id="profe_asig">
-        </section>
-        <section id="cambio_view">
-            <h1 class="titulo" id="Change">Do you want to change your professional?</h1>
-            <section id="cambio_profe">
-                <p id="ChangeP">If you want to change the professional for any reason, click on the button</p>
-                <button id="ChangeButton" class="button_user_action" onclick="verProfes()">Change</button>
+        <div>
+            <h1 class="titulo" id="Assigned">Assigned Professional</h1>
+            <section id="profe_asig">
             </section>
-            <section id="profes_info">
-                <h1 id="Available">Available Professionals</h1>
-                <ul id="profe_list">
-                </ul>
-                <button id="Cancel" class="button_user_action" onclick="cancelarCambio()">Cancel</button>
-            </section>
+            <section id="cambio_view">
+                <h1 class="titulo" id="Change">Do you want to change your professional?</h1>
+                <section id="cambio_profe">
+                    <p id="ChangeP">If you want to change the professional for any reason, click on the button</p>
+                    <button id="ChangeButton" class="button_user_action" onclick="verProfes()">Change</button>
+                </section>
+                <section id="profes_info">
+                    <h1 id="Available">Available Professionals</h1>
+                    <ul id="profe_list">
+                    </ul>
+                    <button id="Cancel" class="button_user_action" onclick="cancelarCambio()">Cancel</button>
+                </section>
 
-        </section>
+            </section>
+        </div>
+        <div id="objetivos_view">
+            <h1 class="titulo">Objetivos</h1>
+            <p>Ponte nuevos objetivos para  alcanzar el siguiente nivel</p>
+            <select id="objetivos">
+                <option disabled selected value="">¿Cual sera el proximo objetivo?</option>
+                <option value="0">Pérdida de peso</option>
+                <option value="1">Tren superior</option>
+                <option value="2">Tren inferior</option>
+                <option value="3">LLegar a nivel intermedio</option>
+                <option value="4">LLegar a nivel avanzado</option>
+            </select>
+            <button type="button" class="button_user_action" onclick="seleccionarObjetivo()">Confirmar</button>
+        </div>
+
     </div>
 
     <div id="profe_view">
