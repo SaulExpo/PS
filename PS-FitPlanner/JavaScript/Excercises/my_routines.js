@@ -3,6 +3,7 @@ import {collection, getDocs, query, where, doc, deleteDoc, updateDoc} from "http
 import Swal from 'https://cdn.skypack.dev/sweetalert2';
 import { auth, db } from "../firebase_config.js";
 import {myRoutinesLanguage} from "../Language/my_routinesLanguage.js";
+import {translateText} from "../translate.js";
 
 const token = localStorage.getItem("jwt");
 if (!token) {
@@ -63,7 +64,7 @@ async function loadUserRoutines(user) {
         rest = "Descanso:"
     }
 
-    snap.docs.forEach((d) => {
+    for (const d of snap.docs) {
         const data = d.data();
         const id = d.id;
 
@@ -153,12 +154,15 @@ async function loadUserRoutines(user) {
 
         const exercisesList = document.createElement("ul");
         exercisesList.className = "routine-exercises";
-        (data.exercises || []).forEach((ex) => {
+        for (const ex of data.exercises || []){
             const li = document.createElement("li");
-            li.textContent = `${ex.name} — ${ex.reps}`;
+            if (language === "english"){
+                li.textContent = `${ex.name} — ${ex.reps}`;
+            }else{
+                li.textContent = `${await translateText(ex.name, "es")} — ${ex.reps}`;
+            }
             exercisesList.appendChild(li);
-        });
-
+        };
         detailsEl.append(durationEl, restEl, exercisesList);
 
         nameEl.addEventListener("click", () => {
@@ -167,7 +171,7 @@ async function loadUserRoutines(user) {
 
         card.append(nameEl, descEl, noteDisplay, noteEditor, actions, detailsEl);
         listEl.appendChild(card);
-    });
+    }
 }
 
 onAuthStateChanged(auth, (user) => {

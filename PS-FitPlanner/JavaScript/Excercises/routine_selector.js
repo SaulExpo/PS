@@ -185,7 +185,7 @@ async function render(list) {
         });
 
         const nameEl   = document.createElement("div");
-        nameEl.innerHTML   = `<strong><a href=\`exercise_detail.html?name=${encodeURIComponent(ex.name)}\` target=\"_blank\">${nombre}</a></strong>`;
+        nameEl.innerHTML   = `<strong><a href=exercise_detail.html?name=${encodeURIComponent(ex.name)} target=\"_blank\">${nombre}</a></strong>`;
         const targetEl = document.createElement("div");
         targetEl.textContent = `${language === "english" ? "Target:" : "Objetivo:"} ${target}`;
         const equipEl  = document.createElement("div");
