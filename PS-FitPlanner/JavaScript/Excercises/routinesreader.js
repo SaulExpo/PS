@@ -26,7 +26,6 @@ const durationEl      = document.getElementById("durationContainer");
 const restEl          = document.getElementById("restContainer");
 const exercisesEl     = document.getElementById("exercises");
 
-// Contenedor para feedback y lista de comentarios
 const feedbackContainer = document.createElement("div");
 feedbackContainer.id = "feedbackContainer";
 const feedbackList      = document.createElement("div");
@@ -59,8 +58,8 @@ async function loadRoutineNames(type) {
         const opt = document.createElement("option");
         opt.disabled = true;
         opt.textContent = type === "favorites"
-            ? "No tienes rutinas favoritas"
-            : "No hay rutinas de este tipo";
+            ? "You don´t have favorites yet."
+            : "No rutines of this group";
         routineSelector.appendChild(opt);
     } else {
         list.forEach(r => routineSelector.appendChild(new Option(r.name, r.id)));
@@ -72,17 +71,41 @@ async function loadRoutine(id) {
     currentRoutineId = id;
     const docData = await getDocCached("routines", id);
     const r = docData || allRoutines.find(x => x.id === id);
-    if (!r) return Swal.fire("Rutina no encontrada");
+    if (!r) return Swal.fire("Not found rutine");
 
     titleEl.innerText      = r.name;
     infoEl.innerText       = r.description;
     durationEl.textContent = `Duration: ${r.duration || "—"}`;
     restEl.textContent     = `Rest during sets: ${r.rest || "—"} minutes`;
 
-    const existingFav = titleEl.querySelector("button");
+    // Remove existing use and favorite buttons
+    const existingUse = titleEl.querySelector(".create-from-predef-btn");
+    if (existingUse) existingUse.remove();
+    const existingFav = titleEl.querySelector(".fav-btn");
     if (existingFav) existingFav.remove();
+
+    // Button to create routine from this
+    const useBtn = document.createElement("button");
+    useBtn.textContent = "Create from this";
+    useBtn.className = "create-from-predef-btn";
+    useBtn.style.marginLeft = "10px";
+    useBtn.addEventListener("click", () => {
+        if (!auth.currentUser) {
+            return Swal.fire({
+                title: "Be superior member to use this feature.",
+                icon: "warning",
+                confirmButtonColor: "#d51313",
+                confirmButtonText: "Ok"
+            });
+        }
+        window.location.href = `../Pages/exercise_selector.html?fromPredefined=${id}`;
+    });
+    titleEl.appendChild(useBtn);
+
+    // Favorite button
     const favBtn = document.createElement("button");
     favBtn.textContent = routineFavorites.includes(id) ? "❤️" : "🤍";
+    favBtn.className   = "fav-btn";
     favBtn.style.marginLeft = "10px";
     favBtn.addEventListener("click", async () => {
         if (!auth.currentUser) return Swal.fire("Log in to use favorites");

@@ -96,7 +96,6 @@ async function loadUserRoutines(user) {
                 confirmButtonText: "Yes, delete",
                 denyButtonText: `Don't delete`
             }).then(async (result) => {
-                /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
                     await deleteDoc(doc(db, "user_routines", id));
                     loadUserRoutines(user);
