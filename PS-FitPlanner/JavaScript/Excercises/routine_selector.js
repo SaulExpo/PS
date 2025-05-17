@@ -21,14 +21,9 @@ const saveBtn       = document.getElementById("save-export-routine");
 const randomBtn = document.createElement("button");
 let language = localStorage.getItem("language");
 excersiseSelectorLanguage();
-// Limpiar cualquier opción previa para evitar duplicados
 select.innerHTML = "";
 randomBtn.id = "random-four-btn";
-if (language === "english") {
-    randomBtn.textContent = "Random exercises";
-} else {
-    randomBtn.textContent = "Ejercicios aleatorios";
-}
+randomBtn.textContent = language === "english" ? "Random exercises" : "Ejercicios aleatorios";
 randomBtn.className = "random-btn";
 saveBtn.parentNode.insertBefore(randomBtn, saveBtn);
 
@@ -46,7 +41,7 @@ let editId      = null;
 let favorites   = [];
 const userRoutinesCol = collection(db, "user_routines");
 
-// Función de carga de ejercicios (desde fichero sin idioma)
+// Función de carga de ejercicios (s/ idioma)
 async function fetchExercises(part) {
     const all = [];
     for (const col of COLLECTIONS) {
@@ -62,7 +57,7 @@ async function fetchExercises(part) {
     return all.filter(e => e.bodyPart === part);
 }
 
-// Resumen seleccionado con traducción
+// Actualiza el resumen con traducción y estilos
 async function updateSummary() {
     summaryEl.innerHTML = "";
     if (!selected.length) {
@@ -71,36 +66,31 @@ async function updateSummary() {
             : "<p>No hay ejercicios seleccionados.</p>";
         return;
     }
-    console.log(selected)
-
     for (const e of selected) {
-        console.log(e)
         const idx = selected.indexOf(e);
-        let nombre = language !== "english"
-            ? await translateText(e.name, "es")
-            : e.name;
+        let nombre = language !== "english" ? await translateText(e.name, "es") : e.name;
         const container = document.createElement("div");
         container.className = "summary-item";
-        container.setAttribute("data-id", e.id);
+        container.dataset.id = e.id;
+        container.style.cssText = "display:flex;align-items:center;padding:8px;border:1px solid #ccc;border-radius:4px;margin-bottom:4px";
 
         const dragHandle = document.createElement("span");
         dragHandle.className = "drag-handle";
         dragHandle.textContent = "☰";
-        dragHandle.style.cursor = "grab";
-        dragHandle.style.padding = "0 8px";
+        dragHandle.style.cssText = "cursor:grab;margin-right:8px";
 
         const linkEl = document.createElement("a");
         linkEl.textContent = nombre;
         linkEl.href = `exercise_detail.html?name=${encodeURIComponent(e.name)}`;
         linkEl.target = "_blank";
         linkEl.className = "summary-link";
-        linkEl.style.marginRight = "8px";
+        linkEl.style.cssText = "flex-grow:1;text-decoration:none;color:#333";
 
         const repsSelect = document.createElement("select");
         repsSelect.innerHTML = `
-      <option value="3x10">3x10</option>
-      <option value="4x12">4x12</option>
-      <option value="5x15">5x15</option>`;
+      <option value=\"3x10\">3x10</option>
+      <option value=\"4x12\">4x12</option>
+      <option value=\"5x15\">5x15</option>`;
         repsSelect.value = e.reps;
         repsSelect.style.margin = "0 8px";
         repsSelect.addEventListener("change", () => {
@@ -109,7 +99,7 @@ async function updateSummary() {
 
         const removeBtn = document.createElement("button");
         removeBtn.textContent = language === "english" ? "Delete" : "Eliminar";
-        removeBtn.style.margin = "0 8px";
+        removeBtn.style.cssText = "background:#e74c3c;color:#fff;border:none;padding:4px 8px;border-radius:4px;margin-left:8px";
         removeBtn.addEventListener("click", () => {
             selected.splice(idx, 1);
             updateSummary();
@@ -118,10 +108,9 @@ async function updateSummary() {
         container.append(dragHandle, linkEl, repsSelect, removeBtn);
         summaryEl.appendChild(container);
     }
-    console.log(summaryEl)
 }
 
-// Renderizado de tarjetas con traducción
+// Renderizado de tarjetas con traducción, marcado y estilos
 async function render(list) {
     exerciseList.innerHTML = "";
     if (!list.length) {
@@ -131,26 +120,19 @@ async function render(list) {
         return;
     }
     for (const ex of list) {
-        let nombre = language !== "english"
-            ? await translateText(ex.name, "es")
-            : ex.name;
-        let equip  = language !== "english"
-            ? await translateText(ex.equipment, "es")
-            : ex.equipment;
-        let target = language !== "english"
-            ? await translateText(ex.target, "es")
-            : ex.target;
+        let nombre = language !== "english" ? await translateText(ex.name, "es") : ex.name;
+        let equip  = language !== "english" ? await translateText(ex.equipment, "es") : ex.equipment;
+        let target = language !== "english" ? await translateText(ex.target, "es") : ex.target;
 
         const card = document.createElement("div");
         card.className = "exercise-card";
-        card.style.position = "relative";
+        card.dataset.id = ex.id;
+        card.style.cssText = "position:relative;padding:16px;border:1px solid #ddd;border-radius:8px;margin-bottom:12px;background:#f9f9f9";
 
         const favBtn = document.createElement("button");
         favBtn.className = "fav-btn";
         favBtn.textContent = favorites.includes(ex.id) ? "❤️" : "🤍";
-        favBtn.style.position = "absolute";
-        favBtn.style.top = "8px";
-        favBtn.style.right = "8px";
+        favBtn.style.cssText = "position:absolute;top:8px;right:8px";
         favBtn.addEventListener("click", async () => {
             const uid = auth.currentUser.uid;
             favorites = favorites.includes(ex.id)
@@ -165,11 +147,21 @@ async function render(list) {
         });
 
         const repsSelect = document.createElement("select");
+        repsSelect.className = "card-reps-select";
         repsSelect.innerHTML = `
-      <option value="3x10">3x10</option>
-      <option value="4x12">4x12</option>
-      <option value="5x15">5x15</option>`;
+      <option value=\"3x10\">3x10</option>
+      <option value=\"4x12\">4x12</option>
+      <option value=\"5x15\">5x15</option>`;
         repsSelect.value = selected.find(s => s.id === ex.id)?.reps || "5x15";
+        repsSelect.style.marginLeft = "8px";
+        repsSelect.addEventListener("change", () => {
+            const i = selected.findIndex(s => s.id === ex.id);
+            if (i > -1) {
+                selected[i].reps = repsSelect.value;
+                const sumSel = summaryEl.querySelector(`.summary-item[data-id=\"${ex.id}\"] select`);
+                if (sumSel) sumSel.value = repsSelect.value;
+            }
+        });
 
         const cb = document.createElement("input");
         cb.type = "checkbox";
@@ -186,17 +178,20 @@ async function render(list) {
 
         const nameEl   = document.createElement("div");
         nameEl.innerHTML   = `<strong><a href=exercise_detail.html?name=${encodeURIComponent(ex.name)} target=\"_blank\">${nombre}</a></strong>`;
+        nameEl.style.marginBottom = "4px";
         const targetEl = document.createElement("div");
         targetEl.textContent = `${language === "english" ? "Target:" : "Objetivo:"} ${target}`;
+        targetEl.style.fontSize = "0.9em";
         const equipEl  = document.createElement("div");
         equipEl.textContent  = `${language === "english" ? "Equip:" : "Equipo:"} ${equip}`;
+        equipEl.style.fontSize = "0.9em";
 
         [favBtn, cb, nameEl, targetEl, equipEl, repsSelect].forEach(el => card.appendChild(el));
         exerciseList.appendChild(card);
     }
 }
 
-// Random selection
+// Selección aleatoria
 randomBtn.addEventListener("click", async () => {
     const pool = await fetchExercises(select.value);
     const errTitle = language === "english"
@@ -205,8 +200,8 @@ randomBtn.addEventListener("click", async () => {
     if (pool.length < 4) {
         return Swal.fire({ title: errTitle, icon: "warning", confirmButtonColor: "#d51313", confirmButtonText: "Ok" });
     }
-    const chosen = pool.sort(() => 0.5 - Math.random()).slice(0, 4);
-    selected = chosen.map(ex => ({ id: ex.id, bodyPart: ex.bodyPart, name: ex.name, reps: "5x15" }));
+    selected = pool.sort(() => 0.5 - Math.random()).slice(0, 4)
+        .map(ex => ({ id: ex.id, bodyPart: ex.bodyPart, name: ex.name, reps: "5x15" }));
     updateSummary();
 });
 
@@ -245,6 +240,18 @@ onAuthStateChanged(auth, async (user) => {
         select.appendChild(new Option(label, bp));
     }
 
+    // Habilitar arrastrar/resumir siempre
+    Sortable.create(summaryEl, {
+        animation: 150,
+        handle:    ".drag-handle",
+        ghostClass: "sortable-ghost",
+        onEnd(evt) {
+            const [moved] = selected.splice(evt.oldIndex, 1);
+            selected.splice(evt.newIndex, 0, moved);
+            updateSummary();
+        }
+    });
+
     // Carga desde predefinidos
     const fromPre = new URLSearchParams(location.search).get("fromPredefined");
     if (fromPre) {
@@ -256,12 +263,15 @@ onAuthStateChanged(auth, async (user) => {
             }
             const r = snap.data();
 
+            // cargar lista completa de ejercicios
             currentList = await fetchExercises(ALL_VALUE);
+            // rellenar campos del formulario
             nameInput.value     = r.name;
             descInput.value     = r.description;
             durationInput.value = r.duration || "";
-            restInput.value     = r.rest || "";
+            restInput.value     = r.rest     || "";
 
+            // mapear ejercicios de la rutina predefinida
             selected = (r.exercises || []).map(exercise => {
                 const match = currentList.find(x => x.name === exercise.name);
                 return {
@@ -272,9 +282,9 @@ onAuthStateChanged(auth, async (user) => {
                 };
             }).filter(x => x.id);
 
+            // fijar filtro y renderizar con marcado
             select.value = ALL_VALUE;
-            render(currentList);
-            await updateSummary();
+            select.dispatchEvent(new Event("change"));
         } catch (err) {
             console.error(err);
             const errMsg = language === "english"
@@ -302,17 +312,6 @@ onAuthStateChanged(auth, async (user) => {
     // Inicial renderizado
     select.value = ALL_VALUE;
     select.dispatchEvent(new Event("change"));
-
-    Sortable.create(summaryEl, {
-        animation: 150,
-        handle:    ".drag-handle",
-        ghostClass: "sortable-ghost",
-        onEnd(evt) {
-            const [moved] = selected.splice(evt.oldIndex, 1);
-            selected.splice(evt.newIndex, 0, moved);
-            updateSummary();
-        }
-    });
 });
 
 // Filtros y búsqueda de ejercicios
@@ -320,7 +319,7 @@ select.addEventListener("change", async () => {
     currentList = await fetchExercises(select.value);
     searchInput.value = "";
     render(currentList);
-    updateSummary()
+    updateSummary();
 });
 
 searchInput.addEventListener("input", () => {
