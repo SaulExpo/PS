@@ -14,5 +14,14 @@
   "age": "Edad",
   "weight": "Peso",
   "sex": "Género",
-  "suscription": "Suscripción"
+  "suscription": "Suscripción",
+  "objectives": "Objetivos",
+  "oLabel": "Ponte nuevos objetivos para  alcanzar el siguiente nivel",
+  "ooption": "¿Cuál sera el proximo objetivo?",
+  "o1": "Pérdida de peso",
+  "o2": "Tren superior",
+  "o3": "Tren inferior",
+  "o4": "LLegar a nivel intermedio",
+  "o5": "LLegar a nivel avanzado",
+  "confirm": "Confirmar"
 }

@@ -14,6 +14,7 @@ if (!token) {
 let profesores = []
 let alumnos = []
 let user = undefined
+let language = localStorage.getItem("language");
 
 
 async function getProfesores() {
@@ -113,10 +114,19 @@ function cargaMiProfe(profe) {
         calificacion += estrella.estrella
     }
     calificacion /= estrellas.length
+    let leave
+    let rate
+    if (language === "english"){
+        leave = "Leave"
+        rate = "Rate"
+    } else{
+        leave = "Salir"
+        rate = "Calificar"
+    }
     let temp = `<p>${profe.data().name} ${calificacion}⭐</p>
-            <button class="button_user_action" onclick="desasignarPro('${profe.data().id}', '${profe.data().name}')">Leave</button>
+            <button class="button_user_action" onclick="desasignarPro('${profe.data().id}', '${profe.data().name}')">${leave}</button>
             <button class="button_user_action" onclick=location.href="./chat.html?to=${profe.data().email}">Chat</button>
-            <button class="button_user_action" onclick="calificar()">Calificar</button>`
+            <button class="button_user_action" onclick="calificar()">${rate}</button>`
     document.querySelector("#profe_asig").innerHTML = temp
 }
 

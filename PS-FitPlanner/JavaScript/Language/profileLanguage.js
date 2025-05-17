@@ -30,6 +30,15 @@ export async function profileLanguage() {
             document.getElementById("weight").textContent = json.weight
             document.getElementById("sex").textContent = json.sex
             document.getElementById("suscription2").textContent = json.suscription
+            document.getElementById("objectives").textContent = json.objectives
+            document.getElementById("oLabel").textContent = json.oLabel
+            document.getElementById("ooption").textContent = json.ooption
+            document.getElementById("o1").textContent = json.o1
+            document.getElementById("o2").textContent = json.o2
+            document.getElementById("o3").textContent = json.o3
+            document.getElementById("o4").textContent = json.o4
+            document.getElementById("o5").textContent = json.o5
+            document.getElementById("confirm").textContent = json.confirm
             if(document.getElementById("genero").textContent === "Hombre" && language === "english"){
                 document.getElementById("genero").textContent = "Man"
             } else if (document.getElementById("genero").textContent === "Mujer" && language === "english"){

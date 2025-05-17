@@ -58,9 +58,7 @@ export async function load() {
         li.appendChild(a);
         ul.appendChild(li);
     };
-    console.log(picks)
-    console.log(document.getElementById("recommendations"));
-    console.log(ul)
+
     document.getElementById("recommendations").appendChild(ul);
 
 
@@ -82,6 +80,5 @@ export async function load() {
         }
     }
 
-    const user = await getUserProfile()
-    console.log(user)
+
 }

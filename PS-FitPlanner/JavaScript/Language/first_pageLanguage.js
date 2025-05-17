@@ -11,14 +11,10 @@ export async function first_pageLanguage() {
             console.log(json);
             document.querySelectorAll(".info")[0].textContent = json.first_page.today;
             document.querySelectorAll(".info")[1].textContent = json.first_page.calendar;
-            document.querySelectorAll("#picture")[0].src = json.first_page.today_img;
-            document.querySelectorAll("#picture")[1].src = json.first_page.calendar_img;
             document.querySelectorAll("#picture")[1].addEventListener("click", () => {
                 location.replace("../Pages/calendar.html");
             });
-
-            document.querySelectorAll("#picture")[2].src = json.first_page.recommendations_image;
-            document.querySelectorAll("#picture")[2].alt = "Recommendations";
+            console.log(document.querySelectorAll("#picture"))
             document.getElementById("ejercicios").textContent = json.first_page.recommendations_title
             document.getElementById("calendar").textContent = json.first_page.calendar_title
             document.querySelectorAll(".title")[0].textContent = json.first_page.today_title
