@@ -12,21 +12,18 @@ html, body {
 
 main {
     flex: 1;
-}
-
-body {
-    font-family: 'Inter', sans-serif;
-    background-color: #f5f7fa;
-    color: #333;
-}
-
-main {
     background-color: white;
     border-radius: 12px;
     padding: 2em;
     box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     max-width: 800px;
     margin: 2em auto;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
 }
 
 #info {
@@ -45,10 +42,10 @@ main {
 }
 
 #durationContainer {
+    margin-top: 0.5em;
     margin-bottom: 1.5em;
     text-align: center;
     font-size: 1.1em;
-    margin-top: 0.5em;
     color: #9c2a2a;
 }
 
@@ -67,14 +64,7 @@ main {
     margin: 2em auto;
 }
 
-.horizontal-selectors {
-    display: flex;
-    gap: 1em;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-}
-
+.horizontal-selectors,
 .search-bar {
     display: flex;
     gap: 1em;
@@ -120,4 +110,112 @@ main {
 
 #exercises a:hover {
     color: #000;
+}
+
+#starRating .star {
+    cursor: pointer;
+    color: #f39c12;
+    font-size: 1.5rem;
+    margin-right: 4px;
+    transition: color 0.2s;
+}
+
+#starRating .star:hover,
+#starRating .star:hover ~ .star {
+    color: #e67e22;
+}
+
+.feedback-item {
+    border-bottom: 1px solid #ccc;
+    padding: 8px 0;
+}
+
+.feedback-stars {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #f39c12;
+}
+
+.feedback-text {
+    margin: 4px 0;
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+.feedback-date {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #555;
+}
+
+.feedback-delete-btn {
+    background: transparent;
+    border: none;
+    color: #e74c3c;
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 0;
+    margin-top: 4px;
+    transition: text-decoration 0.2s;
+}
+
+.feedback-delete-btn:hover {
+    text-decoration: underline;
+}
+
+#submitFeedback {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: block;
+    margin: 12px auto 0;
+    width: 100%;
+    max-width: 200px;
+    box-sizing: border-box;
+}
+
+#submitFeedback:hover {
+    background-color: #c0392b;
+}
+
+#feedbackContainer {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#feedbackContainer h3 {
+    margin-top: 20px;
+}
+
+#starRating {
+    display: inline-block;
+    margin: 8px 0;
+}
+
+#commentBox {
+    display: block;
+    margin: 8px auto;
+    width: 90%;
+    max-width: 400px;
+    box-sizing: border-box;
+}
+
+.create-from-predef-btn {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 5px 7px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.create-from-predef-btn:hover {
+    background-color: #cd5e51;
 }

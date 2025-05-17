@@ -16,8 +16,6 @@ const descInput     = document.getElementById("routine-description");
 const durationInput = document.getElementById("routine-duration");
 const restInput     = document.getElementById("routine-rest");
 const saveBtn       = document.getElementById("save-export-routine");
-
-// Botón para seleccionar 4 ejercicios aleatorios, con soporte de idioma
 const randomBtn = document.createElement("button");
 let language = localStorage.getItem("language");
 excersiseSelectorLanguage();
@@ -41,7 +39,6 @@ let editId      = null;
 let favorites   = [];
 const userRoutinesCol = collection(db, "user_routines");
 
-// Función de carga de ejercicios (s/ idioma)
 async function fetchExercises(part) {
     const all = [];
     for (const col of COLLECTIONS) {
@@ -110,7 +107,6 @@ async function updateSummary() {
     }
 }
 
-// Renderizado de tarjetas con traducción, marcado y estilos
 async function render(list) {
     exerciseList.innerHTML = "";
     if (!list.length) {
@@ -191,7 +187,6 @@ async function render(list) {
     }
 }
 
-// Selección aleatoria
 randomBtn.addEventListener("click", async () => {
     const pool = await fetchExercises(select.value);
     const errTitle = language === "english"
@@ -205,7 +200,6 @@ randomBtn.addEventListener("click", async () => {
     updateSummary();
 });
 
-// Autenticación y lógica principal
 onAuthStateChanged(auth, async (user) => {
     if (!user) {
         const msg = language === "english"
@@ -219,7 +213,6 @@ onAuthStateChanged(auth, async (user) => {
         ? userSnap.data().favorites
         : [];
 
-    // POBLAR FILTRO con idioma
     select.innerHTML = "";
     if (language !== "english") {
         select.appendChild(new Option("Todos", ALL_VALUE));
@@ -240,7 +233,6 @@ onAuthStateChanged(auth, async (user) => {
         select.appendChild(new Option(label, bp));
     }
 
-    // Habilitar arrastrar/resumir siempre
     Sortable.create(summaryEl, {
         animation: 150,
         handle:    ".drag-handle",
@@ -252,7 +244,6 @@ onAuthStateChanged(auth, async (user) => {
         }
     });
 
-    // Carga desde predefinidos
     const fromPre = new URLSearchParams(location.search).get("fromPredefined");
     if (fromPre) {
         try {
@@ -282,7 +273,6 @@ onAuthStateChanged(auth, async (user) => {
                 };
             }).filter(x => x.id);
 
-            // fijar filtro y renderizar con marcado
             select.value = ALL_VALUE;
             select.dispatchEvent(new Event("change"));
         } catch (err) {
@@ -309,12 +299,10 @@ onAuthStateChanged(auth, async (user) => {
         }
     }
 
-    // Inicial renderizado
     select.value = ALL_VALUE;
     select.dispatchEvent(new Event("change"));
 });
 
-// Filtros y búsqueda de ejercicios
 select.addEventListener("change", async () => {
     currentList = await fetchExercises(select.value);
     searchInput.value = "";

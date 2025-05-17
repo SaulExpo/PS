@@ -66,7 +66,6 @@ async function loadUserRoutines(user) {
         const card = document.createElement("div");
         card.className = "routine-card";
 
-        // Name and description
         const nameEl = document.createElement("div");
         nameEl.className = "routine-name";
         nameEl.textContent = data.name;
@@ -76,7 +75,6 @@ async function loadUserRoutines(user) {
         descEl.className = "routine-description";
         descEl.textContent = data.description || description;
 
-        // Note functionality
         const noteDisplay = document.createElement("div");
         noteDisplay.className = "routine-note-display";
         noteDisplay.textContent = data.note || "";
@@ -107,7 +105,6 @@ async function loadUserRoutines(user) {
             loadUserRoutines(user);
         });
 
-        // Goal functionality
         const goals = data.goals || [];
         const goalDisplay = document.createElement("div");
         goalDisplay.className = "routine-goal-display";
@@ -157,7 +154,6 @@ async function loadUserRoutines(user) {
             loadUserRoutines(user);
         });
 
-        // Actions
         const actions = document.createElement("div");
         actions.className = "routine-actions";
         const editBtn = document.createElement("button");
@@ -182,7 +178,6 @@ async function loadUserRoutines(user) {
         };
         actions.append(noteBtn, goalBtn, editBtn, deleteBtn);
 
-        // Details: duration, rest, exercises
         const detailsEl = document.createElement("div");
         detailsEl.className = "routine-extra-details";
         detailsEl.style.display = "none";

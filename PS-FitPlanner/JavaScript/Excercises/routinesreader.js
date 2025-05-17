@@ -7,7 +7,6 @@ import Swal from "https://cdn.skypack.dev/sweetalert2";
 import { routinesLanguage } from "../Language/routinesLanguage.js";
 import { translateText } from "../translate.js";
 
-// Elementos del DOM
 document.addEventListener('DOMContentLoaded', () => {
     const typeSelector    = document.getElementById("typeSelector");
     const routineSelector = document.getElementById("routineSelector");
@@ -19,13 +18,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const restEl          = document.getElementById("restContainer");
     const exercisesEl     = document.getElementById("exercises");
 
-    // Feedback UI container
     const feedbackContainer = document.createElement("div");
     feedbackContainer.id = "feedbackContainer";
     const feedbackList = document.createElement("div");
     feedbackList.id = "feedbackList";
 
-    // Estado global
     let language = localStorage.getItem("language") || "spanish";
     let allRoutines = [];
     let routineFavorites = [];
@@ -216,28 +213,66 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
         document.getElementById('submitFeedback').onclick = async () => {
+            if (!auth.currentUser) {
+                return Swal.fire(
+                    language === "english"
+                        ? 'Log in first to comment'
+                        : 'Inicia sesión primero'
+                );
+            }
+
+            if (selectedRating === 0) {
+                return Swal.fire(
+                    language === "english"
+                        ? 'Please select a rating'
+                        : 'Por favor selecciona una valoración'
+                );
+            }
+
             const commentTxt = document.getElementById('commentBox').value.trim();
-            if (!auth.currentUser) return Swal.fire(
-                language === "english" ? 'Log in first to comment' : 'Inicia sesión primero'
+            if (!commentTxt) {
+                return Swal.fire(
+                    language === "english"
+                        ? 'Write a comment'
+                        : 'Escribe un comentario'
+                );
+            }
+
+            const fbQuery = query(
+                collection(db, 'routines_feedback'),
+                where('routineId', '==', currentRoutineId),
+                where('uid', '==', auth.currentUser.uid)
             );
-            if (!commentTxt) return Swal.fire(
-                language === "english" ? 'Write a comment' : 'Escribe un comentario'
-            );
-            await addDoc(collection(db, 'routines_feedback'), {
-                routineId: currentRoutineId,
-                uid: auth.currentUser.uid,
-                rating: selectedRating,
-                comment: commentTxt,
-                timestamp: Date.now()
-            });
+            const fbSnap = await getDocs(fbQuery);
+
+            if (fbSnap.empty) {
+                await addDoc(collection(db, 'routines_feedback'), {
+                    routineId: currentRoutineId,
+                    uid: auth.currentUser.uid,
+                    rating: selectedRating,
+                    comment: commentTxt,
+                    timestamp: Date.now()
+                });
+            } else {
+                const existing = fbSnap.docs[0];
+                await updateDoc(
+                    doc(db, 'routines_feedback', existing.id),
+                    { rating: selectedRating, comment: commentTxt, timestamp: Date.now() }
+                );
+            }
             Swal.fire(
-                language === "english" ? 'Thanks for your feedback!' : '¡Gracias por tu feedback!'
+                language === "english"
+                    ? 'Thanks for your feedback!'
+                    : '¡Gracias por tu feedback!'
             );
             document.getElementById('commentBox').value = '';
-            document.querySelectorAll('#starRating .star').forEach(s => s.textContent = '☆');
             selectedRating = 0;
-            loadFeedback(currentRoutineId);
+            document.querySelectorAll('#starRating .star')
+                .forEach(s => s.textContent = '☆');
+
+            await loadFeedback(currentRoutineId);
         };
+
 
         loadFeedback(id);
     }
