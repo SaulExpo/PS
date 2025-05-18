@@ -4,6 +4,7 @@ import Swal from 'https://cdn.skypack.dev/sweetalert2';
 import {getCollectionCached} from "./Excercises/cacheLoad.js";
 import {first_pageLanguage} from "./Language/first_pageLanguage.js";
 import {translateText} from "./translate.js";
+import { loadObjectiveRecommendations } from "./Excercises/objective_recommendations.js";
 
 
 const exerciseCollections = [
@@ -40,6 +41,7 @@ export async function load() {
     await loadHeader();
     await loadFooter();
     await first_pageLanguage()
+    await loadObjectiveRecommendations();
     const picks = await loadRecommendations(); // Espera los resultados
 
     const ul = document.createElement("ul");

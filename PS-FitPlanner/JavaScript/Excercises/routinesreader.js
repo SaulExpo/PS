@@ -1,3 +1,4 @@
+// routinesreader.js
 import { collection, doc, query, where, updateDoc, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import { db, auth } from "../firebase_config.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
@@ -8,6 +9,7 @@ import { routinesLanguage } from "../Language/routinesLanguage.js";
 import { translateText } from "../translate.js";
 
 document.addEventListener('DOMContentLoaded', () => {
+    // --- Elementos del DOM ---
     const typeSelector    = document.getElementById("typeSelector");
     const routineSelector = document.getElementById("routineSelector");
     const globalSearch    = document.getElementById("globalSearch");
@@ -23,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const feedbackList = document.createElement("div");
     feedbackList.id = "feedbackList";
 
+    // --- Estado interno ---
     let language = localStorage.getItem("language") || "spanish";
     let allRoutines = [];
     let routineFavorites = [];
@@ -30,10 +33,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentRoutineId = null;
     let selectedRating = 0;
 
-    // Inicializar idioma estático
+    // Inicializa textos estáticos
     routinesLanguage();
 
-    // Carga de tipos de rutina
+    // --- Función: Carga de TIPOS de rutina ---
     async function loadRoutineTypes() {
         typeSelector.innerHTML = '';
         const setTypes = new Set(
@@ -41,25 +44,31 @@ document.addEventListener('DOMContentLoaded', () => {
         );
         const types = Array.from(setTypes).sort();
 
+        // Opción por defecto
         const defaultLabel = language === "english" ? "Select type" : "Selecciona tipo";
         typeSelector.appendChild(new Option(defaultLabel, '', true, true));
         typeSelector.disabled = false;
 
+        // Agrega cada tipo
         for (const type of types) {
             const text = language === "english"
                 ? type.toUpperCase()
                 : await translateText(type.toUpperCase(), "es");
             typeSelector.appendChild(new Option(text, type));
         }
+
+        // Opción de Favoritos
         const favLabel = language === "english" ? "FAVORITES" : "FAVORITOS";
         typeSelector.appendChild(new Option(favLabel, "favorites"));
+
+        // Opción de Exclusivas si el usuario es miembro superior
         if (isSuperior) {
             const exLabel = language === "english" ? "EXCLUSIVE" : "EXCLUSIVAS";
             typeSelector.appendChild(new Option(exLabel, "exclusive"));
         }
     }
 
-    // Carga de nombres según tipo
+    // --- Función: Carga de NOMBRES según tipo seleccionado ---
     async function loadRoutineNames(type) {
         routineSelector.innerHTML = '';
         const defaultLabel = language === "english" ? "Select routine" : "Selecciona rutina";
@@ -92,30 +101,39 @@ document.addEventListener('DOMContentLoaded', () => {
                     ? r.name
                     : await translateText(r.name, "es");
                 const label = r.isExclusive ? `${nameText} ⭐` : nameText;
+                // ← IMPORTANTE: el value es el ID de la rutina
                 routineSelector.appendChild(new Option(label, r.id));
             }
         }
     }
 
-    // Carga y render de rutina
+    // --- Función: Carga y renderizado de una rutina concreta ---
     async function loadRoutine(id) {
         currentRoutineId = id;
+
+        // Intento caché de rutinas estándar
         let rDoc = await getDocCached("routines", id);
         let fromEx = false;
+        // Si no existe y es usuario superior, intento exclusivas
         if (!rDoc && isSuperior) {
             rDoc = await getDocCached("exclusive_routines", id);
             fromEx = !!rDoc;
         }
+
+        // Caída de seguridad: buscada en allRoutines
         const r = rDoc || allRoutines.find(x => x.id === id);
-        if (!r) return Swal.fire(
-            language === "english" ? "Routine not found" : "Rutina no encontrada"
-        );
+        if (!r) {
+            return Swal.fire(
+                language === "english" ? "Routine not found" : "Rutina no encontrada"
+            );
+        }
         r.isExclusive = fromEx;
 
-        // Título e info
+        // --- Render TÍTULO e INFO ---
         titleEl.innerHTML = '';
         infoEl.innerHTML = '';
         titleEl.innerText = language === "english" ? r.name : await translateText(r.name, "es");
+
         if (r.isExclusive && r.exclusiveDescription) {
             const desc = document.createElement("p");
             desc.className = "exclusive-desc";
@@ -129,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 : await translateText(r.description, "es");
         }
 
-        // Duración y descanso
+        // --- Render DURACIÓN y DESCANSO ---
         durationEl.innerText = language === "english"
             ? `Duration: ${r.duration || '—'}`
             : await translateText(`Duration: ${r.duration || '—'}`, "es");
@@ -137,30 +155,44 @@ document.addEventListener('DOMContentLoaded', () => {
             ? `Rest: ${r.rest || '—'} mins`
             : await translateText(`Rest: ${r.rest || '—'} mins`, "es");
 
-        // Botones
-        const oldUse = titleEl.querySelector('.create-from-predef-btn'); if (oldUse) oldUse.remove();
-        const oldFav = titleEl.querySelector('.fav-btn'); if (oldFav) oldFav.remove();
+        // --- Botones de acción (usar / favoritos) ---
+        // Elimino botones previos
+        const oldUse = titleEl.querySelector('.create-from-predef-btn');
+        if (oldUse) oldUse.remove();
+        const oldFav = titleEl.querySelector('.fav-btn');
+        if (oldFav) oldFav.remove();
 
+        // Botón "Crear desde esta" para rutinas no exclusivas
         if (!r.isExclusive) {
             const useBtn = document.createElement('button');
             useBtn.textContent = language === "english" ? 'Create from this' : 'Crear desde esta';
             useBtn.className = 'create-from-predef-btn';
             useBtn.addEventListener('click', () => {
-                if (!auth.currentUser) return Swal.fire({
-                    title: language === "english" ? 'Log in to use this feature.' : 'Inicia sesión para usar esta función.',
-                    icon: 'warning'
-                });
+                if (!auth.currentUser) {
+                    return Swal.fire({
+                        title: language === "english"
+                            ? 'Log in to use this feature.'
+                            : 'Inicia sesión para usar esta función.',
+                        icon: 'warning'
+                    });
+                }
                 window.location.href = `../Pages/exercise_selector.html?fromPredefined=${id}`;
             });
             titleEl.appendChild(useBtn);
         }
+
+        // Botón de favorito / desfavorito
         const favBtn = document.createElement('button');
         favBtn.textContent = routineFavorites.includes(id) ? '❤️' : '🤍';
         favBtn.className = 'fav-btn';
         favBtn.addEventListener('click', async () => {
-            if (!auth.currentUser) return Swal.fire(
-                language === "english" ? 'Log in to use favorites' : 'Inicia sesión para favoritos'
-            );
+            if (!auth.currentUser) {
+                return Swal.fire(
+                    language === "english"
+                        ? 'Log in to use favorites'
+                        : 'Inicia sesión para favoritos'
+                );
+            }
             const uid = auth.currentUser.uid;
             routineFavorites = routineFavorites.includes(id)
                 ? routineFavorites.filter(x => x !== id)
@@ -170,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         titleEl.appendChild(favBtn);
 
-        // Render ejercicios
+        // --- Render EJERCICIOS ---
         exercisesEl.innerHTML = '';
         r.exercises.forEach((ex, i) => {
             const wrapper = document.createElement('div');
@@ -180,30 +212,38 @@ document.addEventListener('DOMContentLoaded', () => {
                 .then(res => res.text())
                 .then(async tpl => {
                     wrapper.innerHTML = tpl;
-                    const nameTranslated =
-                        language === "english" ? ex.name : await translateText(ex.name, "es");
+                    const nameTranslated = language === "english"
+                        ? ex.name
+                        : await translateText(ex.name, "es");
                     wrapper.querySelector('#name_exercise').innerHTML =
                         `<a href="./exercise_detail.html?name=${encodeURIComponent(ex.name)}">${nameTranslated}</a>`;
                     wrapper.querySelector('#reps').innerText = ex.reps;
                 });
         });
 
-        // Feedback Section
+        // --- Sección de FEEDBACK ---
         feedbackContainer.innerHTML = `
-        <h3>${language === "english" ? 'Rate and comment this routine' : 'Valora y comenta esta rutina'}</h3>
-        <div id="starRating">
-          <span class="star" data-value="1">☆</span>
-          <span class="star" data-value="2">☆</span>
-          <span class="star" data-value="3">☆</span>
-          <span class="star" data-value="4">☆</span>
-          <span class="star" data-value="5">☆</span>
-        </div>
-        <textarea id="commentBox" placeholder="${language === "english" ? 'Write your comment...' : 'Escribe tu comentario...'}" rows="3"></textarea>
-        <button id="submitFeedback">${language === "english" ? 'Send feedback' : 'Envía feedback'}</button>
-      `;
+            <h3>${language === "english"
+            ? 'Rate and comment this routine'
+            : 'Valora y comenta esta rutina'}</h3>
+            <div id="starRating">
+              <span class="star" data-value="1">☆</span>
+              <span class="star" data-value="2">☆</span>
+              <span class="star" data-value="3">☆</span>
+              <span class="star" data-value="4">☆</span>
+              <span class="star" data-value="5">☆</span>
+            </div>
+            <textarea id="commentBox" placeholder="${language === "english"
+            ? 'Write your comment...'
+            : 'Escribe tu comentario...'}" rows="3"></textarea>
+            <button id="submitFeedback">${language === "english"
+            ? 'Send feedback'
+            : 'Envía feedback'}</button>
+        `;
         feedbackContainer.appendChild(feedbackList);
         exercisesEl.parentNode.appendChild(feedbackContainer);
 
+        // Estrellas interactivas
         document.querySelectorAll('#starRating .star').forEach(star => {
             star.addEventListener('click', () => {
                 selectedRating = +star.dataset.value;
@@ -212,6 +252,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 );
             });
         });
+
+        // Botón de envío de feedback
         document.getElementById('submitFeedback').onclick = async () => {
             if (!auth.currentUser) {
                 return Swal.fire(
@@ -220,7 +262,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         : 'Inicia sesión primero'
                 );
             }
-
             if (selectedRating === 0) {
                 return Swal.fire(
                     language === "english"
@@ -228,7 +269,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         : 'Por favor selecciona una valoración'
                 );
             }
-
             const commentTxt = document.getElementById('commentBox').value.trim();
             if (!commentTxt) {
                 return Swal.fire(
@@ -238,6 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 );
             }
 
+            // Compruebo si ya existe feedback de este usuario para esta rutina
             const fbQuery = query(
                 collection(db, 'routines_feedback'),
                 where('routineId', '==', currentRoutineId),
@@ -260,11 +301,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     { rating: selectedRating, comment: commentTxt, timestamp: Date.now() }
                 );
             }
+
             Swal.fire(
                 language === "english"
                     ? 'Thanks for your feedback!'
                     : '¡Gracias por tu feedback!'
             );
+            // Limpio formulario
             document.getElementById('commentBox').value = '';
             selectedRating = 0;
             document.querySelectorAll('#starRating .star')
@@ -273,17 +316,18 @@ document.addEventListener('DOMContentLoaded', () => {
             await loadFeedback(currentRoutineId);
         };
 
-
-        loadFeedback(id);
+        // Cargo feedback existente
+        await loadFeedback(id);
     }
 
-    // Carga de feedback existente
+    // --- Función: Carga de FEEDBACK de Firebase ---
     async function loadFeedback(routineId) {
         const snap = await getDocs(
             query(collection(db, 'routines_feedback'), where('routineId', '==', routineId))
         );
         const feedbacks = snap.docs.map(d => d.data())
             .sort((a, b) => b.timestamp - a.timestamp);
+
         feedbackList.innerHTML = '';
         if (!feedbacks.length) {
             const msg = language === "english" ? 'No feedback yet' : 'Aún no hay feedback';
@@ -296,15 +340,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const stars = '★'.repeat(f.rating) + '☆'.repeat(5 - f.rating);
             const date = new Date(f.timestamp).toLocaleString();
             div.innerHTML = `
-            <p><strong>${stars}</strong> &nbsp; <em>${date}</em></p>
-            <p>${f.comment}</p>
-            <hr>
-          `;
+                <p><strong>${stars}</strong> &nbsp; <em>${date}</em></p>
+                <p>${f.comment}</p>
+                <hr>
+            `;
             feedbackList.appendChild(div);
         });
     }
 
-    // Búsqueda global
+    // --- Búsqueda global por texto ---
     globalSearch.addEventListener('input', async () => {
         const q = globalSearch.value.trim().toLowerCase();
         searchResults.innerHTML = '';
@@ -327,7 +371,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (!filtered.length) {
-            const noMsg = language === "english" ? 'No matches found' : 'No se encontraron coincidencias';
+            const noMsg = language === "english"
+                ? 'No matches found'
+                : 'No se encontraron coincidencias';
             const opt = document.createElement('option');
             opt.disabled = true;
             opt.textContent = noMsg;
@@ -343,18 +389,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Listeners de UI
+    // --- Listeners de UI ---
     typeSelector.addEventListener('change', () => loadRoutineNames(typeSelector.value));
     routineSelector.addEventListener('change', () => loadRoutine(routineSelector.value));
     searchResults.addEventListener('change', () => loadRoutine(searchResults.value));
 
-    // Inicialización tras auth
+    // --- Inicialización tras autenticación ---
     onAuthStateChanged(auth, async user => {
         if (!user) return;
+
+        // Carga perfil usuario
         const profile = await getUserProfile();
         routineFavorites = profile.routineFavorites || [];
         isSuperior = profile.tipo_suscripcion === 'miembro superior';
 
+        // Carga colección de rutinas
         const base = await getCollectionCached('routines');
         allRoutines = base.map(r => ({ ...r, isExclusive: false }));
         if (isSuperior) {
@@ -363,6 +412,7 @@ document.addEventListener('DOMContentLoaded', () => {
             allRoutines = allRoutines.concat(exclusives);
         }
 
+        // Traducciones (solo si idioma español)
         if (language === "spanish") {
             await Promise.all(allRoutines.map(async r => {
                 r.name_es = await translateText(r.name, "es");
@@ -371,6 +421,30 @@ document.addEventListener('DOMContentLoaded', () => {
             }));
         }
 
+        // 1) Cargo tipos en selector
         await loadRoutineTypes();
+
+        // 2) Gestiono parámetro ?routine= para preselección automática ← NUEVO
+        const params   = new URLSearchParams(window.location.search);
+        const presetId = params.get("routine");
+        if (presetId) {
+            const target = allRoutines.find(r => r.id === presetId);
+            if (target) {
+                // Determino el tipo de selector (exclusive / favorites / tipo normal)
+                const presetType = target.isExclusive
+                    ? "exclusive"
+                    : (routineFavorites.includes(presetId)
+                            ? "favorites"
+                            : target.routineType
+                    );
+                // Preselecciono tipo y cargo nombres
+                typeSelector.value = presetType;
+                await loadRoutineNames(presetType);
+                // Preselecciono rutina y disparo carga
+                routineSelector.value = presetId;
+                routineSelector.dispatchEvent(new Event("change"));
+            }
+        }
+        // ← fin de la lógica de preselección de rutina
     });
 });
