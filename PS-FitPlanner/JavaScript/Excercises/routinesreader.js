@@ -7,16 +7,16 @@ import Swal from "https://cdn.skypack.dev/sweetalert2";
 import { routinesLanguage } from "../Language/routinesLanguage.js";
 import { translateText } from "../translate.js";
 
-document.addEventListener('DOMContentLoaded', () => {
-    const typeSelector    = document.getElementById("typeSelector");
+document.addEventListener('DOMContentLoaded', async () => {
+    const typeSelector = document.getElementById("typeSelector");
     const routineSelector = document.getElementById("routineSelector");
-    const globalSearch    = document.getElementById("globalSearch");
-    const searchResults   = document.getElementById("searchResults");
-    const titleEl         = document.getElementById("title");
-    const infoEl          = document.getElementById("info");
-    const durationEl      = document.getElementById("durationContainer");
-    const restEl          = document.getElementById("restContainer");
-    const exercisesEl     = document.getElementById("exercises");
+    const globalSearch = document.getElementById("globalSearch");
+    const searchResults = document.getElementById("searchResults");
+    const titleEl = document.getElementById("title");
+    const infoEl = document.getElementById("info");
+    const durationEl = document.getElementById("durationContainer");
+    const restEl = document.getElementById("restContainer");
+    const exercisesEl = document.getElementById("exercises");
 
     const feedbackContainer = document.createElement("div");
     feedbackContainer.id = "feedbackContainer";
@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Carga de tipos de rutina
     async function loadRoutineTypes() {
+        console.log("A")
         typeSelector.innerHTML = '';
         const setTypes = new Set(
             allRoutines.filter(r => !r.isExclusive).map(r => r.routineType)
@@ -44,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const defaultLabel = language === "english" ? "Select type" : "Selecciona tipo";
         typeSelector.appendChild(new Option(defaultLabel, '', true, true));
         typeSelector.disabled = false;
-
+        console.log(types)
         for (const type of types) {
             const text = language === "english"
                 ? type.toUpperCase()
@@ -53,10 +54,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         const favLabel = language === "english" ? "FAVORITES" : "FAVORITOS";
         typeSelector.appendChild(new Option(favLabel, "favorites"));
-        if (isSuperior) {
-            const exLabel = language === "english" ? "EXCLUSIVE" : "EXCLUSIVAS";
-            typeSelector.appendChild(new Option(exLabel, "exclusive"));
-        }
+        const exLabel = language === "english" ? "EXCLUSIVE" : "EXCLUSIVAS";
+        typeSelector.appendChild(new Option(exLabel, "exclusive"));
+
     }
 
     // Carga de nombres según tipo
@@ -138,8 +138,10 @@ document.addEventListener('DOMContentLoaded', () => {
             : await translateText(`Rest: ${r.rest || '—'} mins`, "es");
 
         // Botones
-        const oldUse = titleEl.querySelector('.create-from-predef-btn'); if (oldUse) oldUse.remove();
-        const oldFav = titleEl.querySelector('.fav-btn'); if (oldFav) oldFav.remove();
+        const oldUse = titleEl.querySelector('.create-from-predef-btn');
+        if (oldUse) oldUse.remove();
+        const oldFav = titleEl.querySelector('.fav-btn');
+        if (oldFav) oldFav.remove();
 
         if (!r.isExclusive) {
             const useBtn = document.createElement('button');
@@ -165,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
             routineFavorites = routineFavorites.includes(id)
                 ? routineFavorites.filter(x => x !== id)
                 : [...routineFavorites, id];
-            await updateDoc(doc(db, 'user_app', uid), { routineFavorites });
+            await updateDoc(doc(db, 'user_app', uid), {routineFavorites});
             favBtn.textContent = routineFavorites.includes(id) ? '❤️' : '🤍';
         });
         titleEl.appendChild(favBtn);
@@ -257,7 +259,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const existing = fbSnap.docs[0];
                 await updateDoc(
                     doc(db, 'routines_feedback', existing.id),
-                    { rating: selectedRating, comment: commentTxt, timestamp: Date.now() }
+                    {rating: selectedRating, comment: commentTxt, timestamp: Date.now()}
                 );
             }
             Swal.fire(
@@ -304,27 +306,56 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Búsqueda global
-    globalSearch.addEventListener('input', async () => {
+    let debounceTimer;
+    globalSearch.addEventListener('input', () => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+            runSearch();
+        }, 300);
+    });
+
+    async function runSearch() {
         const q = globalSearch.value.trim().toLowerCase();
-        searchResults.innerHTML = '';
+        while (searchResults.options.length > 0) {
+            searchResults.remove(0);
+        }
+
         const defaultLbl = language === "english" ? 'Results' : 'Resultados';
         searchResults.appendChild(new Option(defaultLbl, '', true, true));
 
         let filtered;
+
         if (language === "english") {
-            filtered = allRoutines.filter(r =>
-                (r.name + ' ' + r.routineType + ' ' + r.description)
-                    .toLowerCase()
-                    .includes(q)
-            );
+            filtered = allRoutines
+                .filter(r =>
+                    (r.name + ' ' + r.routineType + ' ' + r.description)
+                        .toLowerCase()
+                        .includes(q)
+                )
+                .map(r => ({
+                    id: r.id,
+                    name: r.name,
+                    type: r.routineType
+                }));
         } else {
-            filtered = allRoutines.filter(r =>
-                (r.name_es + ' ' + r.routineType_es + ' ' + r.description_es)
-                    .toLowerCase()
-                    .includes(q)
+            const translatedRoutines = await Promise.all(
+                allRoutines.map(async r => {
+                    const name = await translateText(r.name, "es");
+                    const type = await translateText(r.routineType, "es");
+                    const description = await translateText(r.description, "es");
+                    return {
+                        id: r.id,
+                        translatedText: (name + ' ' + type + ' ' + description).toLowerCase(),
+                        name,
+                        type
+                    };
+                })
             );
+
+            filtered = translatedRoutines
+                .filter(r => r.translatedText.includes(q));
         }
+        console.log(filtered)
 
         if (!filtered.length) {
             const noMsg = language === "english" ? 'No matches found' : 'No se encontraron coincidencias';
@@ -333,15 +364,12 @@ document.addEventListener('DOMContentLoaded', () => {
             opt.textContent = noMsg;
             searchResults.appendChild(opt);
         } else {
-            filtered.forEach(r => {
-                const typeLbl = language === "english" ? r.routineType : r.routineType_es;
-                const nameLbl = language === "english" ? r.name : r.name_es;
-                searchResults.appendChild(
-                    new Option(`[${typeLbl}] ${nameLbl}`, r.id)
-                );
-            });
+            for (const r of filtered) {
+                const label = `[${r.type}] ${r.name}`;
+                searchResults.appendChild(new Option(label, r.id));
+            }
         }
-    });
+    };
 
     // Listeners de UI
     typeSelector.addEventListener('change', () => loadRoutineNames(typeSelector.value));
@@ -356,7 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
         isSuperior = profile.tipo_suscripcion === 'miembro superior';
 
         const base = await getCollectionCached('routines');
-        allRoutines = base.map(r => ({ ...r, isExclusive: false }));
+        allRoutines = base.map(r => ({...r, isExclusive: false}));
         if (isSuperior) {
             const exclusives = await getCollectionCached('exclusive_routines');
             exclusives.forEach(r => r.isExclusive = true);
@@ -370,7 +398,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 r.description_es = await translateText(r.description, "es");
             }));
         }
-
-        await loadRoutineTypes();
     });
+    const base = await getCollectionCached('routines');
+    allRoutines = base.map(r => ({...r, isExclusive: false}));
+    await loadRoutineTypes();
 });

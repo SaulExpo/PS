@@ -10,8 +10,6 @@ export async function routinesLanguage() {
         .then(function (json) {
             console.log(json);
             document.getElementById("prueba").textContent = json.prueba
-            console.log(document.getElementById("option1"))
-            document.getElementById("option1").textContent = json.option1
             document.getElementById("routine").textContent = json.routine
             document.getElementById("option2").textContent = json.option2
             document.getElementById("search").textContent = json.search
