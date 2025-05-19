@@ -134,3 +134,30 @@ section
     margin: 0;
     display: block;
 }
+
+#meet-your-goals .content a::before {
+    content: none;
+}
+
+#meet-your-goals .content a {
+    display: block;
+    padding: 0em 0;
+    border-bottom: 1px solid #ddd;
+    text-decoration: none;
+    color: black;
+    font-size: clamp(0.6rem, 2vw, 1rem);
+    line-height: 1.4;
+}
+
+#meet-your-goals .content a:last-child {
+    border-bottom: none;
+}
+
+#meet-your-goals .content a:hover {
+    color: #e16666;
+}
+
+#meet-your-goals .content {
+    max-height: 400px;
+    overflow-y: auto;
+}

@@ -101,26 +101,21 @@ document.addEventListener('DOMContentLoaded', () => {
                     ? r.name
                     : await translateText(r.name, "es");
                 const label = r.isExclusive ? `${nameText} ⭐` : nameText;
-                // ← IMPORTANTE: el value es el ID de la rutina
                 routineSelector.appendChild(new Option(label, r.id));
             }
         }
     }
 
-    // --- Función: Carga y renderizado de una rutina concreta ---
     async function loadRoutine(id) {
         currentRoutineId = id;
 
-        // Intento caché de rutinas estándar
         let rDoc = await getDocCached("routines", id);
         let fromEx = false;
-        // Si no existe y es usuario superior, intento exclusivas
         if (!rDoc && isSuperior) {
             rDoc = await getDocCached("exclusive_routines", id);
             fromEx = !!rDoc;
         }
 
-        // Caída de seguridad: buscada en allRoutines
         const r = rDoc || allRoutines.find(x => x.id === id);
         if (!r) {
             return Swal.fire(
@@ -129,7 +124,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         r.isExclusive = fromEx;
 
-        // --- Render TÍTULO e INFO ---
         titleEl.innerHTML = '';
         infoEl.innerHTML = '';
         titleEl.innerText = language === "english" ? r.name : await translateText(r.name, "es");
@@ -147,7 +141,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 : await translateText(r.description, "es");
         }
 
-        // --- Render DURACIÓN y DESCANSO ---
         durationEl.innerText = language === "english"
             ? `Duration: ${r.duration || '—'}`
             : await translateText(`Duration: ${r.duration || '—'}`, "es");
@@ -155,14 +148,11 @@ document.addEventListener('DOMContentLoaded', () => {
             ? `Rest: ${r.rest || '—'} mins`
             : await translateText(`Rest: ${r.rest || '—'} mins`, "es");
 
-        // --- Botones de acción (usar / favoritos) ---
-        // Elimino botones previos
         const oldUse = titleEl.querySelector('.create-from-predef-btn');
         if (oldUse) oldUse.remove();
         const oldFav = titleEl.querySelector('.fav-btn');
         if (oldFav) oldFav.remove();
 
-        // Botón "Crear desde esta" para rutinas no exclusivas
         if (!r.isExclusive) {
             const useBtn = document.createElement('button');
             useBtn.textContent = language === "english" ? 'Create from this' : 'Crear desde esta';
@@ -181,7 +171,6 @@ document.addEventListener('DOMContentLoaded', () => {
             titleEl.appendChild(useBtn);
         }
 
-        // Botón de favorito / desfavorito
         const favBtn = document.createElement('button');
         favBtn.textContent = routineFavorites.includes(id) ? '❤️' : '🤍';
         favBtn.className = 'fav-btn';
@@ -201,8 +190,6 @@ document.addEventListener('DOMContentLoaded', () => {
             favBtn.textContent = routineFavorites.includes(id) ? '❤️' : '🤍';
         });
         titleEl.appendChild(favBtn);
-
-        // --- Render EJERCICIOS ---
         exercisesEl.innerHTML = '';
         r.exercises.forEach((ex, i) => {
             const wrapper = document.createElement('div');
@@ -221,7 +208,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
         });
 
-        // --- Sección de FEEDBACK ---
         feedbackContainer.innerHTML = `
             <h3>${language === "english"
             ? 'Rate and comment this routine'
@@ -243,7 +229,6 @@ document.addEventListener('DOMContentLoaded', () => {
         feedbackContainer.appendChild(feedbackList);
         exercisesEl.parentNode.appendChild(feedbackContainer);
 
-        // Estrellas interactivas
         document.querySelectorAll('#starRating .star').forEach(star => {
             star.addEventListener('click', () => {
                 selectedRating = +star.dataset.value;
@@ -253,7 +238,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // Botón de envío de feedback
         document.getElementById('submitFeedback').onclick = async () => {
             if (!auth.currentUser) {
                 return Swal.fire(
@@ -277,8 +261,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         : 'Escribe un comentario'
                 );
             }
-
-            // Compruebo si ya existe feedback de este usuario para esta rutina
             const fbQuery = query(
                 collection(db, 'routines_feedback'),
                 where('routineId', '==', currentRoutineId),
@@ -301,7 +283,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     { rating: selectedRating, comment: commentTxt, timestamp: Date.now() }
                 );
             }
-
             Swal.fire(
                 language === "english"
                     ? 'Thanks for your feedback!'
@@ -315,12 +296,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             await loadFeedback(currentRoutineId);
         };
-
-        // Cargo feedback existente
         await loadFeedback(id);
     }
 
-    // --- Función: Carga de FEEDBACK de Firebase ---
     async function loadFeedback(routineId) {
         const snap = await getDocs(
             query(collection(db, 'routines_feedback'), where('routineId', '==', routineId))
@@ -348,7 +326,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Búsqueda global por texto ---
     globalSearch.addEventListener('input', async () => {
         const q = globalSearch.value.trim().toLowerCase();
         searchResults.innerHTML = '';
@@ -389,21 +366,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- Listeners de UI ---
     typeSelector.addEventListener('change', () => loadRoutineNames(typeSelector.value));
     routineSelector.addEventListener('change', () => loadRoutine(routineSelector.value));
     searchResults.addEventListener('change', () => loadRoutine(searchResults.value));
 
-    // --- Inicialización tras autenticación ---
     onAuthStateChanged(auth, async user => {
         if (!user) return;
 
-        // Carga perfil usuario
         const profile = await getUserProfile();
         routineFavorites = profile.routineFavorites || [];
         isSuperior = profile.tipo_suscripcion === 'miembro superior';
 
-        // Carga colección de rutinas
         const base = await getCollectionCached('routines');
         allRoutines = base.map(r => ({ ...r, isExclusive: false }));
         if (isSuperior) {
@@ -412,7 +385,6 @@ document.addEventListener('DOMContentLoaded', () => {
             allRoutines = allRoutines.concat(exclusives);
         }
 
-        // Traducciones (solo si idioma español)
         if (language === "spanish") {
             await Promise.all(allRoutines.map(async r => {
                 r.name_es = await translateText(r.name, "es");
@@ -421,30 +393,24 @@ document.addEventListener('DOMContentLoaded', () => {
             }));
         }
 
-        // 1) Cargo tipos en selector
         await loadRoutineTypes();
 
-        // 2) Gestiono parámetro ?routine= para preselección automática ← NUEVO
         const params   = new URLSearchParams(window.location.search);
         const presetId = params.get("routine");
         if (presetId) {
             const target = allRoutines.find(r => r.id === presetId);
             if (target) {
-                // Determino el tipo de selector (exclusive / favorites / tipo normal)
                 const presetType = target.isExclusive
                     ? "exclusive"
                     : (routineFavorites.includes(presetId)
                             ? "favorites"
                             : target.routineType
                     );
-                // Preselecciono tipo y cargo nombres
                 typeSelector.value = presetType;
                 await loadRoutineNames(presetType);
-                // Preselecciono rutina y disparo carga
                 routineSelector.value = presetId;
                 routineSelector.dispatchEvent(new Event("change"));
             }
         }
-        // ← fin de la lógica de preselección de rutina
     });
 });
