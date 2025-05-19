@@ -9,7 +9,6 @@ import { routinesLanguage } from "../Language/routinesLanguage.js";
 import { translateText } from "../translate.js";
 
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Elementos del DOM ---
     const typeSelector    = document.getElementById("typeSelector");
     const routineSelector = document.getElementById("routineSelector");
     const globalSearch    = document.getElementById("globalSearch");

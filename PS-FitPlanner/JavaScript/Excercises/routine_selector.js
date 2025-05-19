@@ -23,6 +23,8 @@ select.innerHTML = "";
 randomBtn.id = "random-four-btn";
 randomBtn.textContent = language === "english" ? "Random exercises" : "Ejercicios aleatorios";
 randomBtn.className = "random-btn";
+randomBtn.className = saveBtn.className
+randomBtn.style.cssText = saveBtn.style.cssText;
 saveBtn.parentNode.insertBefore(randomBtn, saveBtn);
 
 const FAVORITES_VALUE = "favoritos";
@@ -92,6 +94,8 @@ async function updateSummary() {
         repsSelect.style.margin = "0 8px";
         repsSelect.addEventListener("change", () => {
             selected[idx].reps = repsSelect.value;
+            const cardSel = document.querySelector(`.exercise-card[data-id="${e.id}"] select.card-reps-select`);
+            if (cardSel) cardSel.value = repsSelect.value;
         });
 
         const removeBtn = document.createElement("button");
@@ -99,6 +103,8 @@ async function updateSummary() {
         removeBtn.style.cssText = "background:#e74c3c;color:#fff;border:none;padding:4px 8px;border-radius:4px;margin-left:8px";
         removeBtn.addEventListener("click", () => {
             selected.splice(idx, 1);
+            const cardCb = document.querySelector(`.exercise-card[data-id="${e.id}"] input[type="checkbox"]`);
+            if (cardCb) cardCb.checked = false;
             updateSummary();
         });
 
@@ -187,6 +193,16 @@ async function render(list) {
     }
 }
 
+function syncCardCheckboxes() {
+    document.querySelectorAll('.exercise-card').forEach(card => {
+        const id = card.dataset.id;
+        const cb = card.querySelector('input[type="checkbox"]');
+        if (cb) {
+            cb.checked = selected.some(s => s.id === id);
+        }
+    });
+}
+
 randomBtn.addEventListener("click", async () => {
     const pool = await fetchExercises(select.value);
     const errTitle = language === "english"
@@ -197,7 +213,9 @@ randomBtn.addEventListener("click", async () => {
     }
     selected = pool.sort(() => 0.5 - Math.random()).slice(0, 4)
         .map(ex => ({ id: ex.id, bodyPart: ex.bodyPart, name: ex.name, reps: "5x15" }));
+    syncCardCheckboxes();
     updateSummary();
+
 });
 
 onAuthStateChanged(auth, async (user) => {
