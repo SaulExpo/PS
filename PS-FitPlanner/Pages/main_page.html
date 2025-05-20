@@ -23,8 +23,8 @@
             ¡Transforma tu físico en semanas!\nPlanes personalizados, motivación real\nTu cambio empieza hoy
         </p>
         <div class="main-buttons">
-            <button class="hero-btn blue" onclick="location.replace('../Pages/register.html')">Start Now</button>
-            <button class="hero-btn dark" onclick="location.replace('../Pages/login.html')">Log in</button>
+            <button id="Start" class="hero-btn blue" onclick="location.replace('../Pages/register.html')">Start Now</button>
+            <button id="Log" class="hero-btn dark" onclick="location.replace('../Pages/login.html')">Log in</button>
         </div>
     </div>
 </main>
@@ -41,6 +41,11 @@
     ]).then(() => {
         load();
     });
+    let language = localStorage.getItem("language");
+    if (language !== "english") {
+        document.getElementById("Start").textContent = "Empezar  Ahora";
+        document.getElementById("Log").textContent = "Iniciar Sesión";
+    }
 </script>
 
 </body>

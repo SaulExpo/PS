@@ -56,7 +56,7 @@
     import {load} from "../JavaScript/first_page.js";
     document.addEventListener("DOMContentLoaded", () => {
         Promise.all([loadTemplate("../Templates/header.html" , "main_header"),
-            loadTemplate("../Templates/footer.html" , "main_footer")]
+            loadTemplate("../Templates/footer.html" , "main_footer")    ]
         ).then(() =>
         {
             load()

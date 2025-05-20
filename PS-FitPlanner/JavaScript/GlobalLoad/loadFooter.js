@@ -12,7 +12,6 @@ function loadFooter()
     })
         .then(function (myJson)
         {
-            setTimeout(() => {
             let texto_footer = document.getElementsByClassName("footer_texts")
             for (let i=0; i<texto_footer.length; i++)
             {
@@ -30,6 +29,5 @@ function loadFooter()
                     window.open(myJson.redes_sociales_footer[i].link);
                 })
             }
-            }, 500);
         })
 }

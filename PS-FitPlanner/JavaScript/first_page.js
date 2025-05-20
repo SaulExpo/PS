@@ -25,23 +25,25 @@ export async function load() {
 
     if (localStorage.getItem("jwt")) {
         const user = await getUserProfile();
-        document.getElementById("calendar").addEventListener("click", function (e) {
-            if (user.tipo_suscripcion == "usuario") {
-                e.preventDefault();
-                Swal.fire({
-                    title: "You must subscribe!",
-                    icon: "warning",
-                    confirmButtonColor: "#d51313",
-                    confirmButtonText: "Ok"
-                })
-            }
-        });
+        if (user) {
+            document.getElementById("calendar").addEventListener("click", function (e) {
+                if (user.tipo_suscripcion == "usuario") {
+                    e.preventDefault();
+                    Swal.fire({
+                        title: "You must subscribe!",
+                        icon: "warning",
+                        confirmButtonColor: "#d51313",
+                        confirmButtonText: "Ok"
+                    })
+                }
+            });
+            await loadObjectiveRecommendations();
+        }
     }
 
     await loadHeader();
     await loadFooter();
     await first_pageLanguage()
-    await loadObjectiveRecommendations();
     const picks = await loadRecommendations(); // Espera los resultados
 
     const ul = document.createElement("ul");
