@@ -8,16 +8,16 @@ import Swal from "https://cdn.skypack.dev/sweetalert2";
 import { routinesLanguage } from "../Language/routinesLanguage.js";
 import { translateText } from "../translate.js";
 
-document.addEventListener('DOMContentLoaded', () => {
-    const typeSelector    = document.getElementById("typeSelector");
+document.addEventListener('DOMContentLoaded', async () => {
+    const typeSelector = document.getElementById("typeSelector");
     const routineSelector = document.getElementById("routineSelector");
-    const globalSearch    = document.getElementById("globalSearch");
-    const searchResults   = document.getElementById("searchResults");
-    const titleEl         = document.getElementById("title");
-    const infoEl          = document.getElementById("info");
-    const durationEl      = document.getElementById("durationContainer");
-    const restEl          = document.getElementById("restContainer");
-    const exercisesEl     = document.getElementById("exercises");
+    const globalSearch = document.getElementById("globalSearch");
+    const searchResults = document.getElementById("searchResults");
+    const titleEl = document.getElementById("title");
+    const infoEl = document.getElementById("info");
+    const durationEl = document.getElementById("durationContainer");
+    const restEl = document.getElementById("restContainer");
+    const exercisesEl = document.getElementById("exercises");
 
     const feedbackContainer = document.createElement("div");
     feedbackContainer.id = "feedbackContainer";
@@ -185,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
             routineFavorites = routineFavorites.includes(id)
                 ? routineFavorites.filter(x => x !== id)
                 : [...routineFavorites, id];
-            await updateDoc(doc(db, 'user_app', uid), { routineFavorites });
+            await updateDoc(doc(db, 'user_app', uid), {routineFavorites});
             favBtn.textContent = routineFavorites.includes(id) ? '❤️' : '🤍';
         });
         titleEl.appendChild(favBtn);
@@ -279,7 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const existing = fbSnap.docs[0];
                 await updateDoc(
                     doc(db, 'routines_feedback', existing.id),
-                    { rating: selectedRating, comment: commentTxt, timestamp: Date.now() }
+                    {rating: selectedRating, comment: commentTxt, timestamp: Date.now()}
                 );
             }
             Swal.fire(
@@ -377,39 +377,42 @@ document.addEventListener('DOMContentLoaded', () => {
         isSuperior = profile.tipo_suscripcion === 'miembro superior';
 
         const base = await getCollectionCached('routines');
-        allRoutines = base.map(r => ({ ...r, isExclusive: false }));
+        allRoutines = base.map(r => ({...r, isExclusive: false}));
         if (isSuperior) {
             const exclusives = await getCollectionCached('exclusive_routines');
             exclusives.forEach(r => r.isExclusive = true);
             allRoutines = allRoutines.concat(exclusives);
         }
 
-        if (language === "spanish") {
-            await Promise.all(allRoutines.map(async r => {
-                r.name_es = await translateText(r.name, "es");
-                r.routineType_es = await translateText(r.routineType, "es");
-                r.description_es = await translateText(r.description, "es");
-            }));
-        }
 
-        await loadRoutineTypes();
-
-        const params   = new URLSearchParams(window.location.search);
-        const presetId = params.get("routine");
-        if (presetId) {
-            const target = allRoutines.find(r => r.id === presetId);
-            if (target) {
-                const presetType = target.isExclusive
-                    ? "exclusive"
-                    : (routineFavorites.includes(presetId)
-                            ? "favorites"
-                            : target.routineType
-                    );
-                typeSelector.value = presetType;
-                await loadRoutineNames(presetType);
-                routineSelector.value = presetId;
-                routineSelector.dispatchEvent(new Event("change"));
-            }
-        }
     });
+    const base = await getCollectionCached('routines');
+    allRoutines = base.map(r => ({...r, isExclusive: false}));
+    if (language === "spanish") {
+        await Promise.all(allRoutines.map(async r => {
+            r.name_es = await translateText(r.name, "es");
+            r.routineType_es = await translateText(r.routineType, "es");
+            r.description_es = await translateText(r.description, "es");
+        }));
+    }
+    console.log(allRoutines);
+    await loadRoutineTypes();
+
+    const params = new URLSearchParams(window.location.search);
+    const presetId = params.get("routine");
+    if (presetId) {
+        const target = allRoutines.find(r => r.id === presetId);
+        if (target) {
+            const presetType = target.isExclusive
+                ? "exclusive"
+                : (routineFavorites.includes(presetId)
+                        ? "favorites"
+                        : target.routineType
+                );
+            typeSelector.value = presetType;
+            await loadRoutineNames(presetType);
+            routineSelector.value = presetId;
+            routineSelector.dispatchEvent(new Event("change"));
+        }
+    }
 });
