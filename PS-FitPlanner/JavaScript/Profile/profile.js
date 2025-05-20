@@ -465,7 +465,7 @@ async function calificar_pro(){
 }
 async function seleccionarObjetivo()
 {
-    let objetivos = ["Pérdida de peso", "Tren superior", "Tren inferior", "LLegar a nivel intermedio", "LLegar a nivel avanzado"]
+    let objetivos = ["Pérdida de peso", "Tren superior", "Tren inferior", "LLegar a nivel intermedio", "LLegar a nivel avanzado", ""]
     let objetivo = document.querySelector("#objetivos")
     if (!objetivo.value)
     {
