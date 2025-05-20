@@ -109,6 +109,14 @@
 
 <footer id="main_footer">
 </footer>
-
+<script type="module">
+    import {loadTemplate, loadHeader} from "../JavaScript/GlobalLoad/loadHeader.js";
+    Promise.all([loadTemplate("../Templates/footer.html", "footer"),
+        loadTemplate("../Templates/header.html", "header")]
+    ).then(() => {
+        loadHeader()
+        loadFooter()
+    })
+</script>
 </body>
 </html>
