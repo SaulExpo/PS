@@ -38,6 +38,7 @@ export async function profileLanguage() {
             document.getElementById("o3").textContent = json.o3
             document.getElementById("o4").textContent = json.o4
             document.getElementById("o5").textContent = json.o5
+            document.getElementById("o6").textContent = json.o6
             document.getElementById("confirm").textContent = json.confirm
             if(document.getElementById("genero").textContent === "Hombre" && language === "english"){
                 document.getElementById("genero").textContent = "Man"
