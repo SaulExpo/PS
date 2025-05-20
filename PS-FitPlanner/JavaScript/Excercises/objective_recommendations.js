@@ -15,9 +15,9 @@ export async function loadObjectiveRecommendations() {
     const imgAlt = titleText;
 
     const typeMap = [
-        { keywords: ["pérdida de peso", "weight loss"], types: ["fullbody", "cardio"] },
-        { keywords: ["upper body", "tren superior"], types: ["upperbody"] },
-        { keywords: ["lower body", "tren inferior"], types: ["lowerbody"] }
+        { keywords: ["pérdida de peso", "weight loss"], types: ["full_body"] },
+        { keywords: ["upper body", "tren superior"], types: ["push"] },
+        { keywords: ["lower body", "tren inferior"], types: ["legs"] }
     ];
     const levelMap = [
         { keywords: ["intermedio", "intermediate"], level: "intermediate" },
