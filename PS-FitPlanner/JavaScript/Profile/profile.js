@@ -403,8 +403,23 @@ async function desasignarPro(profeID, profeName)
 function calificar()
 {
     let temp = document.querySelector("#calificacion")
+    let puntuation
+    let comment
+    let calify
+    let cancel
+    if (language === "english"){
+        puntuation = "How much score do you give the teacher?"
+        comment = "Write a comment"
+        calify = "Calify"
+        cancel = "Cancel"
+    } else{
+        puntuation = "¿Cuánta puntuación le das al profesor?"
+        comment = "Escribe un comentario"
+        calify = "Calificar"
+        cancel = "Cancelar"
+    }
     temp.innerHTML = `<div id="calificacion-content">
-        <p>Cuanta puntuacion le das al profe</p>
+        <p>${puntuation}</p>
         <div class="star-rating">
           <input type="radio" id="star5" name="rating" value="1"><label for="star5">1⭐</label>
           <input type="radio" id="star4" name="rating" value="2"><label for="star4">2⭐</label>
@@ -412,10 +427,10 @@ function calificar()
           <input type="radio" id="star2" name="rating" value="4"><label for="star2">4⭐</label>
           <input type="radio" id="star1" name="rating" value="5"><label for="star1">5⭐</label>
         </div>
-            <input id="comment" type="text" placeholder="Escribe un comentario">
+            <input id="comment" type="text" placeholder="${puntuation}">
             <div id="cali-buttons">
-                <button type="submit" onclick="calificar_pro()">Calificar</button>
-                <button onclick="cancelar_cali()">Cancelar</button>
+                <button type="submit" onclick="calificar_pro()">${calify}</button>
+                <button onclick="cancelar_cali()">${cancel}</button>
             </div></div>`
     temp.style.display = "flex"
 

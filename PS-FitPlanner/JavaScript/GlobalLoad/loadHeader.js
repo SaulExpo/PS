@@ -116,7 +116,7 @@ export async function loadHeader() {
 }
 
 export function loadTemplate(templatePath, elementId) {
-    fetch(templatePath)
+    return fetch(templatePath)
         .then(resp => resp.text())
         .then(data => {
             document.getElementById(elementId).innerHTML = data;
