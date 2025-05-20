@@ -1,6 +1,6 @@
-// objective_recommendations_fixed.js
 import { getUserProfile } from "../GetDB/getUser.js";
 import { getCollectionCached } from "./cacheLoad.js";
+import { translateText } from "../translate.js";
 
 export async function loadObjectiveRecommendations() {
     const user = await getUserProfile();
@@ -8,20 +8,22 @@ export async function loadObjectiveRecommendations() {
 
     const objetivo = user.objetivo.toLowerCase();
 
-    // Mapeo claro de tipos según objetivo
-    const typeMap = [
-        { keywords: ["pérdida de peso", "weight loss"], types: ["full_body"] },
-        { keywords: ["upper body", "tren superior"], types: ["push"] },
-        { keywords: ["lower body", "tren inferior"], types: ["legs"] }
-    ];
+    const language = localStorage.getItem("language") || "spanish";
+    const titleText = language === "spanish"
+        ? "Cumple tus objetivos"
+        : "Meet your goals";
+    const imgAlt = titleText;
 
-    // Mapeo claro de niveles
+    const typeMap = [
+        { keywords: ["pérdida de peso", "weight loss"], types: ["fullbody", "cardio"] },
+        { keywords: ["upper body", "tren superior"], types: ["upperbody"] },
+        { keywords: ["lower body", "tren inferior"], types: ["lowerbody"] }
+    ];
     const levelMap = [
         { keywords: ["intermedio", "intermediate"], level: "intermediate" },
-        { keywords: ["avanzado",  "advanced"],   level: "advanced"   }
+        { keywords: ["avanzado", "advanced"],     level: "advanced"     }
     ];
 
-    // Determinar tipos a filtrar
     let selectedTypes = [];
     typeMap.forEach(entry => {
         entry.keywords.forEach(kw => {
@@ -29,7 +31,6 @@ export async function loadObjectiveRecommendations() {
         });
     });
 
-    // Determinar nivel a filtrar (sólo uno a la vez)
     let selectedLevel = null;
     for (const entry of levelMap) {
         if (entry.keywords.some(kw => objetivo.includes(kw))) {
@@ -40,13 +41,10 @@ export async function loadObjectiveRecommendations() {
 
     const allRoutines = await getCollectionCached("routines");
     const filtered = allRoutines.filter(r => {
-        // Filtrar por tipo de rutina (campo routineType)
         if (selectedTypes.length && !selectedTypes.includes(r.routineType)) return false;
-        // Filtrar por nivel si se especifica
-        if (selectedLevel && r.level !== selectedLevel) return false;
+        if (selectedLevel && r.level !== selectedLevel)             return false;
         return true;
     });
-
     if (!filtered.length) return;
 
     shuffle(filtered);
@@ -54,26 +52,29 @@ export async function loadObjectiveRecommendations() {
 
     const section = document.createElement("section");
     section.innerHTML = `
-    <h2 class="title">Meet your goals</h2>
-    <div class="card">
-      <img
-        src="../Resources/maquina.png"
-        alt="Meet your goals"
-        class="card-image"
-      />
-      <div class="container" id="meet-your-goals">
-        <div class="content"></div>
+      <h2 class="title">${titleText}</h2>
+      <div class="card">
+        <img
+          src="../Resources/maquina.png"
+          alt="${imgAlt}"
+          class="card-image"
+        />
+        <div class="container" id="meet-your-goals">
+          <div class="content"></div>
+        </div>
       </div>
-    </div>
-  `;
+    `;
 
     const contentDiv = section.querySelector(".content");
-    picks.forEach(r => {
+    for (const r of picks) {
         const a = document.createElement("a");
-        a.textContent = r.name;
+        const nameText = language === "spanish"
+            ? await translateText(r.name, "es")
+            : r.name;
+        a.textContent = nameText;
         a.href = `rutine.html?routine=${encodeURIComponent(r.id)}`;
         contentDiv.appendChild(a);
-    });
+    }
 
     document.querySelector(".first").appendChild(section);
 }
