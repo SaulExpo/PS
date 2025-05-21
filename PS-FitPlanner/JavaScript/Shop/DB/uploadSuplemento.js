@@ -1,7 +1,7 @@
 const admin = require('firebase-admin');
 
 
-const productos = require('../../JSON/suplementos.json');
+const productos = require('../../../JSON/suplementos.json');
 const serviceAccount = require('./service_account.json');
 
 

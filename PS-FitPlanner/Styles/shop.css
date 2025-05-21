@@ -1,44 +1,147 @@
-.rectangle {
-    width: 10em;
-    height: 40em;
-    background: white;
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-    justify-content: flex-start;
-    border: 1px black solid;
-    margin: 50px 20px;
-    margin-left: 40px;
-    word-spacing: normal;
-}
-h1, h2{
-    margin: 10px;
+/* === ESTRUCTURA GENERAL === */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    color: #f5f5f5;
+    font-family: 'Segoe UI', sans-serif;
 }
 
-.price{
-    margin: 10px;
+main {
+    min-height: 100vh;
+    padding: 0 20px 60px;
+    box-sizing: border-box;
 }
-.producto {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    row-gap: 130px;
+
+/* === HERO BANNER === */
+/* === HERO BANNER === */
+.hero-banner {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 80px 60px;
+    background: linear-gradient(90deg, #1e1e1e, #2c2c2c);
+    box-sizing: border-box;
+    flex-wrap: wrap;
     text-align: center;
-    width: fit-content;
-    margin-left: auto;
-    margin-right: 0;
-    margin-top: 150px;
+    border-bottom: 1px solid #333;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    min-height: 280px; /* Aumentamos la altura mínima */
 }
 
-main{
+.hero-img {
+    width: 180px; /* Más grande */
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 10px rgba(255,255,255,0.05));
+}
+
+.hero-title {
+    flex-grow: 1;
+    color: #ffffff;
+    padding: 0 30px;
+}
+
+.hero-title h1 {
+    font-size: 54px; /* Más grande */
+    margin: 0;
+    letter-spacing: 2px;
+}
+
+.hero-title p {
+    font-size: 20px;
+    color: #bbbbbb;
+    margin-top: 14px;
+}
+
+
+/* === TARJETAS DE CATEGORÍAS === */
+.tarjetas-categorias {
+    margin-top: 60px;
     display: flex;
-    justify-content: flex-start;
-}
-.cajabuscar_content {
-    margin-top: 20px;
-    display: inline-block;
-    text-align: right;
-    margin-left: auto;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
 }
 
+.categoria-card {
+    background: linear-gradient(160deg, #1f1f1f, #2b2b2b);
+    border: 2px solid transparent;
+    border-radius: 16px;
+    width: 220px;
+    height: 300px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.categoria-card:hover,
+.categoria-card.selected {
+    border-color: #f25c5c;
+    box-shadow: 0 0 12px rgba(242, 92, 92, 0.4);
+    transform: translateY(-8px);
+}
+
+.categoria-card button {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 20px; /* Aumentamos el tamaño */
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: color 0.2s ease;
+    text-shadow: 0 0 2px #000; /* Mejora visibilidad sobre fondo oscuro */
+}
 
 
+.categoria-card button:hover {
+    color: #f25c5c;
+}
+
+.categoria-card img {
+    height: 180px;
+    width: auto;
+    object-fit: contain;
+    border-radius: 10px;
+    background-color: #ffffff10;
+    padding: 12px;
+}
+
+
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+    .hero-banner {
+        flex-direction: column;
+        gap: 20px;
+        padding: 30px 20px;
+    }
+
+    .hero-img {
+        width: 100px;
+    }
+
+    .hero-title h1 {
+        font-size: 32px;
+    }
+
+    .tarjetas-categorias {
+        gap: 24px;
+    }
+
+    .categoria-card {
+        width: 160px;
+        height: auto;
+    }
+
+    .categoria-card img {
+        height: 130px;
+    }
+}

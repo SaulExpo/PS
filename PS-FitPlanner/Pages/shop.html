@@ -1,76 +1,68 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tienda</title>
 
-  <link rel="stylesheet" href="/PS-FitPlanner/Styles/header.css">
-  <link rel="stylesheet" href="/PS-FitPlanner/Styles/footer.css">
-  <link rel="stylesheet" href="/PS-FitPlanner/Styles/shop.css">
-  <link rel="stylesheet" href="/PS-FitPlanner/Styles/checklist.css">
-  <link rel="stylesheet" href="/PS-FitPlanner/Styles/product.css">
-  <script src="../JavaScript/GlobalLoad/loadFooter.js"></script>
-  <script type="module" src="../JavaScript/GlobalLoad/loadHeader.js"></script>
-  <script src="../JavaScript/script.js"></script>
+  <link rel="stylesheet" href="/PS-FitPlanner/Styles/header.css" />
+  <link rel="stylesheet" href="/PS-FitPlanner/Styles/footer.css" />
+  <link rel="stylesheet" href="/PS-FitPlanner/Styles/shop.css" />
 
-
+  <script type="module" src="../JavaScript/GlobalLoad/loadHeader.js" defer></script>
+  <script src="../JavaScript/GlobalLoad/loadFooter.js" defer></script>
 </head>
 <body>
 
 <header id="main_header"></header>
 
-
 <main>
 
-  <div class="rectangle">
-    <h1>Keywords</h1>
-    <div></div>
-    <div></div>
-    <div></div>
-    <h2>Label</h2>
-    <div class="price">
-      <input type="range" id="price" name="price" min="0" max="11" />
-      <label for="price"></label>
+  <section class="hero-banner">
+    <img src="/PS-FitPlanner/Resources/image1.png" alt="Batido Izquierda" class="hero-img" />
+    <div class="hero-title">
+      <h1>Impulsa tu cuerpo. Transforma tu rendimiento </h1>
+      <h2>Todo lo que necesitas para llevar tu entrenamiento al siguiente nivel</h2>
     </div>
-    <h2>Color</h2>
-    <div></div>
-    <div></div>
-    <div></div>
-    <h2>Size</h2>
-    <div></div>
-    <div></div>
-    <div></div>
-  </div>
-  <div class="cajabuscar_content">
-  <div class="cajabuscar"><form method="get" id="buscarform">
-    <fieldset>
-      <input type="text" id="s" value="" placeholder="Buscar"  />
-      <input class="button" type="submit" value="" />
-      <i class="search"></i>
-    </fieldset>
-  </form></div>
-  <div class="producto">
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-  </div>
+    <img src="/PS-FitPlanner/Resources/image2.png" alt="Batido Derecha" class="hero-img" />
+  </section>
+
+
+  <div class="tarjetas-categorias">
+    <div class="categoria-card" onclick="location.href='suplementos.html'">
+      <button>Suplementos</button>
+      <img src="/PS-FitPlanner/Resources/Suplementos.png" alt="Suplementos" />
+    </div>
+
+    <div class="categoria-card" onclick="location.href='proteina.html'">
+      <button>Proteína</button>
+      <img src="/PS-FitPlanner/Resources/Proteina.png" alt="Proteína" />
+    </div>
+
+    <div class="categoria-card" onclick="location.href='creatina.html'">
+      <button>Creatina</button>
+      <img src="/PS-FitPlanner/Resources/Creatina.png" alt="Creatina" />
+    </div>
+
+    <div class="categoria-card" onclick="location.href='recomendaciones.html'">
+      <button>Recomendaciones</button>
+      <img src="/PS-FitPlanner/Resources/recomendaciones.png" alt="Recomendaciones" />
+    </div>
   </div>
 </main>
 
 <footer id="main_footer"></footer>
 
 <script type="module">
-  import {loadTemplate, loadHeader} from "../JavaScript/GlobalLoad/loadHeader.js";
-  Promise.all([loadTemplate("../Templates/header.html" , "main_header"),
-    loadTemplate("../Templates/footer.html" , "main_footer")]).then(() =>
-  {
-    loadHeader()
-    loadFooter()
-  })
+  import { loadTemplate, loadHeader } from "../JavaScript/GlobalLoad/loadHeader.js";
+
+  Promise.all([
+    loadTemplate("../Templates/header.html", "main_header"),
+    loadTemplate("../Templates/footer.html", "main_footer")
+  ]).then(() => {
+    loadHeader();
+    loadFooter();
+  });
 </script>
 
 </body>
