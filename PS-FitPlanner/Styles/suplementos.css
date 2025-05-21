@@ -1,0 +1,118 @@
+body {
+    background-color: #ffffff;
+    color: #ffffff;
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.cabecera-suplementos {
+    background-color: #1e1e1e;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.contenedor-cabecera {
+    max-width: 900px;
+    text-align: center;
+    border: 2px solid #f25c5c;
+    border-radius: 22px;
+    padding: 30px;
+    background-color: #121212;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.contenedor-cabecera h1 {
+    font-size: 38px;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.contenedor-cabecera p {
+    font-size: 20px;
+    color: #dddddd;
+    line-height: 1.8;
+    margin-bottom: 10px;
+    font-weight: 400;
+}
+
+.productos-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 por fila en escritorio */
+    gap: 30px;
+    padding: 40px 20px;
+}
+
+.producto-card {
+    background-color: #1e1e1e;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.producto-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 15px rgba(242, 92, 92, 0.4);
+}
+
+.producto-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.producto-card h3 {
+    font-size: 22px;
+    margin: 0 0 10px;
+    color: #ffffff;
+}
+
+.producto-card p {
+    font-size: 22px;
+    color: #bbbbbb;
+    margin-bottom: 15px;
+}
+
+.producto-card a {
+    text-decoration: none;
+    color: #f25c5c;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+
+.producto-card a:hover {
+    color: #ff7777;
+}
+
+@media (max-width: 1200px) {
+    .productos-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .productos-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .contenedor-cabecera h1 {
+        font-size: 26px;
+    }
+
+    .contenedor-cabecera p {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .productos-container {
+        grid-template-columns: 1fr;
+    }
+}

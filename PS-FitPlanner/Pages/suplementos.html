@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Suplementos</title>
+
+  <link rel="stylesheet" href="/PS-FitPlanner/Styles/header.css" />
+  <link rel="stylesheet" href="/PS-FitPlanner/Styles/footer.css" />
+  <link rel="stylesheet" href="/PS-FitPlanner/Styles/suplementos.css" />
+
+  <script type="module" src="../JavaScript/GlobalLoad/loadHeader.js" defer></script>
+  <script src="../JavaScript/GlobalLoad/loadFooter.js" defer></script>
+
+  <script type="module" src="/PS-FitPlanner/JavaScript/Shop/suplementos.js" defer></script>
+</head>
+<body>
+
+<header id="main_header"></header>
+
+<main>
+  <section class="cabecera-suplementos">
+    <div class="contenedor-cabecera">
+      <h1>Suplementos Esenciales para tu Bienestar</h1>
+      <p>
+        Los suplementos como el Omega-3, los multivitamínicos y minerales esenciales pueden ayudarte a cubrir deficiencias nutricionales,
+        fortalecer tu sistema inmunológico y optimizar tu rendimiento físico y mental. Encuentra los que mejor se adaptan a ti.
+      </p>
+    </div>
+  </section>
+
+  <section class="productos-container" id="productos-container">
+  </section>
+</main>
+
+<footer id="main_footer"></footer>
+
+<script type="module">
+  import { loadTemplate, loadHeader } from "../JavaScript/GlobalLoad/loadHeader.js";
+
+  Promise.all([
+    loadTemplate("../Templates/header.html", "main_header"),
+    loadTemplate("../Templates/footer.html", "main_footer")
+  ]).then(() => {
+    loadHeader();
+    loadFooter();
+  });
+</script>
+
+</body>
+</html>
