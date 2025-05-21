@@ -467,9 +467,23 @@ async function seleccionarObjetivo()
 {
     let objetivos = ["Pérdida de peso", "Tren superior", "Tren inferior", "LLegar a nivel intermedio", "LLegar a nivel avanzado", ""]
     let objetivo = document.querySelector("#objetivos")
+    let objectiveL
+    let select
+    if (language === "english"){
+        objectiveL = "Objective updated"
+        select = "Select an objective"
+    } else{
+        objectiveL = "Objetivo actualizado"
+        select = "Selecciona un objetivo"
+    }
     if (!objetivo.value)
     {
-        alert("Seleccione un objetivo")
+        Swal.fire({
+            title: select,
+            icon: "warning",
+            confirmButtonColor: "#d51313",
+            confirmButtonText: "Ok"
+        })
         return
     }
     let ref = doc(db, "user_app", user.id)
@@ -477,7 +491,12 @@ async function seleccionarObjetivo()
         {
             objetivo: objetivos[objetivo.value]
         })
-    alert("Objetivo actualizado")
+    Swal.fire({
+        title: objectiveL,
+        icon: "success",
+        confirmButtonColor: "#d51313",
+        confirmButtonText: "Ok"
+    })
 }
 
 function sendEmail(userdata, message){

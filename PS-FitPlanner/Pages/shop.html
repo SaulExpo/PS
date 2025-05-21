@@ -21,8 +21,8 @@
   <section class="hero-banner">
     <img src="/PS-FitPlanner/Resources/image1.png" alt="Batido Izquierda" class="hero-img" />
     <div class="hero-title">
-      <h1>Impulsa tu cuerpo. Transforma tu rendimiento </h1>
-      <h2>Todo lo que necesitas para llevar tu entrenamiento al siguiente nivel</h2>
+      <h1 id="title1">Impulsa tu cuerpo. Transforma tu rendimiento </h1>
+      <h2 id="title2">Todo lo que necesitas para llevar tu entrenamiento al siguiente nivel</h2>
     </div>
     <img src="/PS-FitPlanner/Resources/image2.png" alt="Batido Derecha" class="hero-img" />
   </section>
@@ -30,27 +30,27 @@
 
   <div class="tarjetas-categorias">
     <div class="categoria-card" onclick="location.href='suplementos.html'">
-      <button>Suplementos</button>
+      <button id="supliers">Suplementos</button>
       <img src="/PS-FitPlanner/Resources/Suplementos.png" alt="Suplementos" />
     </div>
 
     <div class="categoria-card" onclick="location.href='proteina.html'">
-      <button>Proteína</button>
+      <button id="protein">Proteína</button>
       <img src="/PS-FitPlanner/Resources/Proteina.png" alt="Proteína" />
     </div>
 
     <div class="categoria-card" onclick="location.href='creatina.html'">
-      <button>Creatina</button>
+      <button id="creatine">Creatina</button>
       <img src="/PS-FitPlanner/Resources/Creatina.png" alt="Creatina" />
     </div>
 
     <div class="categoria-card" onclick="location.href='material_deportivo.html'">
-      <button>Material Deportivo</button>
+      <button id="material">Material Deportivo</button>
       <img src="/PS-FitPlanner/Resources/material_deportivo.png" alt="Material Deportivo" />
     </div>
 
     <div class="categoria-card" onclick="location.href='recomendaciones.html'">
-      <button>Recomendaciones</button>
+      <button id="recommendations">Recomendaciones</button>
       <img src="/PS-FitPlanner/Resources/recomendaciones.png" alt="Recomendaciones" />
     </div>
   </div>
@@ -60,6 +60,7 @@
 
 <script type="module">
   import { loadTemplate, loadHeader } from "../JavaScript/GlobalLoad/loadHeader.js";
+  import {shopLanguage} from "../JavaScript/Language/shopLanguage.js";
 
   Promise.all([
     loadTemplate("../Templates/header.html", "main_header"),
@@ -67,6 +68,7 @@
   ]).then(() => {
     loadHeader();
     loadFooter();
+    shopLanguage()
   });
 </script>
 
