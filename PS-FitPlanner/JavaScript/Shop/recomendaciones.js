@@ -29,56 +29,67 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
-// Referencia a recomendaciones profesionales en tienda
 const recomendacionesRef = collection(db, "tienda", "recomendaciones_profesional", "productos");
 const contenedor = document.getElementById("productos-container");
+const filtroTipo = document.getElementById("filtro-tipo");
 
 let currentUser = null;
 
-// Cargar recomendaciones
-async function cargarRecomendaciones() {
-    const querySnapshot = await getDocs(recomendacionesRef);
-    querySnapshot.forEach((docSnap) => {
+// Render tarjetas
+function renderProducto(producto, id) {
+    const card = document.createElement("div");
+    card.className = "producto-card";
+
+    card.innerHTML = `
+    <img src="${producto.imageUrl}" alt="${producto.name}" />
+    <h3>${producto.name}</h3>
+    <p>${producto.description}</p>
+    <a href="${producto.externalUrl}" target="_blank">Comprar ahora</a>
+  `;
+
+    if (producto.tipo) {
+        const tipo = document.createElement("small");
+        tipo.textContent = `Categoría: ${producto.tipo}`;
+        card.appendChild(tipo);
+    }
+
+    if (producto.author_name) {
+        const autor = document.createElement("small");
+        autor.textContent = `Recomendado por: ${producto.author_name}`;
+        card.appendChild(autor);
+    }
+
+    if (currentUser && producto.added_by === currentUser.uid) {
+        const acciones = document.createElement("div");
+
+        const btnEditar = document.createElement("button");
+        btnEditar.textContent = "Editar";
+        btnEditar.onclick = () => editarRecomendacion(id, producto);
+
+        const btnEliminar = document.createElement("button");
+        btnEliminar.textContent = "Eliminar";
+        btnEliminar.onclick = () => eliminarRecomendacion(id);
+
+        acciones.appendChild(btnEditar);
+        acciones.appendChild(btnEliminar);
+        card.appendChild(acciones);
+    }
+
+    contenedor.appendChild(card);
+}
+
+// Cargar productos con filtro
+async function cargarRecomendaciones(filtro = "todos") {
+    contenedor.innerHTML = "";
+
+    const snapshot = await getDocs(recomendacionesRef);
+    snapshot.forEach((docSnap) => {
         const producto = docSnap.data();
         const id = docSnap.id;
 
-        const card = document.createElement("div");
-        card.className = "producto-card";
-
-        card.innerHTML = `
-      <img src="${producto.imageUrl}" alt="${producto.name}" />
-      <h3>${producto.name}</h3>
-      <p>${producto.description}</p>
-      <a href="${producto.externalUrl}" target="_blank">Comprar ahora</a>
-    `;
-
-        // Mostrar autor si existe
-        if (producto.author_name) {
-            const autor = document.createElement("small");
-            autor.textContent = `Recomendado por: ${producto.author_name}`;
-            autor.style.color = "#999";
-            card.appendChild(autor);
+        if (filtro === "todos" || producto.tipo === filtro) {
+            renderProducto(producto, id);
         }
-
-        // Si el usuario actual es quien lo publicó, mostrar botones
-        if (currentUser && producto.added_by === currentUser.uid) {
-            const acciones = document.createElement("div");
-            acciones.style.marginTop = "10px";
-
-            const btnEditar = document.createElement("button");
-            btnEditar.textContent = "Editar";
-            btnEditar.onclick = () => editarRecomendacion(id, producto);
-
-            const btnEliminar = document.createElement("button");
-            btnEliminar.textContent = "Eliminar";
-            btnEliminar.onclick = () => eliminarRecomendacion(id);
-
-            acciones.appendChild(btnEditar);
-            acciones.appendChild(btnEliminar);
-            card.appendChild(acciones);
-        }
-
-        contenedor.appendChild(card);
     });
 }
 
@@ -91,14 +102,15 @@ async function eliminarRecomendacion(id) {
     }
 }
 
-// Editar recomendación
+// Editar
 function editarRecomendacion(id, data) {
     const form = document.getElementById("form-recomendacion");
 
-    document.getElementById("nombre").value = data.name;
-    document.getElementById("descripcion").value = data.description;
-    document.getElementById("imagen").value = data.imageUrl;
-    document.getElementById("enlace").value = data.externalUrl;
+    form.nombre.value = data.name;
+    form.descripcion.value = data.description;
+    form.imagen.value = data.imageUrl;
+    form.enlace.value = data.externalUrl;
+    form.tipo.value = data.tipo || "";
 
     form.scrollIntoView({ behavior: "smooth" });
 
@@ -109,7 +121,8 @@ function editarRecomendacion(id, data) {
             name: form.nombre.value,
             description: form.descripcion.value,
             imageUrl: form.imagen.value,
-            externalUrl: form.enlace.value
+            externalUrl: form.enlace.value,
+            tipo: form.tipo.value
         });
 
         alert("Recomendación actualizada.");
@@ -117,7 +130,7 @@ function editarRecomendacion(id, data) {
     };
 }
 
-// Detectar si el usuario es profesional y permitir publicar
+// Detectar login y mostrar formulario si es profesional
 onAuthStateChanged(auth, async (user) => {
     if (!user) return;
 
@@ -135,19 +148,15 @@ onAuthStateChanged(auth, async (user) => {
             e.preventDefault();
 
             const userData = await getDoc(doc(db, "user_app", user.uid));
-            let nombreProfesional = "Profesional";
-
-            if (userData.exists()) {
-                const data = userData.data();
-                nombreProfesional = data.name || data.nombre || data.surname || "Profesional";
-            }
-
+            const data = userData.data();
+            const nombreProfesional = data.name || data.nombre || data.surname || "Profesional";
 
             const nuevaRecomendacion = {
-                name: document.getElementById("nombre").value,
-                description: document.getElementById("descripcion").value,
-                imageUrl: document.getElementById("imagen").value,
-                externalUrl: document.getElementById("enlace").value,
+                name: form.nombre.value,
+                description: form.descripcion.value,
+                imageUrl: form.imagen.value,
+                externalUrl: form.enlace.value,
+                tipo: form.tipo.value,
                 added_by: user.uid,
                 author_name: nombreProfesional
             };
@@ -158,5 +167,10 @@ onAuthStateChanged(auth, async (user) => {
         });
     }
 
-    cargarRecomendaciones(); // Esperamos auth para mostrar acciones según usuario
+    cargarRecomendaciones();
+});
+
+// Escuchar cambios en el filtro
+filtroTipo.addEventListener("change", () => {
+    cargarRecomendaciones(filtroTipo.value);
 });

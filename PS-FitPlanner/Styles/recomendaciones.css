@@ -1,4 +1,3 @@
-
 body {
     background-color: #2a2a2a;
     color: #ffffff;
@@ -34,13 +33,30 @@ body {
     font-size: 20px;
     color: #dddddd;
     line-height: 1.8;
-    margin-bottom: 10px;
-    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+.filtro-container {
+    margin-top: 10px;
+}
+
+.filtro-container label {
+    margin-right: 10px;
+    font-size: 16px;
+    color: #ffffff;
+}
+
+.filtro-container select {
+    padding: 8px;
+    border-radius: 6px;
+    background-color: #2a2a2a;
+    color: #ffffff;
+    border: none;
 }
 
 .productos-container {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 5 productos por fila */
+    grid-template-columns: repeat(5, 1fr);
     gap: 30px;
     padding: 40px 20px;
 }
@@ -50,7 +66,6 @@ body {
     border-radius: 12px;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -72,98 +87,28 @@ body {
 .producto-card h3 {
     font-size: 22px;
     margin: 0 0 10px;
-    color: #ffffff;
 }
 
 .producto-card p {
-    font-size: 18px;
-    color: #bbbbbb;
-    margin-bottom: 15px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #cccccc;
+}
+
+.producto-card small {
+    font-size: 13px;
+    color: #999;
+    margin-top: 5px;
 }
 
 .producto-card a {
     text-decoration: none;
     color: #f25c5c;
     font-weight: bold;
-    transition: color 0.2s;
-}
-
-.producto-card a:hover {
-    color: #ff7777;
-}
-
-#formulario-container {
-    background-color: #1e1e1e;
-    border-radius: 16px;
-    margin: 40px auto;
-    max-width: 600px;
-    padding: 30px;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
-}
-
-#formulario-container h2 {
-    margin-bottom: 20px;
-    font-size: 24px;
-    color: #ffffff;
-}
-
-#form-recomendacion input,
-#form-recomendacion textarea {
-    width: 100%;
-    margin-bottom: 15px;
-    padding: 10px;
-    border-radius: 8px;
-    border: none;
-    background-color: #2a2a2a;
-    color: #ffffff;
-    font-size: 16px;
-}
-
-#form-recomendacion button {
-    padding: 10px 20px;
-    background-color: #f25c5c;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-#form-recomendacion button:hover {
-    background-color: #ff7777;
-}
-
-@media (max-width: 1200px) {
-    .productos-container {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-@media (max-width: 768px) {
-    .productos-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .contenedor-cabecera h1 {
-        font-size: 26px;
-    }
-
-    .contenedor-cabecera p {
-        font-size: 16px;
-    }
-}
-
-@media (max-width: 480px) {
-    .productos-container {
-        grid-template-columns: 1fr;
-    }
-
-    .contenedor-cabecera p {
-        font-size: 15px;
-    }
 }
 
 .producto-card button {
+    margin-top: 10px;
     margin-right: 10px;
     padding: 6px 12px;
     background-color: #333;
@@ -177,3 +122,50 @@ body {
 .producto-card button:hover {
     background-color: #f25c5c;
 }
+
+#formulario-container select,
+#formulario-container input,
+#formulario-container textarea {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background-color: #2a2a2a;
+    color: #ffffff;
+    font-size: 24px;
+}
+
+#formulario-container button {
+    padding: 10px 20px;
+    background-color: #f25c5c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#formulario-container button:hover {
+    background-color: #ff7777;
+}
+
+@media (max-width: 1200px) {
+    .productos-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .productos-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .productos-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+
