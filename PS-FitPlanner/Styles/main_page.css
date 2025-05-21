@@ -1,4 +1,4 @@
-/* Estructura general */
+
 body {
     margin: 0;
     padding: 0;
@@ -13,9 +13,10 @@ main.hero-section {
     width: 100%;
     height: 200vh;
     overflow: hidden;
+
 }
 
-/* Imagen de fondo */
+
 #imagenes {
     position: absolute;
     top: 0;
@@ -23,11 +24,11 @@ main.hero-section {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 20%; /* Ajusta la parte visible */
+    object-position: center 20%;
     z-index: 0;
 }
 
-/* Contenedor del texto + botones */
+
 .text-box {
     position: absolute;
     bottom: 20%;
@@ -43,16 +44,16 @@ main.hero-section {
 }
 
 
-/* Texto */
+
 .text-box p {
     color: white;
     font-size: 1.5rem;
     max-width: 900px;
     margin: 0;
-    white-space: pre-line; /* Para respetar los \n del JSON */
+    white-space: pre-line;
 }
 
-/* Contenedor botones */
+
 .main-buttons {
     display: flex;
     gap: 1rem;
@@ -60,7 +61,7 @@ main.hero-section {
     justify-content: center;
 }
 
-/* Botones estilo hero */
+
 .hero-btn {
     padding: 0.8rem 1.6rem;
     font-size: 1rem;
@@ -71,18 +72,18 @@ main.hero-section {
     transition: all 0.3s ease;
 }
 
-/* Botón azul */
+
 .hero-btn.blue {
-    background-color: #e74c3c; /* rojo claro */
+    background-color: #e74c3c;
     color: white;
 }
 
 .hero-btn.blue:hover {
-    background-color: #c0392b; /* rojo más oscuro para hover */
+    background-color: #c0392b;
 }
 
 
-/* Botón oscuro */
+
 .hero-btn.dark {
     background-color: #2e2e2e;
     color: white;
