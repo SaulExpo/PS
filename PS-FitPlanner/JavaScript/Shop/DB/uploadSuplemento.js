@@ -1,7 +1,7 @@
 const admin = require('firebase-admin');
 
 
-const productos = require('../../../JSON/suplementos.json');
+const productos = require('../../../JSON/material_deportivo.json');
 const serviceAccount = require('./service_account.json');
 
 
@@ -12,7 +12,7 @@ admin.initializeApp({
 const db = admin.firestore();
 
 async function subirProductos() {
-    const grupoRef = db.collection("tienda").doc("suplementos").collection("productos");
+    const grupoRef = db.collection("tienda").doc("materialDeportivo").collection("productos");
 
     for (const producto of productos) {
         await grupoRef.add(producto);

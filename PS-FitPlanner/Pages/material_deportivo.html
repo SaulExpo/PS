@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Material Deportivo</title>
+
+  <link rel="stylesheet" href="/PS-FitPlanner/Styles/header.css" />
+  <link rel="stylesheet" href="/PS-FitPlanner/Styles/footer.css" />
+  <link rel="stylesheet" href="/PS-FitPlanner/Styles/material_deportivo.css" />
+
+  <script type="module" src="../JavaScript/GlobalLoad/loadHeader.js" defer></script>
+  <script src="../JavaScript/GlobalLoad/loadFooter.js" defer></script>
+  <script type="module" src="/PS-FitPlanner/JavaScript/Shop/material_deportivo.js" defer></script>
+</head>
+<body>
+
+<header id="main_header"></header>
+
+<main>
+  <!-- CABECERA -->
+  <section class="cabecera-material">
+    <div class="contenedor-cabecera">
+      <h1>Equipamiento Deportivo para Entrenar al Máximo</h1>
+      <p>
+        El material deportivo adecuado marca la diferencia en tus entrenamientos.
+        Desde bandas de resistencia y mancuernas hasta accesorios de movilidad, encuentra el equipo ideal
+        para mejorar tu rendimiento, seguridad y comodidad durante el ejercicio.
+      </p>
+    </div>
+  </section>
+
+
+  <section class="productos-container" id="productos-container">
+  </section>
+</main>
+
+<footer id="main_footer"></footer>
+
+<script type="module">
+  import { loadTemplate, loadHeader } from "../JavaScript/GlobalLoad/loadHeader.js";
+
+  Promise.all([
+    loadTemplate("../Templates/header.html", "main_header"),
+    loadTemplate("../Templates/footer.html", "main_footer")
+  ]).then(() => {
+    loadHeader();
+    loadFooter();
+  });
+</script>
+
+</body>
+</html>
