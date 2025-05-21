@@ -182,3 +182,6 @@ function downloadChart() {
         alert("There is not any graphic available to download");
     }
 }
+
+window.downloadChart = downloadChart;
+
