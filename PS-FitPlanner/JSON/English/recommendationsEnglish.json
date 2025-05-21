@@ -1,0 +1,19 @@
+{
+  "title": "Recommendations from Our Professionals.",
+  "text": "Discover products selected directly by trainers and fitness professionals.",
+  "o1": "Show all",
+  "o2": "Protein",
+  "o3": "Creatine",
+  "o4": "Supplements",
+  "o5": "Sport Equipment",
+  "o6": "Others",
+  "o7": "Select a category",
+  "new":"Post new recommendation",
+  "nombre": "Product's name",
+  "enlace": "Product's link",
+  "imagen": "Product image URL",
+  "descripcion": "Product's description",
+  "publicar": "Post",
+  "update": "Update",
+  "cancel": "Cancel"
+}

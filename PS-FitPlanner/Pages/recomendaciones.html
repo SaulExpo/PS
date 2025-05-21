@@ -18,36 +18,31 @@
 <header id="main_header"></header>
 
 <main>
-    <!-- CABECERA -->
     <section class="cabecera-recomendaciones">
         <div class="contenedor-cabecera">
-            <h1>Recomendaciones de Nuestros Profesionales</h1>
-            <p>
+            <h1 id="title">Recomendaciones de Nuestros Profesionales</h1>
+            <p id="text">
                 Descubre productos seleccionados directamente por entrenadores y profesionales del fitness.
             </p>
-            <!-- FILTRO -->
             <div class="filtro-container">
-                <label for="filtro-tipo">Filtrar por categoría:</label>
+                <label id="label" for="filtro-tipo">Filtrar por categoría:</label>
                 <select id="filtro-tipo">
-                    <option value="todos">Mostrar todos</option>
-                    <option value="Proteína">Proteína</option>
-                    <option value="Creatina">Creatina</option>
-                    <option value="Suplementos">Suplementos</option>
-                    <option value="Material Deportivo">Material Deportivo</option>
-                    <option value="Otros">Otros</option>
+                    <option id="o1" value="todos">Mostrar todos</option>
+                    <option class="o2" value="Proteína">Proteína</option>
+                    <option class="o3" value="Creatina">Creatina</option>
+                    <option class="o4" value="Suplementos">Suplementos</option>
+                    <option class="o5" value="Material Deportivo">Material Deportivo</option>
+                    <option class="o6" value="Otros">Otros</option>
                 </select>
             </div>
         </div>
     </section>
 
-    <!-- PRODUCTOS -->
     <section class="productos-container" id="productos-container">
-        <!-- Cargados dinámicamente desde Firestore -->
     </section>
 
-    <!-- FORMULARIO (solo profesionales) -->
     <section id="formulario-container" style="display: none; padding: 40px;">
-        <h2>Publicar nueva recomendación</h2>
+        <h2 id="new">Publicar nueva recomendación</h2>
         <form id="form-recomendacion">
             <input type="text" id="nombre" placeholder="Nombre del producto" required />
             <input type="url" id="enlace" placeholder="Enlace al producto" required />
@@ -56,15 +51,18 @@
 
             <label for="tipo">Categoría del producto:</label>
             <select id="tipo" required>
-                <option value="">Selecciona una categoría</option>
-                <option value="Proteína">Proteína</option>
-                <option value="Creatina">Creatina</option>
-                <option value="Suplementos">Suplementos</option>
-                <option value="Material Deportivo">Material Deportivo</option>
-                <option value="Otros">Otros</option>
+                <option id="o7" value="">Selecciona una categoría</option>
+                <option class="o2" value="Proteína">Proteína</option>
+                <option class="o3" value="Creatina">Creatina</option>
+                <option class="o4" value="Suplementos">Suplementos</option>
+                <option class="o5" value="Material Deportivo">Material Deportivo</option>
+                <option class="o6" value="Otros">Otros</option>
             </select>
-
-            <button type="submit">Publicar</button>
+            <div id="buttons">
+                <button id="publicar" type="submit">Publicar</button>
+                <button style="display: none" id="update" type="submit">Actualizar</button>
+                <button style="display: none" id="cancel" type="submit">Cancelar</button>
+            </div>
         </form>
     </section>
 </main>

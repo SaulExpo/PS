@@ -1,0 +1,19 @@
+{
+  "title": "Recomendaciones de Nuestros Profesionales.",
+  "text": "Descubre productos seleccionados directamente por entrenadores y profesionales del fitness.",
+  "o1": "Mostrar todos",
+  "o2": "Proteina",
+  "o3": "Creatina",
+  "o4": "Suplementos",
+  "o5": "Material deportivo",
+  "o6": "Otros",
+  "o7": "Selecciona una categoría",
+  "new":"Publicar nueva recomendación",
+  "nombre": "Nombre del producto",
+  "enlace": "Enlace al producto",
+  "imagen": "URL de la imagen del producto",
+  "descripcion": "Descripción del producto",
+  "publicar": "Publicar",
+  "update": "Actualizar",
+  "cancel": "Cancelar"
+}

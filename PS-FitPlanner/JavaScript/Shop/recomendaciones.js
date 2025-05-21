@@ -1,61 +1,61 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import {
-    getFirestore,
-    collection,
-    getDocs,
-    addDoc,
-    doc,
-    getDoc,
-    deleteDoc,
-    updateDoc
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import {onAuthStateChanged} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+import {collection, getDocs, doc, getDoc, updateDoc, deleteDoc, addDoc} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import { translateText } from "/PS/PS-FitPlanner/JavaScript/translate.js";
+import { db, auth } from "/PS/PS-FitPlanner/JavaScript/firebase_config.js";
+import {recommendationsLanguage} from "/PS/PS-FitPlanner/JavaScript/Language/recommendationsLanguage.js";
+import Swal from 'https://cdn.skypack.dev/sweetalert2';
 
-import {
-    getAuth,
-    onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-const firebaseConfig = {
-    apiKey: "AIzaSyBTiD4Phk2rKe1sF62c9qDSk1c3jNFgLf4",
-    authDomain: "ps-fitness-app.firebaseapp.com",
-    projectId: "ps-fitness-app",
-    storageBucket: "ps-fitness-app.firebasestorage.app",
-    messagingSenderId: "861934326277",
-    appId: "1:861934326277:web:863ae59d1904e86a00826c",
-    measurementId: "G-3WZD6X5SC2"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const auth = getAuth(app);
-
+recommendationsLanguage()
 const recomendacionesRef = collection(db, "tienda", "recomendaciones_profesional", "productos");
 const contenedor = document.getElementById("productos-container");
 const filtroTipo = document.getElementById("filtro-tipo");
+const language = localStorage.getItem("language");
 
 let currentUser = null;
 
 // Render tarjetas
-function renderProducto(producto, id) {
+async function renderProducto(producto, id) {
     const card = document.createElement("div");
     card.className = "producto-card";
-
+    let nombre, descripcion, tipoText, comprar, category, recommended, edit, deleteText;
+    if (language === "english") {
+        [nombre, descripcion, tipoText] = await Promise.all([
+            translateText(producto.name, "en"),
+            translateText(producto.description, "en"),
+            translateText(producto.tipo, "en")
+        ]);
+        comprar = "Buy now";
+        category = "Category"
+        recommended = "Recommended by"
+        edit = "Edit"
+        deleteText = "Delete"
+    } else {
+        nombre = producto.name;
+        descripcion = producto.description;
+        tipoText = producto.tipo,
+        comprar = "Comprar ahora";
+        category = "Categoría"
+        recommended = "Recomendado por"
+        edit = "Editar"
+        deleteText = "Eliminar"
+    }
     card.innerHTML = `
-    <img src="${producto.imageUrl}" alt="${producto.name}" />
-    <h3>${producto.name}</h3>
-    <p>${producto.description}</p>
-    <a href="${producto.externalUrl}" target="_blank">Comprar ahora</a>
+    <img src="${producto.imageUrl}" alt="${nombre}" />
+    <h3>${nombre}</h3>
+    <p>${descripcion}</p>
+    <a href="${producto.externalUrl}" target="_blank">${comprar}</a>
   `;
 
     if (producto.tipo) {
         const tipo = document.createElement("small");
-        tipo.textContent = `Categoría: ${producto.tipo}`;
+        tipo.textContent = `${category}: ${tipoText}`;
         card.appendChild(tipo);
     }
 
     if (producto.author_name) {
         const autor = document.createElement("small");
-        autor.textContent = `Recomendado por: ${producto.author_name}`;
+        autor.textContent = `${recommended}: ${producto.author_name}`;
         card.appendChild(autor);
     }
 
@@ -63,11 +63,16 @@ function renderProducto(producto, id) {
         const acciones = document.createElement("div");
 
         const btnEditar = document.createElement("button");
-        btnEditar.textContent = "Editar";
-        btnEditar.onclick = () => editarRecomendacion(id, producto);
+        btnEditar.textContent = edit;
+        btnEditar.addEventListener("click", () =>{
+            editarRecomendacion(id, producto);
+            document.getElementById("publicar").style.display = "none";
+            document.getElementById("update").style.display = "block";
+            document.getElementById("cancel").style.display = "block";
+        })
 
         const btnEliminar = document.createElement("button");
-        btnEliminar.textContent = "Eliminar";
+        btnEliminar.textContent = deleteText;
         btnEliminar.onclick = () => eliminarRecomendacion(id);
 
         acciones.appendChild(btnEditar);
@@ -95,17 +100,31 @@ async function cargarRecomendaciones(filtro = "todos") {
 
 // Eliminar recomendación
 async function eliminarRecomendacion(id) {
-    if (confirm("¿Seguro que deseas eliminar esta recomendación?")) {
-        await deleteDoc(doc(db, "tienda", "recomendaciones_profesional", "productos", id));
-        alert("Recomendación eliminada.");
-        location.reload();
-    }
+    Swal.fire({
+        title: language === "english" ? "Are you sure you want to remove this recommendation?" :
+            "¿Seguro que deseas eliminar esta recomendación?",
+        showDenyButton: true,
+        confirmButtonText: language === "english" ? "Yes" : "Si",
+        denyButtonText: "No",
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+            await deleteDoc(doc(db, "tienda", "recomendaciones_profesional", "productos", id));
+            Swal.fire({
+                title: language === "english" ? "Recommendation removed." : "Recomendación eliminada",
+                icon: "success",
+                confirmButtonColor: "#d51313",
+                confirmButtonText: "Ok"
+            }).then(async (result) => {
+                location.reload()
+            })
+        }
+    });
 }
 
 // Editar
 function editarRecomendacion(id, data) {
     const form = document.getElementById("form-recomendacion");
-
+    const btn = document.getElementById("update");
     form.nombre.value = data.name;
     form.descripcion.value = data.description;
     form.imagen.value = data.imageUrl;
@@ -114,7 +133,7 @@ function editarRecomendacion(id, data) {
 
     form.scrollIntoView({ behavior: "smooth" });
 
-    form.onsubmit = async (e) => {
+    btn.addEventListener("click", async (e) => {
         e.preventDefault();
 
         await updateDoc(doc(db, "tienda", "recomendaciones_profesional", "productos", id), {
@@ -125,9 +144,15 @@ function editarRecomendacion(id, data) {
             tipo: form.tipo.value
         });
 
-        alert("Recomendación actualizada.");
-        location.reload();
-    };
+        Swal.fire({
+            title: language === "english" ? "Recommendation updated." : "Recomendación actualizada.",
+            icon: "success",
+            confirmButtonColor: "#d51313",
+            confirmButtonText: "Ok"
+        }).then(async (result) => {
+            location.reload()
+        })
+    });
 }
 
 // Detectar login y mostrar formulario si es profesional
@@ -143,6 +168,20 @@ onAuthStateChanged(auth, async (user) => {
         document.getElementById("formulario-container").style.display = "block";
 
         const form = document.getElementById("form-recomendacion");
+        const btn = document.getElementById("publicar");
+        const btn2 = document.getElementById("cancel");
+
+        btn2.addEventListener("click", async (e) => {
+            e.preventDefault()
+            form.nombre.value = "";
+            form.descripcion.value = "";
+            form.imagen.value = "";
+            form.enlace.value = "";
+            form.tipo.value = "";
+            btn.style.display = "block";
+            btn2.style.display = "none";
+            document.getElementById("update").style.display = "none";
+        })
 
         form.addEventListener("submit", async (e) => {
             e.preventDefault();
@@ -162,8 +201,14 @@ onAuthStateChanged(auth, async (user) => {
             };
 
             await addDoc(recomendacionesRef, nuevaRecomendacion);
-            alert("Recomendación publicada correctamente.");
-            location.reload();
+            Swal.fire({
+                title: language === "english" ? "Recommendation published successfully." : "Recomendación publicada correctamente.",
+                icon: "success",
+                confirmButtonColor: "#d51313",
+                confirmButtonText: "Ok"
+            }).then(async (result) => {
+                location.reload()
+            })
         });
     }
 
