@@ -24,7 +24,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const feedbackList = document.createElement("div");
     feedbackList.id = "feedbackList";
 
-    // --- Estado interno ---
     let language = localStorage.getItem("language") || "spanish";
     let allRoutines = [];
     let routineFavorites = [];
@@ -32,10 +31,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     let currentRoutineId = null;
     let selectedRating = 0;
 
-    // Inicializa textos estáticos
     routinesLanguage();
 
-    // --- Función: Carga de TIPOS de rutina ---
     async function loadRoutineTypes() {
         typeSelector.innerHTML = '';
         const setTypes = new Set(
@@ -43,12 +40,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         );
         const types = Array.from(setTypes).sort();
 
-        // Opción por defecto
         const defaultLabel = language === "english" ? "Select type" : "Selecciona tipo";
         typeSelector.appendChild(new Option(defaultLabel, '', true, true));
         typeSelector.disabled = false;
 
-        // Agrega cada tipo
         for (const type of types) {
             const text = language === "english"
                 ? type.toUpperCase()
@@ -56,18 +51,15 @@ document.addEventListener('DOMContentLoaded', async () => {
             typeSelector.appendChild(new Option(text, type));
         }
 
-        // Opción de Favoritos
         const favLabel = language === "english" ? "FAVORITES" : "FAVORITOS";
         typeSelector.appendChild(new Option(favLabel, "favorites"));
 
-        // Opción de Exclusivas si el usuario es miembro superior
         if (isSuperior) {
             const exLabel = language === "english" ? "EXCLUSIVE" : "EXCLUSIVAS";
             typeSelector.appendChild(new Option(exLabel, "exclusive"));
         }
     }
 
-    // --- Función: Carga de NOMBRES según tipo seleccionado ---
     async function loadRoutineNames(type) {
         routineSelector.innerHTML = '';
         const defaultLabel = language === "english" ? "Select routine" : "Selecciona rutina";
@@ -383,7 +375,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             exclusives.forEach(r => r.isExclusive = true);
             allRoutines = allRoutines.concat(exclusives);
         }
-
+        await loadRoutineTypes();
 
     });
     const base = await getCollectionCached('routines');
@@ -396,7 +388,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         }));
     }
     console.log(allRoutines);
-    await loadRoutineTypes();
 
     const params = new URLSearchParams(window.location.search);
     const presetId = params.get("routine");
