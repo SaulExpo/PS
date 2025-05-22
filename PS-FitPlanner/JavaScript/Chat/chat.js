@@ -83,6 +83,7 @@ async function main() {
                 fileInput.value = '';
                 preview.src = '';
                 preview.style.display = 'none';
+                removeBtn.style.display = 'none';
             }
             const msg = document.getElementById("usermsg").value.trim();
             const to = receiver;
@@ -270,9 +271,14 @@ async function loadInputText(user1, user2) {
     if(Michat.data()){
         if (Michat.data().cerrado === true){
             document.getElementById("input-container").style.display = "none";
+            document.querySelectorAll(".upload-icon")[0].style.display = "none";
+            input.value = '';
+            removeBtn.style.display = "none";
+            preview.style.display = "none";
         }
         else if (Michat.data().cerrado === false){
             document.getElementById("input-container").style.display = "flex";
+            document.querySelectorAll(".upload-icon")[0].style.display = "inline-flex";
         }
     }
 
@@ -294,14 +300,11 @@ async function handleImageUpload(user1, user2) {
     }
 
     try {
-        // 1. Crear una referencia en Firebase Storage
         const imagePath = `chat_images/${chatId}/${Date.now()}_${file.name}`;
         const imageRef = storageRef(storage, imagePath);
 
-        // 2. Subir la imagen
         await uploadBytes(imageRef, file);
 
-        // 3. Obtener la URL pública de la imagen
         const imageURL = await getDownloadURL(imageRef);
         const to = receiver;
         const time = new Date().toLocaleTimeString();
@@ -319,7 +322,7 @@ async function handleImageUpload(user1, user2) {
         fileInput.value = "";
 
     } catch (error) {
-        console.error("❌ Error al subir imagen o guardar mensaje:", error);
+        console.error("Error al subir imagen o guardar mensaje:", error);
     }
 }
 
