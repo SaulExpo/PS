@@ -1,0 +1,8 @@
+{
+  "title": "Register Form",
+  "name": "Name",
+  "surname": "Surname",
+  "password": "Password",
+  "repeat_password": "Repeat password",
+  "sign": "Sign up"
+}

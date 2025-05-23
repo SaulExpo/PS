@@ -3,6 +3,7 @@ import { auth, db } from "../firebase_config.js";
 import {doc, setDoc} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import {sendEmailVerification} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 import Swal from 'https://cdn.skypack.dev/sweetalert2';
+import {registerLanguage} from "../Language/registerLanguage.js";
 
 let email
 let name
@@ -10,6 +11,7 @@ let surname
 let password
 let repeatPassword
 
+registerLanguage()
 // Registrar usuario
 const register = async (email, password) => {
     try {

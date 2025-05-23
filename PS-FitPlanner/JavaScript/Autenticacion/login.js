@@ -4,7 +4,9 @@ import {collection, doc, getDoc, getDocs, query, updateDoc, where} from "https:/
 import Swal from 'https://cdn.skypack.dev/sweetalert2';
 import {renovarSuscripcion} from "../Profile/updateMember.js";
 import {getUserRoutines} from "../GetDB/getUserRoutines.js";
+import {loginLanguage} from "../Language/loginLanguage.js";
 
+loginLanguage()
 //Ininicar Sesión
 const login = async (email, password) => {
     try {

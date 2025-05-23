@@ -1,0 +1,8 @@
+{
+  "title": "Formulario de registro",
+  "name": "Nombre",
+  "surname": "Apellido",
+  "password": "Contraseña",
+  "repeat_password": "Repetir contraseña",
+  "sign": "Registrarse"
+}
