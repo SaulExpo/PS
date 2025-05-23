@@ -1,11 +1,6 @@
 import { collection, getDocs, getDoc, doc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import { db } from "../firebase_config.js";
 
-/**
- * Obtiene una colección con cache en localStorage.
- * @param {string} collName
- * @param {number} ttlMinutes
- */
 export async function getCollectionCached(collName, ttlMinutes = 60) {
     const key     = `cache_${collName}`;
     const metaKey = `${key}_meta`;
@@ -28,12 +23,6 @@ export async function getCollectionCached(collName, ttlMinutes = 60) {
     return docs;
 }
 
-/**
- * Opcional: obtener un documento individual con caché.
- * @param {string} collName
- * @param {string} docId
- * @param {number} ttlMinutes
- */
 export async function getDocCached(collName, docId, ttlMinutes = 60) {
     const key     = `cache_${collName}_${docId}`;
     const metaKey = `${key}_meta`;
