@@ -1,10 +1,3 @@
-// seed_exclusive_routines.js
-/**
- * CommonJS script to seed exclusive routines in Firestore.
- * Uses your Admin SDK module that exports `admin` and `db`.
- * Run: `node seed_exclusive_routines.js`
- */
-
 const { admin, db } = require('../firebase_admin.js'); // Adjust path to your admin module
 
 async function seedExclusiveRoutines() {
@@ -25,11 +18,8 @@ async function seedExclusiveRoutines() {
 
     for (const group of groups) {
         const colName = `exercises_${group}`;
-        // 1) Load all exercises for this group
         const snap = await db.collection(colName).get();
         const docs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-
-        // 2) Pick 4 random exercises
         const chosen = docs
             .sort(() => 0.5 - Math.random())
             .slice(0, 4)
@@ -40,7 +30,6 @@ async function seedExclusiveRoutines() {
                 reps: "4x12"
             }));
 
-        // 3) Prepare the exclusive routine document
         const routineDoc = {
             name: `${group.charAt(0).toUpperCase() + group.slice(1)} Elite Routine`,
             routineType: group,
@@ -52,7 +41,6 @@ async function seedExclusiveRoutines() {
             createdAt: admin.firestore.FieldValue.serverTimestamp()
         };
 
-        // 4) Insert into Firestore
         try {
             const ref = await db.collection("exclusive_routines").add(routineDoc);
             console.log(`✔ Routine "${routineDoc.name}" created (ID: ${ref.id})`);
@@ -65,7 +53,6 @@ async function seedExclusiveRoutines() {
     process.exit(0);
 }
 
-// Execute the seed function
 seedExclusiveRoutines().catch(err => {
     console.error("Error running seedExclusiveRoutines:", err);
     process.exit(1);

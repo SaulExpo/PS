@@ -302,7 +302,6 @@ onAuthStateChanged(auth, async (user) => {
         return;
     }
 
-    // Edición de rutina de usuario
     editId = new URLSearchParams(location.search).get("editId");
     if (editId) {
         const rutSnap = await getDoc(docRef(db, "user_routines", editId));
@@ -340,7 +339,6 @@ searchInput.addEventListener("input", () => {
     render(filtered);
 });
 
-// Guardado de rutina
 saveBtn.addEventListener("click", async () => {
     const name        = nameInput.value.trim();
     const description = descInput.value.trim();
